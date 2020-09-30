@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+<!--默认配置师兄/师姐需要将下面两个配置的驱动语句、URL、账号和密码、都配置正确即可-->
+    <default-config>
+        <property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/BLOG?useSSL=false&amp;serverTimezone=GMT%2B8&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true</property>
+        <property name="user">root</property>
+        <property name="password">qq123456</property>
+        <property name="initialPoolSize">15</property>
+        <property name="maxPoolSize">50</property>
+        <property name="minPoolSize">5</property>
+        <property name="maxStatements">100</property>
+        <property name="maxIdleTime">10</property>
+        <property name="idleConnectionTestPeriod">30</property>
+    </default-config>
+    <!--备用语句，首先执行备用语句来判断数据库的初始化是否成功-->
+    <named-config name="initDatabase">
+        <property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/mysql?useSSL=false&amp;serverTimezone=GMT%2B8&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true</property>
+        <property name="user">root</property>
+        <property name="password">qq123456</property>
+        <property name="initialPoolSize">5</property>
+        <property name="maxPoolSize">5</property>
+        <property name="minPoolSize">5</property>
+        <property name="maxStatements">100</property>
+        <property name="maxIdleTime">10</property>
+        <property name="idleConnectionTestPeriod">30</property>
+    </named-config>
+</c3p0-config>
