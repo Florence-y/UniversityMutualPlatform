@@ -2,6 +2,8 @@ package filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -20,7 +22,10 @@ public class EncodingFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        chain.doFilter(request, response);
+        response.setContentType("application/json; charset=UTF-8");
+        HttpServletResponse rep=(HttpServletResponse)response;
+        rep.setHeader("Access-Control-Allow-Origin","*");
+        chain.doFilter(request, rep);
     }
 
 

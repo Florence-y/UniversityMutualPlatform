@@ -1,6 +1,7 @@
 package pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import commom.annontation.DbCol;
 import commom.annontation.DbPriKey;
 import commom.annontation.DbTable;
@@ -9,95 +10,96 @@ import commom.annontation.DbTable;
  * @author Florence
  */
 @DbTable("t_teacher")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Teacher {
   @DbCol("teacher_id")
   @DbPriKey
-  private long teacherId;
+  private long id;
   @DbCol("teacher_markNumber")
-  private String teacherMarkNumber;
+  private String markNumber;
   @DbCol("teacher_email")
-  private String teacherEmail;
+  private String email;
   @DbCol("teacher_password")
-  private String teacherPassword;
+  private String password;
   @DbCol("teacher_level")
-  private String teacherLevel;
+  private String level;
   @DbCol("teacher_face")
-  private String teacherFace;
+  private String face;
   @DbCol("teacher_college")
-  private String teacherCollege;
+  private String college;
   @DbCol("teacher_major")
-  private String teacherMajor;
+  private String major;
 
 
-  public long getTeacherId() {
-    return teacherId;
+  public long getId() {
+    return id;
   }
 
-  public void setTeacherId(long teacherId) {
-    this.teacherId = teacherId;
-  }
-
-
-  public String getTeacherMarkNumber() {
-    return teacherMarkNumber;
-  }
-
-  public void setTeacherMarkNumber(String teacherMarkNumber) {
-    this.teacherMarkNumber = teacherMarkNumber;
+  public void setId(long id) {
+    this.id = id;
   }
 
 
-  public String getTeacherEmail() {
-    return teacherEmail;
+  public String getMarkNumber() {
+    return markNumber;
   }
 
-  public void setTeacherEmail(String teacherEmail) {
-    this.teacherEmail = teacherEmail;
-  }
-
-
-  public String getTeacherPassword() {
-    return teacherPassword;
-  }
-
-  public void setTeacherPassword(String teacherPassword) {
-    this.teacherPassword = teacherPassword;
+  public void setMarkNumber(String markNumber) {
+    this.markNumber = markNumber;
   }
 
 
-  public String getTeacherLevel() {
-    return teacherLevel;
+  public String getEmail() {
+    return email;
   }
 
-  public void setTeacherLevel(String teacherLevel) {
-    this.teacherLevel = teacherLevel;
-  }
-
-
-  public String getTeacherFace() {
-    return teacherFace;
-  }
-
-  public void setTeacherFace(String teacherFace) {
-    this.teacherFace = teacherFace;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
 
-  public String getTeacherCollege() {
-    return teacherCollege;
+  public String getPassword() {
+    return password;
   }
 
-  public void setTeacherCollege(String teacherCollege) {
-    this.teacherCollege = teacherCollege;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
 
-  public String getTeacherMajor() {
-    return teacherMajor;
+  public String getLevel() {
+    return level;
   }
 
-  public void setTeacherMajor(String teacherMajor) {
-    this.teacherMajor = teacherMajor;
+  public void setLevel(String level) {
+    this.level = level;
+  }
+
+
+  public String getFace() {
+    return face;
+  }
+
+  public void setFace(String face) {
+    this.face = face;
+  }
+
+
+  public String getCollege() {
+    return college;
+  }
+
+  public void setCollege(String college) {
+    this.college = college;
+  }
+
+
+  public String getMajor() {
+    return major;
+  }
+
+  public void setMajor(String major) {
+    this.major = major;
   }
 
 }

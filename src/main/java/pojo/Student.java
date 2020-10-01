@@ -1,5 +1,6 @@
 package pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import commom.annontation.DbCol;
 import commom.annontation.DbPriKey;
 import commom.annontation.DbTable;
@@ -8,95 +9,109 @@ import commom.annontation.DbTable;
  * @author Florence
  */
 @DbTable("t_student")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Student {
   @DbPriKey
   @DbCol("student_id")
-  private long studentId;
+  private long id;
   @DbCol("student_markNumber")
-  private String studentMarkNumber;
+  private String markNumber;
   @DbCol("student_email")
-  private String studentEmail;
+  private String email;
   @DbCol("student_password")
-  private String studentPassword;
+  private String password;
   @DbCol("student_level")
-  private String studentLevel;
+  private String level;
   @DbCol("student_face")
-  private String studentFace;
+  private String face;
   @DbCol("student_college")
-  private String studentCollege;
+  private String college;
   @DbCol("student_major")
-  private String studentMajor;
+  private String major;
 
 
-  public long getStudentId() {
-    return studentId;
+  public long getId() {
+    return id;
   }
 
-  public void setStudentId(long studentId) {
-    this.studentId = studentId;
-  }
-
-
-  public String getStudentMarkNumber() {
-    return studentMarkNumber;
-  }
-
-  public void setStudentMarkNumber(String studentMarkNumber) {
-    this.studentMarkNumber = studentMarkNumber;
+  public void setId(long id) {
+    this.id = id;
   }
 
 
-  public String getStudentEmail() {
-    return studentEmail;
+  public String getMarkNumber() {
+    return markNumber;
   }
 
-  public void setStudentEmail(String studentEmail) {
-    this.studentEmail = studentEmail;
-  }
-
-
-  public String getStudentPassword() {
-    return studentPassword;
-  }
-
-  public void setStudentPassword(String studentPassword) {
-    this.studentPassword = studentPassword;
+  public void setMarkNumber(String markNumber) {
+    this.markNumber = markNumber;
   }
 
 
-  public String getStudentLevel() {
-    return studentLevel;
+  public String getEmail() {
+    return email;
   }
 
-  public void setStudentLevel(String studentLevel) {
-    this.studentLevel = studentLevel;
-  }
-
-
-  public String getStudentFace() {
-    return studentFace;
-  }
-
-  public void setStudentFace(String studentFace) {
-    this.studentFace = studentFace;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
 
-  public String getStudentCollege() {
-    return studentCollege;
+  public String getPassword() {
+    return password;
   }
 
-  public void setStudentCollege(String studentCollege) {
-    this.studentCollege = studentCollege;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
 
-  public String getStudentMajor() {
-    return studentMajor;
+  public String getLevel() {
+    return level;
   }
 
-  public void setStudentMajor(String studentMajor) {
-    this.studentMajor = studentMajor;
+  public void setLevel(String level) {
+    this.level = level;
   }
 
+
+  public String getFace() {
+    return face;
+  }
+
+  public void setFace(String face) {
+    this.face = face;
+  }
+
+
+  public String getCollege() {
+    return college;
+  }
+
+  public void setCollege(String college) {
+    this.college = college;
+  }
+
+
+  public String getMajor() {
+    return major;
+  }
+
+  public void setMajor(String major) {
+    this.major = major;
+  }
+
+  @Override
+  public String toString() {
+    return "Student{" +
+            "id=" + id +
+            ", markNumber='" + markNumber + '\'' +
+            ", email='" + email + '\'' +
+            ", password='" + password + '\'' +
+            ", level='" + level + '\'' +
+            ", face='" + face + '\'' +
+            ", college='" + college + '\'' +
+            ", major='" + major + '\'' +
+            '}';
+  }
 }
