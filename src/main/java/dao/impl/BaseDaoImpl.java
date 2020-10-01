@@ -1,20 +1,16 @@
 package dao.impl;
 
-import commom.strategy.InsertStrategy;
 import commom.strategy.JdbcGetPojoStrategy;
 import dao.BaseDao;
 import util.ArrayUtil;
 import util.C3P0Util;
 import util.JdbcUtil;
 import util.ReflectUtil;
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.MessageFormat;
 import java.util.List;
-
 import static util.ArrayUtil.getArrByOddOrEven;
 
 /**
@@ -43,11 +39,6 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
      */
     public abstract JdbcGetPojoStrategy<T> getPackageStrategy();
 
-    /**
-     * 获取插入行的策略
-     * @return 获取插入策略
-     */
-    public abstract InsertStrategy getInsertRowStrategy();
     /**
      * 根据id获取一个对象
      * @param id 要求的id
@@ -92,7 +83,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
         }
         unKnowParameter.append("?");
         String sql =MessageFormat.format("INSERT INTO "+getTableName()+" VALUES ("+unKnowParameter+")",value);
-        return JdbcUtil.insertOneRow(sql,getInsertRowStrategy(),value);
+        return JdbcUtil.insertOneRow(sql,value);
     }
 
     /**
@@ -112,7 +103,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
      */
     @Override
     public List<T> getAllRow(){
-        String sql =MessageFormat.format("select * from {0}",getTableName());
+        String sql =MessageFormat.format("select * from {0} ",getTableName());
         return JdbcUtil.queryForJavaBeanAllData(sql,getPackageStrategy());
     }
 
@@ -137,5 +128,16 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
             C3P0Util.close(connection,resultSet);
         }
         return false;
+    }
+
+    /**
+     * 获取n行数据
+     * @param n 具体多少行
+     * @return 返回一个含有数据的list
+     */
+    @Override
+    public List<T> getNRow(int n){
+        String sql =MessageFormat.format("select * from {0} LIMIT {1}",getTableName(),n);
+        return JdbcUtil.queryForJavaBeanAllData(sql,getPackageStrategy());
     }
 }

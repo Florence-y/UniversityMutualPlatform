@@ -1,6 +1,5 @@
 package util;
 
-import commom.strategy.InsertStrategy;
 import commom.strategy.JdbcGetPojoStrategy;
 
 import java.sql.*;
@@ -155,8 +154,8 @@ public class JdbcUtil {
             setPrepareStatementUnknown(preparedStatement,value);
             resultSet=preparedStatement.executeQuery();
             return resultSet;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
         return null;
     }
@@ -164,17 +163,16 @@ public class JdbcUtil {
     /**
      * 根据sql插入一个一条数据
      * @param sql 插入语句
-     * @param pojoStrategy 插入的策略
      * @param value 参数的值
      * @return 返回的行数
      */
-    public static int insertOneRow(String sql, InsertStrategy pojoStrategy, Object[] value) {
+    public static int insertOneRow(String sql,Object[] value) {
         try {
             int nowArticleId=0;
             connection=C3P0Util.getConnection();
             assert connection != null;
             preparedStatement=connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-            pojoStrategy.strategy(value,preparedStatement);
+            setPrepareStatementUnknown(preparedStatement,value);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             //获取刚插入的对象ID

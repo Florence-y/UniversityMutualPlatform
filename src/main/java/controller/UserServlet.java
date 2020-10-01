@@ -14,7 +14,11 @@ import commom.constantval.*;
  */
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
+
     @Override
+    /**
+     * 注册用户
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter(ServletConstantVal.REQUEST_TYPE).equals(ServletConstantVal.PUT)){
             doPut(request,response);
@@ -23,6 +27,7 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter(ServletConstantVal.REQUEST_TYPE).equals(ServletConstantVal.DELETE)){
             doDelete(request,response);
@@ -31,10 +36,16 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
+    /**
+     * 更新用户信息
+     */
     protected void doPut(HttpServletRequest request, HttpServletResponse response){
 
     }
     @Override
+    /**
+     * 删除用户
+     */
     protected void doDelete(HttpServletRequest request, HttpServletResponse response){
 
     }

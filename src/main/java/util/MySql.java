@@ -1,14 +1,27 @@
 package util;
 
 public enum MySql {
-    //用户表
-    CREATE_TABLE_USER("CREATE TABLE IF NOT EXISTS users (" +
-            "id INT PRIMARY KEY AUTO_INCREMENT," +
-            "account VARCHAR(20) NOT NULL UNIQUE,"+
-            "name VARCHAR(20) NOT NULL UNIQUE," +
-            "password VARCHAR(50) NOT NULL,"+
-            "sex VARCHAR(10) NOT NULL," +
-            "face VARCHAR(50) NOT NULL"+
+    //学生表
+    CREATE_TABLE_STUDENT("CREATE TABLE IF NOT EXISTS t_student (" +
+            "student_id INT PRIMARY KEY AUTO_INCREMENT," +
+            "student_markNumber VARCHAR(20) NOT NULL UNIQUE,"+
+            "student_email VARCHAR(30) NOT NULL ," +
+            "student_password VARCHAR(50) NOT NULL,"+
+            "student_level VARCHAR(10) NOT NULL," +
+            "student_face VARCHAR(50) NOT NULL,"+
+            "student_college VARCHAR(20) NOT NULL,"+
+            "student_major VARCHAR(20) NOT NULL"+
+            ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
+    //老师表
+    CREATE_TABLE_TEACHER("CREATE TABLE IF NOT EXISTS t_teacher (" +
+            "teacher_id INT PRIMARY KEY AUTO_INCREMENT," +
+            "teacher_markNumber VARCHAR(20) NOT NULL UNIQUE,"+
+            "teacher_email VARCHAR(30) NOT NULL ," +
+            "teacher_password VARCHAR(50) NOT NULL,"+
+            "teacher_level VARCHAR(10) NOT NULL," +
+            "teacher_face VARCHAR(50) NOT NULL,"+
+            "teacher_college VARCHAR(20) NOT NULL,"+
+            "teacher_major VARCHAR(20) NOT NULL"+
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //文章表
     CREATE_TABLE_ARTICLE("CREATE TABLE IF NOT EXISTS articles  (" +
@@ -37,7 +50,7 @@ public enum MySql {
             "articleId INT NOT NULL"+
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //建库语句
-    CREATE_DATABASE("CREATE DATABASE IF NOT EXISTS BLOG DEFAULT CHARSET utf8 COLLATE utf8_general_ci"),
+    CREATE_DATABASE("CREATE DATABASE IF NOT EXISTS University_Mutual_Platform DEFAULT CHARSET utf8 COLLATE utf8_general_ci"),
     //根据条件查询(模板)1:表名 2、3条件
     QUERY_ACTION("SELECT * FROM ? WHERE ? = ?"),
     //根据条件删除(模板) 1:表名 2、3条件

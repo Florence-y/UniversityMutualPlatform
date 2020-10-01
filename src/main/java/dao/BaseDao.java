@@ -49,4 +49,11 @@ public interface BaseDao<T> {
      * @return 是否存在
      */
      boolean isExistQueryBySomeCondition(Object... keyAndValue);
+
+    /**
+     * 获取n行数据
+     * @param n 具体多少行
+     * @return 返回一个含有数据的list
+     */
+     List<T> getNRow(int n);
 }

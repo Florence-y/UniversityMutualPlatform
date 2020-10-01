@@ -7,6 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * @author Florence
+ * C3P0数据库
+ */
 public class C3P0Util {
     private static ComboPooledDataSource dataSource;
     //静态块初始化建表
@@ -24,41 +28,13 @@ public class C3P0Util {
             dataSource=new ComboPooledDataSource();
             //获取连接
             tempConnection=dataSource.getConnection();
-            //建立用户表
-            tempPreparedStatement=tempConnection.prepareStatement(MySql.CREATE_TABLE_USER.toString());
+            //建立学生表
+            tempPreparedStatement=tempConnection.prepareStatement(MySql.CREATE_TABLE_STUDENT.toString());
             tempPreparedStatement.executeUpdate();
-            //建立文章表
-            tempPreparedStatement=tempConnection.prepareStatement(MySql.CREATE_TABLE_ARTICLE.toString());
+            //建立老师表
+            tempPreparedStatement=tempConnection.prepareStatement(MySql.CREATE_TABLE_TEACHER.toString());
             tempPreparedStatement.executeUpdate();
-            //建立评论表
-            tempPreparedStatement=tempConnection.prepareStatement(MySql.CREATE_TABLE_COMMENT.toString());
-            tempPreparedStatement.executeUpdate();
-            //建立分类和文章的连接表
-            tempPreparedStatement=tempConnection.prepareStatement(MySql.CREATE_TABLE_SORT_LINK_ARTICLE.toString());
-            tempPreparedStatement.executeUpdate();
-            //建立分类表
-            tempPreparedStatement=tempConnection.prepareStatement(MySql.CREATE_TABLE_SORT.toString());
-            tempPreparedStatement.executeUpdate();
-            //添加默认分类（算法、后端和其他）
-            tempPreparedStatement=tempConnection.prepareStatement(MySql.INSERT_SORT.toString());
-            tempPreparedStatement.setInt(1,1);
-            tempPreparedStatement.setString(2,"算法");
-            tempPreparedStatement.executeUpdate();
-            tempPreparedStatement.setInt(1,2);
-            tempPreparedStatement.setString(2,"后端");
-            tempPreparedStatement.executeUpdate();
-            tempPreparedStatement.setInt(1,3);
-            tempPreparedStatement.setString(2,"无");
-            tempPreparedStatement.executeUpdate();
-            //初始化第一个用户主键
-            tempPreparedStatement=tempConnection.prepareStatement(MySql.INSERT_USER.toString());
-            tempPreparedStatement.setInt(1,1);
-            tempPreparedStatement.setString(2,"***");
-            tempPreparedStatement.setString(3,"***");
-            tempPreparedStatement.setString(4,"***");
-            tempPreparedStatement.setString(5,"***");
-            tempPreparedStatement.setString(6,"***");
-            tempPreparedStatement.executeUpdate();
+
             close(tempConnection,tempPreparedStatement);
             System.out.println("初始化数据库表结构初始化完成");
         } catch (SQLException throwable) {

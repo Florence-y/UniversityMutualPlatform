@@ -20,11 +20,4 @@ public class Md5Until {
         }
     }
 
-
-    /*-----------------------------------------------------------------------------/
-    public static void main(String[] args) {
-        System.out.println(Md5Until.getMd5("123456"));
-        System.out.println(Md5Until.getMd5("123456"));
-    }
-    --------------------------------------------------------------------------------*/
 }
