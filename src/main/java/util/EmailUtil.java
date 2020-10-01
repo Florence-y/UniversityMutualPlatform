@@ -44,10 +44,6 @@ public class EmailUtil {
      */
     private static final String SMTP_PORT = propertiesUtil.getProperty("e.port");
     /**
-     * 用于参数配置
-     */
-    private static Properties props;
-    /**
      *  用于创建会话对象
      */
     private static Session session;
@@ -59,8 +55,8 @@ public class EmailUtil {
     /**
      * 构造函数，配置属性
      */
-    public EmailUtil() throws IOException {
-        props = new Properties();
+    public EmailUtil() {
+        Properties props = new Properties();
         // 使用的协议（JavaMail规范要求）
         props.setProperty("mail.transport.protocol", PROTOCOL);
         // 发件人的邮箱的 smtp 服务器地址
@@ -81,7 +77,7 @@ public class EmailUtil {
      * @param toEmail 要发送验证码的用户
      * @return 发送邮件内容
      */
-    public MimeMessage createMailContent(String toEmail) throws Exception, MessagingException {
+    public MimeMessage createMailContent(String toEmail) throws Exception {
         MimeMessage message = new MimeMessage(session);
         // 发件人
         message.setFrom(new InternetAddress(EMAIL_ACCOUNT, "验证码发送系统", "UTF-8"));
@@ -102,7 +98,7 @@ public class EmailUtil {
      * 发送邮件
      * @param toEmail 收件人
      */
-    public void sendEmail(String toEmail) throws Exception {
+    public String sendEmail(String toEmail) throws Exception {
         Transport transport = session.getTransport();
         transport.connect(EMAIL_ACCOUNT, EMAIL_PASS_WORD);
         // 邮件内容
@@ -111,6 +107,7 @@ public class EmailUtil {
         System.out.println("验证码发送成功！");
         // 关闭连接
         transport.close();
+        return vCode;
     }
     public static String verifyCode(int n) {
         StringBuilder strB = new StringBuilder();

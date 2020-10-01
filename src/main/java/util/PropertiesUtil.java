@@ -7,15 +7,14 @@ import java.util.Properties;
  * @author Florence
  */
 public class PropertiesUtil {
-    private static InputStream in ;
-    private static Properties prop = new Properties();
-    private static String rootValue=System.getProperty("user.dir");
+    private static final Properties PROP = new Properties();
+    private static final String ROOT_VALUE =System.getProperty("user.dir");
     PropertiesUtil(String fileName) throws IOException {
-        InputStreamReader in = new InputStreamReader(new FileInputStream(rootValue+"/src/main/resources/"+fileName),"gbk");
-        prop.load(in);
+        InputStreamReader in = new InputStreamReader(new FileInputStream(ROOT_VALUE +"/src/main/resources/"+fileName),"gbk");
+        PROP.load(in);
     }
 
     public String getProperty(String name){
-        return prop.getProperty(name);
+        return PROP.getProperty(name);
     }
 }

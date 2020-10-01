@@ -41,7 +41,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
      * 获取相应的jdbc策略
      * @return 获取封装策略
      */
-    public abstract JdbcGetPojoStrategy getPackageStrategy();
+    public abstract JdbcGetPojoStrategy<T> getPackageStrategy();
 
     /**
      * 获取插入行的策略
@@ -56,7 +56,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     @Override
     public T selectById(int id) {
         String sql = MessageFormat.format("select * from {0} where {1} = {3}",getTableName(),getTableIdField(),id);
-        return (T) JdbcUtil.queryForJavaBean(sql,getPackageStrategy());
+        return JdbcUtil.queryForJavaBean(sql,getPackageStrategy());
     }
 
     /**

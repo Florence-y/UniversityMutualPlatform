@@ -8,7 +8,6 @@ import java.sql.SQLException;
  */
 public interface JdbcGetPojoStrategy<T> {
     /**
-     *
      * @param resultSet 得到的结果集
      * @return 策略获取到的对象
      */

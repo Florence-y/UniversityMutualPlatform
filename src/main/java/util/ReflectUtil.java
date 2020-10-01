@@ -1,6 +1,5 @@
 package util;
 
-;
 
 import commom.annontation.DbCol;
 import commom.annontation.DbPriKey;
