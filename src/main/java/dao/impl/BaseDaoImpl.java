@@ -56,7 +56,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     @Override
     public T selectById(int id) {
         String sql = MessageFormat.format("select * from {0} where {1} = {3}",getTableName(),getTableIdField(),id);
-        return JdbcUtil.queryForJavaBean(sql,getPackageStrategy());
+        return (T) JdbcUtil.queryForJavaBean(sql,getPackageStrategy());
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
                 throw new Exception("参数长度有问题");
             }
             //先利用反射拼接语句，然后根据参数设置
-            return JdbcUtil.update(ReflectUtil.getUpdateSql(pojo,getArrByOddOrEven(value, ArrayUtil.odd)),getArrByOddOrEven(value,ArrayUtil.even));
+            return JdbcUtil.update(ReflectUtil.getUpdateSql(pojo,getArrByOddOrEven(value, ArrayUtil.ODD)),getArrByOddOrEven(value,ArrayUtil.EVEN));
         } catch (Exception e) {
             e.printStackTrace();
         }
