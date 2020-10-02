@@ -72,19 +72,19 @@ public class JdbcUtil {
                     preparedStatement.setDate(i+1,(Date)value[i]);
                 }
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
     }
     public static int update(String sql,Object... value){
-        try {
+        try{
             connection=C3P0Util.getConnection();
             assert connection != null;
             preparedStatement=connection.prepareStatement(sql);
             setPrepareStatementUnknown(preparedStatement,value);
             return preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         } finally {
             C3P0Util.close(connection,preparedStatement);
         }

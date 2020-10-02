@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import commom.annontation.DbCol;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,9 +41,9 @@ public class WebUtil {
      * map转json
      * @param map 要转换的map
      * @return 得到的jsonString
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException json转化异常
      */
-    public static String mapToJson(Map map) throws JsonProcessingException {
+    public static String mapToJson(Map<String,Object> map) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(map);
     }
@@ -50,9 +52,9 @@ public class WebUtil {
      * json转Map
      * @param json jsonString
      * @return 得到的Map
-     * @throws IOException
+     * @throws IOException 转化异常
      */
-    public static Map jsonToMap(String json) throws IOException {
+    public static Map<String,Object> jsonToMap(String json) throws IOException {
         ObjectMapper mapper=new ObjectMapper();
         return mapper.readValue(json,Map.class);
     }
@@ -62,10 +64,10 @@ public class WebUtil {
      * @param po 对象
      * @param <T> 泛型
      * @return 封装好的map
-     * @throws IllegalAccessException
+     * @throws IllegalAccessException 非法获取对象pojo
      */
     public static <T> Map<String,Object> getPara(T po) throws IllegalAccessException {
-        Class clazz = po.getClass();
+        Class<T> clazz = (Class<T>) po.getClass();
         Map<String, Object> map = new HashMap<>(16);
         for (Field f : clazz.getDeclaredFields()) {
             f.setAccessible(true);
@@ -83,8 +85,8 @@ public class WebUtil {
      * @param request 请求头
      * @param clazz 实体类对象
      * @param <T> 泛型
-     * @return
-     * @throws IOException
+     * @return 获取一个二对象从表单
+     * @throws IOException 获取异常
      */
     public static <T> T getFromRequestForPojo(HttpServletRequest request, Class<T> clazz) throws IOException {
         Map<String,Object> map =new HashMap<>(20);
@@ -99,12 +101,12 @@ public class WebUtil {
      * 获取json封装成一个json对象
      * @param request 请求头
      * @param clazz 类对象
-     * @param <T>
-     * @return
+     * @param <T> 要获取的实体类
+     * @return 返回实体类对象
      */
     public static <T> T getJson(HttpServletRequest request, Class<T> clazz) {
         try {
-            BufferedReader streamReader = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8"));
+            BufferedReader streamReader = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
             StringBuilder responseStrBuilder = new StringBuilder();
             String str;
             //循环读取数据
@@ -117,23 +119,24 @@ public class WebUtil {
              }
              //返回
             return jsonToObj(clazz,responseStrBuilder.toString());
-        } catch (Exception e) {
+        } catch (Exception ignored) {
+            ignored.printStackTrace();
         }
         return null;
     }
 
     /**
      * 获取json字符串
-     * @param req
-     * @return
+     * @param req 请求头
+     * @return 获取请求头的字符串对象
      */
     public static String getJsonString(HttpServletRequest req) {
         try {
-            BufferedReader streamReader = new BufferedReader(new InputStreamReader(req.getInputStream(), "UTF-8"));
+            BufferedReader streamReader = new BufferedReader(new InputStreamReader(req.getInputStream(), StandardCharsets.UTF_8));
             StringBuilder responseStrBuilder = new StringBuilder();
-            String inputStr;
-            while ((inputStr = streamReader.readLine()) != null) {
-                responseStrBuilder.append(inputStr);
+            String str;
+            while ((str = streamReader.readLine()) != null) {
+                responseStrBuilder.append(str);
             }
 
             return responseStrBuilder.toString();
@@ -141,7 +144,17 @@ public class WebUtil {
             e.printStackTrace();
         }
         return null;
-
     }
 
+    /**
+     * 将对象写回到response
+     * @param response 返回头
+     * @param pojo 实体对象
+     * @param <T> 实体对象类型
+     * @throws IOException io出崔
+     */
+    public static <T> void writeObjToResponse(HttpServletResponse response,T pojo) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getWriter(),pojo);
+    }
 }

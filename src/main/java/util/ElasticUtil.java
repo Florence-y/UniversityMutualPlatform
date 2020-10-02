@@ -18,6 +18,9 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * @author Florence
+ */
 public class ElasticUtil {
     public static RestHighLevelClient getRestHighLevelClient() {
         return new RestHighLevelClient(

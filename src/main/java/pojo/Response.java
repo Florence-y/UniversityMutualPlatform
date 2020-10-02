@@ -20,6 +20,7 @@ public class Response<T> {
         this.id=id;
         this.markNumber=markNumber;
     }
+    public Response(){}
     Response(long id,int markNumber,int status){
         this(id,markNumber);
         this.id=id;

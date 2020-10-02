@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.Map;
 
 import commom.constantval.*;
+import commom.factory.ResponseFactory;
+import pojo.Response;
 import service.UserService;
 import service.impl.UserServiceImpl;
 import util.WebUtil;
@@ -31,7 +33,9 @@ public class UserServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
-
+        int code=service.addUser((String) map.get("userType"),map);
+        //写回
+        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("post");
     }
 

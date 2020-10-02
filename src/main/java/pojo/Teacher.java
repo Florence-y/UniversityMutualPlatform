@@ -102,4 +102,17 @@ public class Teacher {
     this.major = major;
   }
 
+  @Override
+  public String toString() {
+    return "Teacher{" +
+            "id=" + id +
+            ", markNumber='" + markNumber + '\'' +
+            ", email='" + email + '\'' +
+            ", password='" + password + '\'' +
+            ", level='" + level + '\'' +
+            ", face='" + face + '\'' +
+            ", college='" + college + '\'' +
+            ", major='" + major + '\'' +
+            '}';
+  }
 }

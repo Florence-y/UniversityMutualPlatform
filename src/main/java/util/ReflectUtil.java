@@ -4,7 +4,6 @@ package util;
 import commom.annontation.DbCol;
 import commom.annontation.DbPriKey;
 import commom.annontation.DbTable;
-import jdk.management.resource.internal.inst.FileOutputStreamRMHooks;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
