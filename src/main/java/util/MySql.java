@@ -8,7 +8,7 @@ public enum MySql {
             "student_email VARCHAR(30) NOT NULL ," +
             "student_password VARCHAR(50) NOT NULL,"+
             "student_level VARCHAR(10) NOT NULL," +
-            "student_face VARCHAR(50) NOT NULL,"+
+            "student_face VARCHAR(50) NOT NULL DEFAULT '../img/defaultStudentFace.jpg',"+
             "student_college VARCHAR(20) NOT NULL,"+
             "student_major VARCHAR(20) NOT NULL"+
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
@@ -19,7 +19,7 @@ public enum MySql {
             "teacher_email VARCHAR(30) NOT NULL ," +
             "teacher_password VARCHAR(50) NOT NULL,"+
             "teacher_level VARCHAR(10) NOT NULL," +
-            "teacher_face VARCHAR(50) NOT NULL,"+
+            "teacher_face VARCHAR(50) NOT NULL DEFAULT '../img/defaultTeacherFace.jpg',"+
             "teacher_college VARCHAR(20) NOT NULL,"+
             "teacher_major VARCHAR(20) NOT NULL"+
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),

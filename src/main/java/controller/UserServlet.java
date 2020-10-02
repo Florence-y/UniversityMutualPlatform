@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.Map;
 
 import commom.constantval.*;
+import service.UserService;
+import service.impl.UserServiceImpl;
 import util.WebUtil;
 
 /**
@@ -17,8 +19,8 @@ import util.WebUtil;
  */
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
-
     Map<String,Object> map;
+    UserService service = new UserServiceImpl();
     @Override
     /**
      * 添加用户
@@ -29,6 +31,7 @@ public class UserServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
+
         System.out.println("post");
     }
 

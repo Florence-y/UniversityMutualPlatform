@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Florence
@@ -56,4 +57,12 @@ public interface BaseDao<T> {
      * @return 返回一个含有数据的list
      */
      List<T> getNRow(int n);
+
+    /**
+     * 根据
+     * @param pojo 实体对象
+     * @param wantToInsertKeyVal 想插入的键值对
+     * @return 插入对象的id
+     */
+     int insertRowByKeyAndValue(T pojo, Map<String,Object> wantToInsertKeyVal);
 }

@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Map;
+
 import static util.ArrayUtil.getArrByOddOrEven;
 
 /**
@@ -139,5 +141,19 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     public List<T> getNRow(int n){
         String sql =MessageFormat.format("select * from {0} LIMIT {1}",getTableName(),n);
         return JdbcUtil.queryForJavaBeanAllData(sql,getPackageStrategy());
+    }
+
+    /**
+     * 根据
+     *
+     * @param pojo               实体对象
+     * @param wantToInsertKeyVal 想插入的键值对
+     * @return 插入对象的id
+     */
+    @Override
+    public int insertRowByKeyAndValue(T pojo, Map<String, Object> wantToInsertKeyVal) {
+        Object[] keyAndValue=ArrayUtil.keyValueToArr(wantToInsertKeyVal,pojo);
+        String sql=ReflectUtil.getInsertSql(pojo,ArrayUtil.getArrByOddOrEven(keyAndValue,ArrayUtil.ODD));
+        return JdbcUtil.insertOneRow(sql,ArrayUtil.getArrByOddOrEven(keyAndValue,ArrayUtil.EVEN));
     }
 }

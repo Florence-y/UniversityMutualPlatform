@@ -161,7 +161,7 @@ public class JdbcUtil {
     }
 
     /**
-     * 根据sql插入一个一条数据
+     * 根据sql设置参数 ？ ？ ？ ？ ？
      * @param sql 插入语句
      * @param value 参数的值
      * @return 返回的行数

@@ -18,7 +18,6 @@ import java.util.Map;
 public class WebUtil {
     /**
      * json转换成对象
-     * @param obj 传入对象
      * @param jsonStr json字符串
      * @return Object 封装城的对象
      */
