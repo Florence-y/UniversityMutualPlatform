@@ -7,6 +7,9 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.indices.AnalyzeRequest;
+import org.elasticsearch.client.indices.AnalyzeResponse;
+import org.elasticsearch.client.indices.DetailAnalyzeResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.PrefixQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -22,6 +25,7 @@ import java.util.*;
  * @author Florence
  */
 public class ElasticUtil {
+    static RestHighLevelClient client;
     public static RestHighLevelClient getRestHighLevelClient() {
         return new RestHighLevelClient(
                 RestClient.builder(new HttpHost("127.0.0.1", 9200, "http")));
@@ -131,5 +135,21 @@ public class ElasticUtil {
         searchSourceBuilder.size(size);
         searchSourceBuilder.query(builder);
         return listSearchResult(searchSourceBuilder);
+    }
+
+    public static List<String> divideTheKeyWord(String keyWord) throws IOException {
+        List<String> list = new LinkedList<>();
+        client =getRestHighLevelClient();
+        AnalyzeRequest request = AnalyzeRequest.withGlobalAnalyzer("ik_smart", keyWord);
+        AnalyzeResponse response =client.indices().analyze(request,RequestOptions.DEFAULT);
+        for(AnalyzeResponse.AnalyzeToken token: response.getTokens()){
+            String word=token.getTerm();
+            if (word.length()<2||word.contains("的")||word.contains("了")){
+                continue;
+            }
+            list.add(token.getTerm());
+        }
+        System.out.println(list);
+        return list;
     }
 }
