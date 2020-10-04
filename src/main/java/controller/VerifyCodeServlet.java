@@ -1,6 +1,8 @@
 package controller;
 
 import commom.constantval.ServletConstantVal;
+import commom.factory.ResponseFactory;
+import util.EmailUtil;
 import util.WebUtil;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +14,7 @@ import java.util.Map;
 /**
  * @author Florence
  */
-@WebServlet("/VerifyCodeServlet")
+@WebServlet("/Servlet/VerifyCodeServlet")
 public class VerifyCodeServlet extends HttpServlet {
     Map<String,Object> map;
     @Override
@@ -22,16 +24,29 @@ public class VerifyCodeServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
+        EmailUtil emailUtil = new EmailUtil();
+        try {
+            WebUtil.writeObjToResponse(response, ResponseFactory.getMessage(emailUtil.sendEmail((String) map.get("email"))));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println("post");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
+        map = WebUtil.formToMap(request);
         if (ServletConstantVal.DELETE.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
             doDelete(request, response);
             return;
         }
+        EmailUtil emailUtil = new EmailUtil();
+        try {
+            WebUtil.writeObjToResponse(response, ResponseFactory.getMessage(emailUtil.sendEmail((String) map.get("email"))));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        response.getWriter().write("asdada");
         System.out.println("get");
     }
 

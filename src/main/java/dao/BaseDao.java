@@ -59,10 +59,28 @@ public interface BaseDao<T> {
      List<T> getNRow(int n);
 
     /**
-     * 根据
+     * 根据键值对插入对象
      * @param pojo 实体对象
-     * @param wantToInsertKeyVal 想插入的键值对
+     * @param wantToInsertKeyVal 想插入的键值对 key value
      * @return 插入对象的id
      */
      int insertRowByKeyAndValue(T pojo, Map<String,Object> wantToInsertKeyVal);
+
+    /**
+     * 根据一个条件删除记录
+     * @param pojo 实体对象
+     * @param condition 条件（列的值）
+     * @param o 具体条件的值
+     * @return 影响的行数
+     */
+    int deleteByOneCondition(T pojo,String condition, Object o);
+
+    /**
+     * 根据开始的位置和行数获取数据
+     * @param pojo 实体类对象
+     * @param begin 开始的地方
+     * @param size 大小
+     * @return 返回的对象列表
+     */
+    List<T> getRowBeginNumAndSize(T pojo,int begin,int size);
 }

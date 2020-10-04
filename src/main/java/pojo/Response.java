@@ -5,23 +5,42 @@ package pojo;
  * 返回实体
  */
 public class Response<T> {
-    public static final int OK = 222;
-    public static final int ERROR = 666;
-    public static final int GET_LOST = 888;
+    public static final int OK = 200;
+    public static final int ERROR = 500;
+    public static final int GET_LOST = 404;
     long id;
-    int markNumber;
+    String markNumber;
     int statusCode;
     String message;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    String userName;
+    String userType;
     T messagePojo;
     Response(int status){
         this.statusCode =status;
     }
-    Response(long id,int markNumber){
+    Response(long id,String markNumber){
         this.id=id;
         this.markNumber=markNumber;
     }
     public Response(){}
-    Response(long id,int markNumber,int status){
+    Response(long id,String markNumber,int status){
         this(id,markNumber);
         this.id=id;
     }
@@ -46,11 +65,11 @@ public class Response<T> {
         this.id = id;
     }
 
-    public int getMarkNumber() {
+    public String getMarkNumber() {
         return markNumber;
     }
 
-    public void setMarkNumber(int markNumber) {
+    public void setMarkNumber(String markNumber) {
         this.markNumber = markNumber;
     }
 
@@ -58,8 +77,9 @@ public class Response<T> {
         return statusCode;
     }
 
-    public void setStatusCode(int statusCode) {
+    public Response<T> setStatusCode(int statusCode) {
         this.statusCode = statusCode;
+        return this;
     }
 
     public String getMessage() {

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
-
 import commom.constantval.*;
 import commom.factory.ResponseFactory;
 import pojo.Response;
@@ -19,7 +18,7 @@ import util.WebUtil;
  * @author Florence
  * 用户控制器
  */
-@WebServlet("/UserServlet")
+@WebServlet("/Servlet/UserServlet")
 public class UserServlet extends HttpServlet {
     Map<String,Object> map;
     UserService service = new UserServiceImpl();
@@ -33,6 +32,7 @@ public class UserServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
+        //调用添加用户服务
         int code=service.addUser((String) map.get("userType"),map);
         //写回
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
@@ -41,14 +41,17 @@ public class UserServlet extends HttpServlet {
 
     @Override
     /**
-     *
+     * 登录
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
+        map = WebUtil.formToMap(request);
         if (ServletConstantVal.DELETE.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
             doDelete(request, response);
             return;
         }
+        Response rep = service.userLogin((String) map.get("userType"),map);
+        //写回状态
+        WebUtil.writeObjToResponse(response, rep);
         System.out.println("get");
     }
 
@@ -56,7 +59,10 @@ public class UserServlet extends HttpServlet {
     /**
      * 更新用户信息
      */
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int code=service.updateUser((String)map.get("userType"),map, String.valueOf(map.get("condition")));
+        //写回
+        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("put");
     }
 
@@ -64,7 +70,9 @@ public class UserServlet extends HttpServlet {
     /**
      * 删除用户
      */
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response) {
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int code=service.deleteUser((String) map.get("userType"),map);
+        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("delete");
     }
 }

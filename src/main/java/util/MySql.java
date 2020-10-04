@@ -10,7 +10,10 @@ public enum MySql {
             "student_level VARCHAR(10) NOT NULL," +
             "student_face VARCHAR(50) NOT NULL DEFAULT '../img/defaultStudentFace.jpg',"+
             "student_college VARCHAR(20) NOT NULL,"+
-            "student_major VARCHAR(20) NOT NULL"+
+            "student_sex VARCHAR(6) DEFAULT '男',"+
+            "student_major VARCHAR(20) NOT NULL,"+
+            "student_userName VARCHAR(20) NOT NULL UNIQUE,"+
+            "student_area VARCHAR(20) NOT NULL"+
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //老师表
     CREATE_TABLE_TEACHER("CREATE TABLE IF NOT EXISTS t_teacher (" +
@@ -21,7 +24,10 @@ public enum MySql {
             "teacher_level VARCHAR(10) NOT NULL," +
             "teacher_face VARCHAR(50) NOT NULL DEFAULT '../img/defaultTeacherFace.jpg',"+
             "teacher_college VARCHAR(20) NOT NULL,"+
-            "teacher_major VARCHAR(20) NOT NULL"+
+            "teacher_major VARCHAR(20) NOT NULL,"+
+            "teacher_sex VARCHAR(6) DEFAULT '男',"+
+            "teacher_area VARCHAR(10) NOT NULL,"+
+            "teacher_userName VARCHAR(20) NOT NULL UNIQUE"+
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //文章表
     CREATE_TABLE_ARTICLE("CREATE TABLE IF NOT EXISTS articles  (" +

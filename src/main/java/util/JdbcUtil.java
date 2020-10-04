@@ -34,27 +34,6 @@ public class JdbcUtil {
     }
 
     /**
-     * 根据可变参数
-     * @param sql sql语句（更新或者删除语句）
-     * @param value 具体参数值
-     * @return 影响第几行了
-     */
-    public static int executeSqlByPrepareStatement(String sql,Object... value){
-        try {
-            connection=C3P0Util.getConnection();
-            assert connection != null;
-            preparedStatement=connection.prepareStatement(sql);
-            setPrepareStatementUnknown(preparedStatement,value);
-            return preparedStatement.executeUpdate();
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-        } finally {
-            C3P0Util.close(connection,preparedStatement);
-        }
-        return -1;
-    }
-
-    /**
      * 根据可变参数设置未知值
      * @param preparedStatement 预设定语句
      * @param value 参数值
@@ -76,6 +55,13 @@ public class JdbcUtil {
             throwable.printStackTrace();
         }
     }
+
+    /**
+     * 根据可变参数执行sql语句（用来进行删除或者更新语句）
+     * @param sql sql语句
+     * @param value 可变参数 也就是？的数量
+     * @return 更新的条数
+     */
     public static int update(String sql,Object... value){
         try{
             connection=C3P0Util.getConnection();
@@ -187,5 +173,52 @@ public class JdbcUtil {
             C3P0Util.close(connection,preparedStatement);
         }
         return -1;
+    }
+
+    /**
+     * 根据一个条件查询数据是否存在
+     * @param sql sql语句
+     * @return 返回值
+     */
+    public static boolean isExistByOneCondition(String sql, Object value) {
+        try {
+            connection=C3P0Util.getConnection();
+            assert connection != null;
+            //声明预备语句（放在enum类中）
+            preparedStatement=connection.prepareStatement(sql);
+            //设置条件
+            setPrepareStatementUnknown(preparedStatement,new Object[]{value});
+            //查找用户是否存在
+            resultSet = preparedStatement.executeQuery();
+            //是否存在？
+            if(resultSet.next()){
+                return true;
+            }
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        } finally {
+            //清理数据库资源
+            C3P0Util.close(connection,preparedStatement,resultSet);
+        }
+        //不存在
+        return false;
+    }
+
+    public static <T> T queryForJavaBean(String sql, JdbcGetPojoStrategy packageStrategy, Object... o) {
+        try {
+            connection=C3P0Util.getConnection();
+            assert connection != null;
+            preparedStatement=connection.prepareStatement(sql);
+            setPrepareStatementUnknown(preparedStatement,o);
+            resultSet=preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return (T) packageStrategy.strategy(resultSet);
+            }
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        } finally {
+            C3P0Util.close(connection,preparedStatement,resultSet);
+        }
+        return null;
     }
 }

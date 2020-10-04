@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * @author Florence
  */
-@WebServlet("/TestServlet")
+@WebServlet("/Servlet/TestServlet")
 public class TestServlet extends HttpServlet {
     Map<String,Object> map;
     @Override
@@ -27,8 +27,8 @@ public class TestServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        map = WebUtil.formToMap(request);
         if (ServletConstantVal.DELETE.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
             doDelete(request, response);
             return;

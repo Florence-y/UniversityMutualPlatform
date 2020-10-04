@@ -1,9 +1,9 @@
 package util;
+
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
@@ -12,35 +12,26 @@ import java.util.Random;
  * @author Florence
  */
 public class EmailUtil {
-    static PropertiesUtil propertiesUtil;
-    static {
-        try {
-            propertiesUtil = new PropertiesUtil("email.properties");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * 发件人账号
      */
-    private static final String EMAIL_ACCOUNT = propertiesUtil.getProperty("e.account");
+    private static final String EMAIL_ACCOUNT = "191541227@m.gduf.edu.cn";
     /**
      * 发件人密码
      */
-    private static final String EMAIL_PASS_WORD = propertiesUtil.getProperty("e.pass");
+    private static final String EMAIL_PASS_WORD = "wyzAINIOWXY13";
     /**
      * 发送邮箱服务器
      */
-    private static final String MY_EMAILSMTP_HOST = propertiesUtil.getProperty("e.host");
+    private static final String MY_EMAILSMTP_HOST = "smtp.exmail.qq.com";
     /**
      * 协议
      */
-    private static final String PROTOCOL =propertiesUtil.getProperty("e.protocol");
+    private static final String PROTOCOL ="smtp";
     /**
      * 服务器端口
      */
-    private static final String SMTP_PORT = propertiesUtil.getProperty("e.port");
+    private static final String SMTP_PORT = "465";
     /**
      *  用于创建会话对象
      */

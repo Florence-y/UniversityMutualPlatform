@@ -1,6 +1,9 @@
 package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import commom.factory.ResponseFactory;
+import pojo.Response;
+import util.WebUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,14 +18,13 @@ import java.util.Map;
  * @author Florence
  * 淑仪测试类
  */
-@WebServlet("/GetTestDataServletShuyi")
+@WebServlet("/Servlet/GetTestDataServletShuyi")
 public class GetTestDataServletShuyi extends HttpServlet {
+    Map<String,Object> map;
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        response.setContentType("application/json;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        mapper.writeValue(response.getWriter(),getTestMap("id","123456","name","吴彦臻"));
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
+        WebUtil.writeObjToResponse(response,map);
         System.out.println("获取测试数据");
     }
 
@@ -40,6 +42,8 @@ public class GetTestDataServletShuyi extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doPost(request, response);
+        map = WebUtil.formToMap(request);
+        WebUtil.writeObjToResponse(response,map);
+        System.out.println("获取测试数据");
     }
 }

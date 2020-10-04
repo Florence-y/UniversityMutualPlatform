@@ -29,7 +29,12 @@ public class Teacher {
   private String college;
   @DbCol("teacher_major")
   private String major;
-
+  @DbCol("teacher_sex")
+  private String sex;
+  @DbCol("teacher_userName")
+  private String userName;
+  @DbCol("teacher_area")
+  private String area;
 
   public long getId() {
     return id;
@@ -114,5 +119,29 @@ public class Teacher {
             ", college='" + college + '\'' +
             ", major='" + major + '\'' +
             '}';
+  }
+
+  public String getSex() {
+    return sex;
+  }
+
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  public String getArea() {
+    return area;
+  }
+
+  public void setArea(String area) {
+    this.area = area;
   }
 }

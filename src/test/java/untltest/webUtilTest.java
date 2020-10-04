@@ -12,14 +12,12 @@ import java.util.Map;
 public class webUtilTest {
     @Test
     public void testmaptojson() throws IOException {
-        Map<Integer,Integer> a = new HashMap<>();
-        a.put(1,15);
-        a.put(4,15);
-        a.put(3,12);
-        a.put(2,34);
-        String b=WebUtil.mapToJson(a);
-        Map<Integer,Integer> c= WebUtil.jsonToMap(b);
-        System.out.println(c);
+        Map<String, Object> map = new HashMap<>();
+        map.put("11","22");
+        map.put("22","33");
+        System.out.println(WebUtil.mapToJson(map));
+        Map<String,Object> map1=WebUtil.jsonToMap(WebUtil.mapToJson(map));
+        System.out.println(WebUtil.mapToJson(map1));
     }
     @Test
     public void getPojo(){

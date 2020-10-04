@@ -1,6 +1,7 @@
 package dao.impl;
 
 import commom.strategy.JdbcGetPojoStrategy;
+import commom.strategy.impl.StudentJdbcStrategy;
 import dao.StudentDao;
 import pojo.Student;
 import util.ReflectUtil;
@@ -21,7 +22,24 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
 
     @Override
     public JdbcGetPojoStrategy getPackageStrategy() {
-        return null;
+        return new StudentJdbcStrategy();
     }
+
+    @Override
+    public int updateColByOneCondition(Object... value) {
+        return super.updateColByOneCondition(new Student(), value);
+    }
+
+
+    @Override
+    public int deleteByOneCondition(String condition, Object o) {
+        return super.deleteByOneCondition(new Student(), condition, o);
+    }
+
+    @Override
+    public Student getStudentByCondition(String condition, Object o) {
+        return super.selectOneColByOneCondition(condition,o);
+    }
+
 
 }

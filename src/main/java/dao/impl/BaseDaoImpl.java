@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -65,6 +66,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
                 throw new Exception("参数长度有问题");
             }
             //先利用反射拼接语句，然后根据参数设置
+            System.out.println(Arrays.toString(value));
             return JdbcUtil.update(ReflectUtil.getUpdateSql(pojo,getArrByOddOrEven(value, ArrayUtil.ODD)),getArrByOddOrEven(value,ArrayUtil.EVEN));
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,11 +122,8 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
             if (keyAndValue.length!=2){
                 throw new Exception("可变参数输入异常");
             }
-            connection= C3P0Util.getConnection();
             String sql="SELECT * FROM "+getTableName()+" WHERE "+keyAndValue[0]+" = ? limit 1";
-            resultSet=JdbcUtil.queryForGetResultSet(connection,sql,keyAndValue[1]);
-            assert resultSet != null;
-            return resultSet.next();
+            return JdbcUtil.isExistByOneCondition(sql,keyAndValue[1]);
         } catch (Exception e) {
             e.printStackTrace();
             C3P0Util.close(connection,resultSet);
@@ -155,5 +154,41 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
         Object[] keyAndValue=ArrayUtil.keyValueToArr(wantToInsertKeyVal,pojo);
         String sql=ReflectUtil.getInsertSql(pojo,ArrayUtil.getArrByOddOrEven(keyAndValue,ArrayUtil.ODD));
         return JdbcUtil.insertOneRow(sql,ArrayUtil.getArrByOddOrEven(keyAndValue,ArrayUtil.EVEN));
+    }
+
+    /**
+     * 根据一个条件删除记录
+     * @param pojo 实体对象
+     * @param condition 条件（列的值）
+     * @param o 具体条件的值
+     */
+    @Override
+    public int deleteByOneCondition(T pojo, String condition, Object o){
+        String sql ="DELETE FROM "+getTableName()+" WHERE "+ReflectUtil.getColVal(pojo,condition)+"=?";
+        return JdbcUtil.update(sql,o);
+    }
+
+    /**
+     * 拿根据键值对拿到一行数据
+     * @param condition 键
+     * @param o 值
+     * @return
+     */
+    public T selectOneColByOneCondition(String condition,Object o){
+        String sql = "select * from "+getTableName()+" WHERE "+condition+"= ? LIMIT 1";
+        return (T) JdbcUtil.queryForJavaBean(sql,getPackageStrategy(),o);
+    }
+
+    /**
+     * 根据limit begin size 获取数据
+     * @param pojo 实体类对象
+     * @param begin 开始的地方
+     * @param size 大小
+     * @return 获取到的list结果
+     */
+    @Override
+    public List<T> getRowBeginNumAndSize(T pojo, int begin, int size) {
+        String sql =MessageFormat.format("select * from "+getTableName()+ "WHERE"+" LIMIT {0},{1}",begin,size);
+        return JdbcUtil.queryForJavaBeanAllData(sql,getPackageStrategy());
     }
 }

@@ -2,6 +2,7 @@ package util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import commom.annontation.DbCol;
+import pojo.Response;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +20,9 @@ import java.util.Map;
  * @author Florence
  */
 public class WebUtil {
+    private static final String JSON="json";
+    private static final String TEXT="text";
+
     /**
      * json转换成对象
      * @param jsonStr json字符串
@@ -56,7 +61,8 @@ public class WebUtil {
      */
     public static Map<String,Object> jsonToMap(String json) throws IOException {
         ObjectMapper mapper=new ObjectMapper();
-        return mapper.readValue(json,Map.class);
+        System.out.println(json);
+        return mapper.readValue(json,HashMap.class);
     }
 
     /**
@@ -156,5 +162,31 @@ public class WebUtil {
     public static <T> void writeObjToResponse(HttpServletResponse response,T pojo) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getWriter(),pojo);
+    }
+
+    /**
+     * 设置返回格式
+     * @param type 类型
+     * @param response 返回头
+     */
+    public static void setResponseType(String type, HttpServletResponse response) {
+        if (JSON.equals(type)){
+            response.setContentType("application/json; charset=UTF-8");
+        }
+        else if (TEXT.equals(type)){
+            response.setContentType("text/html; charset=UTF-8");
+        }
+        response.setStatus(Response.OK);
+    }
+
+    public static Map<String, Object> formToMap(HttpServletRequest request) {
+        Map<String,Object> map = new HashMap<>(20);
+        Enumeration<String> parameterNames = request.getParameterNames();
+        while (parameterNames.hasMoreElements()){
+            String str=parameterNames.nextElement();
+            map.put(str,request.getParameter(str));
+        }
+        System.out.println(map);
+        return map;
     }
 }
