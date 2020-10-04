@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json接口测试</title>
+    <script src="ajax.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.js"></script>
+</head>
+<body>
+    <button>开始</button>
+    <script>
+        $('button').click(function(){
+            var mydata = 
+                {
+                    email : '23faljfja@qq.com',
+                    password : " ajflajf",
+                    method : "login",
+                    requestType : "post"
+                };
+            
+            // $.ajax({
+            //     type:'post',
+            //     url : "http://192.168.137.108:8080/Servlet/GetTestDataServletYuanan",
+            //     data : JSON.stringify(mydata),
+               
+            //     success : function(res){
+                    
+            //         console.log(res);
+            //     }
+            // })
+            $.post("http://192.168.137.108:8080/Servlet/GetTestDataServletYuanan",JSON.stringify({
+                    email : '23faljfja@qq.com',
+                    password : " ajflajf",
+                    method : "login",
+                    requestType : "post"
+            }),function(){
+                alert("成功");
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册测试</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+
+        table{
+            position: absolute;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+            width:300px;
+            height: 450px;
+            background-color: #efefef;
+            border:1px solid #999;
+            border-radius: 4px;
+        }
+        
+        .next{
+            height:30px;
+            color:#fff;
+            background-color: skyblue;
+            width:90%;
+        }
+    </style>
+    <script src="ajax.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.js"></script>
+</head>
+<body>
+    
+    <table>
+        <tr>
+            <td colspan="2">
+                 <a href="index.html" target="_self">回到首页</a>
+            </td>
+         </tr>
+         <tr>
+            <td colspan="2">
+                 <input class="email" type="email" placeholder="校园邮箱"/>
+            </td>
+         </tr>
+         <tr>
+            <td><input class="confirmCode" type="text" required="required" placeholder="验证码"/></td>
+            <td><input type="button"  value="发送验证码" class="send"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button class="next">下一步</button>
+            </td>
+        </tr>
+    </table>
+    <script>
+        //发送验证码 每60s发一次
+     
+        //禁用 倒计时 disable属性
+
+        var comfirm = null;
+        var time = 0;
+        var timer = null;
+        
+        var requestData = {
+            email : "",
+            requestType: "post"
+        }
+        
+        //点击后开始发送请求，禁用按钮,开始定时器
+
+        //定时器做的工作，减少数字，显示数字，当time==0时，清除定时器，并且把按钮重新恢复，并改变内容
+        $('.send').click(function(){
+           
+            if(time==0){
+              
+                requestData.email = $('.email').val();              
+                $.ajax({
+                    type : "get",
+                    url : "http://192.168.137.108:8080/Servlet/VerifyCodeServlet",
+                    data : requestData,
+                     // 会让请求头中包含跨域的额外信息，但不会含cookie
+                    
+                    success : function(res){
+                       alert(res.message);
+                    //     console.log(res.message);
+                    //     console.log(requestData.message);
+                        // alert(res);
+                        confirm = res.message;
+                       
+                    },
+                    error : function(res){
+                       console.log(res);
+                        alert("出错了");
+                    }
+                    
+                });
+                // $.get("http://192.168.137.108:8080/Servlet/VerifyCodeServlet",{
+                //     email : "2683992267@qq.com",
+                //     requestType : "get"
+                // },function(){
+                //     console.log('成功');
+                // })
+                time = 60;
+                $('.send').attr("disabled","disabled");
+                timer = setInterval(setSendBtn,1000);
+                $('.send').val("60s后可重新发送");
+            }
+        })
+        function setSendBtn(){
+            //console.log("定时器");
+            if(time == 0){
+                clearInterval(timer);
+                $('.send').removeAttr('disabled');
+                $('.send').val("发送验证码");
+               
+            }else{
+                time--;
+               // console.log(time);
+                $('.send').val(time+"s后可重新发送");
+            }
+                
+        }
+        $(".next").click(function(){
+           if($('.confirmCode').val()==comfirm){
+               alert("验证成功");
+           }else{
+               alert("验证失败");
+           }
+        })
+        
+        //下一步
+        //验证
+        //不能为空
+        //发送请求，获得后端返回验证码，进行匹配
+
+    </script>
+</html>
