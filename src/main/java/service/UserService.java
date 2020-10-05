@@ -41,4 +41,12 @@ public interface UserService {
      * @return 状态码
      */
      <T> Response<T> userLogin(String userType, Map<String, Object> map);
+
+    /**
+     * 用户的某项信息是否存在
+     * @param userType 用户类型
+     * @param map 信息键值对
+     * @return 返回值
+     */
+    int isExistOneInf(Object userType, Map<String, Object> map);
 }

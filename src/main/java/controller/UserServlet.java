@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
+
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 import commom.constantval.*;
 import commom.factory.ResponseFactory;
 import pojo.Response;
@@ -21,6 +24,7 @@ import util.WebUtil;
 public class UserServlet extends HttpServlet {
     Map<String,Object> map;
     UserService service = new UserServiceImpl();
+    private Logger log = LoggerFactory.getLogger(getClass());
     @Override
     /**
      * 添加用户

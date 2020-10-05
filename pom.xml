@@ -27,6 +27,13 @@
         <version>4.12</version>
         <scope>test</scope>
       </dependency>
+      <!--可以引入日志 @Slf4j注解-->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.18.12</version>
+        <scope>provided</scope>
+      </dependency>
       <!--servlet-->
       <dependency>
         <groupId>javax.servlet</groupId>
@@ -121,9 +128,39 @@
         <artifactId>javax.websocket-client-api</artifactId>
         <version>1.1</version>
       </dependency>
+      <!--日志配置-->
+      <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.1.11</version>
+      </dependency>
+      <dependency>
+        <groupId>org.logback-extensions</groupId>
+        <artifactId>logback-ext-spring</artifactId>
+        <version>0.1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>1.7.25</version>
+      </dependency>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.16.10</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.17</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>1.7.12</version>
+      </dependency>
     </dependencies>
-
-
   <build>
     <finalName>UniversityMutualPlatform</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

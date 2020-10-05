@@ -144,4 +144,29 @@ public class UserServiceImpl implements UserService {
         }
         return (Response<T>) ResponseFactory.getPureResponse().setStatusCode(Response.ERROR);
     }
+
+    /**
+     * 查询用户信息是否存在
+     * @param userType 用户类型
+     * @param map 信息键值对
+     * @return 返回状态码
+     */
+    @Override
+    public int isExistOneInf(Object userType, Map<String, Object> map) {
+
+        String value=(String)map.get("value");
+        int statusCode;
+        if(STUDENT.equals(userType)){
+            String field =ReflectUtil.getColVal(new Student(),(String) map.get("field"));
+            statusCode=studentDao.isExistQueryBySomeCondition(field,value)==true?Response.OK:Response.ERROR;
+        }
+        else if (TEACHER.equals(userType)){
+            String field =ReflectUtil.getColVal(new Teacher(),(String) map.get("field"));
+            statusCode=teacherDao.isExistQueryBySomeCondition(field,value)==true?Response.OK:Response.ERROR;
+        }
+        else {
+            statusCode= Response.ERROR;
+        }
+        return statusCode;
+    }
 }

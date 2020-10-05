@@ -2,6 +2,7 @@ package controller;
 
 import commom.constantval.ServletConstantVal;
 import commom.factory.ResponseFactory;
+import lombok.extern.slf4j.Slf4j;
 import util.EmailUtil;
 import util.WebUtil;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +15,9 @@ import java.util.Map;
 /**
  * @author Florence
  */
+
 @WebServlet("/Servlet/VerifyCodeServlet")
+@Slf4j
 public class VerifyCodeServlet extends HttpServlet {
     Map<String,Object> map;
     @Override
@@ -29,6 +32,8 @@ public class VerifyCodeServlet extends HttpServlet {
             WebUtil.writeObjToResponse(response, ResponseFactory.getMessage(emailUtil.sendEmail((String) map.get("email"))));
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("发送邮件错误 {}",e.getMessage());
+            WebUtil.writeObjToResponse(response,ResponseFactory.getMessage("格式错误"));
         }
         System.out.println("post");
     }
@@ -44,9 +49,9 @@ public class VerifyCodeServlet extends HttpServlet {
         try {
             WebUtil.writeObjToResponse(response, ResponseFactory.getMessage(emailUtil.sendEmail((String) map.get("email"))));
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("发送邮件错误 {}",e.getMessage());
+            WebUtil.writeObjToResponse(response,ResponseFactory.getMessage("格式错误"));
         }
-        response.getWriter().write("asdada");
         System.out.println("get");
     }
 

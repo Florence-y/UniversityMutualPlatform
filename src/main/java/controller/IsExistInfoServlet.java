@@ -1,6 +1,10 @@
 package controller;
 
 import commom.constantval.ServletConstantVal;
+import commom.factory.ResponseFactory;
+import org.elasticsearch.client.security.user.User;
+import service.UserService;
+import service.impl.UserServiceImpl;
 import util.WebUtil;
 
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +21,8 @@ import java.util.Map;
 @WebServlet("/Servlet/IsExistInfoServlet")
 public class IsExistInfoServlet extends HttpServlet {
     Map<String,Object> map;
+    UserService service = new UserServiceImpl();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
@@ -28,12 +34,14 @@ public class IsExistInfoServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.formToMap(request);
         if (ServletConstantVal.DELETE.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
             doDelete(request, response);
             return;
         }
+        int code=service.isExistOneInf((String)map.get("userType"),map);
+        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("get");
     }
 

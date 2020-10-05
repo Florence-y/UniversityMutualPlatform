@@ -2,14 +2,19 @@ package util;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.AnalyzeRequest;
-import org.elasticsearch.client.indices.AnalyzeResponse;
-import org.elasticsearch.client.indices.DetailAnalyzeResponse;
+import org.elasticsearch.client.indices.*;
+import org.elasticsearch.cluster.metadata.MappingMetadata;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.PrefixQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -25,7 +30,7 @@ import java.util.*;
  * @author Florence
  */
 public class ElasticUtil {
-    static RestHighLevelClient client;
+    static RestHighLevelClient client=getRestHighLevelClient();
     public static RestHighLevelClient getRestHighLevelClient() {
         return new RestHighLevelClient(
                 RestClient.builder(new HttpHost("127.0.0.1", 9200, "http")));
@@ -149,7 +154,82 @@ public class ElasticUtil {
             }
             list.add(token.getTerm());
         }
-        System.out.println(list);
         return list;
     }
+
+    /**********************************************************************************************************/
+
+
+    public static void addDoc() throws IOException {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("userName", "吴晓吟");
+        jsonMap.put("sex", "女");
+        jsonMap.put("message", "你能怎么样");
+        jsonMap.put("content","一起向前冲");
+        IndexRequest indexRequest = new IndexRequest("test")
+                .source(jsonMap);
+        IndexResponse indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
+        System.out.println(indexResponse.getPrimaryTerm());
+        System.out.println(indexResponse.getId());
+        System.out.println(indexResponse.status());
+    }
+    public static void addIndex() throws IOException {
+        client=getRestHighLevelClient();
+        CreateIndexRequest request = new CreateIndexRequest("test");
+        //建立setting
+        request.settings(Settings.builder()
+                .put("index.number_of_shards", 3)
+                .put("index.number_of_replicas", 2)
+        );
+        //建立mapping
+        XContentBuilder builder = XContentFactory.jsonBuilder();
+        builder.startObject();
+        {
+            builder.startObject("properties");
+            {
+                builder.startObject("message");
+                {
+                    builder.field("type", "text");
+                }
+                builder.endObject();
+                builder.startObject("userName");
+                {
+                    builder.field("type", "keyword");
+                }
+                builder.endObject();
+                builder.startObject("sex");
+                {
+                    builder.field("type", "text");
+                }
+                builder.endObject();
+                builder.startObject("content");
+                {
+                    builder.field("type", "text");
+                }
+                builder.endObject();
+            }
+            builder.endObject();
+        }
+        builder.endObject();
+        //添加mapping
+        request.mapping(builder);
+        //生成反应
+        CreateIndexResponse createIndexResponse = client.indices().create(request, RequestOptions.DEFAULT);
+        System.out.println(createIndexResponse.isAcknowledged());
+    }
+    public static void deleteIndex(String name) throws IOException {
+        DeleteIndexRequest request = new DeleteIndexRequest(name);
+        AcknowledgedResponse deleteIndexResponse = client.indices().delete(request, RequestOptions.DEFAULT);
+        System.out.println(deleteIndexResponse.isAcknowledged());
+    }
+    public static Map<String,Object> getMappings(String indexName) throws IOException {
+        GetMappingsRequest request = new GetMappingsRequest();
+        request.indices(indexName);
+        GetMappingsResponse getMappingResponse = client.indices().getMapping(request, RequestOptions.DEFAULT);
+        Map<String, MappingMetadata> mappings = getMappingResponse.mappings();
+        MappingMetadata mappingMetadata = mappings.get("test");
+        System.out.println(mappingMetadata.getSourceAsMap());
+        return mappingMetadata.getSourceAsMap();
+    }
+
 }
