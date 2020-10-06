@@ -11,7 +11,7 @@ public interface StudentDao extends BaseDao<Student> {
      * @param value 值 （最后一个是条件）
      * @return 返回值
      */
-    public int updateColByOneCondition(Object... value);
+    int updateColByOneCondition(Object... value);
 
     /**
      * 根据键值条件删除记录
@@ -19,7 +19,7 @@ public interface StudentDao extends BaseDao<Student> {
      * @param o 具体的值
      * @return 影响的行数
      */
-    public int deleteByOneCondition(String condition, Object o);
+    int deleteByOneCondition(String condition, Object o);
 
     /**
      * 根据条件获取一个对象

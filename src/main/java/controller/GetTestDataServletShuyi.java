@@ -18,6 +18,8 @@ import java.util.Map;
 @WebServlet("/Servlet/GetTestDataServletShuyi")
 public class GetTestDataServletShuyi extends HttpServlet {
     Map<String,Object> map;
+    private static final int EVEN=2;
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
@@ -26,7 +28,7 @@ public class GetTestDataServletShuyi extends HttpServlet {
     }
 
     private Map<String,String> getTestMap(String... keyAndValue) {
-        if (keyAndValue.length%2!=0){
+        if (keyAndValue.length%EVEN!=0){
             System.out.println("参数个数不对");
             return null;
         }

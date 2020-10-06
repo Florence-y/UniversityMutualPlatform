@@ -1,27 +1,34 @@
 package util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.action.support.master.AcknowledgedResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.*;
 import org.elasticsearch.cluster.metadata.MappingMetadata;
 import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.PrefixQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.RangeQueryBuilder;
+import org.elasticsearch.index.query.*;
+import org.elasticsearch.index.reindex.BulkByScrollResponse;
+import org.elasticsearch.index.reindex.UpdateByQueryRequest;
+import org.elasticsearch.script.Script;
+import org.elasticsearch.script.ScriptType;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import pojo.Response;
 
 import java.io.IOException;
 import java.util.*;
@@ -29,33 +36,58 @@ import java.util.*;
 /**
  * @author Florence
  */
+@Slf4j
 public class ElasticUtil {
+    public static final String WRONG="sbsbsbsbsbsbbsbsbsbsbsb";
     static RestHighLevelClient client=getRestHighLevelClient();
     public static RestHighLevelClient getRestHighLevelClient() {
         return new RestHighLevelClient(
                 RestClient.builder(new HttpHost("127.0.0.1", 9200, "http")));
     }
     /**
-     * 多条件查询
+     * 多条件查询（and查询，只获取两者同时有的东西）
      * @param mustMap 要查询的键值对
      * @param length 长度
      * @return 得到的结果
      */
-    public static List<String> multiSearch(Map<String,Object> mustMap, int length) {
+    public static List<String> multiAndSearch(Map<String,Object> mustMap, int length,boolean isFuzzy) {
         // 根据多个条件 生成 boolQueryBuilder
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-
         // 循环添加多个条件
         for (Map.Entry<String, Object> entry : mustMap.entrySet()) {
-            boolQueryBuilder.must(QueryBuilders
-                    .matchQuery(entry.getKey(), entry.getValue()));
+            MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(entry.getKey(), entry.getValue());
+            matchQueryBuilder=isFuzzy?matchQueryBuilder.fuzziness(Fuzziness.AUTO).prefixLength(3).maxExpansions(10):matchQueryBuilder;
+            //and
+            boolQueryBuilder.must(matchQueryBuilder);
         }
-
         // boolQueryBuilder生效
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(boolQueryBuilder);
         searchSourceBuilder.size(length);
-
+        // 其中listSearchResult是自己编写的方法，以供多中查询方式使用。
+        return listSearchResult(searchSourceBuilder);
+    }
+    /**
+     * 多条件查询
+     * @param mustMap 要查询的键值对
+     * @param length 长度
+     * @param isFuzzy 是否模糊查询
+     * @return 得到的结果
+     */
+    public static List<String> multiOrSearch(Map<String,Object> mustMap, int length,boolean isFuzzy) {
+        // 根据多个条件 生成 boolQueryBuilder
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        // 循环添加多个条件
+        for (Map.Entry<String, Object> entry : mustMap.entrySet()) {
+            MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(entry.getKey(), entry.getValue());
+            matchQueryBuilder=isFuzzy?matchQueryBuilder.fuzziness(Fuzziness.AUTO).prefixLength(3).maxExpansions(10):matchQueryBuilder;
+            //or
+            boolQueryBuilder.should(matchQueryBuilder);
+        }
+        // boolQueryBuilder生效
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(boolQueryBuilder);
+        searchSourceBuilder.size(length);
         // 其中listSearchResult是自己编写的方法，以供多中查询方式使用。
         return listSearchResult(searchSourceBuilder);
     }
@@ -69,7 +101,6 @@ public class ElasticUtil {
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.source(builder);
         RestHighLevelClient client = getRestHighLevelClient();
-
         // 获得response
         SearchResponse searchResponse = null;
         try {
@@ -88,15 +119,25 @@ public class ElasticUtil {
         assert searchResponse != null;
         SearchHits hits = searchResponse.getHits();
         for (SearchHit next : hits) {
+            System.out.println(next.getScore());
             list.add(next.getSourceAsString());
         }
         return list;
     }
-    public static List<String> simpleSearch(String key,Object value,int length) {
+
+    /**
+     * 单条件查询
+     * @param key 键
+     * @param value 值
+     * @param length 要的数量
+     * @param isFuzzy 是否模糊查询
+     * @return 查询到的列表
+     */
+    public static List<String> simpleSearch(String key,Object value,int length,Boolean isFuzzy) {
         // 使用上面已经编写好的方法
         Map<String,Object> map = new HashMap<>(6);
         map.put(key,value);
-        return multiSearch(map,length);
+        return multiAndSearch(map,length,isFuzzy);
     }
     /**
      * 根据时间段去查询
@@ -107,7 +148,6 @@ public class ElasticUtil {
         // 生成builder
         RangeQueryBuilder rangeQueryBuilder =
                 QueryBuilders.rangeQuery("date").from(from).to(to);
-
         /// boolQueryBuilder生效
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(rangeQueryBuilder);
@@ -120,7 +160,7 @@ public class ElasticUtil {
      * @return 返回删除的结果
      * @throws IOException io异常
      */
-    public static boolean delete(String indexName) throws IOException {
+    public static boolean deleteIndex(String indexName) throws IOException {
         RestHighLevelClient client = getRestHighLevelClient();
         DeleteIndexRequest request =
                 new DeleteIndexRequest(indexName);
@@ -128,13 +168,13 @@ public class ElasticUtil {
         return true;
     }
     /**
-     * 后文段模糊查找方法，可以理解为 like value?
+     * 前缀查询 前面一定是固定的
      * @param key 键
      * @param prefix 要查询的
      * @param size 数量
      * @return 查询结果
      */
-    public static List<String> fuzzy(String key, String prefix,int size) {
+    public static List<String> prefix(String key, String prefix,int size) {
         PrefixQueryBuilder builder = QueryBuilders.prefixQuery(key, prefix);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.size(size);
@@ -142,6 +182,12 @@ public class ElasticUtil {
         return listSearchResult(searchSourceBuilder);
     }
 
+    /**
+     * 分词api
+     * @param keyWord 关键词
+     * @return 分词列表
+     * @throws IOException
+     */
     public static List<String> divideTheKeyWord(String keyWord) throws IOException {
         List<String> list = new LinkedList<>();
         client =getRestHighLevelClient();
@@ -157,22 +203,87 @@ public class ElasticUtil {
         return list;
     }
 
+    /**
+     * 批量更新，先搜索然后更新
+     * @param index 索引
+     * @param queryBuilder 搜索builder
+     * @param code 脚本代码
+     * @return
+     * @throws IOException
+     */
+    public static String updateDoc(String index,QueryBuilder queryBuilder,String code) throws IOException {
+        UpdateByQueryRequest request = new UpdateByQueryRequest(index);
+        request.setQuery(queryBuilder);
+        request.setConflicts("proceed");
+        //设置更新逻辑 code example  = ”if (ctx._source.user == 'kimchy') {ctx._source.likes++;}“
+        request.setScript(new Script(ScriptType.INLINE, "painless", code, Collections.<String, Object>emptyMap()));
+        //更新
+        BulkByScrollResponse bulkResponse = client.updateByQuery(request, RequestOptions.DEFAULT);
+        //注意这里不是有效信息
+        return bulkResponse.getReasonCancelled();
+    }
+
+    /**
+     * 根据id更新数据
+     * @param index 索引
+     * @param id id
+     * @param dataMap 数据键值对
+     * @return 调用的索引
+     */
+    public static int updateDocById(String index,String id,Map<String,Object> dataMap)  {
+        try {
+            //设置要更新的键值对
+            UpdateRequest request = new UpdateRequest(index, id).doc(dataMap);
+            //进行更新
+            UpdateResponse updateResponse = client.update(request, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            log.error("索引更新异常 {}",e.getMessage());
+            e.printStackTrace();
+            return Response.ERROR;
+        }
+        return Response.OK;
+    }
+
+    /**
+     * 删除文档
+     * @param index 索引
+     * @param id 文档id
+     * @return 状态码
+     */
+    public static int deleteDocById(String index,String id){
+        try {
+            DeleteRequest request = new DeleteRequest(index, id);
+            DeleteResponse deleteResponse = client.delete(request, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("删除索引出现异常 {}",e.getMessage());
+            return Response.ERROR;
+        }
+        return Response.OK;
+    }
+
+    /**
+     * 添加文档
+     * @param docMap 文档map
+     * @return 返回的字符串
+     * @throws IOException io异常
+     */
+    public static String addDoc(Map<String,Object> docMap) {
+        IndexResponse indexResponse = null;
+        try {
+            //添加map数据
+            IndexRequest indexRequest = new IndexRequest("test").source(docMap);
+            //索引
+            indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("添加文档出现异常 {}",e.getMessage());
+            return WRONG;
+        }
+        return indexResponse.getId();
+    }
     /**********************************************************************************************************/
 
-
-    public static void addDoc() throws IOException {
-        Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("userName", "吴晓吟");
-        jsonMap.put("sex", "女");
-        jsonMap.put("message", "你能怎么样");
-        jsonMap.put("content","一起向前冲");
-        IndexRequest indexRequest = new IndexRequest("test")
-                .source(jsonMap);
-        IndexResponse indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
-        System.out.println(indexResponse.getPrimaryTerm());
-        System.out.println(indexResponse.getId());
-        System.out.println(indexResponse.status());
-    }
     public static void addIndex() throws IOException {
         client=getRestHighLevelClient();
         CreateIndexRequest request = new CreateIndexRequest("test");
@@ -217,11 +328,7 @@ public class ElasticUtil {
         CreateIndexResponse createIndexResponse = client.indices().create(request, RequestOptions.DEFAULT);
         System.out.println(createIndexResponse.isAcknowledged());
     }
-    public static void deleteIndex(String name) throws IOException {
-        DeleteIndexRequest request = new DeleteIndexRequest(name);
-        AcknowledgedResponse deleteIndexResponse = client.indices().delete(request, RequestOptions.DEFAULT);
-        System.out.println(deleteIndexResponse.isAcknowledged());
-    }
+
     public static Map<String,Object> getMappings(String indexName) throws IOException {
         GetMappingsRequest request = new GetMappingsRequest();
         request.indices(indexName);
@@ -231,5 +338,6 @@ public class ElasticUtil {
         System.out.println(mappingMetadata.getSourceAsMap());
         return mappingMetadata.getSourceAsMap();
     }
+
 
 }

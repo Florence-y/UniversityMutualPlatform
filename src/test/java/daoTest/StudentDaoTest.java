@@ -1,9 +1,10 @@
-package Dao;
+package daoTest;
 
 import dao.StudentDao;
 import dao.impl.StudentDaoImpl;
 import org.junit.Test;
 import pojo.Student;
+import util.MySql;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,5 +25,9 @@ public class StudentDaoTest {
         map.put("level","大一");
         map.put("sssss","dddd");
         dao.insertRowByKeyAndValue(new Student(),map);
+    }
+    @Test
+    public void  testMysql(){
+        System.out.println(MySql.CREATE_TABLE_INF);
     }
 }

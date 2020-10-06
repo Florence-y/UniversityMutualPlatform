@@ -4,6 +4,7 @@ package util;
 import commom.annontation.DbCol;
 import commom.annontation.DbPriKey;
 import commom.annontation.DbTable;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.Map;
 /**
  * @author Florence
  */
+@Slf4j
 public class ReflectUtil {
 
     public static <T> String getIdField(T pojo) {
@@ -136,5 +138,23 @@ public class ReflectUtil {
         }
         System.out.println("获取数据库列为空");
         return null;
+    }
+
+    /**
+     * 获取一个对象域map
+     * @param pojo 实体对象
+     * @param <T> 具体对象类型
+     * @return 域map
+     */
+    public static <T> Map<String,Object> getObjectFieldMap(T pojo){
+        if (pojo==null){
+            log.error("空指针异常");
+        }
+        Class<?> clazz =pojo.getClass();
+        Map<String,Object> map = new HashMap<>();
+        for (Field field:clazz.getDeclaredFields()){
+            map.put(field.getName(),true);
+        }
+        return map;
     }
 }

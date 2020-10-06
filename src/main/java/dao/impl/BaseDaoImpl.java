@@ -172,7 +172,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
      * 拿根据键值对拿到一行数据
      * @param condition 键
      * @param o 值
-     * @return
+     * @return 返回一个封装好的对象
      */
     public T selectOneColByOneCondition(String condition,Object o){
         String sql = "select * from "+getTableName()+" WHERE "+condition+"= ? LIMIT 1";

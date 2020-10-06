@@ -158,11 +158,11 @@ public class UserServiceImpl implements UserService {
         int statusCode;
         if(STUDENT.equals(userType)){
             String field =ReflectUtil.getColVal(new Student(),(String) map.get("field"));
-            statusCode=studentDao.isExistQueryBySomeCondition(field,value)==true?Response.OK:Response.ERROR;
+            statusCode= studentDao.isExistQueryBySomeCondition(field, value)?Response.OK:Response.ERROR;
         }
         else if (TEACHER.equals(userType)){
             String field =ReflectUtil.getColVal(new Teacher(),(String) map.get("field"));
-            statusCode=teacherDao.isExistQueryBySomeCondition(field,value)==true?Response.OK:Response.ERROR;
+            statusCode= teacherDao.isExistQueryBySomeCondition(field, value)?Response.OK:Response.ERROR;
         }
         else {
             statusCode= Response.ERROR;

@@ -2,7 +2,6 @@ package controller;
 
 import commom.constantval.ServletConstantVal;
 import commom.factory.ResponseFactory;
-import org.elasticsearch.client.security.user.User;
 import service.UserService;
 import service.impl.UserServiceImpl;
 import util.WebUtil;
@@ -40,7 +39,7 @@ public class IsExistInfoServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
-        int code=service.isExistOneInf((String)map.get("userType"),map);
+        int code=service.isExistOneInf(map.get("userType"),map);
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("get");
     }

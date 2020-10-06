@@ -29,6 +29,17 @@ public enum MySql {
             "teacher_area VARCHAR(10) NOT NULL,"+
             "teacher_userName VARCHAR(20) NOT NULL UNIQUE"+
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
+    CREATE_TABLE_INF("CREATE TABLE IF NOT EXISTS t_inf ("+
+            "inf_id INT PRIMARY KEY AUTO_INCREMENT,"+
+            "inf_senderMarkNumber VARCHAR(20),"+
+            "inf_receiverMarkNumber VARCHAR(20),"+
+            "inf_content VARCHAR(50) NOT NULL ,"+
+            "inf_sendTime DATETIME NOT NULL,"+
+            "inf_additionContent VARCHAR(50),"+
+            "inf_type VARCHAR(15),"+
+            "inf_senderName VARCHAR(20),"+
+            "inf_isRead boolean"+
+            ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //文章表
     CREATE_TABLE_ARTICLE("CREATE TABLE IF NOT EXISTS articles  (" +
             "id INT PRIMARY KEY AUTO_INCREMENT," +

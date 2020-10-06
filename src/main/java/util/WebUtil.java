@@ -189,4 +189,22 @@ public class WebUtil {
         System.out.println(map);
         return map;
     }
+
+    /**
+     * 根据一个含有杂乱信息的map根据实体pojo来获取有用信息的map
+     * @param mixMap 杂乱信息的map
+     * @param pojo 具体的实体map
+     * @param <T> 具体的实体类型
+     * @return 纯净map
+     */
+    public static <T> Map<String,Object> getPureMapFromMixMapToPojo(Map<String,Object> mixMap, T pojo){
+        Map<String, Object> pojoField = ReflectUtil.getObjectFieldMap(pojo);
+        for (Map.Entry<String,Object> entry:mixMap.entrySet()){
+            String key=entry.getKey();
+            if (pojoField.get(key)!=null){
+                pojoField.put(key,entry.getValue());
+            }
+        }
+        return pojoField;
+    }
 }
