@@ -16,39 +16,49 @@ public class JdbcUtil {
 
     /**
      * 执行一条sql语句（一般用来执行DDL语句）
+     *
      * @param sql sql语句
      * @return 影响第几行
      */
-    public static int executeSql(String sql){
+    public static int executeSql(String sql) {
         try {
-            connection=C3P0Util.getConnection();
+            connection = C3P0Util.getConnection();
             assert connection != null;
-            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(sql);
             return preparedStatement.executeUpdate();
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         } finally {
-            C3P0Util.close(connection,preparedStatement);
+            C3P0Util.close(connection, preparedStatement);
         }
         return -1;
     }
 
     /**
      * 根据可变参数设置未知值
+     *
      * @param preparedStatement 预设定语句
-     * @param value 参数值
+     * @param value             参数值
      */
     private static void setPrepareStatementUnknown(PreparedStatement preparedStatement, Object[] value) {
         try {
-            for (int i=0;i<value.length;i++) {
+            for (int i = 0; i < value.length; i++) {
                 if (value[i].getClass().isAssignableFrom(Integer.class)) {
                     preparedStatement.setInt(i + 1, (Integer) value[i]);
-                }
-                else if (value[i].getClass().isAssignableFrom(String.class)){
-                    preparedStatement.setString(i+1,(String)value[i]);
-                }
-                else if (value[i].getClass().isAssignableFrom(Date.class)){
-                    preparedStatement.setDate(i+1,(Date)value[i]);
+                } else if (value[i].getClass().isAssignableFrom(String.class)) {
+                    preparedStatement.setString(i + 1, (String) value[i]);
+                } else if (value[i].getClass().isAssignableFrom(Date.class)) {
+                    preparedStatement.setDate(i + 1, (Date) value[i]);
+                } else if (value[i].getClass().isAssignableFrom(Boolean.class)) {
+                    preparedStatement.setBoolean(i + 1, (Boolean) value[i]);
+                } else if (value[i].getClass().isAssignableFrom(Double.class)) {
+                    preparedStatement.setDouble(i + 1, (Double) value[i]);
+                } else if (value[i].getClass().isAssignableFrom(Float.class)) {
+                    preparedStatement.setFloat(i + 1, (Float) value[i]);
+                } else if (value[i].getClass().isAssignableFrom(Long.class)) {
+                    preparedStatement.setLong(i + 1, (Long) value[i]);
+                } else if (value[i].getClass().isAssignableFrom(Timestamp.class)) {
+                    preparedStatement.setTimestamp(i + 1, (Timestamp) value[i]);
                 }
             }
         } catch (SQLException throwable) {
@@ -58,87 +68,93 @@ public class JdbcUtil {
 
     /**
      * 根据可变参数执行sql语句（用来进行删除或者更新语句）
-     * @param sql sql语句
+     *
+     * @param sql   sql语句
      * @param value 可变参数 也就是？的数量
      * @return 更新的条数
      */
-    public static int update(String sql,Object... value){
-        try{
-            connection=C3P0Util.getConnection();
+    public static int update(String sql, Object... value) {
+        try {
+            connection = C3P0Util.getConnection();
             assert connection != null;
-            preparedStatement=connection.prepareStatement(sql);
-            setPrepareStatementUnknown(preparedStatement,value);
+            preparedStatement = connection.prepareStatement(sql);
+            setPrepareStatementUnknown(preparedStatement, value);
             return preparedStatement.executeUpdate();
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         } finally {
-            C3P0Util.close(connection,preparedStatement);
+            C3P0Util.close(connection, preparedStatement);
         }
         return -1;
     }
+
     /**
+     * 根据查询语句获取一个实体对象，无参数的方法，还重载了一个有参数的方法
      *
-     * @param sql sql语句
+     * @param sql            sql语句
      * @param strategyObject 获取设置对象的策略
-     * @param <T> 泛型参数
+     * @param <T>            泛型参数
      * @return 返回一个javabean对象
      */
-    public static<T> T queryForJavaBean(String sql, JdbcGetPojoStrategy<T> strategyObject){
+    public static <T> T queryForJavaBean(String sql, JdbcGetPojoStrategy<T> strategyObject) {
         try {
-            connection=C3P0Util.getConnection();
+            connection = C3P0Util.getConnection();
             assert connection != null;
-            preparedStatement=connection.prepareStatement(sql);
-            resultSet=preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return strategyObject.strategy(resultSet);
             }
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         } finally {
-            C3P0Util.close(connection,preparedStatement,resultSet);
+            C3P0Util.close(connection, preparedStatement, resultSet);
         }
         return null;
     }
 
     /**
      * 根据sql查询（多条数据）然后进行封装
-     * @param sql sql语句
+     *
+     * @param sql          sql语句
      * @param pojoStrategy 获取对象的策略
-     * @param <T> 泛型类型
+     * @param <T>          泛型类型
      * @return 返回的结果集合
      */
-    public static <T> List<T> queryForJavaBeanAllData(String sql, JdbcGetPojoStrategy<T> pojoStrategy){
+    public static <T> List<T> queryForJavaBeanAllData(String sql, JdbcGetPojoStrategy<T> pojoStrategy, Object... value) {
         try {
-            connection=C3P0Util.getConnection();
+            connection = C3P0Util.getConnection();
             assert connection != null;
-            preparedStatement=connection.prepareStatement(sql);
-            resultSet=preparedStatement.executeQuery();
-            List<T> resultList= new LinkedList<>();
-            while (resultSet.next()){
+            preparedStatement = connection.prepareStatement(sql);
+            setPrepareStatementUnknown(preparedStatement, value);
+            resultSet = preparedStatement.executeQuery();
+            List<T> resultList = new LinkedList<>();
+            while (resultSet.next()) {
                 resultList.add(pojoStrategy.strategy(resultSet));
             }
             return resultList;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         } finally {
-            C3P0Util.close(connection,preparedStatement,resultSet);
+            C3P0Util.close(connection, preparedStatement, resultSet);
         }
         return null;
     }
 
     /**
      * 根据sql获取ResultSet
-     * @param sql sql语句
+     *
+     * @param sql   sql语句
      * @param value 值
      * @return 返回获取到的结果集
      */
-    public static ResultSet queryForGetResultSet(Connection con,String sql,Object... value){
+    public static ResultSet queryForGetResultSet(Connection con, String sql, Object... value) {
         try {
-            connection=con;
+            connection = con;
             assert connection != null;
-            preparedStatement=connection.prepareStatement(sql);
-            setPrepareStatementUnknown(preparedStatement,value);
-            resultSet=preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement(sql);
+            setPrepareStatementUnknown(preparedStatement, value);
+            resultSet = preparedStatement.executeQuery();
             return resultSet;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
@@ -148,77 +164,117 @@ public class JdbcUtil {
 
     /**
      * 根据sql设置参数 ？ ？ ？ ？ ？
-     * @param sql 插入语句
+     *
+     * @param sql   插入语句
      * @param value 参数的值
      * @return 返回的行数
      */
-    public static int insertOneRow(String sql,Object[] value) {
+    public static int insertOneRow(String sql, Object[] value) {
         try {
-            int nowArticleId=0;
-            connection=C3P0Util.getConnection();
+            int nowArticleId = 0;
+            connection = C3P0Util.getConnection();
             assert connection != null;
-            preparedStatement=connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-            setPrepareStatementUnknown(preparedStatement,value);
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            setPrepareStatementUnknown(preparedStatement, value);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             //获取刚插入的对象ID
-            if(generatedKeys.next()){
-                nowArticleId=generatedKeys.getInt(1);
+            if (generatedKeys.next()) {
+                nowArticleId = generatedKeys.getInt(1);
             }
             System.out.println(nowArticleId);
             return nowArticleId;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         } finally {
-            C3P0Util.close(connection,preparedStatement);
+            C3P0Util.close(connection, preparedStatement);
         }
         return -1;
     }
 
     /**
      * 根据一个条件查询数据是否存在
+     *
      * @param sql sql语句
      * @return 返回值
      */
     public static boolean isExistByOneCondition(String sql, Object value) {
         try {
-            connection=C3P0Util.getConnection();
+            connection = C3P0Util.getConnection();
             assert connection != null;
             //声明预备语句（放在enum类中）
-            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(sql);
             //设置条件
-            setPrepareStatementUnknown(preparedStatement,new Object[]{value});
+            setPrepareStatementUnknown(preparedStatement, new Object[]{value});
             //查找用户是否存在
             resultSet = preparedStatement.executeQuery();
             //是否存在？
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 return true;
             }
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         } finally {
             //清理数据库资源
-            C3P0Util.close(connection,preparedStatement,resultSet);
+            C3P0Util.close(connection, preparedStatement, resultSet);
         }
         //不存在
         return false;
     }
 
+    /**
+     * 根据查询语句获取一个实体对象，有参数的方法，还重载了一个无参数的方法
+     *
+     * @param sql             sql语句
+     * @param packageStrategy 打包的策略
+     * @param o               具体的？的参数
+     * @param <T>             实体具体类型
+     * @return 封装好的实体对象
+     */
     public static <T> T queryForJavaBean(String sql, JdbcGetPojoStrategy packageStrategy, Object... o) {
         try {
-            connection=C3P0Util.getConnection();
+            connection = C3P0Util.getConnection();
             assert connection != null;
-            preparedStatement=connection.prepareStatement(sql);
-            setPrepareStatementUnknown(preparedStatement,o);
-            resultSet=preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement(sql);
+            setPrepareStatementUnknown(preparedStatement, o);
+            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return (T) packageStrategy.strategy(resultSet);
             }
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         } finally {
-            C3P0Util.close(connection,preparedStatement,resultSet);
+            C3P0Util.close(connection, preparedStatement, resultSet);
         }
         return null;
+    }
+
+    /**
+     * 根据条件获取文章总数（也可以为无条件）
+     *
+     * @param sql   拼接完成的sql语句
+     * @param value ？ 的值
+     * @return 返回行的数量
+     */
+    public static int getCount(String sql, Object[] value) {
+        try {
+            connection = C3P0Util.getConnection();
+            assert connection != null;
+            //声明预备语句（放在enum类中）
+            preparedStatement = connection.prepareStatement(sql);
+            //设置未知参数
+            setPrepareStatementUnknown(preparedStatement, value);
+            //执行查询
+            resultSet = preparedStatement.executeQuery();
+            //获取总数
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            C3P0Util.close(connection, preparedStatement, resultSet);
+        }
+        return -1;
     }
 }

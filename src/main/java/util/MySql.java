@@ -4,48 +4,50 @@ public enum MySql {
     //学生表
     CREATE_TABLE_STUDENT("CREATE TABLE IF NOT EXISTS t_student (" +
             "student_id INT PRIMARY KEY AUTO_INCREMENT," +
-            "student_markNumber VARCHAR(20) NOT NULL UNIQUE,"+
+            "student_markNumber VARCHAR(20) NOT NULL UNIQUE," +
             "student_email VARCHAR(30) NOT NULL ," +
-            "student_password VARCHAR(50) NOT NULL,"+
+            "student_password VARCHAR(50) NOT NULL," +
             "student_level VARCHAR(10) NOT NULL," +
-            "student_face VARCHAR(50) NOT NULL DEFAULT '../img/defaultStudentFace.jpg',"+
-            "student_college VARCHAR(20) NOT NULL,"+
-            "student_sex VARCHAR(6) DEFAULT '男',"+
-            "student_major VARCHAR(20) NOT NULL,"+
-            "student_userName VARCHAR(20) NOT NULL UNIQUE,"+
-            "student_area VARCHAR(20) NOT NULL"+
+            "student_face VARCHAR(50) NOT NULL DEFAULT '../img/defaultStudentFace.jpg'," +
+            "student_college VARCHAR(20) NOT NULL," +
+            "student_sex VARCHAR(6) DEFAULT '男'," +
+            "student_major VARCHAR(20) NOT NULL," +
+            "student_userName VARCHAR(20) NOT NULL UNIQUE," +
+            "student_area VARCHAR(20) NOT NULL" +
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //老师表
     CREATE_TABLE_TEACHER("CREATE TABLE IF NOT EXISTS t_teacher (" +
             "teacher_id INT PRIMARY KEY AUTO_INCREMENT," +
-            "teacher_markNumber VARCHAR(20) NOT NULL UNIQUE,"+
+            "teacher_markNumber VARCHAR(20) NOT NULL UNIQUE," +
             "teacher_email VARCHAR(30) NOT NULL ," +
-            "teacher_password VARCHAR(50) NOT NULL,"+
-            "teacher_level VARCHAR(10) NOT NULL," +
-            "teacher_face VARCHAR(50) NOT NULL DEFAULT '../img/defaultTeacherFace.jpg',"+
-            "teacher_college VARCHAR(20) NOT NULL,"+
-            "teacher_major VARCHAR(20) NOT NULL,"+
-            "teacher_sex VARCHAR(6) DEFAULT '男',"+
-            "teacher_area VARCHAR(10) NOT NULL,"+
-            "teacher_userName VARCHAR(20) NOT NULL UNIQUE"+
+            "teacher_password VARCHAR(50) NOT NULL," +
+            "teacher_graduateUniversity VARCHAR(10)," +
+            "teacher_degree VARCHAR(10)," +
+            "teacher_face VARCHAR(50) NOT NULL DEFAULT '../img/defaultTeacherFace.jpg'," +
+            "teacher_college VARCHAR(20) NOT NULL," +
+            "teacher_sex VARCHAR(6) DEFAULT '男'," +
+            "teacher_area VARCHAR(10) NOT NULL," +
+            "teacher_userName VARCHAR(20) NOT NULL UNIQUE" +
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
-    CREATE_TABLE_INF("CREATE TABLE IF NOT EXISTS t_inf ("+
-            "inf_id INT PRIMARY KEY AUTO_INCREMENT,"+
-            "inf_senderMarkNumber VARCHAR(20),"+
-            "inf_receiverMarkNumber VARCHAR(20),"+
-            "inf_content VARCHAR(50) NOT NULL ,"+
-            "inf_sendTime DATETIME NOT NULL,"+
-            "inf_additionContent VARCHAR(50),"+
-            "inf_type VARCHAR(15),"+
-            "inf_senderName VARCHAR(20),"+
-            "inf_isRead boolean"+
+    //建立通知表
+    CREATE_TABLE_INF("CREATE TABLE IF NOT EXISTS t_inf (" +
+            "inf_id INT PRIMARY KEY AUTO_INCREMENT," +
+            "inf_senderMarkNumber VARCHAR(20) NOT NULL," +
+            "inf_receiverMarkNumber VARCHAR(20) NOT NULL," +
+            "inf_content VARCHAR(50) NOT NULL ," +
+            "inf_sendTime DATETIME NOT NULL," +
+            "inf_senderFace VARCHAR(30) NOT NULL," +
+            "inf_additionContent VARCHAR(50)," +
+            "inf_type VARCHAR(15) NOT NULL," +
+            "inf_senderName VARCHAR(20)," +
+            "inf_isRead boolean NOT NULL DEFAULT 0" +
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //文章表
     CREATE_TABLE_ARTICLE("CREATE TABLE IF NOT EXISTS articles  (" +
             "id INT PRIMARY KEY AUTO_INCREMENT," +
             "name VARCHAR(20) NOT NULL," +
-            "content VARCHAR(1000) NOT NULL,"+
-            "author VARCHAR(50) NOT NULL"+
+            "content VARCHAR(1000) NOT NULL," +
+            "author VARCHAR(50) NOT NULL" +
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //文章和分类的连接表
     CREATE_TABLE_SORT_LINK_ARTICLE("CREATE TABLE IF NOT EXISTS sortLinkArticle  (" +
@@ -58,13 +60,13 @@ public enum MySql {
             "name VARCHAR(50) NOT NULL" +
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //评论表
-    CREATE_TABLE_COMMENT("CREATE TABLE IF NOT EXISTS comment ("+
-            "id INT PRIMARY KEY AUTO_INCREMENT,"+
-            "userName VARCHAR(20) NOT NULL,"+
-            "content VARCHAR(100) NOT NULL,"+
-            "commentDate DATE NOT NULL,"+
-            "agreeCount INT DEFAULT 0,"+
-            "articleId INT NOT NULL"+
+    CREATE_TABLE_COMMENT("CREATE TABLE IF NOT EXISTS comment (" +
+            "id INT PRIMARY KEY AUTO_INCREMENT," +
+            "userName VARCHAR(20) NOT NULL," +
+            "content VARCHAR(100) NOT NULL," +
+            "commentDate DATE NOT NULL," +
+            "agreeCount INT DEFAULT 0," +
+            "articleId INT NOT NULL" +
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //建库语句
     CREATE_DATABASE("CREATE DATABASE IF NOT EXISTS University_Mutual_Platform DEFAULT CHARSET utf8 COLLATE utf8_general_ci"),
@@ -127,16 +129,15 @@ public enum MySql {
     //删除文章分类
     DELETE_ARTICLE_SORT("DELETE FROM sortLinkArticle WHERE articleId = ?"),
     //根据文章id删除评论
-    DELETE_COMMENTS_BY_ARTICLE_ID("DELETE FROM comment WHERE articleId= ?")
-    ;
+    DELETE_COMMENTS_BY_ARTICLE_ID("DELETE FROM comment WHERE articleId= ?");
 
     /**
      *
      */
-    private  final String SQL;
+    private final String SQL;
 
     MySql(String SQL) {
-        this.SQL=SQL;
+        this.SQL = SQL;
     }
 
     @Override

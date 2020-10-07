@@ -10,8 +10,8 @@
         <property name="maxPoolSize">50</property>
         <property name="minPoolSize">5</property>
         <property name="maxStatements">100</property>
-        <property name="maxIdleTime">10</property>
-        <property name="idleConnectionTestPeriod">30</property>
+        <property name="maxIdleTime">0</property>
+        <property name="idleConnectionTestPeriod">600</property>
     </default-config>
     <!--备用语句，首先执行备用语句来判断数据库的初始化是否成功-->
     <named-config name="initDatabase">
@@ -23,7 +23,7 @@
         <property name="maxPoolSize">5</property>
         <property name="minPoolSize">5</property>
         <property name="maxStatements">100</property>
-        <property name="maxIdleTime">10</property>
-        <property name="idleConnectionTestPeriod">30</property>
+        <property name="maxIdleTime">0</property>
+        <property name="idleConnectionTestPeriod">60</property>
     </named-config>
 </c3p0-config>

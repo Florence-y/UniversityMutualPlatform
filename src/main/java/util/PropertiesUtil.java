@@ -8,13 +8,13 @@ import java.util.Properties;
  */
 public class PropertiesUtil {
     private static final Properties PROP = new Properties();
-    private static final String ROOT_VALUE =System.getProperty("user.dir");
-    PropertiesUtil(String fileName) throws IOException {
-        InputStreamReader in = new InputStreamReader(new FileInputStream(ROOT_VALUE +"/src/main/resources/"+fileName),"gbk");
+
+    public PropertiesUtil(String fileName) throws IOException {
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream(fileName);
         PROP.load(in);
     }
 
-    public String getProperty(String name){
+    public String getProperty(String name) {
         return PROP.getProperty(name);
     }
 }

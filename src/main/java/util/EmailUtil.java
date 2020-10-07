@@ -27,13 +27,13 @@ public class EmailUtil {
     /**
      * 协议
      */
-    private static final String PROTOCOL ="smtp";
+    private static final String PROTOCOL = "smtp";
     /**
      * 服务器端口
      */
     private static final String SMTP_PORT = "465";
     /**
-     *  用于创建会话对象
+     * 用于创建会话对象
      */
     private static Session session;
     /**
@@ -63,6 +63,7 @@ public class EmailUtil {
 
     /**
      * 构建邮件内容
+     *
      * @param toEmail 要发送验证码的用户
      * @return 发送邮件内容
      */
@@ -76,15 +77,17 @@ public class EmailUtil {
         message.setSubject("验证码", "UTF-8");
         // 邮件正文
         vCode = verifyCode(6);
-        message.setContent("您好，您的验证码是："+vCode+"。", "text/html;charset=UTF-8");
+        message.setContent("您好，您的验证码是：" + vCode + "。", "text/html;charset=UTF-8");
         // 设置发件时间
         message.setSentDate(new Date());
         // 保存设置
         message.saveChanges();
         return message;
     }
+
     /**
      * 发送邮件
+     *
      * @param toEmail 收件人
      */
     public String sendEmail(String toEmail) throws Exception {
@@ -98,10 +101,11 @@ public class EmailUtil {
         transport.close();
         return vCode;
     }
+
     public static String verifyCode(int n) {
         StringBuilder strB = new StringBuilder();
         Random rand = new Random();
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             int r1 = rand.nextInt(3);
             int r2 = 0;
             // r2为ascii码值
@@ -121,7 +125,7 @@ public class EmailUtil {
                 default:
                     break;
             }
-            strB.append((char)r2);
+            strB.append((char) r2);
         }
         return strB.toString();
     }

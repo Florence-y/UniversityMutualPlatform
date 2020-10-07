@@ -18,8 +18,8 @@ public class TeacherJdbcStrategy implements JdbcGetPojoStrategy<Teacher> {
         teacher.setCollege(resultSet.getString(pojoField.get("college")));
         teacher.setEmail(resultSet.getString(pojoField.get("email")));
         teacher.setFace(resultSet.getString(pojoField.get("face")));
-        teacher.setLevel(resultSet.getString(pojoField.get("level")));
-        teacher.setMajor(resultSet.getString(pojoField.get("major")));
+        teacher.setDegree(resultSet.getString(pojoField.get("degree")));
+        teacher.setGraduatedUniversity(resultSet.getString(pojoField.get("graduatedUniversity")));
         teacher.setMarkNumber(resultSet.getString(pojoField.get("markNumber")));
         teacher.setPassword(resultSet.getString(pojoField.get("password")));
         teacher.setSex(resultSet.getString(pojoField.get("sex")));

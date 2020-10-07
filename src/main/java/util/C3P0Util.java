@@ -2,6 +2,8 @@ package util;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+import java.awt.*;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,31 +15,32 @@ import java.sql.SQLException;
  */
 public class C3P0Util {
     private static ComboPooledDataSource dataSource;
+
     //静态块初始化建表
     static {
         try {
             //先连接备用配置
             ComboPooledDataSource tempDataSource = new ComboPooledDataSource("initDatabase");
-            Connection tempConnection= tempDataSource.getConnection();
+            Connection tempConnection = tempDataSource.getConnection();
             //建库
-            PreparedStatement tempPreparedStatement= tempConnection.prepareStatement(MySql.CREATE_DATABASE.toString());
+            PreparedStatement tempPreparedStatement = tempConnection.prepareStatement(MySql.CREATE_DATABASE.toString());
             tempPreparedStatement.executeUpdate();
             //关闭备用连接库
             tempDataSource.close();
             //重新连接建好刚建的库
-            dataSource=new ComboPooledDataSource();
+            dataSource = new ComboPooledDataSource();
             //获取连接
-            tempConnection=dataSource.getConnection();
+            tempConnection = dataSource.getConnection();
             //建立学生表
-            tempPreparedStatement=tempConnection.prepareStatement(MySql.CREATE_TABLE_STUDENT.toString());
+            tempPreparedStatement = tempConnection.prepareStatement(MySql.CREATE_TABLE_STUDENT.toString());
             tempPreparedStatement.executeUpdate();
             //建立老师表
-            tempPreparedStatement=tempConnection.prepareStatement(MySql.CREATE_TABLE_TEACHER.toString());
+            tempPreparedStatement = tempConnection.prepareStatement(MySql.CREATE_TABLE_TEACHER.toString());
             tempPreparedStatement.executeUpdate();
             //建立消息通知表
-            tempPreparedStatement=tempConnection.prepareStatement(MySql.CREATE_TABLE_INF.toString());
+            tempPreparedStatement = tempConnection.prepareStatement(MySql.CREATE_TABLE_INF.toString());
             tempPreparedStatement.executeUpdate();
-            close(tempConnection,tempPreparedStatement);
+            close(tempConnection, tempPreparedStatement);
             System.out.println("初始化数据库表结构初始化完成");
         } catch (SQLException throwable) {
             System.out.println("数据库表结构已经建立，不用初始化");
@@ -46,6 +49,7 @@ public class C3P0Util {
 
     /**
      * 获取连接
+     *
      * @return 返回连接
      */
     public static Connection getConnection() {
@@ -60,9 +64,10 @@ public class C3P0Util {
 
     /**
      * 释放资源（用于查询方法）
+     *
      * @param conn 连接
-     * @param pst prepareStatement语句
-     * @param rs 结果集
+     * @param pst  prepareStatement语句
+     * @param rs   结果集
      */
     public static void close(Connection conn, PreparedStatement pst, ResultSet rs) {
         if (rs != null) {
@@ -90,10 +95,11 @@ public class C3P0Util {
 
     /**
      * 解放资源（用于修改语句）
+     *
      * @param conn 连接
-     * @param pst prepareStatement语句
+     * @param pst  prepareStatement语句
      */
-    public static void close(Connection conn,PreparedStatement pst){
+    public static void close(Connection conn, PreparedStatement pst) {
         if (pst != null) {
             try {
                 pst.close();
@@ -109,7 +115,8 @@ public class C3P0Util {
             }
         }
     }
-    public static void close(Connection conn){
+
+    public static void close(Connection conn) {
         if (conn != null) {
             try {
                 conn.close();
@@ -128,7 +135,8 @@ public class C3P0Util {
             }
         }
     }
-    public static void close(Connection conn,ResultSet rs) {
+
+    public static void close(Connection conn, ResultSet rs) {
         if (rs != null) {
             try {
                 rs.close();

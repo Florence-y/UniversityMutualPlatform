@@ -15,7 +15,8 @@ import java.util.Map;
  */
 @WebServlet("/Servlet/ArticleServlet")
 public class ArticleServlet extends HttpServlet {
-    Map<String,Object> map;
+    Map<String, Object> map;
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));

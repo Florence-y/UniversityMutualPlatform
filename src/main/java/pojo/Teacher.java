@@ -12,136 +12,138 @@ import commom.annontation.DbTable;
 @DbTable("t_teacher")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Teacher {
-  @DbCol("teacher_id")
-  @DbPriKey
-  private long id;
-  @DbCol("teacher_markNumber")
-  private String markNumber;
-  @DbCol("teacher_email")
-  private String email;
-  @DbCol("teacher_password")
-  private String password;
-  @DbCol("teacher_level")
-  private String level;
-  @DbCol("teacher_face")
-  private String face;
-  @DbCol("teacher_college")
-  private String college;
-  @DbCol("teacher_major")
-  private String major;
-  @DbCol("teacher_sex")
-  private String sex;
-  @DbCol("teacher_userName")
-  private String userName;
-  @DbCol("teacher_area")
-  private String area;
+    @DbPriKey
+    @DbCol("teacher_id")
+    private long id;
+    @DbCol("teacher_markNumber")
+    private String markNumber;
+    @DbCol("teacher_email")
+    private String email;
+    @DbCol("teacher_password")
+    private String password;
+    @DbCol("teacher_face")
+    private String face;
+    @DbCol("teacher_college")
+    private String college;
+    @DbCol("teacher_sex")
+    private String sex;
+    @DbCol("teacher_userName")
+    private String userName;
+    @DbCol("teacher_area")
+    private String area;
+    @DbCol("teacher_graduateUniversity")
+    private String graduatedUniversity;
+    @DbCol("teacher_degree")
+    private String degree;
 
-  public long getId() {
-    return id;
-  }
+    public long getId() {
+        return id;
+    }
 
-  public void setId(long id) {
-    this.id = id;
-  }
-
-
-  public String getMarkNumber() {
-    return markNumber;
-  }
-
-  public void setMarkNumber(String markNumber) {
-    this.markNumber = markNumber;
-  }
+    public void setId(long id) {
+        this.id = id;
+    }
 
 
-  public String getEmail() {
-    return email;
-  }
+    public String getMarkNumber() {
+        return markNumber;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public void setMarkNumber(String markNumber) {
+        this.markNumber = markNumber;
+    }
 
 
-  public String getLevel() {
-    return level;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public void setLevel(String level) {
-    this.level = level;
-  }
-
-
-  public String getFace() {
-    return face;
-  }
-
-  public void setFace(String face) {
-    this.face = face;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
 
-  public String getCollege() {
-    return college;
-  }
+    public String getPassword() {
+        return password;
+    }
 
-  public void setCollege(String college) {
-    this.college = college;
-  }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 
-  public String getMajor() {
-    return major;
-  }
+    public String getFace() {
+        return face;
+    }
 
-  public void setMajor(String major) {
-    this.major = major;
-  }
+    public void setFace(String face) {
+        this.face = face;
+    }
 
-  @Override
-  public String toString() {
-    return "Teacher{" +
-            "id=" + id +
-            ", markNumber='" + markNumber + '\'' +
-            ", email='" + email + '\'' +
-            ", password='" + password + '\'' +
-            ", level='" + level + '\'' +
-            ", face='" + face + '\'' +
-            ", college='" + college + '\'' +
-            ", major='" + major + '\'' +
-            '}';
-  }
 
-  public String getSex() {
-    return sex;
-  }
+    public String getCollege() {
+        return college;
+    }
 
-  public void setSex(String sex) {
-    this.sex = sex;
-  }
+    public void setCollege(String college) {
+        this.college = college;
+    }
 
-  public String getUserName() {
-    return userName;
-  }
 
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
+    public String getSex() {
+        return sex;
+    }
 
-  public String getArea() {
-    return area;
-  }
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
-  public void setArea(String area) {
-    this.area = area;
-  }
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getGraduatedUniversity() {
+        return graduatedUniversity;
+    }
+
+    public void setGraduatedUniversity(String graduatedUniversity) {
+        this.graduatedUniversity = graduatedUniversity;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "id=" + id +
+                ", markNumber='" + markNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", face='" + face + '\'' +
+                ", college='" + college + '\'' +
+                ", sex='" + sex + '\'' +
+                ", userName='" + userName + '\'' +
+                ", area='" + area + '\'' +
+                ", graduatedUniversity='" + graduatedUniversity + '\'' +
+                ", degree='" + degree + '\'' +
+                '}';
+    }
 }

@@ -15,11 +15,12 @@ import java.util.Map;
 
 /**
  * 用户某项信息是否存在
+ *
  * @author Florence
  */
 @WebServlet("/Servlet/IsExistInfoServlet")
 public class IsExistInfoServlet extends HttpServlet {
-    Map<String,Object> map;
+    Map<String, Object> map;
     UserService service = new UserServiceImpl();
 
     @Override
@@ -39,7 +40,7 @@ public class IsExistInfoServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
-        int code=service.isExistOneInf(map.get("userType"),map);
+        int code = service.isExistOneInf(map.get("userType"), map);
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("get");
     }

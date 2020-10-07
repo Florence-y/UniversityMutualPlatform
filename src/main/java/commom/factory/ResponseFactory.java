@@ -22,7 +22,7 @@ public class ResponseFactory {
         return new Response<>();
     }
 
-    public static <T> Response<T> getLoginSuccessResponse(long id, String markNumber, String userName,String userType) {
+    public static <T> Response<T> getLoginSuccessResponse(long id, String markNumber, String userName,String userType,T pojo) {
         Response<T> response = new Response<>();
         //设置数据库id
         response.setId(id);
@@ -33,6 +33,8 @@ public class ResponseFactory {
         //设置用户类别
         response.setUserType(userType);
         response.setStatusCode(Response.OK);
+        //设置用户实体
+        response.setMessagePojo(pojo);
         return response;
     }
 }

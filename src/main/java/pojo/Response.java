@@ -12,6 +12,9 @@ public class Response<T> {
     String markNumber;
     int statusCode;
     String message;
+    String userName;
+    String userType;
+    T messagePojo;
 
     public String getUserName() {
         return userName;
@@ -29,20 +32,21 @@ public class Response<T> {
         this.userType = userType;
     }
 
-    String userName;
-    String userType;
-    T messagePojo;
-    Response(int status){
-        this.statusCode =status;
+    Response(int status) {
+        this.statusCode = status;
     }
-    Response(long id,String markNumber){
-        this.id=id;
-        this.markNumber=markNumber;
+
+    Response(long id, String markNumber) {
+        this.id = id;
+        this.markNumber = markNumber;
     }
-    public Response(){}
-    Response(long id,String markNumber,int status){
-        this(id,markNumber);
-        this.id=id;
+
+    public Response() {
+    }
+
+    Response(long id, String markNumber, int status) {
+        this(id, markNumber);
+        this.id = id;
     }
 
     public static int getOK() {
@@ -86,8 +90,9 @@ public class Response<T> {
         return message;
     }
 
-    public void setMessage(String message) {
+    public Response<T> setMessage(String message) {
         this.message = message;
+        return this;
     }
 
     public T getMessagePojo() {

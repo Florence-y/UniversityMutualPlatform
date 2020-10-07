@@ -17,7 +17,7 @@ public class TeacherDaoImpl extends BaseDaoImpl<Teacher> implements TeacherDao {
 
     @Override
     public String getTableIdField() {
-        return  ReflectUtil.getIdField(new Object());
+        return ReflectUtil.getIdField(new Object());
     }
 
     @Override
@@ -37,6 +37,6 @@ public class TeacherDaoImpl extends BaseDaoImpl<Teacher> implements TeacherDao {
 
     @Override
     public Teacher getTeacherByCondition(String condition, Object o) {
-        return super.selectOneColByOneCondition(condition,o);
+        return super.selectOneColByOneCondition(condition, o);
     }
 }

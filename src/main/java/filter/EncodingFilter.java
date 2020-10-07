@@ -24,8 +24,8 @@ public class EncodingFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         //全部用json来传输数据
         request.setCharacterEncoding("utf-8");
-        HttpServletResponse rep=(HttpServletResponse)response;
-        WebUtil.setResponseType("json",rep);
+        HttpServletResponse rep = (HttpServletResponse) response;
+        WebUtil.setResponseType("json", rep);
         //设置跨域问题
         rep.setHeader("Access-Control-Allow-Origin", "*");
         rep.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");

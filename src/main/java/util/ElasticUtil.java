@@ -38,25 +38,28 @@ import java.util.*;
  */
 @Slf4j
 public class ElasticUtil {
-    public static final String WRONG="sbsbsbsbsbsbbsbsbsbsbsb";
-    static RestHighLevelClient client=getRestHighLevelClient();
+    public static final String WRONG = "sbsbsbsbsbsbbsbsbsbsbsb";
+    static RestHighLevelClient client = getRestHighLevelClient();
+
     public static RestHighLevelClient getRestHighLevelClient() {
         return new RestHighLevelClient(
                 RestClient.builder(new HttpHost("127.0.0.1", 9200, "http")));
     }
+
     /**
      * 多条件查询（and查询，只获取两者同时有的东西）
+     *
      * @param mustMap 要查询的键值对
-     * @param length 长度
+     * @param length  长度
      * @return 得到的结果
      */
-    public static List<String> multiAndSearch(Map<String,Object> mustMap, int length,boolean isFuzzy) {
+    public static List<String> multiAndSearch(Map<String, Object> mustMap, int length, boolean isFuzzy) {
         // 根据多个条件 生成 boolQueryBuilder
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         // 循环添加多个条件
         for (Map.Entry<String, Object> entry : mustMap.entrySet()) {
             MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(entry.getKey(), entry.getValue());
-            matchQueryBuilder=isFuzzy?matchQueryBuilder.fuzziness(Fuzziness.AUTO).prefixLength(3).maxExpansions(10):matchQueryBuilder;
+            matchQueryBuilder = isFuzzy ? matchQueryBuilder.fuzziness(Fuzziness.AUTO).prefixLength(3).maxExpansions(10) : matchQueryBuilder;
             //and
             boolQueryBuilder.must(matchQueryBuilder);
         }
@@ -67,20 +70,22 @@ public class ElasticUtil {
         // 其中listSearchResult是自己编写的方法，以供多中查询方式使用。
         return listSearchResult(searchSourceBuilder);
     }
+
     /**
      * 多条件查询
+     *
      * @param mustMap 要查询的键值对
-     * @param length 长度
+     * @param length  长度
      * @param isFuzzy 是否模糊查询
      * @return 得到的结果
      */
-    public static List<String> multiOrSearch(Map<String,Object> mustMap, int length,boolean isFuzzy) {
+    public static List<String> multiOrSearch(Map<String, Object> mustMap, int length, boolean isFuzzy) {
         // 根据多个条件 生成 boolQueryBuilder
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         // 循环添加多个条件
         for (Map.Entry<String, Object> entry : mustMap.entrySet()) {
             MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(entry.getKey(), entry.getValue());
-            matchQueryBuilder=isFuzzy?matchQueryBuilder.fuzziness(Fuzziness.AUTO).prefixLength(3).maxExpansions(10):matchQueryBuilder;
+            matchQueryBuilder = isFuzzy ? matchQueryBuilder.fuzziness(Fuzziness.AUTO).prefixLength(3).maxExpansions(10) : matchQueryBuilder;
             //or
             boolQueryBuilder.should(matchQueryBuilder);
         }
@@ -91,8 +96,10 @@ public class ElasticUtil {
         // 其中listSearchResult是自己编写的方法，以供多中查询方式使用。
         return listSearchResult(searchSourceBuilder);
     }
+
     /**
      * 用来处理搜索结果，转换成链表
+     *
      * @param builder 得到的处理结果
      * @return 得到的结果
      */
@@ -127,20 +134,23 @@ public class ElasticUtil {
 
     /**
      * 单条件查询
-     * @param key 键
-     * @param value 值
-     * @param length 要的数量
+     *
+     * @param key     键
+     * @param value   值
+     * @param length  要的数量
      * @param isFuzzy 是否模糊查询
      * @return 查询到的列表
      */
-    public static List<String> simpleSearch(String key,Object value,int length,Boolean isFuzzy) {
+    public static List<String> simpleSearch(String key, Object value, int length, Boolean isFuzzy) {
         // 使用上面已经编写好的方法
-        Map<String,Object> map = new HashMap<>(6);
-        map.put(key,value);
-        return multiAndSearch(map,length,isFuzzy);
+        Map<String, Object> map = new HashMap<>(6);
+        map.put(key, value);
+        return multiAndSearch(map, length, isFuzzy);
     }
+
     /**
      * 根据时间段去查询
+     *
      * @param length 查询的数量
      * @return 返回得到的结果
      */
@@ -154,8 +164,10 @@ public class ElasticUtil {
         searchSourceBuilder.size(length);
         return listSearchResult(searchSourceBuilder);
     }
+
     /**
      * 删除es的整个数据库
+     *
      * @param indexName 索引名字
      * @return 返回删除的结果
      * @throws IOException io异常
@@ -167,14 +179,16 @@ public class ElasticUtil {
         client.indices().delete(request, RequestOptions.DEFAULT);
         return true;
     }
+
     /**
      * 前缀查询 前面一定是固定的
-     * @param key 键
+     *
+     * @param key    键
      * @param prefix 要查询的
-     * @param size 数量
+     * @param size   数量
      * @return 查询结果
      */
-    public static List<String> prefix(String key, String prefix,int size) {
+    public static List<String> prefix(String key, String prefix, int size) {
         PrefixQueryBuilder builder = QueryBuilders.prefixQuery(key, prefix);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.size(size);
@@ -184,18 +198,19 @@ public class ElasticUtil {
 
     /**
      * 分词api
+     *
      * @param keyWord 关键词
      * @return 分词列表
      * @throws IOException
      */
     public static List<String> divideTheKeyWord(String keyWord) throws IOException {
         List<String> list = new LinkedList<>();
-        client =getRestHighLevelClient();
+        client = getRestHighLevelClient();
         AnalyzeRequest request = AnalyzeRequest.withGlobalAnalyzer("ik_smart", keyWord);
-        AnalyzeResponse response =client.indices().analyze(request,RequestOptions.DEFAULT);
-        for(AnalyzeResponse.AnalyzeToken token: response.getTokens()){
-            String word=token.getTerm();
-            if (word.length()<2||word.contains("的")||word.contains("了")){
+        AnalyzeResponse response = client.indices().analyze(request, RequestOptions.DEFAULT);
+        for (AnalyzeResponse.AnalyzeToken token : response.getTokens()) {
+            String word = token.getTerm();
+            if (word.length() < 2 || word.contains("的") || word.contains("了")) {
                 continue;
             }
             list.add(token.getTerm());
@@ -205,13 +220,14 @@ public class ElasticUtil {
 
     /**
      * 批量更新，先搜索然后更新
-     * @param index 索引
+     *
+     * @param index        索引
      * @param queryBuilder 搜索builder
-     * @param code 脚本代码
+     * @param code         脚本代码
      * @return
      * @throws IOException
      */
-    public static String updateDoc(String index,QueryBuilder queryBuilder,String code) throws IOException {
+    public static String updateDoc(String index, QueryBuilder queryBuilder, String code) throws IOException {
         UpdateByQueryRequest request = new UpdateByQueryRequest(index);
         request.setQuery(queryBuilder);
         request.setConflicts("proceed");
@@ -225,19 +241,20 @@ public class ElasticUtil {
 
     /**
      * 根据id更新数据
-     * @param index 索引
-     * @param id id
+     *
+     * @param index   索引
+     * @param id      id
      * @param dataMap 数据键值对
      * @return 调用的索引
      */
-    public static int updateDocById(String index,String id,Map<String,Object> dataMap)  {
+    public static int updateDocById(String index, String id, Map<String, Object> dataMap) {
         try {
             //设置要更新的键值对
             UpdateRequest request = new UpdateRequest(index, id).doc(dataMap);
             //进行更新
             UpdateResponse updateResponse = client.update(request, RequestOptions.DEFAULT);
         } catch (IOException e) {
-            log.error("索引更新异常 {}",e.getMessage());
+            log.error("索引更新异常 {}", e.getMessage());
             e.printStackTrace();
             return Response.ERROR;
         }
@@ -246,17 +263,18 @@ public class ElasticUtil {
 
     /**
      * 删除文档
+     *
      * @param index 索引
-     * @param id 文档id
+     * @param id    文档id
      * @return 状态码
      */
-    public static int deleteDocById(String index,String id){
+    public static int deleteDocById(String index, String id) {
         try {
             DeleteRequest request = new DeleteRequest(index, id);
             DeleteResponse deleteResponse = client.delete(request, RequestOptions.DEFAULT);
         } catch (IOException e) {
             e.printStackTrace();
-            log.error("删除索引出现异常 {}",e.getMessage());
+            log.error("删除索引出现异常 {}", e.getMessage());
             return Response.ERROR;
         }
         return Response.OK;
@@ -264,11 +282,12 @@ public class ElasticUtil {
 
     /**
      * 添加文档
+     *
      * @param docMap 文档map
      * @return 返回的字符串
      * @throws IOException io异常
      */
-    public static String addDoc(Map<String,Object> docMap) {
+    public static String addDoc(Map<String, Object> docMap) {
         IndexResponse indexResponse = null;
         try {
             //添加map数据
@@ -277,15 +296,16 @@ public class ElasticUtil {
             indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
         } catch (IOException e) {
             e.printStackTrace();
-            log.error("添加文档出现异常 {}",e.getMessage());
+            log.error("添加文档出现异常 {}", e.getMessage());
             return WRONG;
         }
         return indexResponse.getId();
     }
+
     /**********************************************************************************************************/
 
     public static void addIndex() throws IOException {
-        client=getRestHighLevelClient();
+        client = getRestHighLevelClient();
         CreateIndexRequest request = new CreateIndexRequest("test");
         //建立setting
         request.settings(Settings.builder()
@@ -329,7 +349,7 @@ public class ElasticUtil {
         System.out.println(createIndexResponse.isAcknowledged());
     }
 
-    public static Map<String,Object> getMappings(String indexName) throws IOException {
+    public static Map<String, Object> getMappings(String indexName) throws IOException {
         GetMappingsRequest request = new GetMappingsRequest();
         request.indices(indexName);
         GetMappingsResponse getMappingResponse = client.indices().getMapping(request, RequestOptions.DEFAULT);

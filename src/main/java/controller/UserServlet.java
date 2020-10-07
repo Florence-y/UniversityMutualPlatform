@@ -2,12 +2,15 @@ package controller;
 
 import commom.constantval.ServletConstantVal;
 import commom.factory.ResponseFactory;
+import org.elasticsearch.common.recycler.Recycler;
 import pojo.Response;
 import service.UserService;
 import service.impl.UserServiceImpl;
+import util.PropertiesUtil;
 import util.WebUtil;
 
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +23,9 @@ import java.util.Map;
  */
 @WebServlet("/Servlet/UserServlet")
 public class UserServlet extends HttpServlet {
-    Map<String,Object> map;
+    Map<String, Object> map;
     UserService service = new UserServiceImpl();
+
     @Override
     /**
      * 添加用户
@@ -33,7 +37,7 @@ public class UserServlet extends HttpServlet {
             return;
         }
         //调用添加用户服务
-        int code=service.addUser((String) map.get("userType"),map);
+        int code = service.addUser((String) map.get("userType"), map);
         //写回
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("post");
@@ -49,7 +53,9 @@ public class UserServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
-        Response rep = service.userLogin((String) map.get("userType"),map);
+        Response rep = service.userLogin((String) map.get("userType"), map);
+        //设置Cookie
+        setCookie(response, rep);
         //写回状态
         WebUtil.writeObjToResponse(response, rep);
         System.out.println("get");
@@ -60,7 +66,7 @@ public class UserServlet extends HttpServlet {
      * 更新用户信息
      */
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int code=service.updateUser((String)map.get("userType"),map, String.valueOf(map.get("condition")));
+        int code = service.updateUser((String) map.get("userType"), map, String.valueOf(map.get("condition")));
         //写回
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("put");
@@ -71,8 +77,18 @@ public class UserServlet extends HttpServlet {
      * 删除用户
      */
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int code=service.deleteUser((String) map.get("userType"),map);
+        int code = service.deleteUser((String) map.get("userType"), map);
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("delete");
+    }
+
+    private static void setCookie(HttpServletResponse response, Response rep) {
+        if (Response.OK == rep.getStatusCode()) {
+            //设置用户名，用户类型cookie
+            response.addCookie(new Cookie("userName", rep.getUserName()));
+            response.addCookie(new Cookie("userType", rep.getUserType()));
+        } else if (Response.ERROR == rep.getStatusCode()) {
+            return;
+        }
     }
 }

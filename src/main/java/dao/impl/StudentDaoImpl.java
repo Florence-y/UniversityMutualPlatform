@@ -38,7 +38,7 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
 
     @Override
     public Student getStudentByCondition(String condition, Object o) {
-        return super.selectOneColByOneCondition(condition,o);
+        return super.selectOneColByOneCondition(condition, o);
     }
 
 

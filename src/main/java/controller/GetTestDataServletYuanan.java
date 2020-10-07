@@ -17,22 +17,23 @@ import java.util.Map;
  */
 @WebServlet("/Servlet/GetTestDataServletYuanan")
 public class GetTestDataServletYuanan extends HttpServlet {
-    Map<String,Object> map;
+    Map<String, Object> map;
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
-        WebUtil.writeObjToResponse(response,map);
+        WebUtil.writeObjToResponse(response, map);
         System.out.println("获取测试数据");
     }
 
-    private Map<String,String> getTestMap(String... keyAndValue) {
-        if (keyAndValue.length%2!=0){
+    private Map<String, String> getTestMap(String... keyAndValue) {
+        if (keyAndValue.length % 2 != 0) {
             System.out.println("参数个数不对");
             return null;
         }
-        Map<String,String> map =new HashMap<>(10);
-        for (int i=0;i<keyAndValue.length;i+=2){
-            map.put(keyAndValue[i],keyAndValue[i+1]);
+        Map<String, String> map = new HashMap<>(10);
+        for (int i = 0; i < keyAndValue.length; i += 2) {
+            map.put(keyAndValue[i], keyAndValue[i + 1]);
         }
         return map;
     }
@@ -40,7 +41,7 @@ public class GetTestDataServletYuanan extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.formToMap(request);
-        WebUtil.writeObjToResponse(response,map);
+        WebUtil.writeObjToResponse(response, map);
         System.out.println("获取测试数据");
     }
 }

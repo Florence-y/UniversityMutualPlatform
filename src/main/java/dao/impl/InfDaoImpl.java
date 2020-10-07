@@ -25,4 +25,7 @@ public class InfDaoImpl extends BaseDaoImpl<Inf> implements InfDao {
     public JdbcGetPojoStrategy<Inf> getPackageStrategy() {
         return new InfJdbcStrategy();
     }
+
+
+
 }

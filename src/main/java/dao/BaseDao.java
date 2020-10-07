@@ -1,5 +1,7 @@
 package dao;
 
+import pojo.Inf;
+
 import java.util.List;
 import java.util.Map;
 
@@ -83,4 +85,22 @@ public interface BaseDao<T> {
      * @return 返回的对象列表
      */
     List<T> getRowBeginNumAndSize(T pojo,int begin,int size);
+
+    /**
+     * 根据页面开始的地方与文章
+     * @param pojo 实体对象
+     * @param begin 开始的页数
+     * @param size 文章的数量
+     * @param condition 具体的条件
+     * @return 返回一个封装好的List对象
+     */
+    List<T> getRowBeginNumAndSizeByCondition(T pojo,int begin,int size,Map<String,Object> condition);
+
+    /**
+     * 根据条件计数
+     * @param pojo 实体对象
+     * @param map 条件集合
+     * @return 返回值
+     */
+    int getCountByCondition(T pojo,Map<String,Object> map);
 }
