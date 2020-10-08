@@ -21,7 +21,7 @@ public class TeacherDaoImpl extends BaseDaoImpl<Teacher> implements TeacherDao {
     }
 
     @Override
-    public JdbcGetPojoStrategy getPackageStrategy() {
+    public JdbcGetPojoStrategy<Teacher> getPackageStrategy() {
         return new TeacherJdbcStrategy();
     }
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import commom.annontation.DbCol;
 import pojo.Response;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
@@ -64,7 +65,7 @@ public class WebUtil {
      * @return 得到的Map
      * @throws IOException 转化异常
      */
-    public static Map<String, Object> jsonToMap(String json) throws IOException {
+    public static HashMap jsonToMap(String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         System.out.println(json);
         return mapper.readValue(json, HashMap.class);
@@ -135,8 +136,8 @@ public class WebUtil {
             }
             //返回
             return jsonToObj(clazz, responseStrBuilder.toString());
-        } catch (Exception ignored) {
-            ignored.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

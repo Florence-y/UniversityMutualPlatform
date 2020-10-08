@@ -2,7 +2,6 @@ package service.impl;
 
 import commom.factory.DaoFactory;
 import dao.InfDao;
-import dao.impl.InfDaoImpl;
 import pojo.Inf;
 import pojo.Page;
 import pojo.Response;
@@ -10,9 +9,6 @@ import service.InfService;
 import util.ArrayUtil;
 import util.TimeUtil;
 
-import javax.websocket.server.PathParam;
-import java.sql.Timestamp;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +36,7 @@ public class InfServiceImpl implements InfService {
         //设置页面总数
         page.setTotalPage(totalPage);
         //设置是否有下一页
-        page.setNext(pageSize * curPage > totalPage ? false : true);
+        page.setNext(pageSize * curPage <= totalPage);
         return page;
     }
 
@@ -53,6 +49,7 @@ public class InfServiceImpl implements InfService {
 
     /**
      * 修改inf信息的已读状态
+     *
      * @param map 包含要修改的键值对的map（可以包含其他的 ，到时候会去掉的）
      * @return 状态码
      */
@@ -65,12 +62,13 @@ public class InfServiceImpl implements InfService {
 
     /**
      * 删除对应id的inf行
+     *
      * @param map 包含删除的通知的id
      * @return 状态码
      */
     @Override
     public int deleteInfById(Map<String, Object> map) {
-        int row =infDao.deleteById(Integer.parseInt(String.valueOf((map.get("id")))));
+        int row = infDao.deleteById(Integer.parseInt(String.valueOf((map.get("id")))));
         return row != -1 ? Response.OK : Response.ERROR;
     }
 }

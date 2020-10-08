@@ -36,6 +36,8 @@ public class Teacher {
     @DbCol("teacher_degree")
     private String degree;
 
+    private final String type = "teacher";
+
     public long getId() {
         return id;
     }

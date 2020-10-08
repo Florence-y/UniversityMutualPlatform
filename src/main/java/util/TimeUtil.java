@@ -107,7 +107,7 @@ public class TimeUtil {
     /**
      * 获取系统时间（毫秒类型）
      *
-     * @return
+     * @return 返回系统的现在的时间毫秒
      */
     public static long getSystemTimeMillis() {
         return System.currentTimeMillis();

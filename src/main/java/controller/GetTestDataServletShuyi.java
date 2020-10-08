@@ -2,7 +2,6 @@ package controller;
 
 import util.WebUtil;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +39,7 @@ public class GetTestDataServletShuyi extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.formToMap(request);
         WebUtil.writeObjToResponse(response, map);
         System.out.println("获取测试数据");

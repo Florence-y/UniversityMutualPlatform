@@ -35,6 +35,8 @@ public class Student {
     @DbCol("student_area")
     private String area;
 
+    private final String type = "student";
+
     public long getId() {
         return id;
     }

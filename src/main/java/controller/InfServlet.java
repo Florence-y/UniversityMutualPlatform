@@ -70,8 +70,8 @@ public class InfServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int code=service.deleteInfById(map);
-        WebUtil.writeObjToResponse(response,ResponseFactory.getStatus(code));
+        int code = service.deleteInfById(map);
+        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("delete");
     }
 }

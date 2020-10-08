@@ -2,10 +2,10 @@ package service.impl;
 
 import commom.factory.DaoFactory;
 import commom.factory.ResponseFactory;
+import dao.MarkNumberTypeDao;
 import dao.StudentDao;
 import dao.TeacherDao;
-import dao.impl.StudentDaoImpl;
-import dao.impl.TeacherDaoImpl;
+import dao.impl.MarkNumberTypeDaoImpl;
 import pojo.Response;
 import pojo.Student;
 import pojo.Teacher;
@@ -25,6 +25,7 @@ public class UserServiceImpl implements UserService {
     private static final String PASSWORD = "password";
     StudentDao studentDao = DaoFactory.getStudentDao();
     TeacherDao teacherDao = DaoFactory.getTeacherDao();
+    MarkNumberTypeDao markNumberTypeDao = DaoFactory.getMarkNumberTypeDao();
 
     /**
      * 添加用户
@@ -39,9 +40,13 @@ public class UserServiceImpl implements UserService {
         map.put("password", Md5Until.getMd5((String) map.get("password")));
         if (STUDENT.equals(userType)) {
             studentDao.insertRowByKeyAndValue(new Student(), map);
+            //添加学号对应的用户类型 0 是主键至少给个值
+            markNumberTypeDao.insertOneRow(null, 0, map.get("markNumber"), map.get("userType"));
             return Response.OK;
         } else if (TEACHER.equals(userType)) {
             teacherDao.insertRowByKeyAndValue(new Teacher(), map);
+            //添加教工号对应的用户类型 0 是主键
+            markNumberTypeDao.insertOneRow(null, 0, map.get("markNumber"), map.get("userType"));
             return Response.OK;
         } else {
             return Response.ERROR;
@@ -73,10 +78,16 @@ public class UserServiceImpl implements UserService {
     public int deleteUser(String userType, Map<String, Object> map) {
         String condition = (String) map.get("condition");
         if (STUDENT.equals(userType)) {
+            //根据条件删除用户信息
             studentDao.deleteByOneCondition(condition, map.get(condition));
+            //根据条件删除用户学号类型联系
+            markNumberTypeDao.deleteByKeyAndValue(MarkNumberTypeDaoImpl.MARK_NUMBER_COL, map.get("markNumber"));
             return Response.OK;
         } else if (TEACHER.equals(userType)) {
+            //根据条件删除用户信息
             teacherDao.deleteByOneCondition(condition, map.get(condition));
+            //根据条件删除用户学号类型联系
+            markNumberTypeDao.deleteByKeyAndValue(MarkNumberTypeDaoImpl.MARK_NUMBER_COL, map.get("markNumber"));
             return Response.OK;
         }
         return Response.ERROR;

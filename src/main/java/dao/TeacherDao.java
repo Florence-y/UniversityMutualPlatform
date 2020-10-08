@@ -1,6 +1,5 @@
 package dao;
 
-import pojo.Student;
 import pojo.Teacher;
 
 /**

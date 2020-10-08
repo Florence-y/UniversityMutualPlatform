@@ -18,6 +18,7 @@ import java.util.Map;
 @WebServlet("/Servlet/GetTestDataServletYuanan")
 public class GetTestDataServletYuanan extends HttpServlet {
     Map<String, Object> map;
+    private static final int TWO = 2;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,7 +28,7 @@ public class GetTestDataServletYuanan extends HttpServlet {
     }
 
     private Map<String, String> getTestMap(String... keyAndValue) {
-        if (keyAndValue.length % 2 != 0) {
+        if (keyAndValue.length % TWO != 0) {
             System.out.println("参数个数不对");
             return null;
         }

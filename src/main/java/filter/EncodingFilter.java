@@ -4,13 +4,11 @@ import util.WebUtil;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @Author lyr
- * @create 2020/9/13 10:36
+ * @Author Florence
  */
 @WebFilter(urlPatterns = {"/Servlet/*"})
 public class EncodingFilter implements Filter {

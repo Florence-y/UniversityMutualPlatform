@@ -27,5 +27,4 @@ public class InfDaoImpl extends BaseDaoImpl<Inf> implements InfDao {
     }
 
 
-
 }

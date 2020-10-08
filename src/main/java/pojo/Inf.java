@@ -6,7 +6,6 @@ import commom.annontation.DbCol;
 import commom.annontation.DbPriKey;
 import commom.annontation.DbTable;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 /**

@@ -10,7 +10,6 @@ import java.sql.SQLException;
 
 /**
  * @author Florence
- *
  */
 public class InfJdbcStrategy implements JdbcGetPojoStrategy<Inf> {
     @Override

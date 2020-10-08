@@ -201,7 +201,7 @@ public class ElasticUtil {
      *
      * @param keyWord 关键词
      * @return 分词列表
-     * @throws IOException
+     * @throws IOException 在进行analyze的时候会出现异常
      */
     public static List<String> divideTheKeyWord(String keyWord) throws IOException {
         List<String> list = new LinkedList<>();
@@ -224,8 +224,8 @@ public class ElasticUtil {
      * @param index        索引
      * @param queryBuilder 搜索builder
      * @param code         脚本代码
-     * @return
-     * @throws IOException
+     * @return 目前这个值没有意义
+     * @throws IOException 进行请求的时候会出现异常
      */
     public static String updateDoc(String index, QueryBuilder queryBuilder, String code) throws IOException {
         UpdateByQueryRequest request = new UpdateByQueryRequest(index);
@@ -285,10 +285,9 @@ public class ElasticUtil {
      *
      * @param docMap 文档map
      * @return 返回的字符串
-     * @throws IOException io异常
      */
     public static String addDoc(Map<String, Object> docMap) {
-        IndexResponse indexResponse = null;
+        IndexResponse indexResponse;
         try {
             //添加map数据
             IndexRequest indexRequest = new IndexRequest("test").source(docMap);

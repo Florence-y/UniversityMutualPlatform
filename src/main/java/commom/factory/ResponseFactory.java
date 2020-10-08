@@ -6,7 +6,7 @@ import pojo.Response;
  * @author Florence
  */
 public class ResponseFactory {
-    public static <T> Response<T> getStatus(int code){
+    public static <T> Response<T> getStatus(int code) {
         Response<T> response = new Response<>();
         response.setStatusCode(code);
         return response;
@@ -22,7 +22,7 @@ public class ResponseFactory {
         return new Response<>();
     }
 
-    public static <T> Response<T> getLoginSuccessResponse(long id, String markNumber, String userName,String userType,T pojo) {
+    public static <T> Response<T> getLoginSuccessResponse(long id, String markNumber, String userName, String userType, T pojo) {
         Response<T> response = new Response<>();
         //设置数据库id
         response.setId(id);

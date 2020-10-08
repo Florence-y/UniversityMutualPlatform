@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * @author Florence
  */
-public class StudentJdbcStrategy implements JdbcGetPojoStrategy<Object> {
+public class StudentJdbcStrategy implements JdbcGetPojoStrategy<Student> {
 
     @Override
     public Student strategy(ResultSet resultSet) throws SQLException {

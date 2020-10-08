@@ -198,14 +198,14 @@ public class JdbcUtil {
      * @param sql sql语句
      * @return 返回值
      */
-    public static boolean isExistByOneCondition(String sql, Object value) {
+    public static boolean isExistByOneCondition(String sql, Object... value) {
         try {
             connection = C3P0Util.getConnection();
             assert connection != null;
             //声明预备语句（放在enum类中）
             preparedStatement = connection.prepareStatement(sql);
             //设置条件
-            setPrepareStatementUnknown(preparedStatement, new Object[]{value});
+            setPrepareStatementUnknown(preparedStatement, value);
             //查找用户是否存在
             resultSet = preparedStatement.executeQuery();
             //是否存在？
@@ -277,4 +277,5 @@ public class JdbcUtil {
         }
         return -1;
     }
+
 }

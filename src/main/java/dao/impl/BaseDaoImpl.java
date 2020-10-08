@@ -91,7 +91,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
             unKnowParameter.append("?,");
         }
         unKnowParameter.append("?");
-        String sql = MessageFormat.format("INSERT INTO " + getTableName() + " VALUES (" + unKnowParameter + ")", value);
+        String sql = "INSERT INTO " + getTableName() + " VALUES (" + unKnowParameter + ")";
         return JdbcUtil.insertOneRow(sql, value);
     }
 
@@ -182,14 +182,28 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     /**
+     * 任意键值对（数据库列名没用反射获得，得实际填写！！！！！！）
+     *
+     * @param condition 数据库列名
+     * @param o         具体的数据库列值
+     * @return 影响的行数
+     */
+    @Override
+    public int deleteByKeyAndValue(String condition, Object o) {
+        String sql = "DELETE FROM " + getTableName() + " WHERE " + condition + " =?";
+        return JdbcUtil.update(sql, o);
+    }
+
+    /**
      * 拿根据键值对拿到一行数据
      *
      * @param condition 键
      * @param o         值
      * @return 返回一个封装好的对象
      */
+    @Override
     public T selectOneColByOneCondition(String condition, Object o) {
-        String sql = "select * from " + getTableName() + " WHERE " + condition + "= ? LIMIT 1";
+        String sql = "SELECT * FROM " + getTableName() + " WHERE " + condition + "= ? LIMIT 1";
         return (T) JdbcUtil.queryForJavaBean(sql, getPackageStrategy(), o);
     }
 
@@ -229,8 +243,8 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
      * 根据条件计算总的记录数目
      *
      * @param pojo 实体对象
-     * @param map  条件集合
-     * @return
+     * @param map  可以是一个含有其他不关于数据库的map，代码已经排除异类
+     * @return 得到的记录总数
      */
     @Override
     public int getCountByCondition(T pojo, Map<String, Object> map) {

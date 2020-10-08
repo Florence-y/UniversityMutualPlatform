@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @ServerEndpoint("/WebSocket/{username}/{toSomeOne}")
 public class ChatServer {
-    private static final Map<String, ChatServer> clients = new ConcurrentHashMap<>();
+    private static final Map<String, ChatServer> CLIENTS = new ConcurrentHashMap<>();
     String name;
     /**
      * 与某个客户端的连接会话，需要通过它来给客户端发送数据
@@ -30,7 +30,7 @@ public class ChatServer {
         System.out.println(userName);
         this.session = session;
         //加入map中
-        clients.put(userName, this);
+        CLIENTS.put(userName, this);
         System.out.println(userName + "连接加入！当前在线人数为" + getOnlineCount());
     }
 
@@ -39,7 +39,7 @@ public class ChatServer {
      */
     @OnClose
     public void onClose(@PathParam(value = "username") String userName) {
-        clients.remove(userName);
+        CLIENTS.remove(userName);
         System.out.println(userName + "关闭连接！当前在线人数为" + getOnlineCount());
     }
 
@@ -52,8 +52,7 @@ public class ChatServer {
     @OnMessage
     public void onMessage(@PathParam(value = "username") String userId, @PathParam(value = "toSomeOne") String someone, String message, Session session) {
         System.out.println("来自客户端" + userId + "发送给" + someone + "的消息:" + message);
-        //群发消息
-        for (Map.Entry<String, ChatServer> entry : clients.entrySet()) {
+        for (Map.Entry<String, ChatServer> entry : CLIENTS.entrySet()) {
             //没找到合适的
             if (!entry.getKey().equals(someone)) {
                 continue;
@@ -87,13 +86,13 @@ public class ChatServer {
      */
     public void sendMessage(String message) throws IOException {
 
-//        this.session.getBasicRemote().sendText(message);
-        //异步发送信息
+        //this.session.getBasicRemote().sendText(message);   //异步发送信息
+
 
         this.session.getAsyncRemote().sendText(message);
     }
 
     public static synchronized int getOnlineCount() {
-        return clients.size();
+        return CLIENTS.size();
     }
 }

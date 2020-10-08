@@ -21,7 +21,7 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
     }
 
     @Override
-    public JdbcGetPojoStrategy getPackageStrategy() {
+    public JdbcGetPojoStrategy<Student> getPackageStrategy() {
         return new StudentJdbcStrategy();
     }
 

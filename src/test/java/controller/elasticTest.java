@@ -22,7 +22,11 @@ public class elasticTest {
     }
     @Test
     public void addDoc() throws IOException {
-        ElasticUtil.addDoc(new HashMap<String, Object>());
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("sex",new String[]{"男","女","男"});
+        map.put("userName","冯远安");
+        map.put("message",new String[]{"测试数组","测试数组","测试数组"});
+        ElasticUtil.addDoc(map);
     }
     @Test
     public void mutipltySearcher(){

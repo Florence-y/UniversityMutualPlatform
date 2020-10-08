@@ -1,5 +1,10 @@
 package util;
 
+/**
+ * @author Florence
+ * Mysql通用建库建表类
+ */
+
 public enum MySql {
     //学生表
     CREATE_TABLE_STUDENT("CREATE TABLE IF NOT EXISTS t_student (" +
@@ -41,6 +46,19 @@ public enum MySql {
             "inf_type VARCHAR(15) NOT NULL," +
             "inf_senderName VARCHAR(20)," +
             "inf_isRead boolean NOT NULL DEFAULT 0" +
+            ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
+    //建立关注表
+    CREATE_TABLE_ATTENTION("CREATE TABLE IF NOT EXISTS t_attention (" +
+            "attention_id INT PRIMARY KEY AUTO_INCREMENT," +
+            "attention_majorMarkNumber VARCHAR(20) NOT NULL  , " +
+            "attention_passMarkNumber VARCHAR(20) NOT NULL," +
+            "attention_isMutual boolean NOT NULL DEFAULT 0" +
+            ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
+    //建立学号用户类型联系表
+    CREATE_TABLE_MARK_NUMBER_TYPE("CREATE TABLE IF NOT EXISTS t_markNumberType (" +
+            "markNumberType_id INT PRIMARY KEY AUTO_INCREMENT," +
+            "markNumberType_markNumber VARCHAR(20) NOT NULL UNIQUE," +
+            "markNumber_userType VARCHAR(10) NOT NULL" +
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //文章表
     CREATE_TABLE_ARTICLE("CREATE TABLE IF NOT EXISTS articles  (" +

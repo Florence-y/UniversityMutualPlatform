@@ -8,6 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
+/**
+ * @author Florence
+ * teacher封装策略
+ */
 public class TeacherJdbcStrategy implements JdbcGetPojoStrategy<Teacher> {
     @Override
     public Teacher strategy(ResultSet resultSet) throws SQLException {
