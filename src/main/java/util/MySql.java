@@ -60,6 +60,30 @@ public enum MySql {
             "markNumberType_markNumber VARCHAR(20) NOT NULL UNIQUE," +
             "markNumber_userType VARCHAR(10) NOT NULL" +
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
+    //建立回答表
+    CREATE_TABLE_ANSWER("CREATE TABLE IF NOT EXISTS t_answer ("+
+            "answer_id INT PRIMARY KEY AUTO_INCREMENT,"+
+            "answer_questionId VARCHAR(50) NOT NULL,"+
+            "answer_markNumber VARCHAR(20) NOT NULL,"+
+            "answer_content VARCHAR(500) NOT NULL"+
+            ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
+    //建立评论表
+    CREATE_TABLE_COMMENT("CREATE TABLE IF NOT EXISTS t_comment (" +
+            "comment_id INT PRIMARY KEY AUTO_INCREMENT,"+
+            "comment_answerId INT NOT NULL,"+
+            "comment_content VARCHAR(500) NOT NULL ,"+
+            "comment_markNumber VARCHAR(20) NOT NULL"+
+            ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
+    //建立问题点赞表
+    CREATE_TABLE_QUESTION_AGREE("CREATE TABLE IF NOT EXISTS t_question_agree (" +
+            "question_id VARCHAR(50) NOT NULL, "+
+            "agreeMarkNumber VARCHAR(20) NOT NULL UNIQUE"+
+            ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
+    //建立评论点赞表
+    CREATE_TABLE_ANSWER_AGREE("CREATE TABLE IF NOT EXISTS t_answer_agree (" +
+            "comment_id INT NOT NULL, "+
+            "agreeMarkNumber VARCHAR(20) NOT NULL UNIQUE"+
+            ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //文章表
     CREATE_TABLE_ARTICLE("CREATE TABLE IF NOT EXISTS articles  (" +
             "id INT PRIMARY KEY AUTO_INCREMENT," +
@@ -77,15 +101,15 @@ public enum MySql {
             "id INT PRIMARY KEY AUTO_INCREMENT," +
             "name VARCHAR(50) NOT NULL" +
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
-    //评论表
-    CREATE_TABLE_COMMENT("CREATE TABLE IF NOT EXISTS comment (" +
-            "id INT PRIMARY KEY AUTO_INCREMENT," +
-            "userName VARCHAR(20) NOT NULL," +
-            "content VARCHAR(100) NOT NULL," +
-            "commentDate DATE NOT NULL," +
-            "agreeCount INT DEFAULT 0," +
-            "articleId INT NOT NULL" +
-            ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
+//    //博客评论表
+//    CREATE_TABLE_COMMENT("CREATE TABLE IF NOT EXISTS comment (" +
+//            "id INT PRIMARY KEY AUTO_INCREMENT," +
+//            "userName VARCHAR(20) NOT NULL," +
+//            "content VARCHAR(100) NOT NULL," +
+//            "commentDate DATE NOT NULL," +
+//            "agreeCount INT DEFAULT 0," +
+//            "articleId INT NOT NULL" +
+//            ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //建库语句
     CREATE_DATABASE("CREATE DATABASE IF NOT EXISTS University_Mutual_Platform DEFAULT CHARSET utf8 COLLATE utf8_general_ci"),
     //根据条件查询(模板)1:表名 2、3条件

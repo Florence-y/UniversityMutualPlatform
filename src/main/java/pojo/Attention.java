@@ -20,6 +20,8 @@ public class Attention {
     @DbCol("attention_isMutual")
     private boolean isMutual;
 
+
+    private String userFace;
     private String userName;
     private String userType;
     private String sex;
@@ -31,6 +33,14 @@ public class Attention {
      * major或者pass
      */
     private String type;
+
+    public String getUserFace() {
+        return userFace;
+    }
+
+    public void setUserFace(String userFace) {
+        this.userFace = userFace;
+    }
 
     public String getType() {
         return type;
@@ -139,6 +149,7 @@ public class Attention {
                 ", majorMarkNumber='" + majorMarkNumber + '\'' +
                 ", passMarkNumber='" + passMarkNumber + '\'' +
                 ", isMutual=" + isMutual +
+                ", userFace='" + userFace + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userType='" + userType + '\'' +
                 ", sex='" + sex + '\'' +
@@ -146,6 +157,7 @@ public class Attention {
                 ", major='" + major + '\'' +
                 ", replyCount=" + replyCount +
                 ", attentionCount=" + attentionCount +
+                ", type='" + type + '\'' +
                 '}';
     }
 }
