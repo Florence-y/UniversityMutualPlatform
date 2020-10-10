@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自己封装模板引擎</title>
+</head>
+<body>
+    <h1>自己封装模板引擎</h1>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.js"></script>
+    <!-- 需要自己写的模板 -->
+    <script type="text/html" id="template">
+        <ul> 
+            <li>{{name}}</li>
+            <li>{{skill}}</li>
+            <li>{{habit}}</li>
+        </ul> 
+    </script>
+    <script>
+        // 填充模板的方法
+        function template(id,data){
+            var reg = /{{(\w+)}}/;
+            id = "#"+id;
+            var str = document.querySelector(id).innerHTML;
+            var result = reg.exec(str);
+            while(result!=null){
+                //替换
+                str= str.replace(result[0],data[result[1]]);
+                result = reg.exec(str);
+            }
+            return str;
+        }
+    </script>
+    <script>
+        // 填充的数据
+        data = {
+            name : "小明",
+            skill : "泡妞",
+            habit : "约跑"
+        }
+        // 调用方法
+        var result= template("template",data);
+        $("body").append(result);
+    </script>
+</body>
+</html>

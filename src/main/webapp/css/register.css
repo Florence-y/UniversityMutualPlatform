@@ -217,7 +217,7 @@ input{
 }
 
 /* 输入为空错误提示 */
-input.emptyError{
+input.emailError{
     color:#f00;
     border:1px solid #f00;
     box-shadow: 0 0 1px #f00;
@@ -285,6 +285,7 @@ input.emptyError{
     float: left;
     padding:0 5px;
     height: 35px;
+    cursor: pointer;
     box-sizing: border-box;
 }
 .slideDown .choice::after{
@@ -412,6 +413,23 @@ input.emptyError{
     border:none;
     letter-spacing: 0.1em;
 }
+/* 用户名的验证成功 */
+.userName .value{
+    position: relative;
+    
+}
+.userName .value input{
+    width:205px;
+}
+
+.userName .success_icon{
+    position: absolute;
+    display: none;
+    top:5px;
+    right:5px;
+}
+
+
 /* 密码框 */
 .password{
     position: relative;
@@ -453,6 +471,7 @@ input.emptyError{
     background-color: #02A7F0;
     color:#fff;
     border-radius: 15px;
+    cursor: pointer;
 }
 
 /*激活底线*/
