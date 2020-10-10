@@ -4,6 +4,7 @@ package util;
 import commom.annontation.DbCol;
 import commom.annontation.DbPriKey;
 import commom.annontation.DbTable;
+import commom.annontation.IsValid;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
@@ -222,5 +223,39 @@ public class ReflectUtil {
                 ReflectUtil.getColVal(pojo, (String) condition.get("order"))
                 //正序或者逆序
                 + " " + direction + " ," + getIdField(pojo) + " " + direction;
+    }
+
+    /**
+     * 获取一个对象有效值的map（可能一些map参杂着不少有效的参数）
+     * @param object 实体对象
+     * @param <T> 实体类型
+     * @return 包含着 field名：具体的值的map
+     */
+    public static <T> Map<String,Object> getValidFieldMap(T object) {
+        Class<?> clazz =object.getClass();
+        Field[] declaredFields = clazz.getDeclaredFields();
+        Map<String,Object> map = new HashMap<>(declaredFields.length);
+        for (Field field:declaredFields){
+            if (field.isAnnotationPresent(IsValid.class)){
+                map.put(field.getName(),field.getAnnotation(IsValid.class).fieldName());
+            }
+        }
+        return map;
+    }
+
+    public static <T> Map<String, Object> getFieldAndValueFromTheMixMap(Map<String, Object> map, T question) {
+        //获取有效值的键值对
+        Map<String,Object> validMap=getValidFieldMap(question);
+        Map<String,Object> newMap= new HashMap<>(validMap.size());
+        for (Map.Entry<String,Object> entry:map.entrySet()){
+            //获取真正有效的域
+            String realFieldValue= (String) validMap.get(entry.getKey());
+            String value= (String) entry.getValue();
+            //如果域不为空
+            if (realFieldValue!=null&&value!=null&& !"".equals(value)){
+                newMap.put(realFieldValue,value);
+            }
+        }
+        return newMap;
     }
 }

@@ -1,6 +1,13 @@
 package controller;
 
 import commom.constantval.ServletConstantVal;
+import commom.factory.ResponseFactory;
+import lombok.extern.slf4j.Slf4j;
+import pojo.Question;
+import pojo.Response;
+import service.QuestionService;
+import service.impl.QuestionServiceImpl;
+import util.ReflectUtil;
 import util.WebUtil;
 
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +20,10 @@ import java.util.Map;
 /**
  * @author Florence
  */
-@WebServlet("/Servlet/ArticleServlet")
-public class ArticleServlet extends HttpServlet {
+@WebServlet("/Servlet/QuestionServlet")
+@Slf4j
+public class QuestionServlet extends HttpServlet {
+    QuestionService service = new QuestionServiceImpl();
     Map<String, Object> map;
 
     @Override
@@ -24,6 +33,11 @@ public class ArticleServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
+        String id =service.addQuestion(ReflectUtil.getFieldAndValueFromTheMixMap(map,new Question()));
+        //获取状态码
+        int statusCode=id!=null?Response.OK:Response.ERROR;
+        //写回id和状态码
+        WebUtil.writeObjToResponse(response, ResponseFactory.getMessage(id).setStatusCode(statusCode));
         System.out.println("post");
     }
 
@@ -34,11 +48,24 @@ public class ArticleServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
+
         System.out.println("get");
     }
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Question question =service.updateQuestion(ReflectUtil.getFieldAndValueFromTheMixMap(map,new Question()),(String)map.get("id"));
+            //失败
+            if (question==null){
+                WebUtil.writeObjToResponse(response,ResponseFactory.getStatus(500));
+                return;
+            }
+            WebUtil.writeObjToResponse(response,question);
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("更新问题失败 {}",e.getMessage());
+        }
         System.out.println("put");
     }
 

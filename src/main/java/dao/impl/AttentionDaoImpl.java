@@ -146,6 +146,7 @@ public class AttentionDaoImpl extends BaseDaoImpl<Attention> implements Attentio
         attention.setCollage(student.getCollege());
         attention.setMajor(student.getMajor());
         attention.setSex(student.getSex());
+        attention.setUserFace(student.getFace());
         attention.setUserName(student.getUserName());
         attention.setUserType("student");
     }
@@ -158,6 +159,7 @@ public class AttentionDaoImpl extends BaseDaoImpl<Attention> implements Attentio
         attention.setCollage(teacher.getCollege());
         attention.setSex(teacher.getSex());
         attention.setUserName(teacher.getUserName());
+        attention.setUserFace(teacher.getFace());
         attention.setUserType("teacher");
     }
 }
