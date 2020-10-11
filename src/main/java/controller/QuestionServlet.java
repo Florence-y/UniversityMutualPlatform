@@ -55,12 +55,14 @@ public class QuestionServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) {
         try {
+            //获取修改后的文章内容
             Question question =service.updateQuestion(ReflectUtil.getFieldAndValueFromTheMixMap(map,new Question()),(String)map.get("id"));
             //失败
             if (question==null){
                 WebUtil.writeObjToResponse(response,ResponseFactory.getStatus(500));
                 return;
             }
+            //将文章内容写回
             WebUtil.writeObjToResponse(response,question);
         } catch (IOException e) {
             e.printStackTrace();
