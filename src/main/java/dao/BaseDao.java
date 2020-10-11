@@ -1,7 +1,5 @@
 package dao;
 
-import pojo.Inf;
-
 import java.util.List;
 import java.util.Map;
 

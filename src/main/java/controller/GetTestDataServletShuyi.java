@@ -16,8 +16,8 @@ import java.util.Map;
  */
 @WebServlet("/Servlet/GetTestDataServletShuyi")
 public class GetTestDataServletShuyi extends HttpServlet {
-    Map<String, Object> map;
     private static final int EVEN = 2;
+    Map<String, Object> map;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

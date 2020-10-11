@@ -19,6 +19,10 @@ public class ChatServer {
      */
     private Session session;
 
+    public static synchronized int getOnlineCount() {
+        return CLIENTS.size();
+    }
+
     /**
      * 连接建立成功调用的方法
      *
@@ -90,9 +94,5 @@ public class ChatServer {
 
 
         this.session.getAsyncRemote().sendText(message);
-    }
-
-    public static synchronized int getOnlineCount() {
-        return CLIENTS.size();
     }
 }

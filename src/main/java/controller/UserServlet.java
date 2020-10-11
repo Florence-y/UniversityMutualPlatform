@@ -24,6 +24,16 @@ public class UserServlet extends HttpServlet {
     Map<String, Object> map;
     UserService service = new UserServiceImpl();
 
+    private static void setCookie(HttpServletResponse response, Response rep) {
+        if (Response.OK == rep.getStatusCode()) {
+            //设置用户名，用户类型cookie
+            response.addCookie(new Cookie("userName", rep.getUserName()));
+            response.addCookie(new Cookie("userType", rep.getUserType()));
+        } else if (Response.ERROR == rep.getStatusCode()) {
+            //do something
+        }
+    }
+
     @Override
     /**
      * 添加用户
@@ -78,15 +88,5 @@ public class UserServlet extends HttpServlet {
         int code = service.deleteUser((String) map.get("userType"), map);
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("delete");
-    }
-
-    private static void setCookie(HttpServletResponse response, Response rep) {
-        if (Response.OK == rep.getStatusCode()) {
-            //设置用户名，用户类型cookie
-            response.addCookie(new Cookie("userName", rep.getUserName()));
-            response.addCookie(new Cookie("userType", rep.getUserType()));
-        } else if (Response.ERROR == rep.getStatusCode()) {
-            //do something
-        }
     }
 }

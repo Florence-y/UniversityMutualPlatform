@@ -11,5 +11,6 @@ import java.lang.annotation.*;
 @Documented
 public @interface IsValid {
     boolean valid();
+
     String fieldName();
 }

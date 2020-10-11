@@ -14,11 +14,17 @@ import dao.impl.TeacherDaoImpl;
  * Dao层工厂类
  */
 public class DaoFactory {
-    public static TeacherDao getTeacherDao(){return new TeacherDaoImpl(); }
+    public static TeacherDao getTeacherDao() {
+        return new TeacherDaoImpl();
+    }
 
-    public static StudentDao getStudentDao(){return new StudentDaoImpl(); }
+    public static StudentDao getStudentDao() {
+        return new StudentDaoImpl();
+    }
 
-    public static InfDao getInfDao(){return new InfDaoImpl(); }
+    public static InfDao getInfDao() {
+        return new InfDaoImpl();
+    }
 
     public static MarkNumberTypeDao getMarkNumberTypeDao() {
         return new MarkNumberTypeDaoImpl();

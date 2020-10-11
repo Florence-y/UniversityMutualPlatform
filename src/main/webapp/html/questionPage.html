@@ -2,194 +2,192 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>问题页面</title>
     <style>
-        *{
-            margin:0;
-            padding:0;
+        * {
+            margin: 0;
+            padding: 0;
         }
-        body{
+
+        body {
             background-color: #f6f6f6;
         }
+
         /* 搜索栏 */
-        .head_search_outside{
-            width:100%;
+        .head_search_outside {
+            width: 100%;
             height: 68px;
             background-color: #fff;
-            border:1px solid #999;
+            border: 1px solid #999;
         }
-        .head_search{
+
+        .head_search {
             position: relative;
-            margin:0 auto;
-            width:1790px;
-            height:100%;
-            border:1px solid #999;
+            margin: 0 auto;
+            width: 1790px;
+            height: 100%;
+            border: 1px solid #999;
         }
+
         /* 问题的描述和提问者的信息 */
 
-        .question_info_main{
-            margin:50px auto 0;
+        .question_info_main {
+            margin: 50px auto 0;
             width: 1790px;
             background-color: #fff;
-            height:300px;
-            border:1px solid #999;
+            height: 300px;
+            border: 1px solid #999;
         }
 
         /* 写回答区 */
-        .textAnswer{
-            margin:50px auto 0;
+        .textAnswer {
+            margin: 50px auto 0;
             width: 1790px;
             background-color: #fff;
-            height:80px;
-            border:1px solid #999;
+            height: 80px;
+            border: 1px solid #999;
         }
+
         /* 回答区 */
-        .content_main{
+        .content_main {
             position: relative;
-            margin:50px auto 0;
+            margin: 50px auto 0;
             width: 1790px;
             background-color: #fff;
-            height:2000px;
-            border:1px solid #999;
+            height: 2000px;
+            border: 1px solid #999;
         }
+
         /* 右边的侧栏框 */
-        .content_main .sideBox_fexed{
+        .content_main .sideBox_fexed {
             position: absolute;
-            top:0;
-            right:0;
-            width:400px;
+            top: 0;
+            right: 0;
+            width: 400px;
             height: 600px;
-            border:1px solid #f00;
+            border: 1px solid #f00;
         }
+
         /* 回答区 */
-        .content_main .answerArea{
+        .content_main .answerArea {
             position: absolute;
-            top:0;
-            left:0;
-            width:1300px;
+            top: 0;
+            left: 0;
+            width: 1300px;
             height: 1500px;
-            border:1px solid #00f;
+            border: 1px solid #00f;
         }
 
         /* logo */
-        .head_search .logo{
+        .head_search .logo {
             position: absolute;
-            top:50%;
-            left:40px;
-            transform: translate(0,-50%);
-            width:150px;
+            top: 50%;
+            left: 40px;
+            transform: translate(0, -50%);
+            width: 150px;
             height: 55px;
             background-color: aquamarine;
         }
 
         /* 搜索框 */
 
-        .head_search .searchBox{
+        .head_search .searchBox {
             position: absolute;
-            top:50%;
-            left:50%;
-            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             height: 45px;
             width: 300px;
-            border:1px solid orange;
-        }
-        .head_search .searchBox .search_input{
-            position: absolute;
-            top:50%;
-            left:10px;
-            transform: translate(0,-50%);
+            border: 1px solid orange;
         }
 
-        .head_search .searchBox .search_btn{
+        .head_search .searchBox .search_input {
             position: absolute;
-            right:40px;
-            top:50%;
+            top: 50%;
+            left: 10px;
+            transform: translate(0, -50%);
+        }
+
+        .head_search .searchBox .search_btn {
+            position: absolute;
+            right: 40px;
+            top: 50%;
             height: 36px;
-            width:50px;
-            transform: translate(0,-50%);
-            color:#fff;
+            width: 50px;
+            transform: translate(0, -50%);
+            color: #fff;
             background-color: mediumslateblue;
         }
 
-        .head_search .user_info{
+        .head_search .user_info {
             position: absolute;
-            right:20px;
-            top:50%;
+            right: 20px;
+            top: 50%;
             height: 36px;
-            width:200px;
-            transform: translate(0,-50%);
+            width: 200px;
+            transform: translate(0, -50%);
             background-color: brown;
 
         }
 
 
-        
-
-
-
-
-
-
-
-
-
     </style>
 </head>
 <body>
-    <!-- 搜索栏 -->
-    <header class="head_search_outside">
-        <div class="head_search">
-            <!-- logo -->
-            <div class="logo">
-                logo
-            </div>
-            <div class="searchBox">
-                <input class="search_input" type="text">
-                <div class="search_btn" >
-                    搜索
-                </div>
-            </div>
-            <!-- 用户头像，消息通知 -->
-            <div class="user_info">
-                <div>
-                    消息提醒
-                </div>
-                <div class="image">
-                    主用户头像
-
-                </div>
+<!-- 搜索栏 -->
+<header class="head_search_outside">
+    <div class="head_search">
+        <!-- logo -->
+        <div class="logo">
+            logo
+        </div>
+        <div class="searchBox">
+            <input class="search_input" type="text">
+            <div class="search_btn">
+                搜索
             </div>
         </div>
-
-    </header>
-    <!-- 问题的描述和提问者的信息 -->
-    <div class="question_info_main">
-        问题的描述和提问者的信息
-    </div>
-    <!-- 写回答 -->
-    <div class="textAnswer">
-        写回答
-    </div>
-
-    <!-- 回答区 -->
-    <div class="content_main">
-        <!-- 右边的侧栏框 -->
-        <div class="sideBox_fexed">
-            右边的侧栏框
-            <!-- 提问者信息 -->
+        <!-- 用户头像，消息通知 -->
+        <div class="user_info">
             <div>
-                提问者信息
+                消息提醒
             </div>
-            <!-- 随手记，便签 -->
-            <div>
-                随手记，便签
+            <div class="image">
+                主用户头像
+
             </div>
-        </div>
-        <!-- 别人的回答,主要部分  -->
-        <div class="answerArea">
         </div>
     </div>
+
+</header>
+<!-- 问题的描述和提问者的信息 -->
+<div class="question_info_main">
+    问题的描述和提问者的信息
+</div>
+<!-- 写回答 -->
+<div class="textAnswer">
+    写回答
+</div>
+
+<!-- 回答区 -->
+<div class="content_main">
+    <!-- 右边的侧栏框 -->
+    <div class="sideBox_fexed">
+        右边的侧栏框
+        <!-- 提问者信息 -->
+        <div>
+            提问者信息
+        </div>
+        <!-- 随手记，便签 -->
+        <div>
+            随手记，便签
+        </div>
+    </div>
+    <!-- 别人的回答,主要部分  -->
+    <div class="answerArea">
+    </div>
+</div>
 
 </body>
 </html>

@@ -33,9 +33,9 @@ public class QuestionServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
-        String id =service.addQuestion(ReflectUtil.getFieldAndValueFromTheMixMap(map,new Question()));
+        String id = service.addQuestion(ReflectUtil.getFieldAndValueFromTheMixMap(map, new Question()));
         //获取状态码
-        int statusCode=id!=null?Response.OK:Response.ERROR;
+        int statusCode = id != null ? Response.OK : Response.ERROR;
         //写回id和状态码
         WebUtil.writeObjToResponse(response, ResponseFactory.getMessage(id).setStatusCode(statusCode));
         System.out.println("post");
@@ -56,17 +56,17 @@ public class QuestionServlet extends HttpServlet {
     protected void doPut(HttpServletRequest request, HttpServletResponse response) {
         try {
             //获取修改后的文章内容
-            Question question =service.updateQuestion(ReflectUtil.getFieldAndValueFromTheMixMap(map,new Question()),(String)map.get("id"));
+            Question question = service.updateQuestion(ReflectUtil.getFieldAndValueFromTheMixMap(map, new Question()), (String) map.get("id"));
             //失败
-            if (question==null){
-                WebUtil.writeObjToResponse(response,ResponseFactory.getStatus(500));
+            if (question == null) {
+                WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(500));
                 return;
             }
             //将文章内容写回
-            WebUtil.writeObjToResponse(response,question);
+            WebUtil.writeObjToResponse(response, question);
         } catch (IOException e) {
             e.printStackTrace();
-            log.error("更新问题失败 {}",e.getMessage());
+            log.error("更新问题失败 {}", e.getMessage());
         }
         System.out.println("put");
     }

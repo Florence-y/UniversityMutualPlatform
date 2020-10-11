@@ -1,7 +1,5 @@
 package dao;
 
-import dao.BaseDao;
-
 /**
  * @author Florence
  */

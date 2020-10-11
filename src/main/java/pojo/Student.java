@@ -11,6 +11,7 @@ import commom.annontation.DbTable;
 @DbTable("t_student")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Student {
+    private final String type = "student";
     @DbPriKey
     @DbCol("student_id")
     private long id;
@@ -34,8 +35,6 @@ public class Student {
     private String userName;
     @DbCol("student_area")
     private String area;
-
-    private final String type = "student";
 
     public long getId() {
         return id;

@@ -12,15 +12,15 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Question {
 
-    @IsValid(valid = true,fieldName = "title")
+    @IsValid(valid = true, fieldName = "title")
     String title;
-    @IsValid(valid = true,fieldName = "content")
+    @IsValid(valid = true, fieldName = "content")
     String content;
-    @IsValid(valid = true,fieldName = "questionType")
+    @IsValid(valid = true, fieldName = "questionType")
     String type;
-    @IsValid(valid = true,fieldName = "tag")
+    @IsValid(valid = true, fieldName = "tag")
     String[] tag;
-    @IsValid(valid = true,fieldName = "imgAddress")
+    @IsValid(valid = true, fieldName = "imgAddress")
     String imgAddress;
     List<Object> answer;
     String userType;
@@ -28,6 +28,7 @@ public class Question {
     String articleId;
     Student student;
     Teacher teacher;
+
     public String getUserType() {
         return userType;
     }
@@ -35,6 +36,7 @@ public class Question {
     public void setUserType(String userType) {
         this.userType = userType;
     }
+
     public String getArticleId() {
         return articleId;
     }

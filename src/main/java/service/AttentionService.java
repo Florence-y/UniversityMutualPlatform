@@ -14,7 +14,7 @@ public interface AttentionService {
      * 添加关注
      *
      * @param map 相关的参数，关注人
-     * @return  状态码
+     * @return 状态码
      */
     int addAttention(Map<String, Object> map);
 

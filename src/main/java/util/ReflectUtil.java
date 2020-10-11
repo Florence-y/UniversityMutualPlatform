@@ -244,9 +244,16 @@ public class ReflectUtil {
         return map;
     }
 
-    public static <T> Map<String, Object> getFieldAndValueFromTheMixMap(Map<String, Object> map, T question) {
+    /**
+     * 获取有效域区域
+     * @param map 原始的map
+     * @param pojo 包含有效域注解的实体
+     * @param <T> 实体的具体类型
+     * @return 得到的 有效域真实有效的列值（可能不是成员变量名）：加他要更改的值
+     */
+    public static <T> Map<String, Object> getFieldAndValueFromTheMixMap(Map<String, Object> map, T pojo) {
         //获取有效值的键值对
-        Map<String, Object> validMap = getValidFieldMap(question);
+        Map<String, Object> validMap = getValidFieldMap(pojo);
         Map<String, Object> newMap = new HashMap<>(validMap.size());
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             //获取真正有效的域

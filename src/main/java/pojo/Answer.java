@@ -3,54 +3,56 @@ package pojo;
 
 import commom.annontation.DbCol;
 import commom.annontation.DbPriKey;
+import commom.annontation.DbTable;
 
 /**
  * @author Florecen
  */
+@DbTable("t_answer")
 public class Answer {
-  @DbPriKey
-  @DbCol("answer_Id")
-  private long answerId;
-  @DbCol("answer_QuestionId")
-  private String answerQuestionId;
-  @DbCol("answer_MarkNumber")
-  private String answerMarkNumber;
-  @DbCol("answer_Content")
-  private String answerContent;
+    @DbPriKey
+    @DbCol("answer_Id")
+    private long id;
+    @DbCol("answer_QuestionId")
+    private String questionId;
+    @DbCol("answer_MarkNumber")
+    private String markNumber;
+    @DbCol("answer_Content")
+    private String content;
 
-  public long getAnswerId() {
-    return answerId;
-  }
+    public long getId() {
+        return id;
+    }
 
-  public void setAnswerId(long answerId) {
-    this.answerId = answerId;
-  }
-
-
-  public String getAnswerQuestionId() {
-    return answerQuestionId;
-  }
-
-  public void setAnswerQuestionId(String answerQuestionId) {
-    this.answerQuestionId = answerQuestionId;
-  }
+    public void setId(long id) {
+        this.id = id;
+    }
 
 
-  public String getAnswerMarkNumber() {
-    return answerMarkNumber;
-  }
+    public String getQuestionId() {
+        return questionId;
+    }
 
-  public void setAnswerMarkNumber(String answerMarkNumber) {
-    this.answerMarkNumber = answerMarkNumber;
-  }
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
+    }
 
 
-  public String getAnswerContent() {
-    return answerContent;
-  }
+    public String getMarkNumber() {
+        return markNumber;
+    }
 
-  public void setAnswerContent(String answerContent) {
-    this.answerContent = answerContent;
-  }
+    public void setMarkNumber(String markNumber) {
+        this.markNumber = markNumber;
+    }
+
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
 }

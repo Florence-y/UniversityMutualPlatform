@@ -1,6 +1,5 @@
 package service.impl;
 
-import org.apache.commons.codec.BinaryDecoder;
 import pojo.Question;
 import pojo.Response;
 import service.QuestionService;
@@ -26,11 +25,11 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public Question updateQuestion(Map<String, Object> wantToUpdateFieldKey, String id) throws IOException {
         int code = ElasticUtil.updateDocById(INDEX, id, wantToUpdateFieldKey);
-        if (code== Response.ERROR){
+        if (code == Response.ERROR) {
             return null;
         }
-        String jsonQuestion = ElasticUtil.getDocById(INDEX,id);
+        String jsonQuestion = ElasticUtil.getDocById(INDEX, id);
         System.out.println(jsonQuestion);
-        return WebUtil.jsonToObj(Question.class,jsonQuestion);
+        return WebUtil.jsonToObj(Question.class, jsonQuestion);
     }
 }
