@@ -255,4 +255,6 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
         String sql = "SELECT count(*) FROM " + getTableName() + " WHERE " + ReflectUtil.getConditionAnd(pojo, ArrayUtil.getArrByOddOrEven(objects, ArrayUtil.ODD));
         return JdbcUtil.getCount(sql, ArrayUtil.getArrByOddOrEven(objects, ArrayUtil.EVEN));
     }
+
+
 }

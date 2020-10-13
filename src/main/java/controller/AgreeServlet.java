@@ -1,8 +1,6 @@
 package controller;
-
 import commom.constantval.ServletConstantVal;
 import util.WebUtil;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

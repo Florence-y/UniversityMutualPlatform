@@ -13,15 +13,16 @@ public class Comment {
 
 
     @DbPriKey
-    @DbCol("comment_Id")
+    @DbCol("comment_id")
     private long id;
-    @DbCol("comment_AnswerId")
+    @DbCol("comment_answerId")
     private long answerId;
-    @DbCol("comment_Content")
+    @DbCol("comment_content")
     private String content;
-    @DbCol("comment_MarkNumber")
+    @DbCol("comment_markNumber")
     private String markNumber;
-
+    Student student;
+    Teacher teacher;
 
     public long getId() {
         return id;
@@ -58,4 +59,31 @@ public class Comment {
         this.markNumber = markNumber;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", answerId=" + answerId +
+                ", content='" + content + '\'' +
+                ", markNumber='" + markNumber + '\'' +
+                ", student=" + student +
+                ", teacher=" + teacher +
+                '}';
+    }
 }

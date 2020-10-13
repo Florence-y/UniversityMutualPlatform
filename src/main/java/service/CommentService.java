@@ -1,7 +1,9 @@
 package service;
 
 import pojo.Comment;
+import pojo.Page;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,4 +25,12 @@ public interface CommentService {
      * @return 新的对象
      */
     Comment editComment(Map<String, Object> map,String condition);
+
+    /**
+     * 获取一个问题的评论
+     * @param getType 获取的类型 individual：个人中心那里 和 answer 回答页面那里
+     * @param dataMap 数据map
+     * @return 返回包含评论的列表
+     */
+    Page<Comment> getComments(String getType, Map<String,Object> dataMap);
 }

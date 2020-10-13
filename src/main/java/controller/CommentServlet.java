@@ -3,6 +3,7 @@ package controller;
 import commom.constantval.ServletConstantVal;
 import commom.factory.ResponseFactory;
 import pojo.Comment;
+import pojo.Page;
 import pojo.Response;
 import service.CommentService;
 import service.impl.CommentServiceImpl;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,6 +43,8 @@ public class CommentServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
+        Page<Comment> page = service.getComments((String) map.get("getType"),map);
+        WebUtil.writeObjToResponse(response,page);
         System.out.println("get");
     }
 

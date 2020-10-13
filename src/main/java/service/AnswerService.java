@@ -1,6 +1,7 @@
 package service;
 
 import pojo.Answer;
+import pojo.Page;
 
 import java.util.Map;
 
@@ -23,4 +24,12 @@ public interface AnswerService {
      * @return 返回更新后的对象
      */
     Answer editAnswer(Map<String, Object> map,String condition);
+
+    /**
+     * 获取answer的page对象进行分页
+     * @param getAnswerType 获取的类型
+     * @param map 存有数据的map
+     * @return 返回一个包含一页回答的页面对象
+     */
+    public Page<Answer> getAnswers(String getAnswerType, Map<String, Object> map);
 }

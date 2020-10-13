@@ -42,13 +42,14 @@ public class QuestionServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.formToMap(request);
         if (ServletConstantVal.DELETE.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
             doDelete(request, response);
             return;
         }
-
+        Question question = service.getDetailQuestion((String) map.get("questionId"),map);
+        WebUtil.writeObjToResponse(response,question);
         System.out.println("get");
     }
 

@@ -37,13 +37,16 @@ public class AttentionServiceImpl implements AttentionService {
         int curPage = Integer.parseInt((String) map.get("currentPage"));
         //页面大小
         int pageSize = Page.PAGE_SIZE;
+        //页面开始的地方
+        int begin=(curPage - 1) * pageSize;
+
         totalPage = attentionDao.getCountByCondition(new Attention(), map);
         if (MAJOR_ATTENTION.equals(attentionType)) {
             //获取我关注的人信息
-            datalist = attentionDao.getMajorAttention((curPage - 1) * pageSize, pageSize, map);
+            datalist = attentionDao.getMajorAttention(begin, pageSize, map);
         } else if (PASS_ATTENTION.equals(attentionType)) {
             //获取关注我的人信息
-            datalist = attentionDao.getPassAttention((curPage - 1) * pageSize, pageSize, map);
+            datalist = attentionDao.getPassAttention(begin, pageSize, map);
         } else {
             log.error("获取关注者类型输入错误（或者得不到参数）");
             return null;

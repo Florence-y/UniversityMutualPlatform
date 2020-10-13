@@ -218,9 +218,14 @@ public class ReflectUtil {
     public static <T> String getOrder(Map<String, Object> condition, T pojo) {
         //获取具体的数据库列名
         String direction = (String) condition.get("direction");
+        //加入这个语句可以默认倒叙
+        direction=direction==null?"desc":direction;
+        String order = (String) condition.get("order");
+        //加入这个语句可以默认不加参数根据id排序
+        order=order==null?getIdField(pojo):ReflectUtil.getColVal(pojo, order);
         return "ORDER BY " +
                 //获取数据库列名
-                ReflectUtil.getColVal(pojo, (String) condition.get("order"))
+                order
                 //正序或者逆序
                 + " " + direction + " ," + getIdField(pojo) + " " + direction;
     }

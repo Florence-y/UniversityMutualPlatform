@@ -17,18 +17,28 @@ public class Question {
     @IsValid(valid = true, fieldName = "content")
     String content;
     @IsValid(valid = true, fieldName = "questionType")
-    String type;
+    String questionType;
     @IsValid(valid = true, fieldName = "tag")
     String[] tag;
     @IsValid(valid = true, fieldName = "imgAddress")
     String imgAddress;
-    List<Object> answer;
+    @IsValid(valid = true,fieldName = "authorMarkNumber")
+    String authorMarkNumber;
+    Page<Answer> answer;
     String userType;
     int agreeCount;
-    String articleId;
+    String questionId;
     Student student;
     Teacher teacher;
 
+    
+    public String getAuthorMarkNumber() {
+        return authorMarkNumber;
+    }
+
+    public void setAuthorMarkNumber(String authorMarkNumber) {
+        this.authorMarkNumber = authorMarkNumber;
+    }
     public String getUserType() {
         return userType;
     }
@@ -37,12 +47,12 @@ public class Question {
         this.userType = userType;
     }
 
-    public String getArticleId() {
-        return articleId;
+    public String getQuestionId() {
+        return questionId;
     }
 
-    public void setArticleId(String articleId) {
-        this.articleId = articleId;
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
     }
 
     public Student getStudent() {
@@ -85,12 +95,12 @@ public class Question {
         this.tag = tag;
     }
 
-    public String getType() {
-        return type;
+    public String getQuestionType() {
+        return questionType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType;
     }
 
     public int getAgreeCount() {
@@ -101,11 +111,11 @@ public class Question {
         this.agreeCount = agreeCount;
     }
 
-    public List<Object> getAnswer() {
+    public Page<Answer> getAnswer() {
         return answer;
     }
 
-    public void setAnswer(List<Object> answer) {
+    public void setAnswer(Page<Answer> answer) {
         this.answer = answer;
     }
 
@@ -122,13 +132,13 @@ public class Question {
         return "Question{" +
                 "title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", type='" + type + '\'' +
+                ", type='" + questionType + '\'' +
                 ", tag=" + Arrays.toString(tag) +
                 ", imgAddress='" + imgAddress + '\'' +
                 ", answer=" + answer +
                 ", userType='" + userType + '\'' +
                 ", agreeCount=" + agreeCount +
-                ", articleId='" + articleId + '\'' +
+                ", articleId='" + questionId + '\'' +
                 ", student=" + student +
                 ", teacher=" + teacher +
                 '}';

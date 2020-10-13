@@ -5,8 +5,6 @@ import commom.factory.ResponseFactory;
 import pojo.Answer;
 import service.AnswerService;
 import service.impl.AnswerServiceImpl;
-import util.ArrayUtil;
-import util.ReflectUtil;
 import util.WebUtil;
 
 import javax.servlet.annotation.WebServlet;
@@ -42,6 +40,7 @@ public class AnswerServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
+//        service.getAnswer
         System.out.println("get");
     }
 

@@ -13,13 +13,14 @@ public class Answer {
     @DbPriKey
     @DbCol("answer_Id")
     private long id;
-    @DbCol("answer_QuestionId")
+    @DbCol("answer_questionId")
     private String questionId;
-    @DbCol("answer_MarkNumber")
+    @DbCol("answer_markNumber")
     private String markNumber;
-    @DbCol("answer_Content")
+    @DbCol("answer_content")
     private String content;
-
+    private Student student;
+    private Teacher teacher;
     public long getId() {
         return id;
     }
@@ -55,4 +56,19 @@ public class Answer {
         this.content = content;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
 }
