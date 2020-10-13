@@ -1,0 +1,695 @@
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    background-color: #f6f6f6;
+}
+/* 搜索栏 */
+.head_search_outside{
+    position: relative;
+    width:100%;
+    height: 110px;
+    background-color: #02A7F0;
+    border-bottom: 1px solid #999;
+ 
+}
+header.head_search_outside_fixed{
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 28px 50px rgba(25,24,40,.35);
+}
+.head_search{
+    position: absolute;
+    top:0;
+    left:50%;
+    transform: translate(-50%,0);
+    width:1790px;
+    height:100%;
+}
+/* 问题的描述和提问者的信息 */
+
+.question_info_main{
+    position: relative;
+    margin:50px auto 0;
+    width: 1790px;
+    background-color: #fff;
+    padding: 50px 0;
+    border-radius: 12px;
+}
+.question_info_main::after{
+    content:"";
+    display: block;
+    height: 0;
+    width:100%;
+    clear: both;
+}
+
+
+/* 回答区 */
+.content_main{
+    position: relative;
+    margin:50px auto 0;
+    width: 1790px;
+    height:2000px;
+    
+}
+
+/* 回答区 */
+.content_main .answerArea{
+    position: absolute;
+    top:0;
+    left:0;
+    background-color: #f6f6f6;
+    width:1300px;
+    height: 1500px;
+}
+
+/* logo */
+.head_search .logo{
+    position: absolute;
+    top:50%;
+    left:40px;
+    transform: translate(0,-50%);
+    width:150px;
+    height: 55px;
+    border:1px solid #666;
+}
+
+/* 搜索框 */
+
+.head_search .searchBox{
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.9);
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    height: 50px;
+    width: 500px;
+    overflow: hidden;
+    border-radius: 4px;
+   
+}
+.head_search .searchBox .search_input{
+    float:left;
+    display: block;
+    height: 50px;
+    font-size:23px;
+    width:390px;
+    color:#999;
+    background-color: transparent;
+    padding:3px 10px;
+    box-sizing: border-box;
+    border:none;
+    border:1px solid #ccc;
+    border-right:none;
+}
+.head_search .searchBox .search_btn{
+    float: left;
+    height: 50px;
+    width:110px;
+    position: relative;
+    color:#fff;
+    text-indent: 1.5em;
+    line-height: 50px;
+    font-weight: 500;
+    font-size:23px;
+    text-align: center;
+    background-color: #0898d6;
+    cursor: pointer;
+}
+.head_search .searchBox .search_btn svg{
+    position: absolute;
+    top:50%;
+    left:20px;
+    transform: translate(0,-50%);
+}
+
+/* 主用户头像 */
+.head_search .user_info{
+    position: absolute;
+    right:20px;
+    top:50%;
+    height: 36px;
+    width:200px;
+    transform: translate(0,-50%);
+    border:1px solid #666;
+}
+
+
+/* 问题信息和作者信息 */
+.question_info_main .question_info_box{
+    float: left;
+    margin-left:40px;
+    width:1000px;
+}
+.question_info_main .question_info_box .questionTitle{
+    width:100%;
+    margin-bottom:10px;
+    color:#333;
+    height: 50px;
+    line-height: 50px;
+    font-size:36px;
+    font-weight: 700;
+}
+.question_info_main .question_info_box .questionLabel{
+    margin:5px 0;
+    height: 34px;
+    width:100%;
+}
+
+.question_info_main .question_info_box .questionLabel .label{
+    display: block;
+    float: left;
+    margin:0px 10px;
+    padding:2px 15px;
+    min-width: 3em;
+    text-decoration: none;
+    text-align: center;
+    height: 24px;
+    line-height: 24px;
+    font-size:18px;
+    color:#0fa3e2;
+    background-color: #e2f3fc;
+    border-radius: 14px;
+}
+.question_info_main .question_info_box .questionLabel .label:first-child{
+    margin-left:0;
+}
+.question_info_main .question_info_box .questionImage{
+    margin-top:10px;
+}
+.question_info_main .question_info_box .questionImage img{
+    height: 130px;
+    border-radius: 4px;
+    margin:0 13px;
+    cursor: pointer;
+}
+.question_info_main .question_info_box .questionImage img:first-child{
+    margin-left:0;
+}
+.question_info_main .question_info_box .questionDetail{
+    margin-top:30px;
+    color:#666;
+    font-size:18px;
+    line-height: 35px;
+    max-height: 70px;
+}
+.question_answer_toolBar{
+    margin-top:30px;
+    height: 40px;
+    width:100%;
+}
+.question_answer_toolBar .toolItem{
+    float: left;
+    position: relative;
+    text-align: center;
+    margin:0 20px;
+    height: 25px;
+    min-width: 3em;
+    padding:3px 10px;
+    font-size:18px;
+    line-height: 25px;
+    color:#999;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.question_answer_toolBar .toolItem_icon{
+    text-indent: 1.5em;
+}
+
+.question_answer_toolBar .toolItem svg{
+    
+    position: absolute;
+    left:5px;
+
+}
+.question_answer_toolBar .toolItem_important{
+    color:#fff;
+    background-color: #02A7F0;
+}
+.question_answer_toolBar .toolItem:first-child{
+    margin-left:0;
+}
+
+.question_info_main .author_info_box{
+    float: right;
+    position: relative;
+    margin-right:20px;
+    height:345px;
+    width:445px;
+}
+
+.author_info_box .areaTitle{
+    width:100%;
+    height:40px;
+    margin-bottom:20px;
+    line-height: 40px;
+    font-size:25px;
+    font-weight: 700;
+}
+
+.question_info_main .author_info_box .profile img{
+    width:130px;
+    height: 130px;
+    border-radius: 4px;
+}
+
+.question_info_main .author_info_box .name_type_row{
+    position: absolute;
+    top:60px;
+    left:145px;
+    height:40px;
+}
+
+.question_info_main .author_info_box .userName{
+   
+    float: left;
+    height:40px;
+    line-height: 40px;
+    font-size:25px;
+    font-weight: 700;
+}
+
+.question_info_main .author_info_box  .userType{
+    float: left;
+    margin-left:30px;
+    width:2em;
+    height:40px;
+    line-height: 40px;
+    font-weight: 500;
+    font-size:20px;
+    color:#666;
+   
+}
+
+.question_info_main .author_info_box .schoolInfo{
+    position: absolute;
+    top:130px;
+    left:145px;
+    width:282px;
+    height:40px;
+    line-height: 40px;
+    font-size:18px;
+    font-weight: 500;
+}
+
+ .author_info_box .signature{
+     height: 60px;
+     margin-top:20px;
+     color:#999;
+     font-size:18px;
+     line-height: 30px;
+ }
+
+ .author_info_box .tool{
+    position: absolute;
+    bottom:20px;
+    text-align: center;
+    height: 35px;
+    min-width: 3em;
+    padding:3px 20px;
+    font-size:22px;
+    border-radius: 3px;
+    
+    cursor: pointer;
+}
+.author_info_box .subscribe_btn{
+    left:0px;
+    color:#fff;
+    background-color: #02A7F0;
+ }
+ 
+.author_info_box .sendText_btn{
+   right:80px;
+   text-indent: 1.2em;
+   color:#999;
+}
+.author_info_box .sendText_btn svg{
+    position: absolute;
+    top:-2px;
+    left:5px;
+}
+.author_info_box .sendText_btn:hover{
+    color:#333;
+}
+.author_info_box .sendText_btn:hover path{
+    fill:#999;
+}
+
+
+/* 写回答区 */
+.textAnswer{
+    display: none;
+    margin-bottom:40px;
+    width: 100%;
+    border-radius: 12px;
+    background-color: #fff;
+    height:230px;
+    box-sizing: border-box;
+    padding:20px 15px;
+}
+ .textAnswer::after{
+    content:"";
+    display: block;
+    height: 0;
+    width:100%;
+    clear: both;
+}
+
+.textAnswer .answerTextArea{
+    margin:10px auto 0;
+    resize: none;
+    text-align: left;
+    box-sizing: border-box;
+    line-height: 25px;
+    font-size:23px;
+    color:#333;
+    width:100%;
+    padding:10px;
+    height: 100px;
+    border:1px solid #ccc;
+}
+.answerArea .textAnswer .toolBar{
+    position: relative;
+    width:100%;
+    margin-top:30px;
+}
+.textAnswer .slideUp{
+    position: relative;
+    border-radius: 15px;
+    color:#999;
+    right:30px;
+    width:90px;
+}
+
+.textAnswer .slideUp svg{
+    position: absolute;
+    top:50%;
+    left:0px;
+    transform: translate(0,-50%);
+}
+.textAnswer .slideUp:hover{
+    color:#333;
+}
+.textAnswer .slideUp:hover svg path{
+    fill:#666;
+}
+.textAnswer .toolBar .tool{
+    position: absolute;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    padding:3px 10px;
+    font-size:20px;
+    cursor: pointer;
+}
+
+.textAnswer .toolBar .sendBtn{
+    right:160px;
+    background-color: #02A7F0;
+    color:#fff;
+    border-radius: 6px;
+}
+
+
+
+
+
+
+
+
+
+/* 评论区 */
+.answerItem_List{
+    
+    background-color: #fff;
+    border-radius: 12px;
+}
+/* 每一条评论 */
+
+.answerArea .answerItem {
+    margin:20px 0;
+    padding:30px;
+    box-sizing: border-box;
+}
+.answerArea .answerItem:first-child{
+    margin-top:0;
+}
+.answerArea .answerItem .headInfo{
+    position: relative;
+    width:100%;
+    height:80px;
+    border-bottom: 1px solid #ccc;
+   
+}
+.answerArea .answerItem .profile{
+    float: left;
+    margin-top:10px;
+}
+.answerArea .answerItem .profile img{
+    width:60px;
+    height: 60px;
+    border-radius: 30px;
+}
+
+.answerArea .answerItem .userName{
+    float: left;
+    margin-top:20px;
+    margin-left:30px;
+    padding: 0 10px;
+    height:40px;
+    line-height: 40px;
+    font-size:25px;
+    font-weight: 700;
+  
+}
+.answerArea .answerItem  .userType{
+    float: left;
+    margin-top:20px;
+    margin-left:40px;
+    padding: 0 10px;
+    width:2em;
+    height:40px;
+    line-height: 40px;
+    font-weight: 500;
+    font-size:20px;
+    color:#666;
+   
+}
+.answerArea .answerItem .schoolInfo{
+    float: left;
+    margin-top:20px;
+    margin-left:20px;
+    padding: 0 10px;
+    height:40px;
+    line-height: 40px;
+    font-size:18px;
+    font-weight: 500;
+   
+}
+
+.answerArea .contentText{
+    padding:20px 15px;
+    box-sizing: border-box;
+    width:100%;
+    font-size:20px;
+    color:#333;
+    line-height: 25px;
+}
+.answerArea .contentText img{
+    display: block;
+    margin:20px auto;
+    max-width: 900px;
+    border-radius: 4px;
+}
+.answerArea .answerItem .time{
+    margin:20px 15px;
+    color:#999;
+    font-size:18px;
+}
+.answerArea .answerItem .question_answer_toolBar{
+    margin-left:15px;
+}
+
+
+
+
+
+/* 右边的侧栏框 */
+.content_main .sideBox_fixed{
+    position: absolute;
+    top:0;
+    right:0;
+    width:400px;
+    height: 600px;
+    border-radius: 12px;
+}
+.content_main .sideBox_fixed_on{
+    position: fixed;
+    top:140px;
+}
+.sideBox_fixed .author_info_box{
+    display: none;
+    position: relative;
+    height: 400px;
+    border-radius: 12px;
+    margin-bottom:30px;
+    padding:20px 15px;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+.sideBox_fixed .author_info_box .areaTitle{
+    text-align: center;
+}
+.sideBox_fixed .author_info_box .profile img{
+    width:130px;
+    height: 130px;
+    display: block;
+    margin:0 auto;
+    border-radius: 50%;
+}
+
+
+.sideBox_fixed .author_info_box .userName{
+    width: 100%;
+    margin-top:10px;
+    text-align: center;
+    height:40px;
+    line-height: 40px;
+    font-size:25px;
+    font-weight: 700;
+}
+.sideBox_fixed .author_info_box  .userType{
+    position: absolute;
+    top:185px;
+    left:270px;
+    width:2em;
+    height:40px;
+    line-height: 40px;
+    font-weight: 500;
+    font-size:20px;
+    color:#666;
+}
+
+.sideBox_fixed .author_info_box .schoolInfo{
+   text-align: center;
+   margin-top:10px;
+    width:100%;
+    height:40px;
+    line-height: 40px;
+    font-size:18px;
+    font-weight: 500;
+}
+
+.sideBox_fixed .author_info_box .toolBar{
+    margin-top:75px;
+    position: relative;
+}
+.sideBox_fixed .author_info_box .subscribe_btn{
+    left:40px;
+}
+.sideBox_fixed .author_info_box .sendText_btn{
+    right:40px;
+    text-indent: 0.6em;
+}
+.sideBox_fixed .author_info_box .sendText_btn svg{
+    top:2px;
+}
+
+.sideBox_fixed .linkingQuestion{
+    width:100%;
+    height:450px;
+    margin-bottom:30px;
+    border-radius: 12px;
+    padding:25px 15px;
+    box-sizing:border-box;
+    background-color: #fff;
+}
+
+/* 便利签 */
+
+.sideBox_fixed .note{
+    width:100%;
+    position: relative;
+    height: 550px;
+    box-sizing: border-box;
+    padding:25px 15px;
+    border-radius: 12px;
+    color:#333;
+    background-color: rgb(255, 207, 50);
+}
+
+.sideBox_fixed .note .nail{
+    position: absolute;
+    left:50%;
+    top:-20px;
+    transform: translate(-50%,0);
+}
+.sideBox_fixed .note .title{
+    font-size:25px;
+    text-align: center;
+    width:100%;
+    margin-bottom:20px;
+}
+.sideBox_fixed .note .content{
+    text-indent: 2em;
+    font-size:18px;
+    line-height: 25px;
+}
+.sideBox_fixed .note .content textarea{
+    background-color:transparent;
+    display: block;
+    resize:none;
+    text-align: left;
+    width:370px;
+    height:380px;
+    padding:10px 20px;
+    font-size:20px;
+    box-sizing: border-box;
+    border:1px solid #ccc;
+}
+.sideBox_fixed .note .toolBar{
+    margin-top:10px;
+    height: 30px;
+    font-size:20px;
+    width:100%;
+}
+.sideBox_fixed .note .toolBar .tool{
+    position: absolute;
+    cursor: pointer;
+}
+.sideBox_fixed .note .toolBar .tool:hover{
+    color:#111;
+}
+.sideBox_fixed .note .toolBar .copyText{
+    left:30px;
+}
+.sideBox_fixed .note .toolBar .writeAnswer{
+    left:280px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

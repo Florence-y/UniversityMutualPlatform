@@ -16,8 +16,8 @@ table{
     transform: translate(-50%,-50%);
     width:520px;
     height: 430px;
-    background-color: #fff;
-    border:1px solid #999;
+    background-color: rgba(255,255,255,0.85);
+   
     border-radius: 24px;
 }
 /*头部标题*/
@@ -130,6 +130,7 @@ td{
     padding:2px 5px;
     line-height: 25px;
     width: 180px;
+    background-color: transparent;
     border-radius: 8px;
 }
 .email_tail{
@@ -162,6 +163,7 @@ td{
     line-height: 25px;
     font-size:15px;
     color:#777;
+    background-color: transparent;
     border:1px solid #797979;
     border-radius: 8px;
     outline: none;
@@ -196,6 +198,7 @@ td{
    background-color: #2db4e5;
 }
 input{
+    background-color: transparent;
     outline: none;
 }
 /* 发送验证码按钮 */
@@ -241,8 +244,7 @@ input.emailError{
     transform: translate(-50%,-50%);
     width:460px;
     height: 510px;
-    background-color: #fff;
-    border:1px solid #999;
+    background-color: rgba(255,255,255,0.85);
     border-radius: 24px;
     color:#333;
 }
