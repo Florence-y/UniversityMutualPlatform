@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +23,7 @@ import java.util.Map;
 public class CommentServlet extends HttpServlet {
     Map<String, Object> map;
     CommentService service = new CommentServiceImpl();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
@@ -43,8 +43,8 @@ public class CommentServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
-        Page<Comment> page = service.getComments((String) map.get("getType"),map);
-        WebUtil.writeObjToResponse(response,page);
+        Page<Comment> page = service.getComments((String) map.get("getType"), map);
+        WebUtil.writeObjToResponse(response, page);
         System.out.println("get");
     }
 
@@ -52,11 +52,11 @@ public class CommentServlet extends HttpServlet {
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Comment comment = service.editComment(map, String.valueOf(map.get("condition")));
         //如果对象为空
-        if (comment==null){
-            WebUtil.writeObjToResponse(response,ResponseFactory.getStatus(Response.ERROR));
+        if (comment == null) {
+            WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(Response.ERROR));
             return;
         }
-        WebUtil.writeObjToResponse(response,comment);
+        WebUtil.writeObjToResponse(response, comment);
         System.out.println("put");
     }
 

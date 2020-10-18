@@ -8,22 +8,14 @@ import java.util.List;
  */
 public class Page<T> {
     public static final int PAGE_SIZE = 5;
-    private boolean last;
     private boolean next;
     private int totalPage;
     private int nowPosition;
+    private String scrollId;
     private List<T> dataList;
 
     public int getPAGE_SIZE() {
         return PAGE_SIZE;
-    }
-
-    public boolean isLast() {
-        return last;
-    }
-
-    public void setLast(boolean last) {
-        this.last = last;
     }
 
     public boolean isNext() {
@@ -56,5 +48,24 @@ public class Page<T> {
 
     public void setDataList(List<T> dataList) {
         this.dataList = dataList;
+    }
+
+    public String getScrollId() {
+        return scrollId;
+    }
+
+    public void setScrollId(String scrollId) {
+        this.scrollId = scrollId;
+    }
+
+    @Override
+    public String toString() {
+        return "Page{" +
+                "next=" + next +
+                ", totalPage=" + totalPage +
+                ", nowPosition=" + nowPosition +
+                ", scrollId='" + scrollId + '\'' +
+                ", dataList=" + dataList +
+                '}';
     }
 }

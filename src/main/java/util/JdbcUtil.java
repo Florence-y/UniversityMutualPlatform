@@ -249,7 +249,7 @@ public class JdbcUtil {
      * @param value ？ 的值
      * @return 返回行的数量
      */
-    public static int getCount(String sql, Object[] value) {
+    public static int getCount(String sql, Object... value) {
         try {
             int anInt = -1;
             Connection connection = C3P0Util.getConnection();

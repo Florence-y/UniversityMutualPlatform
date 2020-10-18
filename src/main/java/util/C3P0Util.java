@@ -56,6 +56,9 @@ public class C3P0Util {
             //建立回答点赞表
             tempPreparedStatement = tempConnection.prepareStatement(MySql.CREATE_TABLE_ANSWER_AGREE.toString());
             tempPreparedStatement.executeUpdate();
+            //建立回答内容表
+            tempPreparedStatement = tempConnection.prepareStatement(MySql.CREATE_TABLE_ANSWER_CONTENT.toString());
+            tempPreparedStatement.executeUpdate();
             close(tempConnection, tempPreparedStatement);
             System.out.println("初始化数据库表结构初始化完成");
         } catch (SQLException throwable) {

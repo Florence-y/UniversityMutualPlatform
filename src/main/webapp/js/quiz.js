@@ -1,7 +1,7 @@
-$(function() {
+$(function () {
 
     //#region 文本域字数限制
-    $("textarea").on("keyup", function() {
+    $("textarea").on("keyup", function () {
         var nowNum = $(this).val().length;
         $(this).siblings("span").find(".nowNum").text(nowNum);
         var maxNum = $(this).siblings("span").find(".maxNum").text();
@@ -18,11 +18,11 @@ $(function() {
 
     //#region 鼠标悬停在标签 上 背景颜色改变 且出现删除按钮
     $(".nodeBoard span").on({
-        mouseover: function() {
+        mouseover: function () {
             $(this).css("backgroundColor", "rgba(0, 0, 0, 0.1)");
             $(this).find("i").show();
         },
-        mouseout: function() {
+        mouseout: function () {
             $(this).css("backgroundColor", "#fff");
             $(this).find("i").hide();
 
@@ -30,10 +30,10 @@ $(function() {
     })
 
     $(".addLabel span").on({
-        mouseover: function() {
+        mouseover: function () {
             $(this).css("backgroundColor", "rgba(0, 0, 0, 0.1)");
         },
-        mouseout: function() {
+        mouseout: function () {
             $(this).css("backgroundColor", "#fff");
         }
     })
@@ -42,12 +42,12 @@ $(function() {
 
     //#region 标签删除 添加
     $(".removeLabel").on({
-        click: function() {
+        click: function () {
             $(this).parent().hide(300);
         }
     })
     $(".addLabel .add").on({
-        click: function() {
+        click: function () {
 
         }
     })
@@ -91,7 +91,7 @@ $(function() {
     //#region 插入图片 + 删除图片
     // var pictureNum = 0;
     $(".insertP").on({
-        change: function(e) {
+        change: function (e) {
             //创建 div>i  img
             var div = $("<div class='picture'><i class='removePicture'>&times;</i></div>")
             var img = $("<img>");
@@ -118,10 +118,10 @@ $(function() {
 
             //×出现与消失
             $(".picture").on({
-                mouseover: function() {
+                mouseover: function () {
                     $(this).find(".removePicture").stop().show(200);
                 },
-                mouseout: function() {
+                mouseout: function () {
                     $(this).find(".removePicture").stop().hide(200);
                 }
             })
@@ -129,26 +129,24 @@ $(function() {
             //删除图片 
             $(".removePicture").on({
 
-                click: function() {
+                click: function () {
 
-                        // console.log($(".picture").length);
-                        if ($(".picture").length < 3) {
+                    // console.log($(".picture").length);
+                    if ($(".picture").length < 3) {
 
-                            // $(".insertP").show();
-                            $(".insertP").parent().show();
-                        }
-                        $(this).parent().remove();
+                        // $(".insertP").show();
+                        $(".insertP").parent().show();
                     }
-                    //     $(this).parent().animate({
-                    //         $(this).remove();
-                    //    },300)
+                    $(this).parent().remove();
+                }
+                //     $(this).parent().animate({
+                //         $(this).remove();
+                //    },300)
             })
         }
     })
 
     //#endregion
-
-
 
 
 })

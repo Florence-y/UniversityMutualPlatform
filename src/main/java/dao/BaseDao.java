@@ -14,7 +14,7 @@ public interface BaseDao<T> {
      * @param id 要求的id
      * @return 返回值
      */
-    T selectById(int id);
+    T selectById(Integer id);
 
     /**
      * 根据一项条件，更新数据库

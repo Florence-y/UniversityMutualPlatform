@@ -1,9 +1,12 @@
 package controller;
 
+import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.Test;
-import org.omg.CORBA.MARSHAL;
-import pojo.Student;
+import pojo.Found;
+import pojo.Page;
+import pojo.QuestionContent;
 import util.ElasticUtil;
+import util.WebUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,27 +23,75 @@ public class elasticTest {
     public void getMappings() throws IOException {
         ElasticUtil.getMappings("test");
     }
+
     @Test
     public void addDoc() throws IOException {
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put("sex",new String[]{"男","女","男"});
-        map.put("userName","冯远安");
-        map.put("message",new String[]{"测试数组","测试数组","测试数组"});
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("authorMarkNumber", 191541227);
+        map.put("imgAddress", "../wsss.jpg");
+        map.put("questionType", "生活");
+        map.put("title", "你在干嘛呢");
 //        ElasticUtil.addDoc(map);
+        QuestionContent a = new QuestionContent(1, "text", "adasdada");
+        QuestionContent b = new QuestionContent(2, "img", "../adadsasd");
+        QuestionContent[] questionContents = new QuestionContent[]{a, b};
+        map.put("contents", questionContents);
+//        ElasticUtil.addDoc(map,"question");
+        System.out.println(WebUtil.mapToJson(map));
+        ElasticUtil.addDoc(WebUtil.mapToJson(map), "question");
     }
+
     @Test
-    public void mutipltySearcher(){
+    public void mutipltySearcher() {
         Map<String, Object> map = new HashMap<>();
-        map.put("message","页我的是是啊刻意进项");
-        List<String> list = ElasticUtil.multiOrSearch(map, 20,true);
+        map.put("message", "页我的是是啊刻意进项");
+        List<String> list = ElasticUtil.multiOrSearch(map, 20, true);
         System.out.println(list);
     }
-    @Test
-    public void updateByIdTest(){
 
-        Map<String,Object> map = new HashMap<>();
-        map.put("sex","男");
-        map.put("userName","傻59");
+    @Test
+    public void updateByIdTest() {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("sex", "男");
+        map.put("userName", "傻59");
         int i = ElasticUtil.updateDocById("test", "VLyB9nQBGNAVaRfr6Bmn", map);
+
+    }
+
+    @Test
+    public void getDoc() throws IOException {
+        Page<Found> found = ElasticUtil.scrollSearchFirst("found", QueryBuilders.matchAllQuery(), new Found());
+        Page<Found> foundPage = ElasticUtil.scrollSearch(found.getScrollId(), new Found());
+        Page<Found> foundPage1 = ElasticUtil.scrollSearch(foundPage.getScrollId(), new Found());
+        for (Found found1 : found.getDataList()) {
+            System.out.println(found1.getFoundLocation());
+        }
+        System.out.println(found.isNext());
+        for (Found found1 : foundPage.getDataList()) {
+            System.out.println(found1.getFoundLocation());
+        }
+        System.out.println(foundPage.isNext());
+        for (Found found1 : foundPage1.getDataList()) {
+            System.out.println(found1.getFoundLocation());
+        }
+        System.out.println(foundPage1.isNext());
+    }
+
+    @Test
+    public void addDocAndGetById() {
+
+    }
+
+    @Test
+    public void divideWord() throws IOException {
+        List<String> list = ElasticUtil.divideTheKeyWord("广东金融学院");
+        System.out.println(list);
+    }
+
+    @Test
+    public void getScroll() throws IOException {
+//        Page<Found> found = ElasticUtil.scrollSearchFirst("found", QueryBuilders.matchAllQuery(), new Found());
+        System.out.println(ElasticUtil.scrollSearch("FGluY2x1ZGVfY29udGV4dF91dWlkDXF1ZXJ5QW5kRmV0Y2gBFENnX0xPblVCZXNqYnpFeE9CWVRsAAAAAAAAKi8WMXR3aE5VRUtUX21EMTNZUkNaV09fQQ==", new Found()));
     }
 }

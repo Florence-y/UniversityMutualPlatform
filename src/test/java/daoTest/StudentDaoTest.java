@@ -2,15 +2,9 @@ package daoTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dao.StudentDao;
-import dao.impl.StudentDaoImpl;
 import org.junit.Test;
 import pojo.Attention;
-import pojo.Student;
 import util.MySql;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class StudentDaoTest {
     @Test
@@ -29,10 +23,11 @@ public class StudentDaoTest {
 //        map.put("sssss","dddd");
 //        dao.insertRowByKeyAndValue(new Student(),map);
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println( objectMapper.writeValueAsString(new Attention()));
+        System.out.println(objectMapper.writeValueAsString(new Attention()));
     }
+
     @Test
-    public void  testMysql(){
+    public void testMysql() {
         System.out.println(MySql.CREATE_TABLE_INF);
     }
 }

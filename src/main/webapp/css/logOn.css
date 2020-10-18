@@ -140,7 +140,7 @@ button {
 
 /* #region 登录--学生/教师 input  */
 
-.modal_content>.logOn form .confirm {
+.modal_content > .logOn form .confirm {
     position: relative;
     margin-top: 20px;
 }
@@ -261,7 +261,7 @@ button {
     position: absolute;
 }
 
-.modal_content .forgetPas>div {
+.modal_content .forgetPas > div {
     /* 忘记密码页面 的三个框 */
     margin: 32px 0;
 }
@@ -343,15 +343,15 @@ button {
     left: 93px;
 }
 
-.modal_content .resetPas>div {
+.modal_content .resetPas > div {
     margin: 35px 0;
 }
 
-.modal_content .resetPas>div span {
+.modal_content .resetPas > div span {
     vertical-align: bottom;
 }
 
-.modal_content .resetPas>div input {
+.modal_content .resetPas > div input {
     /* 两个密码框 */
     width: 171px;
     height: 21px;
