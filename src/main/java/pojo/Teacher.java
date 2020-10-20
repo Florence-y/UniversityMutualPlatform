@@ -12,6 +12,7 @@ import commom.annontation.DbTable;
 @DbTable("t_teacher")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Teacher {
+    private final String type = "teacher";
     @DbPriKey
     @DbCol("teacher_id")
     private long id;
@@ -35,8 +36,6 @@ public class Teacher {
     private String graduatedUniversity;
     @DbCol("teacher_degree")
     private String degree;
-
-    private final String type = "teacher";
 
     public long getId() {
         return id;

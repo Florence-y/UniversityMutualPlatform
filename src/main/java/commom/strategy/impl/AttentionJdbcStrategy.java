@@ -1,7 +1,6 @@
 package commom.strategy.impl;
 
 import commom.strategy.JdbcGetPojoStrategy;
-
 import pojo.Attention;
 
 import java.sql.ResultSet;

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提问</title>
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="stylesheet" href="../css/quiz.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            height: 100%;
+        }
+        
+        body {
+            height: 100%;
+            background-color: skyblue;
+        }
+        
+        .iconfont {
+            font-family: "iconfont" !important;
+            font-size: 33px;
+            color: #02A7F0;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            -moz-osx-font-smoothing: grayscale;
+            transition: all 0.5s;
+        }
+        
+        .modal_bg {
+            display: none;
+            background-color: #00000066;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            opacity: 1;
+        }
+        
+        .modal {
+            background-color: #F2F2F2;
+            border-radius: 30px;
+            width: 452px;
+            height: 660px;
+            position: absolute;
+            border: 2px solid #02A7F0;
+            top: 50%;
+            left: 50%;
+            opacity: 1;
+            transition: all ease 0.5s;
+            transform: translate(-50%, -50%) scale(0.7);
+            box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .fadeout {
+            float: right;
+        }
+        
+        .active_line {
+            display: inline-block;
+            position: absolute;
+            bottom: 0;
+            left: 51%;
+            transform: translate(-50%, 0);
+            z-index: 4;
+            height: 1px;
+            background-color: #02A7F0;
+            box-shadow: 0 0 3px #02A7F0;
+            width: 0px;
+            border-radius: 20px;
+            transition: width, ease-in 0.3s;
+        }
+        
+        .value:hover .active_line {
+            width: 271px;
+        }
+    </style>
+
+    <script src="../js/jquery-3.5.1.js"></script>
+    <script src="../js/quiz.js"></script>
+</head>
+
+<body style="height: 100%;">
+    <button class="fadeinQuiz">提问</button>
+    <div class="modal_bg">
+        <div class="modal">
+            <div class="modal_head">
+                <button class="fadeout">&times;</button>
+            </div>
+            <div class="modal_content">
+                <div class="mainQuestion">
+                    <textarea v name="" id="" cols="30" rows="10" class="mainQ" placeholder="请输入问题"></textarea>
+                    <span><b class="nowNum">0</b><b>/</b><b class="maxNum">25</b></span>
+                </div>
+
+                <div class="insertPicture">
+                    <!-- <img src="" alt=""> -->
+
+                    <!-- <div class="picture">
+                        <img src="../img/01.jpg" alt="">
+                        <i class="removePicture">&times;</i>
+                    </div> -->
+                    <i class="file iconfont iconjiahao1">
+                        <input type="file" class="insertP" accept="image/*">
+                    </i>
+
+                </div>
+                <div class="questionNote">
+                    <textarea name="" id="" cols="30" rows="10" class="queN" placeholder="问题备注"></textarea>
+                    <span><b class="nowNum">0</b><b>/</b><b class="maxNum">80</b></span>
+                </div>
+                <div class="label">
+                    <b class="labelFont">标签栏</b>
+                    <div class="nodeBoard">
+                        <span>有<i class="removeLabel">&times;</i></span>
+                        <span>一个<i class="removeLabel">&times;</i></span>
+                        <span>地方的<i class="removeLabel">&times;</i></span>
+                        <span>咕噜咕噜<i class="removeLabel">&times;</i></span>
+                        <span>咕噜咕噜咕<i class="removeLabel">&times;</i></span>
+                        <span>咕噜咕噜咕噜<i class="removeLabel">&times;</i></span>
+                    </div>
+                    <div class="addLabel">
+                        <span class="add">自行添加标签</span> <i class="iconfont">&#xe720;</i>
+                        <!-- <input type="text" placeholder="请输入标签" class="WriteAddLabel"> -->
+                    </div>
+
+                </div>
+                <button class="publish">立即发表</button>
+            </div>
+            <div class="modal_foot"></div>
+        </div>
+    </div>
+    <script>
+        //设置背景高度
+        $('.fadeinQuiz').click(function() {
+            $(".logOn").siblings().fadeOut();
+            $(".logOn").fadeIn();
+            $('.modal_bg').fadeIn();
+            // $('.modal').fadeIn();
+
+            $('.modal').css({
+                transform: 'translate(-50%,-50%) scale(1)'
+            })
+
+        })
+
+        $('.fadeout').click(function() {
+            $('.modal_bg').fadeOut(); // 其实就是css 的过渡+ display
+            $('.modal').css({
+                transform: 'translate(-50%,-50%) scale(0.7)'
+            })
+
+        })
+    </script>
+
+</body>
+
+</html>

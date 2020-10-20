@@ -1,0 +1,322 @@
+* {
+    padding: 0;
+    margin: 0;
+    color: #000;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+}
+
+h2,
+b,
+i,
+em {
+    font-weight: normal;
+    font-style: normal;
+}
+
+input,
+button,
+textarea {
+    outline: none;
+    border: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* #region 模态框关闭按钮*/
+
+.modal_head {
+    height: 40px;
+    width: 100%;
+    position: relative;
+}
+
+.modal_head button {
+    position: relative;
+    top: 8px;
+    right: 14px;
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* #endregion */
+
+.modal_content {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0 20px 20px 20px;
+}
+
+
+/* #region 输入问题 + 问题备注 */
+
+.modal_content>div {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px;
+    position: relative;
+}
+
+.modal_content div:nth-of-type(1) textarea,
+.modal_content div:nth-of-type(3) textarea {
+    resize: none;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border: 1px solid #797979;
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.modal_content div:nth-of-type(1) textarea {
+    font-weight: 700;
+}
+
+.modal_content div:nth-of-type(1) textarea::-webkit-input-placeholder,
+.modal_content div:nth-of-type(3) textarea::-webkit-input-placeholder {
+    color: #c2c2c2;
+    line-height: 20px;
+    font-size: 15px;
+}
+
+.modal_content .mainQuestion {
+    height: 100px;
+}
+
+.modal_content .mainQuestion>span,
+.modal_content .questionNote>span {
+    position: absolute;
+    bottom: 18px;
+    right: 30px;
+}
+
+.modal_content .mainQuestion>span b,
+.modal_content .questionNote>span b {
+    font-size: 13px;
+    color: #333;
+}
+
+.modal_content .questionNote {
+    height: 160px;
+}
+
+
+/* #endregion */
+
+
+/* #region 插入图片 */
+
+.modal .modal_content>.insertPicture {
+    height: 90px;
+    padding: 0 14px;
+    box-sizing: border-box;
+}
+
+.modal .modal_content>.insertPicture .picture {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    float: left;
+    margin-right: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+}
+
+
+/* .modal .modal_content>.insertPicture img::after {
+    content: "";
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
+} */
+
+.modal .modal_content>.insertPicture img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.modal .modal_content>.insertPicture .removePicture {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    right: -2px;
+    top: -4px;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 30px;
+    top: 0;
+}
+
+
+/* .modal .modal_content>.insertPicture .picture:hover .removePicture {
+    display: block;
+} */
+
+.modal_content .insertPicture .file {
+    position: relative;
+    display: block;
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    text-align: center;
+    border: 1px #666 dashed;
+    box-sizing: border-box;
+    color: #777;
+    /* font-size: 35px; */
+    cursor: pointer;
+    transition: all 0.1s;
+    float: left;
+    border-radius: 8px;
+    transition: all 0.3s;
+    margin-right: 20px;
+}
+
+.modal_content .insertPicture .insertP {
+    cursor: pointer;
+}
+
+.modal_content .insertPicture .file:hover {
+    color: #02A7F0;
+    font-weight: 400;
+    border-color: #02A7F0;
+}
+
+.modal_content .insertPicture .iconjiahao1::before {
+    content: "\e60b";
+    font-size: 35px;
+}
+
+.modal_content .insertPicture input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+
+
+/* #endregion */
+
+
+/* #region 标签栏*/
+
+.modal_content .label {
+    /* width: 100%; */
+    height: 120px;
+    padding-top: 0;
+    /* border: 1px solid #797979; */
+}
+
+.modal_content .label>div {
+    float: left;
+}
+
+.modal_content .label .labelFont {
+    display: block;
+    font-size: 12px;
+    color: #333;
+    position: relative;
+    left: 7px;
+}
+
+.modal_content .label .nodeBoard {
+    width: 64%;
+    height: 85px;
+    padding: 0;
+}
+
+.modal_content .label span {
+    position: relative;
+    /* width: 67px; */
+    height: 33px;
+    background-color: #fff;
+    margin-right: 8px;
+    float: left;
+    padding: 0 8px;
+    display: block;
+    margin-top: 8px;
+    border-radius: 8px;
+    text-align: center;
+    line-height: 33px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+}
+
+.modal_content .label .nodeBoard span i {
+    position: absolute;
+    right: 3px;
+    top: -9px;
+    display: none;
+    cursor: pointer;
+}
+
+.modal_content .label .addLabel {
+    width: 36%;
+    float: right;
+    position: relative;
+    /* border: #000 1px solid; */
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.modal_content .label .addLabel span {
+    width: 140px;
+    box-sizing: border-box;
+    padding-left: 18px;
+    /* vertical-align: middle; */
+    margin: 0;
+    float: right;
+}
+
+.modal_content .label .addLabel .iconfont {
+    position: absolute;
+    left: 0px;
+    top: -2px;
+    font-size: 33px;
+}
+
+
+/* #endregion */
+
+
+/* #region 立即发表按钮 */
+
+.modal_content .publish {
+    position: absolute;
+    bottom: 28px;
+    /* margin: 0 auto; */
+    left: 156px;
+    width: 140px;
+    height: 40px;
+    background-color: #02A7F0;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.modal_content .publish:hover {
+    background-color: #2db4e5;
+}
+
+
+/* #endregion */

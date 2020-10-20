@@ -218,12 +218,13 @@ public class WebUtil {
      */
     public static <T> Map<String, Object> getPureMapFromMixMapToPojo(Map<String, Object> mixMap, T pojo) {
         Map<String, Object> pojoField = ReflectUtil.getObjectFieldMap(pojo);
+        Map<String,Object> resMap = new HashMap<>(pojoField.size());
         for (Map.Entry<String, Object> entry : mixMap.entrySet()) {
             String key = entry.getKey();
             if (pojoField.get(key) != null) {
-                pojoField.put(key, entry.getValue());
+                resMap.put(key,entry.getValue());
             }
         }
-        return pojoField;
+        return resMap;
     }
 }

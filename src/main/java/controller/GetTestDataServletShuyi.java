@@ -1,7 +1,5 @@
 package controller;
-
 import util.WebUtil;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +14,8 @@ import java.util.Map;
  */
 @WebServlet("/Servlet/GetTestDataServletShuyi")
 public class GetTestDataServletShuyi extends HttpServlet {
-    Map<String, Object> map;
     private static final int EVEN = 2;
+    Map<String, Object> map;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

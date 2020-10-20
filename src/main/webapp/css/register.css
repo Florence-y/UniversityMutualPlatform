@@ -17,7 +17,6 @@ table{
     width:520px;
     height: 430px;
     background-color: rgba(255,255,255,0.85);
-   
     border-radius: 24px;
 }
 /*头部标题*/
@@ -50,7 +49,6 @@ td{
 
 .status_display{
     border:none;
-    border-top:2px solid #797979;
     border-radius: 0px;
 }
 .status header{
@@ -116,11 +114,10 @@ td{
     height: 50px;
 }
 .email{
-    width:310px;
+    width:330px;
     margin:0 auto;
 }
 .email_input,.email_tail{
-    
     border:1px solid #999;
     color:#777;
     outline: none;
@@ -139,7 +136,7 @@ td{
     line-height: 22px;
     font-size:13px;
     border-radius: 16px;
-    width:80px;
+    width:85px;
 }
 
 /*验证码*/

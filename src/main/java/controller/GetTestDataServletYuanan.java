@@ -17,8 +17,8 @@ import java.util.Map;
  */
 @WebServlet("/Servlet/GetTestDataServletYuanan")
 public class GetTestDataServletYuanan extends HttpServlet {
-    Map<String, Object> map;
     private static final int TWO = 2;
+    Map<String, Object> map;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
