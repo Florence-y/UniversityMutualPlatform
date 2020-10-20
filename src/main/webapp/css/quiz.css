@@ -62,7 +62,7 @@ button {
 
 /* #region 输入问题 + 问题备注 */
 
-.modal_content>div {
+.modal_content > div {
     width: 100%;
     box-sizing: border-box;
     padding: 14px;
@@ -97,15 +97,15 @@ button {
     height: 100px;
 }
 
-.modal_content .mainQuestion>span,
-.modal_content .questionNote>span {
+.modal_content .mainQuestion > span,
+.modal_content .questionNote > span {
     position: absolute;
     bottom: 18px;
     right: 30px;
 }
 
-.modal_content .mainQuestion>span b,
-.modal_content .questionNote>span b {
+.modal_content .mainQuestion > span b,
+.modal_content .questionNote > span b {
     font-size: 13px;
     color: #333;
 }
@@ -120,13 +120,13 @@ button {
 
 /* #region 插入图片 */
 
-.modal .modal_content>.insertPicture {
+.modal .modal_content > .insertPicture {
     height: 90px;
     padding: 0 14px;
     box-sizing: border-box;
 }
 
-.modal .modal_content>.insertPicture .picture {
+.modal .modal_content > .insertPicture .picture {
     position: relative;
     width: 90px;
     height: 90px;
@@ -144,14 +144,14 @@ button {
     background-color: rgba(0, 0, 0, 0.5);
 } */
 
-.modal .modal_content>.insertPicture img {
+.modal .modal_content > .insertPicture img {
     width: 100%;
     height: 100%;
     border-radius: 8px;
     cursor: pointer;
 }
 
-.modal .modal_content>.insertPicture .removePicture {
+.modal .modal_content > .insertPicture .removePicture {
     display: none;
     cursor: pointer;
     position: absolute;
@@ -226,7 +226,7 @@ button {
     /* border: 1px solid #797979; */
 }
 
-.modal_content .label>div {
+.modal_content .label > div {
     float: left;
 }
 

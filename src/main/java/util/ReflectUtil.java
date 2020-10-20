@@ -219,10 +219,10 @@ public class ReflectUtil {
         //获取具体的数据库列名
         String direction = (String) condition.get("direction");
         //加入这个语句可以默认倒叙
-        direction=direction==null?"desc":direction;
+        direction = direction == null ? "desc" : direction;
         String order = (String) condition.get("order");
         //加入这个语句可以默认不加参数根据id排序
-        order=order==null?getIdField(pojo):ReflectUtil.getColVal(pojo, order);
+        order = order == null ? getIdField(pojo) : ReflectUtil.getColVal(pojo, order);
         return "ORDER BY " +
                 //获取数据库列名
                 order
@@ -251,9 +251,10 @@ public class ReflectUtil {
 
     /**
      * 获取有效域区域
-     * @param map 原始的map
+     *
+     * @param map  原始的map
      * @param pojo 包含有效域注解的实体
-     * @param <T> 实体的具体类型
+     * @param <T>  实体的具体类型
      * @return 得到的 有效域真实有效的列值（可能不是成员变量名）：加他要更改的值
      */
     public static <T> Map<String, Object> getFieldAndValueFromTheMixMap(Map<String, Object> map, T pojo) {

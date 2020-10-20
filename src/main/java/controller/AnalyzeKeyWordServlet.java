@@ -1,9 +1,7 @@
 package controller;
 
 import commom.constantval.ServletConstantVal;
-import commom.factory.ResponseFactory;
-import service.AgreeService;
-import service.impl.AgreeServiceImpl;
+import util.ElasticUtil;
 import util.WebUtil;
 
 import javax.servlet.annotation.WebServlet;
@@ -11,15 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @author Florence
+ * 分词服务类
  */
-@WebServlet("/Servlet/AgreeServlet")
-public class AgreeServlet extends HttpServlet {
+@WebServlet("/Servlet/AnalyzeKeyWordServlet")
+public class AnalyzeKeyWordServlet extends HttpServlet {
     Map<String, Object> map;
-    AgreeService service = new AgreeServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -28,8 +27,6 @@ public class AgreeServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
-        int code = service.agree((String) map.get("agreeType"), map);
-        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("post");
     }
 
@@ -40,7 +37,8 @@ public class AgreeServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
-
+        List<String> list = ElasticUtil.divideTheKeyWord((String) map.get("keyWord"));
+        WebUtil.writeObjToResponse(response, list);
         System.out.println("get");
     }
 
@@ -50,9 +48,7 @@ public class AgreeServlet extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int code = service.unAgree((String) map.get("agreeType"), map);
-        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("delete");
     }
 }

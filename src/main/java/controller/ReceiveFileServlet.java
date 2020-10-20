@@ -1,6 +1,7 @@
 package controller;
 
 import commom.constantval.ServletConstantVal;
+import commom.factory.ResponseFactory;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -27,11 +28,6 @@ public class ReceiveFileServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
-        if (ServletConstantVal.PUT.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
-            doPut(request, response);
-            return;
-        }
         String savePath = makeSureMkdirExist(request);
         try {
             //创建一个DiskFileItemFactory工厂
@@ -54,7 +50,7 @@ public class ReceiveFileServlet extends HttpServlet {
 //            //调用服务改变用户头像地址
 //            server.changeUserFace(map.get("account"),map.get("face"));
 //            返回用户头像地址
-            response.getWriter().write(map.get("face"));
+            WebUtil.writeObjToResponse(response, ResponseFactory.getMessage(map.get("face")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,8 +58,7 @@ public class ReceiveFileServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        map = WebUtil.formToMap(request);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         if (ServletConstantVal.DELETE.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
             doDelete(request, response);
             return;

@@ -3,24 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>登录界面</title>
-    <link rel="stylesheet" href="../css/logOn.css">
-    <link rel="stylesheet" href="../css/iconfont.css">
+    <link href="../css/logOn.css" rel="stylesheet">
+    <link href="../css/iconfont.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
         }
-        html {
-            height: 100%;
-        }
-        
+
         body {
             height: 100%;
             background-color: skyblue;
         }
-        
+
         .iconfont {
             font-family: "iconfont" !important;
             font-size: 46px;
@@ -34,7 +31,7 @@
             left: 207px;
             transition: all 0.5s;
         }
-        
+
         .modal_bg {
             display: none;
             background-color: #00000066;
@@ -48,7 +45,7 @@
             left: 0;
             opacity: 1;
         }
-        
+
         .modal {
             background-color: #F2F2F2;
             border-radius: 42px;
@@ -62,11 +59,11 @@
             transform: translate(-50%, -50%) scale(0.7);
             box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.2);
         }
-        
+
         .fadeout {
             float: right;
         }
-        
+
         .active_line {
             display: inline-block;
             position: absolute;
@@ -81,7 +78,7 @@
             border-radius: 20px;
             transition: width, ease-in 0.3s;
         }
-        
+
         .value:hover .active_line {
             width: 271px;
         }
@@ -91,140 +88,145 @@
 </head>
 
 <body style="height: 100%;">
-    <button class="fadein">登录|注册</button>
+<button class="fadein">登录|注册</button>
 
 
-    <div class="modal_bg">
-        <div class="modal">
-            <!-- 模态框 头部 一个×按钮 + 一个学校 icon -->
-            <div class="modal_head">
-                <button class="fadeout">&times;</button>
-                <i class="iconfont icondibudaohanglan-"></i>
-            </div>
-            <!-- 模态框 内容 ->登录页面logOn -> 忘记密码页面forgetPas -> 重置密码页面resetPas -->
-            <div class="modal_content">
-                <!-- ->登录页面logOn -->
-                <div class="logOn">
-                    <!-- ->登录页面logOn 学生part 文字 + 表单  -->
-                    <div class="student logOnDisplay">
-                        <h2>学生<b></b></h2>
-                        <div class="logOnStudent">
-                            <form action="">
-                                <div class="confirm value">
-                                    <span class="tip">用户名/学号</span>
-                                    <input class="input account" id="stu_account" type="text" value="">
-                                    <span class="active_line"></span>
-                                </div>
-                                <div class="confirm value">
-                                    <span class="tip">密码</span>
-                                    <input class="input pas" id='stu_pwd' type="password" value="">
-                                    <span class="active_line"></span>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- ->登录页面logOn 老师part 文字 + 表单  -->
-                    <div class="teacher">
-                        <h2>教师<b></b></h2>
-                        <div class="logOnTeacher">
-                            <form action="">
-                                <div class="confirm value">
-                                    <span class="tip">用户名/教工号</span>
-                                    <input class="input account" id="teacher_account" type="text" value="">
-                                    <span class="active_line"></span>
-                                </div>
-                                <div class="confirm value">
-                                    <span class="tip">密码</span>
-                                    <input class="input pas" id='teacher_pwd' type="password" value="">
-                                    <span class="active_line"></span>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- ->登录页面logOn 登录按钮 -->
-                    <button class="btnRegister">注册</button>
-                    <button class="btnLogon logon_btn">登录</button>
-
-                    <!-- ->登录页面logOn 注册页面 忘记密码页面 跳转 -->
-                    <b href="" class="aForgetPas">忘记密码？</b>
-
-                </div>
-
-                <!-- -> 忘记密码页面forgetPas -->
-                <div class="forgetPas">
-                    <!-- -> 忘记密码页面forgetPas 单选框 学生/教师  -->
-                    <div class="teacherOrStudent">
-                        <form action="">
-                            <span>请选择身份: </span>
-                            <label for=""><input type="radio" class="chooseStudent" name="chooseTeacherOrStudent" checked> 学生</label>
-                            <label for=""><input type="radio" class="chooseTeacher" name="chooseTeacherOrStudent"> 教师</label>
-                        </form>
-                    </div>
-                    <!-- -> 忘记密码页面forgetPas 文本框:输入邮箱 span:邮箱后缀  -->
-                    <div class="writeEmail">
-                        <form action="">
-                            <span>请输入邮箱:</span>
-                            <input type="text" class="inEmail">
-                            <i>@</i>
-                            <em class="emailSuffix ">m.gduf.edu.cn</em>
-                        </form>
-                    </div>
-                    <!-- -> 忘记密码页面forgetPas 文本框:验证码  按钮:发送验证码-->
-                    <div class="verificationCode ">
-                        <form action=" ">
-                            <span>验证码:</span>
-                            <input type="text ">
-                        </form>
-                        <button class="sendVerificationCode logon_btn">发送验证码</button>
-                    </div>
-                    <!-- -> 忘记密码页面forgetPas 按钮:下一步 跳转重设密码 -->
-                    <button class="forgetPasLast logon_btn">上一步</button>
-                    <button class="forgetPasNext logon_btn">下一步</button>
-                </div>
-
-                <!-- -> 重置密码页面resetPas -->
-                <div class="resetPas ">
-                    <!-- -> 重置密码页面resetPas 文本框:重设密码 -->
-                    <div class="toResetPas ">
-                        <form action=" ">
-                            <span>重设密码: </span>
-                            <input type="password" class="reset " placeholder="请输入密码 ">
-                        </form>
-                    </div>
-                    <!-- -> 重置密码页面resetPas 文本框:确认密码 -->
-                    <div class="confirmPas ">
-                        <form action=" ">
-                            <span>确认密码: </span>
-                            <input type="password" class="confirm " placeholder="请输入密码 ">
-                        </form>
-                    </div>
-                    <!-- -> 重置密码页面resetPas 按钮:确定 返回登录页面 -->
-                    <button class="resetPasConfirm logon_btn">确定</button>
-                </div>
-            </div>
-            <div class="modal_foot "></div>
+<div class="modal_bg">
+    <div class="modal">
+        <!-- 模态框 头部 一个×按钮 + 一个学校 icon -->
+        <div class="modal_head">
+            <button class="fadeout">&times;</button>
+            <i class="iconfont icondibudaohanglan-"></i>
         </div>
+        <!-- 模态框 内容 ->登录页面logOn -> 忘记密码页面forgetPas -> 重置密码页面resetPas -->
+        <div class="modal_content">
+            <!-- ->登录页面logOn -->
+            <div class="logOn">
+                <!-- ->登录页面logOn 学生part 文字 + 表单  -->
+                <div class="student logOnDisplay">
+                    <h2>学生<b></b></h2>
+                    <div class="logOnStudent">
+                        <form action="">
+                            <div class="confirm value">
+                                <span class="tip">用户名/学号</span>
+                                <input class="input account" id="stu_account" type="text" value="">
+                                <span class="active_line"></span>
+                            </div>
+                            <div class="confirm value">
+                                <span class="tip">密码</span>
+                                <input class="input pas" id='stu_pwd' type="password" value="">
+                                <span class="active_line"></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- ->登录页面logOn 老师part 文字 + 表单  -->
+                <div class="teacher">
+                    <h2>教师<b></b></h2>
+                    <div class="logOnTeacher">
+                        <form action="">
+                            <div class="confirm value">
+                                <span class="tip">用户名/教工号</span>
+                                <input class="input account" id="teacher_account" type="text" value="">
+                                <span class="active_line"></span>
+                            </div>
+                            <div class="confirm value">
+                                <span class="tip">密码</span>
+                                <input class="input pas" id='teacher_pwd' type="password" value="">
+                                <span class="active_line"></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- ->登录页面logOn 登录按钮 -->
+                <button class="btnRegister">注册</button>
+                <button class="btnLogon logon_btn">登录</button>
+
+                <!-- ->登录页面logOn 注册页面 忘记密码页面 跳转 -->
+                <b class="aForgetPas" href="">忘记密码？</b>
+
+            </div>
+
+            <!-- -> 忘记密码页面forgetPas -->
+            <div class="forgetPas">
+                <!-- -> 忘记密码页面forgetPas 单选框 学生/教师  -->
+                <div class="teacherOrStudent">
+                    <form action="">
+                        <span>请选择身份: </span>
+                        <label for=""><input checked class="chooseStudent" name="chooseTeacherOrStudent" type="radio">
+                            学生</label>
+                        <label for=""><input class="chooseTeacher" name="chooseTeacherOrStudent" type="radio">
+                            教师</label>
+                    </form>
+                </div>
+                <!-- -> 忘记密码页面forgetPas 文本框:输入邮箱 span:邮箱后缀  -->
+                <div class="writeEmail">
+                    <form action="">
+                        <span>请输入邮箱:</span>
+                        <input class="inEmail" type="text">
+                        <i>@</i>
+                        <em class="emailSuffix ">m.gduf.edu.cn</em>
+                    </form>
+                </div>
+                <!-- -> 忘记密码页面forgetPas 文本框:验证码  按钮:发送验证码-->
+                <div class="verificationCode ">
+                    <form action=" ">
+                        <span>验证码:</span>
+                        <input type="text ">
+                    </form>
+                    <button class="sendVerificationCode logon_btn">发送验证码</button>
+                </div>
+                <!-- -> 忘记密码页面forgetPas 按钮:下一步 跳转重设密码 -->
+                <button class="forgetPasLast logon_btn">上一步</button>
+                <button class="forgetPasNext logon_btn">下一步</button>
+            </div>
+
+            <!-- -> 重置密码页面resetPas -->
+            <div class="resetPas ">
+                <!-- -> 重置密码页面resetPas 文本框:重设密码 -->
+                <div class="toResetPas ">
+                    <form action=" ">
+                        <span>重设密码: </span>
+                        <input class="reset " placeholder="请输入密码 " type="password">
+                    </form>
+                </div>
+                <!-- -> 重置密码页面resetPas 文本框:确认密码 -->
+                <div class="confirmPas ">
+                    <form action=" ">
+                        <span>确认密码: </span>
+                        <input class="confirm " placeholder="请输入密码 " type="password">
+                    </form>
+                </div>
+                <!-- -> 重置密码页面resetPas 按钮:确定 返回登录页面 -->
+                <button class="resetPasConfirm logon_btn">确定</button>
+            </div>
+        </div>
+        <div class="modal_foot "></div>
     </div>
+</div>
 
-    <script>
-        //设置背景高度
-        $('.fadein').click(function() {
-            $("input").val("");
-            $(".logOn").siblings().fadeOut();
-            $(".logOn").fadeIn();
-            $('.modal_bg').fadeIn();
-            $('.modal').css({
-                transform: 'translate(-50%,-50%) scale(1)'
-            })
+<script>
+    //设置背景高度
+    $('.fadein').click(function () {
+        $("input").val("");
+        $(".logOn").siblings().fadeOut();
+        $(".logOn").fadeIn();
+        $('.modal_bg').fadeIn();
+        $('.modal').css({
+            transform: 'translate(-50%,-50%) scale(1)'
+        })
+    })
+
+
+    $('.fadeout').click(function() {
+        $('.modal_bg').fadeOut(); // 其实就是css 的过渡+ display
+        $('.modal').css({
+            transform: 'translate(-50%,-50%) scale(0.7)'
         })
 
-        $('.fadeout').click(function() {
-            $('.modal_bg').fadeOut(); // 其实就是css 的过渡+ display
-            $('.modal').css({
-                transform: 'translate(-50%,-50%) scale(0.7)'
-            })
-        })
-    </script>
+    })
+    
+</script>
 
 </body>
 

@@ -190,7 +190,9 @@ button {
 
 /* #region 登录--学生/教师 input  */
 
+
 .modal_bg_logon .modal_content>.logOn form .confirm {
+
     position: relative;
     margin-top: 20px;
 }
@@ -311,7 +313,9 @@ button {
     position: absolute;
 }
 
+
 .modal_bg_logon .modal_content .forgetPas>div {
+
     /* 忘记密码页面 的三个框 */
     margin: 32px 0;
 }
@@ -392,6 +396,7 @@ button {
     top: 30px;
     left: 93px;
 }
+
 
 .modal_bg_logon .modal_content .resetPas>div {
     margin: 35px 0;

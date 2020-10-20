@@ -11,6 +11,7 @@ import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchScrollRequest;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -20,8 +21,10 @@ import org.elasticsearch.client.indices.*;
 import org.elasticsearch.cluster.metadata.MappingMetadata;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.index.reindex.BulkByScrollResponse;
 import org.elasticsearch.index.reindex.UpdateByQueryRequest;
@@ -30,10 +33,13 @@ import org.elasticsearch.script.ScriptType;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import pojo.Page;
 import pojo.Response;
 
 import java.io.IOException;
 import java.util.*;
+
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 
 /**
  * @author Florence
@@ -57,14 +63,7 @@ public class ElasticUtil {
      */
     public static List<String> multiAndSearch(Map<String, Object> mustMap, int length, boolean isFuzzy) {
         // 根据多个条件 生成 boolQueryBuilder
-        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        // 循环添加多个条件
-        for (Map.Entry<String, Object> entry : mustMap.entrySet()) {
-            MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(entry.getKey(), entry.getValue());
-            matchQueryBuilder = isFuzzy ? matchQueryBuilder.fuzziness(Fuzziness.AUTO).prefixLength(3).maxExpansions(10) : matchQueryBuilder;
-            //and
-            boolQueryBuilder.must(matchQueryBuilder);
-        }
+        BoolQueryBuilder boolQueryBuilder = (BoolQueryBuilder) getMultiplyBoolBuilder("and", mustMap, isFuzzy);
         // boolQueryBuilder生效
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(boolQueryBuilder);
@@ -83,14 +82,7 @@ public class ElasticUtil {
      */
     public static List<String> multiOrSearch(Map<String, Object> mustMap, int length, boolean isFuzzy) {
         // 根据多个条件 生成 boolQueryBuilder
-        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        // 循环添加多个条件
-        for (Map.Entry<String, Object> entry : mustMap.entrySet()) {
-            MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(entry.getKey(), entry.getValue());
-            matchQueryBuilder = isFuzzy ? matchQueryBuilder.fuzziness(Fuzziness.AUTO).prefixLength(3).maxExpansions(10) : matchQueryBuilder;
-            //or
-            boolQueryBuilder.should(matchQueryBuilder);
-        }
+        BoolQueryBuilder boolQueryBuilder = (BoolQueryBuilder) getMultiplyBoolBuilder("or", mustMap, isFuzzy);
         // boolQueryBuilder生效
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(boolQueryBuilder);
@@ -134,6 +126,14 @@ public class ElasticUtil {
         return list;
     }
 
+    private static <T> List<T> getPojoFromHits(SearchHits hits, T clazz) throws IOException {
+        List<T> list = new LinkedList<>();
+        for (SearchHit hit : hits) {
+            list.add((T) WebUtil.jsonToObj(clazz.getClass(), hit.getSourceAsString()));
+        }
+        return list;
+    }
+
     /**
      * 单条件查询
      *
@@ -149,6 +149,44 @@ public class ElasticUtil {
         map.put(key, value);
         return multiAndSearch(map, length, isFuzzy);
     }
+
+    public static <T> Page<T> scrollSearch(String scrollId, T pojo) throws IOException {
+        Page<T> page = new Page<>();
+        SearchScrollRequest scrollRequest = new SearchScrollRequest(scrollId);
+        scrollRequest.scroll(TimeValue.timeValueMinutes(20));
+        SearchResponse searchScrollResponse = client.scroll(scrollRequest, RequestOptions.DEFAULT);
+        setScrollPage(searchScrollResponse, page, pojo);
+        return page;
+    }
+
+    public static <T> Page<T> scrollSearchFirst(String index, QueryBuilder queryBuilder, T pojo) throws IOException {
+        Page<T> page = new Page<>();
+        SearchRequest searchRequest = new SearchRequest(index);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(queryBuilder);
+        searchSourceBuilder.size(Page.PAGE_SIZE);
+        searchRequest.source(searchSourceBuilder);
+        searchRequest.scroll(TimeValue.timeValueMinutes(20));
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+        //设置分页信息
+        setScrollPage(searchResponse, page, pojo);
+        return page;
+    }
+
+    private static boolean hasNext(int length) {
+        return length >= Page.PAGE_SIZE;
+    }
+
+    private static <T> void setScrollPage(SearchResponse searchResponse, Page<T> page, T pojo) throws IOException {
+        SearchHits hits = searchResponse.getHits();
+        List<T> pojoFromHits = getPojoFromHits(hits, pojo);
+        page.setDataList(pojoFromHits);
+        page.setNext(hasNext(hits.getHits().length));
+        page.setScrollId(searchResponse.getScrollId());
+    }
+//    public static QueryBuilder getQueryBuilder(String type,Map<String,Object> condition){
+//
+//    }
 
     /**
      * 根据时间段去查询
@@ -212,7 +250,7 @@ public class ElasticUtil {
         AnalyzeResponse response = client.indices().analyze(request, RequestOptions.DEFAULT);
         for (AnalyzeResponse.AnalyzeToken token : response.getTokens()) {
             String word = token.getTerm();
-            if (word.length() < 2 || word.contains("的") || word.contains("了")) {
+            if (word.length() < 2 || word.contains("的") || word.contains("了") || word.contains("你") || word.contains("我") || word.contains("是")) {
                 continue;
             }
             list.add(token.getTerm());
@@ -304,6 +342,21 @@ public class ElasticUtil {
         return indexResponse.getId();
     }
 
+    public static String addDoc(String json, String indexName) {
+        IndexResponse indexResponse;
+        try {
+            //添加map数据
+            IndexRequest indexRequest = new IndexRequest(indexName).source(json, XContentType.JSON);
+            //索引
+            indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("添加文档出现异常 {}", e.getMessage());
+            return WRONG;
+        }
+        return indexResponse.getId();
+    }
+
     /**
      * 根据id获取文档
      *
@@ -319,6 +372,45 @@ public class ElasticUtil {
             return getResponse.getSourceAsString();
         }
         return "505:fail";
+    }
+
+
+    public static QueryBuilder getMatchBuilder(String wantToSearch, String value) {
+        return QueryBuilders.matchQuery(wantToSearch, value);
+    }
+
+    public static QueryBuilder getTermBuilder(String wantToSearch, String value) {
+        return QueryBuilders.termQuery(wantToSearch, value);
+    }
+
+    /**
+     * 获取多重布尔值的builder
+     *
+     * @param type    and or
+     * @param mustMap 条件map
+     * @param isFuzzy 是否模糊查询
+     * @return
+     */
+    public static QueryBuilder getMultiplyBoolBuilder(String type, Map<String, Object> mustMap, Boolean isFuzzy) {
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        // 循环添加多个条件
+        if ("or".equals(type)) {
+            for (Map.Entry<String, Object> entry : mustMap.entrySet()) {
+                MatchQueryBuilder matchQueryBuilder = matchQuery(entry.getKey(), entry.getValue());
+                matchQueryBuilder = isFuzzy ? matchQueryBuilder.fuzziness(Fuzziness.AUTO).prefixLength(3).maxExpansions(10) : matchQueryBuilder;
+                //or
+                boolQueryBuilder.should(matchQueryBuilder);
+            }
+        } else if ("and".equals(type)) {
+            // 循环添加多个条件
+            for (Map.Entry<String, Object> entry : mustMap.entrySet()) {
+                MatchQueryBuilder matchQueryBuilder = matchQuery(entry.getKey(), entry.getValue());
+                matchQueryBuilder = isFuzzy ? matchQueryBuilder.fuzziness(Fuzziness.AUTO).prefixLength(3).maxExpansions(10) : matchQueryBuilder;
+                //and
+                boolQueryBuilder.must(matchQueryBuilder);
+            }
+        }
+        return boolQueryBuilder;
     }
 
     /**********************************************************************************************************/

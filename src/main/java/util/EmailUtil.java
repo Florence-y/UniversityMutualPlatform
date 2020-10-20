@@ -14,12 +14,14 @@ import java.util.Random;
 public class EmailUtil {
     /**
      * 发件人账号
+     * 3287245267@qq.com
      */
-    private static final String EMAIL_ACCOUNT = "3287245267@qq.com";
+    private static final String EMAIL_ACCOUNT = "191541227@m.gduf.edu.cn";
     /**
      * 发件人密码
+     * abc123456
      */
-    private static final String EMAIL_PASS_WORD = "abc123456";
+    private static final String EMAIL_PASS_WORD = "Qq123456YZ";
     /**
      * 发送邮箱服务器
      */
