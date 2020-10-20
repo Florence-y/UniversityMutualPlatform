@@ -9,7 +9,6 @@ import dao.impl.CommentDaoImpl;
 import pojo.Answer;
 import pojo.Comment;
 import pojo.Page;
-import pojo.Response;
 import service.AgreeService;
 import service.AnswerService;
 import util.ArrayUtil;

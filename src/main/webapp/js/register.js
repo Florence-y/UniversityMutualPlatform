@@ -127,16 +127,16 @@ $('.alter').bind("click", function () {
 
 //判断用户名、邮箱是否存在
 function dataIsExiste(field, value, errorMessage) {
-     //设置同步请求
+    //设置同步请求
     var result = false;
     $.ajax({
-        url : 'http://192.168.137.141:8080/Servlet/IsExistInfoServle',
-       data : {
-        field: field,
-        value: value,
-        requestTpye: "get",
-        userType: userType,
-       },
+        url: 'http://192.168.137.141:8080/Servlet/IsExistInfoServle',
+        data: {
+            field: field,
+            value: value,
+            requestTpye: "get",
+            userType: userType,
+        },
         async: false,
         success: function (res) {
             if (res.statusCode == 200) {
@@ -149,7 +149,7 @@ function dataIsExiste(field, value, errorMessage) {
             }
         }
     });
-   
+
     return result;
 }
 
@@ -168,12 +168,12 @@ $('.send_btn').click(function () {
         requestData.email = $('.email_input').val() + "@" + $('.email_tail').html();
         userType = getUserType();
         if (!dataIsExiste('email', requestData.email, "该邮箱已被注册，请之间前往登录页之间登录！")) {
-        //    console.log(requestData.email);
+            //    console.log(requestData.email);
             console.log('发送验证码');
-            $.get("http://192.168.137.141:8080/Servlet/VerifyCodeServlet",{
-                email : requestData.email,
-                requestType : "get"
-            },function(res){
+            $.get("http://192.168.137.141:8080/Servlet/VerifyCodeServlet", {
+                email: requestData.email,
+                requestType: "get"
+            }, function (res) {
                 confirmCode = res.message.toLowerCase();
             });
             time = 60;
@@ -602,9 +602,9 @@ $('.submit_btn').click(() => {
 
         set_displayMessage('注册成功！正跳转到首页...');
         //跳转。。。
-        setTimeout(()=>{
-            window.open("questionPage.html",'blank')
-        },1500);
+        setTimeout(() => {
+            window.open("questionPage.html", 'blank')
+        }, 1500);
     }, 'json');
 })
 

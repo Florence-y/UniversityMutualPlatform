@@ -1,22 +1,22 @@
-$(function() {
+$(function () {
 
     //#region 搜索框 得失焦点
     $(".nav").find(".searchBar").on({
-            focus: function() {
-                $(this).css("boxShadow", "0 0 20px 0 rgba(43,51,59,0.08)");
-                $(this).siblings(".searchBtn").css("boxShadow", "0 0 20px 0 rgba(43,51,59,0.08)");
-            },
-            blur: function() {
-                $(this).css("boxShadow", "none");
-                $(this).siblings(".searchBtn").css("boxShadow", "none");
-            }
+        focus: function () {
+            $(this).css("boxShadow", "0 0 20px 0 rgba(43,51,59,0.08)");
+            $(this).siblings(".searchBtn").css("boxShadow", "0 0 20px 0 rgba(43,51,59,0.08)");
+        },
+        blur: function () {
+            $(this).css("boxShadow", "none");
+            $(this).siblings(".searchBtn").css("boxShadow", "none");
+        }
 
-        })
-        //#endregion
+    })
+    //#endregion
 
     //#region 卷去页面 导航栏发生变化 + 问题分类左边固定的框固定
 
-    $(window).scroll(function() {
+    $(window).scroll(function () {
 
         //#region // 卷去页面 导航栏发生变化
 
@@ -60,7 +60,7 @@ $(function() {
 
         if ($(document).scrollTop() >= 478) {
             $(".returnTop").show(200);
-            $(".returnTop").on("click", function() {
+            $(".returnTop").on("click", function () {
                 $("body, html").stop().animate({
                     scrollTop: 0
                 });
@@ -80,7 +80,7 @@ $(function() {
 
     $(".changeTheBatchNews").on({
 
-        click: function() {
+        click: function () {
 
             var indexCur = parseInt($(this).siblings("ul").find(".displayNewsDiv").attr("data-part"));
             console.log(indexCur);
@@ -117,10 +117,10 @@ $(function() {
 
     var rotateDivs = document.querySelectorAll('.rotate-div');
     for (var i = 0; i < rotateDivs.length; i++) {
-        rotateDivs[i].addEventListener("mouseover", function() {
+        rotateDivs[i].addEventListener("mouseover", function () {
 
 
-            this.addEventListener("mousemove", function(e) {
+            this.addEventListener("mousemove", function (e) {
 
                 var distance = e.pageX - this.parentNode.offsetLeft;
                 var center = this.offsetWidth / 2;
@@ -135,7 +135,7 @@ $(function() {
                     })
                 }
             })
-            this.addEventListener("mouseout", function() {
+            this.addEventListener("mouseout", function () {
                 $(this).css({
                     transform: "rotateY(0)"
                 })

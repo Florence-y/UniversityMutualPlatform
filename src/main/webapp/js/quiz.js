@@ -129,15 +129,15 @@ $(function () {
             //删除图片 
             $(".removePicture").on({
 
-                click: function() {
-                        // console.log($(".picture").length);
-                        if ($(".picture").length < 3) {
+                click: function () {
+                    // console.log($(".picture").length);
+                    if ($(".picture").length < 3) {
 
-                            // $(".insertP").show();
-                            $(".insertP").parent().show();
-                        }
-                        $(this).parent().remove();
-                    } 
+                        // $(".insertP").show();
+                        $(".insertP").parent().show();
+                    }
+                    $(this).parent().remove();
+                }
 
             })
         }

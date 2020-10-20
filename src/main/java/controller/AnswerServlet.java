@@ -32,8 +32,8 @@ public class AnswerServlet extends HttpServlet {
             return;
         }
         int id = service.addAnswer(map);
-        int code=id>0? Response.OK:Response.ERROR;
-        WebUtil.writeObjToResponse(response, ResponseFactory.getId(id,code));
+        int code = id > 0 ? Response.OK : Response.ERROR;
+        WebUtil.writeObjToResponse(response, ResponseFactory.getId(id, code));
         System.out.println("post");
     }
 

@@ -36,10 +36,10 @@ public class AgreeServiceImpl implements AgreeService {
         int code = Response.ERROR;
         if (ANSWER.equals(agreeType)) {
             sql = MessageFormat.format(sql, TABLE_ANSWER, "answer_id");
-            code = JdbcUtil.update(sql, map.get("answer_id"), map.get("markNumber")) > 0 ? Response.OK : Response.ERROR;
+            code = JdbcUtil.update(sql, map.get("answerId"), map.get("markNumber")) > 0 ? Response.OK : Response.ERROR;
         } else if (QUESTION.equals(agreeType)) {
-            sql = MessageFormat.format(sql, TABLE_QUESTION, "question_id", map.get("answerId"), map.get("markNumber"));
-            code = JdbcUtil.update(sql, map.get("question_id"), map.get("markNumber")) > 0 ? Response.OK : Response.ERROR;
+            sql = MessageFormat.format(sql, TABLE_QUESTION, "question_id");
+            code = JdbcUtil.update(sql, map.get("questionId"), map.get("markNumber")) > 0 ? Response.OK : Response.ERROR;
         }
         return code;
     }

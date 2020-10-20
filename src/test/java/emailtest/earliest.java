@@ -10,7 +10,7 @@ public class earliest {
     public void testVeryCode() throws IOException {
         EmailUtil emailUtil = new EmailUtil();
         try {
-            emailUtil.sendEmail("191543214@m.gduf.edu.cn");
+            emailUtil.sendEmail("2213576511@qq.com");
         } catch (Exception e) {
             e.printStackTrace();
         }

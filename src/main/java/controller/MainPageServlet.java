@@ -1,7 +1,6 @@
 package controller;
 
 import commom.constantval.ServletConstantVal;
-import util.ElasticUtil;
 import util.WebUtil;
 
 import javax.servlet.annotation.WebServlet;
@@ -9,15 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 /**
- * @author Florence
- * 分词服务类
+ * @author DELL
  */
-@WebServlet("/Servlet/AnalyzeKeyWordServlet")
-public class AnalyzeKeyWordServlet extends HttpServlet {
+@WebServlet("/Servlet/MainPageServlet")
+public class MainPageServlet extends HttpServlet {
     Map<String, Object> map;
 
     @Override
@@ -37,11 +34,8 @@ public class AnalyzeKeyWordServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
-        List<String> list = ElasticUtil.divideTheKeyWord((String) map.get("keyWord"));
-        WebUtil.writeObjToResponse(response, list);
         System.out.println("get");
     }
-
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) {

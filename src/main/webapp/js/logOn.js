@@ -99,7 +99,7 @@ $(function () {
     //#region  点击模态框以外的地方 模态框消失
     $(".modal_bg").on({
 
-        click: function() {
+        click: function () {
             // console.log("点击了");
 
             $('.modal_bg').fadeOut(); // 其实就是css 的过渡+ display
@@ -133,44 +133,44 @@ $(function () {
 
     //点击登录按钮 
 
-    $('.btnLogon').click(function() {
-            //得到接口传递的数据
-            var pwd, account, type;
-            if (option == 1) {
-                pwd = $('#stu_pwd').val();
-                account = $('#stu_account').val();
-                type = "student"
-            } else {
-                pwd = $('#teacher_pwd').val();
-                account = $('#teacher_account').val();
-                type = "teacher"
-            }
+    $('.btnLogon').click(function () {
+        //得到接口传递的数据
+        var pwd, account, type;
+        if (option == 1) {
+            pwd = $('#stu_pwd').val();
+            account = $('#stu_account').val();
+            type = "student"
+        } else {
+            pwd = $('#teacher_pwd').val();
+            account = $('#teacher_account').val();
+            type = "teacher"
+        }
 
-            //账号密码判空 / 正则
-            if (pwd === "" || account === "") {
-                alert('用户名/密码不能为空');
-            } else {
-                $.get('http://192.168.137.141:8080/Servlet/UserServlet', {
-                    password: pwd,
-                    loginValue: account,
-                    requestType: 'get',
-                    userType: type
-                }, function(res) {
-                    if (res.statusCode == 200) {
-                        alert('登录成功');
-                        clearCookie();//清除cookie
-                        setCookie(res.messagePojo,30);//保存30天
-                        //设置用户信息
-                        //允许用户进行互动操作
-                        // sendMessage(res.messagePojo);
-                    } else {
-                        alert('账号或密码有误，登录失败！');
-                    }
-                }, 'json')
-            }
-        })
-        //#endregion
-    
+        //账号密码判空 / 正则
+        if (pwd === "" || account === "") {
+            alert('用户名/密码不能为空');
+        } else {
+            $.get('http://192.168.137.141:8080/Servlet/UserServlet', {
+                password: pwd,
+                loginValue: account,
+                requestType: 'get',
+                userType: type
+            }, function (res) {
+                if (res.statusCode == 200) {
+                    alert('登录成功');
+                    clearCookie();//清除cookie
+                    setCookie(res.messagePojo, 30);//保存30天
+                    //设置用户信息
+                    //允许用户进行互动操作
+                    // sendMessage(res.messagePojo);
+                } else {
+                    alert('账号或密码有误，登录失败！');
+                }
+            }, 'json')
+        }
+    })
+    //#endregion
+
     // function sendMessage(message){
     //     $.ajax({
     //         url : "http://192.168.137.141:8080/Servlet/GetTestDataServletYuanan",
@@ -185,7 +185,7 @@ $(function () {
     //     })
     // }
 
-    function clearCookie(){
+    function clearCookie() {
         removeCookie("area");
         removeCookie("college");
         removeCookie("email");
