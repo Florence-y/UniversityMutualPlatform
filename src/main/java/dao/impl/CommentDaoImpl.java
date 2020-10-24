@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * @author DEL
  */
-public class CommentDaoImpl  extends BaseDaoImpl<Comment> implements CommentDao {
+public class CommentDaoImpl extends BaseDaoImpl<Comment> implements CommentDao {
     @Override
     public String getTableName() {
         return "t_comment";
@@ -31,6 +31,6 @@ public class CommentDaoImpl  extends BaseDaoImpl<Comment> implements CommentDao 
     @Override
     public int insertComment(Map<String, Object> pojoMap) {
         int id = super.insertRowByKeyAndValue(new Comment(), pojoMap);
-        return id>0? Response.OK:Response.ERROR;
+        return id > 0 ? Response.OK : Response.ERROR;
     }
 }

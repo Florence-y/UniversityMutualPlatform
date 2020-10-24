@@ -3,7 +3,7 @@
 //禁用 倒计时 disable属性
 
 //验证码
-var confirmCode =123456;
+var confirmCode = 123456;
 var time = 0;
 var timer = null;
 
@@ -56,18 +56,18 @@ function clearErrorMessage($obj, $tip) {
 }
 
 //设置一些输入框样式
-$('.email_input').on("focus",function () {
-    
+$('.email_input').on("focus", function() {
+
     clearErrorMessage($('.email_input'), '请输入校园邮箱');
 });
-$('.confirm_input').on("focus",function () {
-    
+$('.confirm_input').on("focus", function() {
+
     clearErrorMessage($('.confirm_input'), '请输入验证码');
 });
-$('.input_text_page1').bind('focus', function () {
+$('.input_text_page1').bind('focus', function() {
     $(this).addClass('editing');
 });
-$('.input_text_page1').bind('blur', function () {
+$('.input_text_page1').bind('blur', function() {
     $(this).removeClass('editing');
 });
 
@@ -79,9 +79,9 @@ function statusDisplay() {
 
 
 //身份选择
-$('.individual').bind("click", function () {
+$('.individual').bind("click", function() {
     $('.status').removeClass('status_display');
-   
+
     $('.status header').fadeIn();
     $('.status .content').fadeOut();
 
@@ -96,28 +96,28 @@ $('.individual').bind("click", function () {
 })
 
 //身份切换
-$('.alter').bind("click", function () {
-    $('.status').addClass('status_display');
-    statusDisplay();
-})
-//邮箱有效性验证 //不能为中文
-function isEmailAvailable($errorMessage){
+$('.alter').bind("click", function() {
+        $('.status').addClass('status_display');
+        statusDisplay();
+    })
+    //邮箱有效性验证 //不能为中文
+function isEmailAvailable($errorMessage) {
     var $obj = $(".email_input");
     var reg = /^m.*$/;
-    var reg2 = /[\u4E00-\u9FFF]+/;//非中文
-    if(reg2.test($obj.val())){
-        $obj.attr('placeholder',$errorMessage);
+    var reg2 = /[\u4E00-\u9FFF]+/; //非中文
+    if (reg2.test($obj.val())) {
+        $obj.attr('placeholder', $errorMessage);
         $obj.val("");
         $obj.addClass('error');
-       
+
         return false;
     }
     //学生
-    if(reg.test($('.email_tail').html())){
+    if (reg.test($('.email_tail').html())) {
         var reg1 = /^(\d|\w){9}$/; //开头和结尾一定要做好
-        if(!reg1.test($('.email_input').val())){
+        if (!reg1.test($('.email_input').val())) {
             $obj.val("");
-            $obj.attr('placeholder',$errorMessage);
+            $obj.attr('placeholder', $errorMessage);
             $obj.addClass('error');
             return false;
         }
@@ -127,19 +127,19 @@ function isEmailAvailable($errorMessage){
 
 //判断用户名、邮箱是否存在
 function dataIsExiste(field, value, errorMessage) {
-     //设置同步请求
-   
+    //设置同步请求
+
     var result = false;
     $.ajax({
-        url : 'http://192.168.137.141:8080/Servlet/IsExistInfoServle',
-       data : {
-        field: field,
-        value: value,
-        requestTpye: "get",
-        userType: userType,
-       },
-       
-        success: function (res) {
+        url: 'http://192.168.137.141:8080/Servlet/IsExistInfoServle',
+        data: {
+            field: field,
+            value: value,
+            requestTpye: "get",
+            userType: userType,
+        },
+
+        success: function(res) {
             if (res.statusCode == 200) {
                 set_displayMessage(errorMessage);
                 result = true;
@@ -150,7 +150,7 @@ function dataIsExiste(field, value, errorMessage) {
             }
         }
     });
-   
+
     return result;
 }
 
@@ -164,18 +164,18 @@ function getUserType() {
 
 //发送验证码的逻辑
 //定时器做的工作，减少数字，显示数字，当time==0时，清除定时器，并且把按钮重新恢复，并改变内容
-$('.send_btn').click(function () {
+$('.send_btn').click(function() {
 
     if (time == 0 && !isEmpty($('.email_input'), "邮箱禁止为空！") && isEmailAvailable("邮箱有误！")) {
         requestData.email = $('.email_input').val() + "@" + $('.email_tail').html();
         userType = getUserType();
         if (!dataIsExiste('email', requestData.email, "该邮箱已被注册！")) {
-        //    console.log(requestData.email);
+            //    console.log(requestData.email);
             // console.log('发送验证码');
-            $.get("http://192.168.137.141:8080/Servlet/VerifyCodeServlet",{
-                email : requestData.email,
-                requestType : "get"
-            },function(res){
+            $.get("http://192.168.137.141:8080/Servlet/VerifyCodeServlet", {
+                email: requestData.email,
+                requestType: "get"
+            }, function(res) {
                 confirmCode = res.message.toLowerCase();
             });
             time = 60;
@@ -227,19 +227,19 @@ function changeToNextPage(nextPage) {
     //本页缩小,左滑消失
     set_displayMessage("邮箱验证成功！");
     setTimeout(() => {
-        $('.modal_bg').fadeOut();
-        $('#form1').animate({
-            left: "-400px",
-        });
-        $('#form1').fadeOut();
-        $(nextPage).fadeIn();
-    }, 1000)
-    //下一页初始为缩小，然后一边右滑到中间，一边放大
-    //还要根据不同的身份进行不同的拿取
+            $('.modal_bg').fadeOut();
+            $('#form1').animate({
+                left: "-400px",
+            });
+            $('#form1').fadeOut();
+            $(nextPage).fadeIn();
+        }, 1000)
+        //下一页初始为缩小，然后一边右滑到中间，一边放大
+        //还要根据不同的身份进行不同的拿取
 }
 
 //点击进入下一步注册逻辑
-$(".next_btn").click(function () {
+$(".next_btn").click(function() {
     if (!isEmpty($('.email_input'), "邮箱号码禁止为空") && !isEmpty($('.confirm_input'), "验证码禁止为空") && $('.confirm_input').val().toLowerCase() == confirmCode) {
         //拿取本页的数据有:邮箱，身份，学号,
         email = requestData.email; //不能再次获取
@@ -248,7 +248,7 @@ $(".next_btn").click(function () {
         var reg = new RegExp('^m');
 
         if (reg.test(temp_email[1])) {
-            userType = 'student';//最终确定userType
+            userType = 'student'; //最终确定userType
             //自动填充
             $('#sNo input').val(markNumber);
             //换到学生注册面
@@ -269,50 +269,50 @@ $(".next_btn").click(function () {
 //注册的下一步操作*********************************************************
 
 
-var major_target = 30;//专业的初始下拉高度
+var major_target = 30; //专业的初始下拉高度
 var $pwd_view = false;
 var $pwd_confirm_view = false;
 
 
 //输入框悬浮时激活线变长
-$(".form .row .value input").on("focus",function(){
+$(".form .row .value input").on("focus", function() {
     $(this).parents(".row").find(".active_line").animate({
         width: "430px"
-    },300)
+    }, 300)
 })
-$(".form .row .value input").on("blur",function(){
+$(".form .row .value input").on("blur", function() {
     $(this).parents(".row").find(".active_line").animate({
         width: "0px"
-    },300)
+    }, 300)
 })
 
 
 //性别、校区的动画效果
 function animationDisplay(obj, item1, item2) {
     //选项选择
-    $(obj + ' .switch').click(function () {
-        $(obj + ' .item').css({
-            display: "none",
+    $(obj + ' .switch').click(function() {
+            $(obj + ' .item').css({
+                display: "none",
+            })
+            $(obj + ' ' + item2).css({
+                left: "",
+                right: "5px",
+                textAlign: 'right'
+            })
+            $(this).fadeOut();
+            $(obj + ' .item').fadeIn();
         })
-        $(obj + ' ' + item2).css({
-            left: "",
-            right: "5px",
-            textAlign: 'right'
+        //点击选中
+    $(obj + ' .item').bind("click", function() {
+            $(obj + ' .switch').fadeIn();
+            $(obj + ' .value').attr('data', $(this).find('.text').html())
         })
-        $(this).fadeOut();
-        $(obj + ' .item').fadeIn();
-    })
-    //点击选中
-    $(obj + ' .item').bind("click", function () {
-        $(obj + ' .switch').fadeIn();
-        $(obj + ' .value').attr('data', $(this).find('.text').html())
-    })
-    //选择1
-    $(obj + ' ' + item1).bind('click', function () {
-        $(obj + ' ' + item2).fadeOut();
-    })
-    //选择2
-    $(obj + ' ' + item2).bind('click', function () {
+        //选择1
+    $(obj + ' ' + item1).bind('click', function() {
+            $(obj + ' ' + item2).fadeOut();
+        })
+        //选择2
+    $(obj + ' ' + item2).bind('click', function() {
         $(obj + ' ' + item1).fadeOut();
         $(this).css({
             right: "",
@@ -328,7 +328,7 @@ animationDisplay('.campus', '.headquarter', '.Zhaoqing');
 
 //下拉展示栏动画
 function animationSlide(obj, target) {
-    $(obj + " .list").click(function (event) {
+    $(obj + " .list").click(function(event) {
         var event = event || $(window).event;
         var target = event.target || event.srcElement;
         if (target.nodeName.toLowerCase() == 'li') {
@@ -340,7 +340,7 @@ function animationSlide(obj, target) {
             }
         }
     })
-    $(obj + " .choice").mouseleave(function () {
+    $(obj + " .choice").mouseleave(function() {
         $(obj + ' .list').fadeOut();
     })
     $(obj + " .choice").click(display)
@@ -357,7 +357,7 @@ function animationSlide(obj, target) {
 
 //专业的下拉动画展示
 function animationSlide_major(obj) {
-    $(obj + " .list").click(function (event) {
+    $(obj + " .list").click(function(event) {
         var event = event || $(window).event;
         var target = event.target || event.srcElement;
         if (target.nodeName.toLowerCase() == 'li') {
@@ -370,7 +370,7 @@ function animationSlide_major(obj) {
             }
         }
     })
-    $(obj + " .choice").mouseleave(function () {
+    $(obj + " .choice").mouseleave(function() {
         $(obj + ' .list').fadeOut();
     })
     $(obj + " .choice").click(display)
@@ -398,7 +398,7 @@ function fillMajorContent(key) {
     var majors = data_major[key];
     $('.major .cur_val').html(majors[0]);
     $('.major .value').attr('data', majors[0]);
-    $('.major .list').empty();//删除子元素
+    $('.major .list').empty(); //删除子元素
     if (majors.length <= 8) {
         major_target = 40 * majors.length;
     } else {
@@ -431,11 +431,11 @@ var data_major = {
 
 
 //密码可视化
-$('.pwd svg').click(function () {
+$('.pwd svg').click(function() {
     viewChange.call($(this), $pwd_view);
     $pwd_view = $pwd_view == false ? true : false;
 })
-$('.pwd_confirm svg').click(function () {
+$('.pwd_confirm svg').click(function() {
     viewChange.call($(this), $pwd_confirm_view);
     $pwd_confirm_view = $pwd_confirm_view == false ? true : false;
 })
@@ -475,8 +475,8 @@ function set_displayMessage(message, duration) {
     $('.modal_content').html(message);
     $('.modal_bg').fadeIn();
     setTimeout(() => {
-        $('.modal_bg').fadeOut();
-    }, duration || 1200)//默认2s
+            $('.modal_bg').fadeOut();
+        }, duration || 1200) //默认2s
 }
 
 //设置成成功信息
@@ -489,7 +489,7 @@ function userNameIsAvailable(userName) {
 }
 
 //用户名合法性判断
-$('.userName input').blur(function () {
+$('.userName input').blur(function() {
     $('.userName .success_icon').css("display", "none");
     if (!userNameIsAvailable($(this).val())) {
         set_displayMessage('用户名格式有误！');
@@ -499,7 +499,7 @@ $('.userName input').blur(function () {
 })
 
 //模态框关闭
-$('.fadeOut').click(function () {
+$('.fadeOut').click(function() {
     $('.modal_bg').fadeOut();
 })
 
@@ -607,24 +607,12 @@ $('.submit_btn').click(() => {
         "graduatedUniversity": $('#graduatedUniversity input').val(),
         "degree": $('#degree .value').attr('data')
     }
-    $.post('http://192.168.137.141:8080/Servlet/UserServlet', JSON.stringify(formData), function (res) {
+    $.post('http://192.168.137.141:8080/Servlet/UserServlet', JSON.stringify(formData), function(res) {
 
         set_displayMessage('注册成功！正跳转到首页...');
         //跳转。。。
-        setTimeout(()=>{
+        setTimeout(() => {
             window.open("../index.html")
-        },1500);
+        }, 1500);
     }, 'json');
 })
-
-
-
-
-      
-
-
-
-       
-     
-     
-

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import commom.annontation.IsValid;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author Florence
@@ -14,24 +13,27 @@ public class Question {
 
     @IsValid(valid = true, fieldName = "title")
     String title;
-    @IsValid(valid = true, fieldName = "content")
-    String content;
     @IsValid(valid = true, fieldName = "questionType")
     String questionType;
+    @IsValid(valid = true, fieldName = "authorMarkNumber")
+    String authorMarkNumber;
     @IsValid(valid = true, fieldName = "tag")
     String[] tag;
-    @IsValid(valid = true, fieldName = "imgAddress")
-    String imgAddress;
-    @IsValid(valid = true,fieldName = "authorMarkNumber")
-    String authorMarkNumber;
-    Page<Answer> answer;
+    @IsValid(valid = true, fieldName = "contents")
+    QuestionContent[] contents;
+    @IsValid(valid = true,fieldName = "isAnonymity")
+    boolean isAnonymity;
+    boolean isAgree;
+    boolean isAttentionAuthor;
     String userType;
     int agreeCount;
     String questionId;
     Student student;
     Teacher teacher;
+    Page<Answer> answer;
 
-    
+
+
     public String getAuthorMarkNumber() {
         return authorMarkNumber;
     }
@@ -39,6 +41,7 @@ public class Question {
     public void setAuthorMarkNumber(String authorMarkNumber) {
         this.authorMarkNumber = authorMarkNumber;
     }
+
     public String getUserType() {
         return userType;
     }
@@ -79,14 +82,6 @@ public class Question {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String[] getTag() {
         return tag;
     }
@@ -119,28 +114,53 @@ public class Question {
         this.answer = answer;
     }
 
-    public String getImgAddress() {
-        return imgAddress;
+
+    public boolean isAgree() {
+        return isAgree;
     }
 
-    public void setImgAddress(String imgAddress) {
-        this.imgAddress = imgAddress;
+
+    public void setAgree(boolean agree) {
+        isAgree = agree;
     }
 
+    public boolean isAttentionAuthor() {
+        return isAttentionAuthor;
+    }
+
+    public void setAttentionAuthor(boolean attentionAuthor) {
+        isAttentionAuthor = attentionAuthor;
+    }
+
+    public QuestionContent[] getContents() {
+        return contents;
+    }
+
+    public void setContents(QuestionContent[] contents) {
+        this.contents = contents;
+    }
+    public boolean isAnonymity() {
+        return isAnonymity;
+    }
+    public void setAnonymity(boolean anonymity) {
+        isAnonymity = anonymity;
+    }
     @Override
     public String toString() {
         return "Question{" +
                 "title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", type='" + questionType + '\'' +
+                ", questionType='" + questionType + '\'' +
+                ", authorMarkNumber='" + authorMarkNumber + '\'' +
                 ", tag=" + Arrays.toString(tag) +
-                ", imgAddress='" + imgAddress + '\'' +
-                ", answer=" + answer +
+                ", contents=" + Arrays.toString(contents) +
+                ", isAgree=" + isAgree +
+                ", isAttentionAuthor=" + isAttentionAuthor +
                 ", userType='" + userType + '\'' +
                 ", agreeCount=" + agreeCount +
-                ", articleId='" + questionId + '\'' +
+                ", questionId='" + questionId + '\'' +
                 ", student=" + student +
                 ", teacher=" + teacher +
+                ", answer=" + answer +
                 '}';
     }
 }

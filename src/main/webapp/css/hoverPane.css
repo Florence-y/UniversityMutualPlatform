@@ -40,8 +40,6 @@ body {
     width: 100%;
     height: 60px;
     font-size: 18px;
-
-
 }
 
 /* 选项 */
@@ -123,7 +121,6 @@ body {
 .hoverBox .itemList .item:hover {
     border-bottom-color: #02A7F0;
     background-color: #f6f6f6;
-
 }
 
 .hoverBox .contentBox_request .itemList .item a {

@@ -114,7 +114,7 @@ button {
     position: relative;
 }
 
-.modal_head button {
+.modal_bg_logon .modal_head button {
     /* 相对于整个模态框 的定位  */
     position: relative;
     top: 10px;
@@ -141,7 +141,7 @@ button {
 
 /* #endregion */
 
-.modal_content {
+.modal_bg_logon .modal_content {
     /* 为 logOn 的定位 */
     position: relative;
     width: 533px;
@@ -154,7 +154,7 @@ button {
 
 /* #region 登录*/
 
-.modal_content .logOn {
+.modal_bg_logon .modal_content .logOn {
     /* 父级定位在 modal_content */
     height: 100%;
     width: 100%;
@@ -163,12 +163,12 @@ button {
 
 /* #region 登录--学生/教师 文字part */
 
-.modal_content .logOn .student,
-.modal_content .logOn .teacher {
+.modal_bg_logon .modal_content .logOn .student,
+.modal_bg_logon .modal_content .logOn .teacher {
     float: left;
 }
 
-.modal_content .logOn h2 {
+.modal_bg_logon .modal_content .logOn h2 {
     /* 为下面的#02A7F0 条 设置的定位 */
     position: relative;
     font-size: 45px;
@@ -181,7 +181,7 @@ button {
     transition: all 0.2s;
 }
 
-.modal_content .logOn .student {
+.modal_bg_logon .modal_content .logOn .student {
     margin-right: 28px;
     margin-left: 12px;
 }
@@ -189,15 +189,15 @@ button {
 
 /* #region 登录--学生/教师  表单part */
 
-.modal_content .logOn form {
+.modal_bg_logon .modal_content .logOn form {
     /* 父级定位 */
     position: absolute;
     top: 150px;
     left: 0;
 }
 
-.modal_content .logOn .logOnTeacher form,
-.modal_content .logOn .logOnStudent form {
+.modal_bg_logon .modal_content .logOn .logOnTeacher form,
+.modal_bg_logon .modal_content .logOn .logOnStudent form {
     /* 文字下方的表单  在没有logOnDisplay时 不显示 */
     display: none;
     width: 536px;
@@ -206,12 +206,12 @@ button {
 
 /* #region 登录--学生/教师 input  */
 
-.modal_content>.logOn form .confirm {
+.modal_bg_logon .modal_content>.logOn form .confirm {
     position: relative;
     margin-top: 35px;
 }
 
-.modal_content .logOn form .input {
+.modal_bg_logon .modal_content .logOn form .input {
     background-color: transparent;
     margin: 0 auto;
     /* 使表单一行显示一个 */
@@ -239,12 +239,12 @@ button {
 
 /* #region 登录--学生/教师  logOnDisplay控制 表单/b/h2 的显示  */
 
-.modal_content .logOn .logOnDisplay h2 {
+.modal_bg_logon .modal_content .logOn .logOnDisplay h2 {
     /* h2 在非logOnDisplay 时 字体不粗(整体定义的h2)  */
     font-weight: 700;
 }
 
-.modal_content .logOn .logOnDisplay b {
+.modal_bg_logon .modal_content .logOn .logOnDisplay b {
     /* b 在非logOnDisplay时  无 */
     /* 父级定位在 h2 */
     position: absolute;
@@ -258,8 +258,8 @@ button {
     transition: all 0.5s;
 }
 
-.modal_content .logOn .logOnDisplay .logOnStudent form,
-.modal_content .logOn .logOnDisplay .logOnTeacher form {
+.modal_bg_logon .modal_content .logOn .logOnDisplay .logOnStudent form,
+.modal_bg_logon .modal_content .logOn .logOnDisplay .logOnTeacher form {
     /* h2下方的表单元素  在非logOnDisplay 时直接 display none */
     display: block;
 }
@@ -276,8 +276,8 @@ button {
 
 /* #region 立即登录按钮 */
 
-.modal_content .btnLogon,
-.modal_content .btnRegister {
+.modal_bg_logon .modal_content .btnLogon,
+.modal_bg_logon .modal_content .btnRegister {
     position: absolute;
     bottom: 129px;
     left: 4px;
@@ -295,11 +295,11 @@ button {
     left: 305px;
 }
 
-.modal_content button.btnLogon {
+.modal_bg_logon .modal_content button.btnLogon {
     left: 0;
 }
 
-.modal_content b {
+.modal_bg_logon .modal_content b {
     position: absolute;
     right: -18px;
     bottom: 272px;
@@ -310,7 +310,7 @@ button {
     cursor: pointer;
 }
 
-.modal_content b:hover {
+.modal_bg_logon .modal_content b:hover {
     color: #02A7F0;
 }
 
@@ -323,7 +323,7 @@ button {
 
 /* #region 忘记密码 */
 
-.modal_content .forgetPas {
+.modal_bg_logon .modal_content .forgetPas {
     display: none;
     position: absolute;
     width: 755px;
@@ -332,25 +332,25 @@ button {
     top: 0;
 }
 
-.modal_content .forgetPas>div {
+.modal_bg_logon .modal_content .forgetPas>div {
     /* 忘记密码页面 的三个框 */
     margin: 60px 0;
 }
 
-.modal_content .forgetPas .teacherOrStudent label {
+.modal_bg_logon .modal_content .forgetPas .teacherOrStudent label {
     /* 老师/学生 单选框的label */
     margin: 0 39px 0 31px;
     font-size: 32px;
     cursor: pointer;
 }
 
-.modal_content .forgetPas .teacherOrStudent label input {
+.modal_bg_logon .modal_content .forgetPas .teacherOrStudent label input {
     margin-left: 1px;
 }
 
-.modal_content .forgetPas .writeEmail input,
-.modal_content .forgetPas .writeEmail em,
-.modal_content .forgetPas .verificationCode input {
+.modal_bg_logon .modal_content .forgetPas .writeEmail input,
+.modal_bg_logon .modal_content .forgetPas .writeEmail em,
+.modal_bg_logon .modal_content .forgetPas .verificationCode input {
     /* 页面里所有的框 */
     width: 270px;
     height: 50px;
@@ -370,7 +370,7 @@ button {
     font-size: 32px;
 }
 
-.modal_content .forgetPas .writeEmail .emailSuffix {
+.modal_bg_logon .modal_content .forgetPas .writeEmail .emailSuffix {
     /* 邮箱 后缀名 */
     display: inline-block;
     vertical-align: top;
@@ -388,7 +388,7 @@ button {
     margin-left: 95px;
 }
 
-.modal_content .forgetPas .verificationCode .sendVerificationCode {
+.modal_bg_logon .modal_content .forgetPas .verificationCode .sendVerificationCode {
     /* 发送验证码按钮 */
     width: 190px;
     height: 62px;
@@ -399,8 +399,8 @@ button {
     border-radius: 8px;
 }
 
-.modal_content .forgetPas span,
-.modal_content .resetPas span {
+.modal_bg_logon .modal_content .forgetPas span,
+.modal_bg_logon .modal_content .resetPas span {
     font-weight: 700;
     font-size: 38px;
     color: #333333;
@@ -422,7 +422,7 @@ button {
 
 /* #region 重置密码页面 */
 
-.modal_content .resetPas {
+.modal_bg_logon .modal_content .resetPas {
     /* 整体的位置 */
     position: absolute;
     display: none;
@@ -436,11 +436,11 @@ button {
     margin: 85px 0;
 }
 
-.modal_content .resetPas>div span {
+.modal_bg_logon .modal_content .resetPas>div span {
     vertical-align: bottom;
 }
 
-.modal_content .resetPas>div input {
+.modal_bg_logon .modal_content .resetPas>div input {
     /* 两个密码框 */
     width: 355px;
     height: 50px;
@@ -454,7 +454,7 @@ button {
     margin-left: 8px;
 }
 
-.modal_content .resetPas .resetPasConfirm {
+.modal_bg_logon .modal_content .resetPas .resetPasConfirm {
     bottom: -44px;
     left: 150px;
 }

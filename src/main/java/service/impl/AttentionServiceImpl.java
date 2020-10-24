@@ -38,7 +38,7 @@ public class AttentionServiceImpl implements AttentionService {
         //页面大小
         int pageSize = Page.PAGE_SIZE;
         //页面开始的地方
-        int begin=(curPage - 1) * pageSize;
+        int begin = (curPage - 1) * pageSize;
 
         totalPage = attentionDao.getCountByCondition(new Attention(), map);
         if (MAJOR_ATTENTION.equals(attentionType)) {

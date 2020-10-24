@@ -3,8 +3,11 @@ package controller;
 import commom.constantval.ServletConstantVal;
 import commom.factory.ResponseFactory;
 import pojo.Answer;
+import pojo.Page;
+import pojo.Response;
 import service.AnswerService;
 import service.impl.AnswerServiceImpl;
+import util.SensitiveWordFilterUtil;
 import util.WebUtil;
 
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +24,7 @@ import java.util.Map;
 public class AnswerServlet extends HttpServlet {
     Map<String, Object> map;
     AnswerService service = new AnswerServiceImpl();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
@@ -28,19 +32,26 @@ public class AnswerServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
-        int code= service.addAnswer(WebUtil.getPureMapFromMixMapToPojo(map,new Answer()));
-        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
+        int id = service.addAnswer(map);
+        int codeAdd = id > 0 ? Response.OK : Response.ERROR;
+        WebUtil.writeObjToResponse(response, ResponseFactory.getId(id, codeAdd));
         System.out.println("post");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.formToMap(request);
+        int code = SensitiveWordFilterUtil.filterMap(map);
+        if (code!=Response.OK) {
+            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(code, ServletConstantVal.SENSITIVE_WORD_INF));
+            return;
+        }
         if (ServletConstantVal.DELETE.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
             doDelete(request, response);
             return;
         }
-//        service.getAnswer
+        Page<Answer> answerPage = service.getAnswers((String) map.get("getAnswerType"), map);
+        WebUtil.writeObjToResponse(response, answerPage);
         System.out.println("get");
     }
 
@@ -49,7 +60,7 @@ public class AnswerServlet extends HttpServlet {
         //获取修改完的回答的内容
         Answer answer = service.editAnswer(map, String.valueOf(map.get("condition")));
         //将对象写回
-        WebUtil.writeObjToResponse(response,answer);
+        WebUtil.writeObjToResponse(response, answer);
         System.out.println("put");
     }
 
