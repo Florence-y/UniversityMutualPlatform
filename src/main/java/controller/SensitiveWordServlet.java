@@ -2,11 +2,7 @@ package controller;
 
 import commom.constantval.ServletConstantVal;
 import commom.factory.ResponseFactory;
-import pojo.Comment;
-import pojo.Page;
 import pojo.Response;
-import service.CommentService;
-import service.impl.CommentServiceImpl;
 import util.SensitiveWordFilterUtil;
 import util.WebUtil;
 
@@ -15,30 +11,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @author Florence
  */
-@WebServlet("/Servlet/CommentServlet")
-public class CommentServlet extends HttpServlet {
+@WebServlet("/Servlet/SensitiveWordServlet")
+public class SensitiveWordServlet extends HttpServlet {
     Map<String, Object> map;
-    CommentService service = new CommentServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
-        int code = SensitiveWordFilterUtil.filterMap(map);
-        if (code!=Response.OK) {
-            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(code, ServletConstantVal.SENSITIVE_WORD_INF));
-            return;
-        }
+        List<String> list = SensitiveWordFilterUtil.filterArr((ArrayList<String>) map.get("textArr"));
         if (ServletConstantVal.PUT.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
             doPut(request, response);
             return;
         }
-        int codeAdd= service.addComment(map);
-        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(codeAdd));
+        if (list==null){
+            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(Response.ERROR,"包含黄色敏感词"));
+            return;
+        }
+        WebUtil.writeObjToResponse(response,list);
         System.out.println("post");
     }
 
@@ -49,20 +45,11 @@ public class CommentServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
-        Page<Comment> page = service.getComments((String) map.get("getType"), map);
-        WebUtil.writeObjToResponse(response, page);
         System.out.println("get");
     }
 
     @Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Comment comment = service.editComment(map, String.valueOf(map.get("condition")));
-        //如果对象为空
-        if (comment == null) {
-            WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(Response.ERROR));
-            return;
-        }
-        WebUtil.writeObjToResponse(response, comment);
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("put");
     }
 

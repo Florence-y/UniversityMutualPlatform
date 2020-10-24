@@ -1,9 +1,13 @@
 package util;
 
+import pojo.QuestionContent;
+import pojo.Response;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,11 +15,11 @@ import java.util.Map;
  * @author Florence
  */
 public class SensitiveWordFilterUtil {
-    private static List<String> yellowWord=new ArrayList<>();
-    private static List<String> commonWord=new ArrayList<>();
+    private static final List<String> yellowWord=new ArrayList<>();
+    private static final List<String> commonWord=new ArrayList<>();
     static {
         try {
-            String str=null;
+            String str;
 
             BufferedReader bufferedReaderYellow = new BufferedReader(new InputStreamReader(SensitiveWordFilterUtil.class.getClassLoader().getResourceAsStream("sensitive-word-lib-yellow.txt")));
             while ((str=bufferedReaderYellow.readLine())!=null){
@@ -59,23 +63,46 @@ public class SensitiveWordFilterUtil {
     }
 
 
-    public static boolean filterMap(Map<String,Object> map){
+    public static int filterMap(Map<String,Object> map){
+        boolean flag=true;
         for (Map.Entry<String,Object> entry:map.entrySet()){
             Class<?> clazz = entry.getValue().getClass();
+            System.out.println(clazz.getName());
             //首先判断是否是字符串
             if(clazz.isAssignableFrom(String.class)){
                 boolean isIncludeForbid = filterForbiddenWord((String) entry.getValue());
                 //如果包含严重敏感词汇
                 if (isIncludeForbid){
-                    return false;
+                    return Response.ERROR;
                 }
                 //过滤包含普通敏感词汇
                 else {
                     String newWord = filterCommonSensitiveWord((String) entry.getValue());
+                    if (newWord.contains("*")){
+                        flag=false;
+                    }
                     entry.setValue(newWord);
                 }
             }
+            else if (clazz.isAssignableFrom(ArrayList.class)){
+
+            }
+            else if (clazz.isAssignableFrom(ArrayList.class)){
+
+            }
         }
-        return true;
+        return flag?Response.OK:Response.COMMON_SENSITIVE;
+    }
+
+    public static List<String> filterArr(ArrayList<String> textArr) {
+        LinkedList<String> linkedList = new LinkedList<>();
+        for (String str:textArr){
+            boolean isForbid = filterForbiddenWord(str);
+            if (isForbid){
+                return null;
+            }
+            linkedList.add(filterCommonSensitiveWord(str));
+        }
+        return linkedList;
     }
 }

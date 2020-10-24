@@ -30,11 +30,6 @@ public class QuestionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
-        boolean b = SensitiveWordFilterUtil.filterMap(map);
-        if (!b) {
-            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(Response.ERROR, ServletConstantVal.SENSITIVE_WORD_INF));
-            return;
-        }
         if (ServletConstantVal.PUT.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
             doPut(request, response);
             return;
@@ -50,9 +45,9 @@ public class QuestionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.formToMap(request);
-        boolean b = SensitiveWordFilterUtil.filterMap(map);
-        if (!b) {
-            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(Response.ERROR, ServletConstantVal.SENSITIVE_WORD_INF));
+        int code = SensitiveWordFilterUtil.filterMap(map);
+        if (code!=Response.OK) {
+            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(code, ServletConstantVal.SENSITIVE_WORD_INF));
             return;
         }
         if (ServletConstantVal.DELETE.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
