@@ -1,5 +1,4 @@
 package util;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
@@ -35,12 +34,9 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import pojo.Page;
 import pojo.Response;
-
 import java.io.IOException;
 import java.util.*;
-
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
-
 /**
  * @author Florence
  */
@@ -61,7 +57,7 @@ public class ElasticUtil {
      * @param length  长度
      * @return 得到的结果
      */
-    public static List<String> multiAndSearch(Map<String, Object> mustMap, int length, boolean isFuzzy) {
+    public static List<String> multiAndSearch(String index, Map<String, Object> mustMap, int length, boolean isFuzzy) {
         // 根据多个条件 生成 boolQueryBuilder
         BoolQueryBuilder boolQueryBuilder = (BoolQueryBuilder) getMultiplyBoolBuilder("and", mustMap, isFuzzy);
         // boolQueryBuilder生效
@@ -69,7 +65,7 @@ public class ElasticUtil {
         searchSourceBuilder.query(boolQueryBuilder);
         searchSourceBuilder.size(length);
         // 其中listSearchResult是自己编写的方法，以供多中查询方式使用。
-        return listSearchResult(searchSourceBuilder);
+        return listSearchResult(index, searchSourceBuilder);
     }
 
     /**
@@ -80,7 +76,7 @@ public class ElasticUtil {
      * @param isFuzzy 是否模糊查询
      * @return 得到的结果
      */
-    public static List<String> multiOrSearch(Map<String, Object> mustMap, int length, boolean isFuzzy) {
+    public static List<String> multiOrSearch(String index, Map<String, Object> mustMap, int length, boolean isFuzzy) {
         // 根据多个条件 生成 boolQueryBuilder
         BoolQueryBuilder boolQueryBuilder = (BoolQueryBuilder) getMultiplyBoolBuilder("or", mustMap, isFuzzy);
         // boolQueryBuilder生效
@@ -88,7 +84,7 @@ public class ElasticUtil {
         searchSourceBuilder.query(boolQueryBuilder);
         searchSourceBuilder.size(length);
         // 其中listSearchResult是自己编写的方法，以供多中查询方式使用。
-        return listSearchResult(searchSourceBuilder);
+        return listSearchResult(index, searchSourceBuilder);
     }
 
     /**
@@ -97,9 +93,9 @@ public class ElasticUtil {
      * @param builder 得到的处理结果
      * @return 得到的结果
      */
-    public static List<String> listSearchResult(SearchSourceBuilder builder) {
+    public static List<String> listSearchResult(String index, SearchSourceBuilder builder) {
         // 提交查询
-        SearchRequest searchRequest = new SearchRequest();
+        SearchRequest searchRequest = new SearchRequest(index);
         searchRequest.source(builder);
         RestHighLevelClient client = getRestHighLevelClient();
         // 获得response
@@ -143,11 +139,11 @@ public class ElasticUtil {
      * @param isFuzzy 是否模糊查询
      * @return 查询到的列表
      */
-    public static List<String> simpleSearch(String key, Object value, int length, Boolean isFuzzy) {
+    public static List<String> simpleSearch(String index, String key, Object value, int length, Boolean isFuzzy) {
         // 使用上面已经编写好的方法
         Map<String, Object> map = new HashMap<>(6);
         map.put(key, value);
-        return multiAndSearch(map, length, isFuzzy);
+        return multiAndSearch(index, map, length, isFuzzy);
     }
 
     public static <T> Page<T> scrollSearch(String scrollId, T pojo) throws IOException {
@@ -194,7 +190,7 @@ public class ElasticUtil {
      * @param length 查询的数量
      * @return 返回得到的结果
      */
-    public static List<String> searchByDate(Date from, Date to, int length) {
+    public static List<String> searchByDate(String index, Date from, Date to, int length) {
         // 生成builder
         RangeQueryBuilder rangeQueryBuilder =
                 QueryBuilders.rangeQuery("date").from(from).to(to);
@@ -202,7 +198,7 @@ public class ElasticUtil {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(rangeQueryBuilder);
         searchSourceBuilder.size(length);
-        return listSearchResult(searchSourceBuilder);
+        return listSearchResult(index, searchSourceBuilder);
     }
 
     /**
@@ -228,12 +224,12 @@ public class ElasticUtil {
      * @param size   数量
      * @return 查询结果
      */
-    public static List<String> prefix(String key, String prefix, int size) {
+    public static List<String> prefix(String index, String key, String prefix, int size) {
         PrefixQueryBuilder builder = QueryBuilders.prefixQuery(key, prefix);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.size(size);
         searchSourceBuilder.query(builder);
-        return listSearchResult(searchSourceBuilder);
+        return listSearchResult(index, searchSourceBuilder);
     }
 
     /**

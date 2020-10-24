@@ -45,7 +45,7 @@ public class elasticTest {
     public void mutipltySearcher() {
         Map<String, Object> map = new HashMap<>();
         map.put("message", "页我的是是啊刻意进项");
-        List<String> list = ElasticUtil.multiOrSearch(map, 20, true);
+        List<String> list = ElasticUtil.multiOrSearch("question", map, 20, true);
         System.out.println(list);
     }
 
@@ -93,5 +93,18 @@ public class elasticTest {
     public void getScroll() throws IOException {
 //        Page<Found> found = ElasticUtil.scrollSearchFirst("found", QueryBuilders.matchAllQuery(), new Found());
         System.out.println(ElasticUtil.scrollSearch("FGluY2x1ZGVfY29udGV4dF91dWlkDXF1ZXJ5QW5kRmV0Y2gBFENnX0xPblVCZXNqYnpFeE9CWVRsAAAAAAAAKi8WMXR3aE5VRUtUX21EMTNZUkNaV09fQQ==", new Found()));
+    }
+
+    @Test
+    public void addLost() {
+    }
+
+    @Test
+    public void getByMutilySearch() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("lostDescribe", "南");
+        map.put("lostObjectName", "hua7");
+        List<String> list = ElasticUtil.multiOrSearch("lost", map, 5, true);
+        System.out.println(list);
     }
 }

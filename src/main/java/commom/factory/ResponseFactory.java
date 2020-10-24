@@ -45,4 +45,11 @@ public class ResponseFactory {
         response.setStatusCode(code);
         return response;
     }
+
+    public static <T> Response<T> getMessageAndStatusCode(int statusCode, String message) {
+        Response<T> response = new Response<>();
+        response.setStatusCode(statusCode);
+        response.setMessage(message);
+        return response;
+    }
 }

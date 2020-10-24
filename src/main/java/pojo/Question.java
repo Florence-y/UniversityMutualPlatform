@@ -21,13 +21,17 @@ public class Question {
     String[] tag;
     @IsValid(valid = true, fieldName = "contents")
     QuestionContent[] contents;
+    @IsValid(valid = true,fieldName = "isAnonymity")
+    boolean isAnonymity;
     boolean isAgree;
+    boolean isAttentionAuthor;
     String userType;
     int agreeCount;
     String questionId;
     Student student;
     Teacher teacher;
     Page<Answer> answer;
+
 
 
     public String getAuthorMarkNumber() {
@@ -115,8 +119,17 @@ public class Question {
         return isAgree;
     }
 
+
     public void setAgree(boolean agree) {
         isAgree = agree;
+    }
+
+    public boolean isAttentionAuthor() {
+        return isAttentionAuthor;
+    }
+
+    public void setAttentionAuthor(boolean attentionAuthor) {
+        isAttentionAuthor = attentionAuthor;
     }
 
     public QuestionContent[] getContents() {
@@ -126,7 +139,12 @@ public class Question {
     public void setContents(QuestionContent[] contents) {
         this.contents = contents;
     }
-
+    public boolean isAnonymity() {
+        return isAnonymity;
+    }
+    public void setAnonymity(boolean anonymity) {
+        isAnonymity = anonymity;
+    }
     @Override
     public String toString() {
         return "Question{" +
@@ -134,13 +152,14 @@ public class Question {
                 ", questionType='" + questionType + '\'' +
                 ", authorMarkNumber='" + authorMarkNumber + '\'' +
                 ", tag=" + Arrays.toString(tag) +
+                ", contents=" + Arrays.toString(contents) +
                 ", isAgree=" + isAgree +
+                ", isAttentionAuthor=" + isAttentionAuthor +
                 ", userType='" + userType + '\'' +
                 ", agreeCount=" + agreeCount +
                 ", questionId='" + questionId + '\'' +
                 ", student=" + student +
                 ", teacher=" + teacher +
-                ", questionContents=" + Arrays.toString(contents) +
                 ", answer=" + answer +
                 '}';
     }

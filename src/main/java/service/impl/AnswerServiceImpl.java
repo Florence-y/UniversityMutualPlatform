@@ -72,6 +72,7 @@ public class AnswerServiceImpl implements AnswerService {
             answers = answerDao.getAnswers(begin, pageSize, map);
         }
         for (Answer answer : answers) {
+            countMap.put("viewerMarkNumber",map.get("viewerMarkNumber"));
             countMap.put("answerId", answer.getId());
             setAnswerInf(answer, countMap);
         }

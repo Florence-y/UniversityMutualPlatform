@@ -7,6 +7,7 @@ import pojo.Page;
 import pojo.Response;
 import service.CommentService;
 import service.impl.CommentServiceImpl;
+import util.SensitiveWordFilterUtil;
 import util.WebUtil;
 
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +28,11 @@ public class CommentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
+        boolean b = SensitiveWordFilterUtil.filterMap(map);
+        if (!b) {
+            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(Response.ERROR, ServletConstantVal.SENSITIVE_WORD_INF));
+            return;
+        }
         if (ServletConstantVal.PUT.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
             doPut(request, response);
             return;
@@ -39,6 +45,11 @@ public class CommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.formToMap(request);
+        boolean b = SensitiveWordFilterUtil.filterMap(map);
+        if (!b) {
+            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(Response.ERROR, ServletConstantVal.SENSITIVE_WORD_INF));
+            return;
+        }
         if (ServletConstantVal.DELETE.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
             doDelete(request, response);
             return;
