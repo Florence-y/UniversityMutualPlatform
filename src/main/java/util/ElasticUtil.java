@@ -285,11 +285,11 @@ public class ElasticUtil {
     /**
      * 添加文档
      *
-     * @param docMap 文档map
+     * @param docMap    文档map
      * @param indexName 索引的名字
      * @return 返回的字符串
      */
-    public static String addDoc(Map<String, Object> docMap,String indexName) {
+    public static String addDoc(Map<String, Object> docMap, String indexName) {
         IndexResponse indexResponse;
         try {
             //添加map数据
@@ -306,19 +306,21 @@ public class ElasticUtil {
 
     /**
      * 根据id获取文档
+     *
      * @param index 索引
-     * @param id id
+     * @param id    id
      * @return 返回json数据
      * @throws IOException 读取异常
      */
-    public static String getDocById(String index,String id) throws IOException {
+    public static String getDocById(String index, String id) throws IOException {
         GetRequest getRequest = new GetRequest(index, id);
         GetResponse getResponse = client.get(getRequest, RequestOptions.DEFAULT);
-        if (getResponse.isExists()){
+        if (getResponse.isExists()) {
             return getResponse.getSourceAsString();
         }
         return "505:fail";
     }
+
     /**********************************************************************************************************/
 
     public static void addIndex() throws IOException {
@@ -375,7 +377,6 @@ public class ElasticUtil {
         System.out.println(mappingMetadata.getSourceAsMap());
         return mappingMetadata.getSourceAsMap();
     }
-
 
 
 }

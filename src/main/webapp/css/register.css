@@ -14,17 +14,16 @@ table{
     left:50%;
     top:50%;
     transform: translate(-50%,-50%);
-    width:520px;
-    height: 430px;
+    width:780px;
+    height:680px;
     background-color: rgba(255,255,255,0.85);
-   
     border-radius: 24px;
 }
 /*头部标题*/
 .head_title{
     height: 80px;
     text-align: center;
-    font-size:24px;
+    font-size:50px;
     font-weight: 700;
     color:#333;
 }
@@ -33,25 +32,24 @@ td{
     text-align: center;
 }
 .status_out{
-    padding-top:30px;
-    /* height: 80px; */
-    height: 40px;
+    padding-top:10px;
+    height: 60px;
+    /* height: 40px; */
 }
 /*身份  */
 .status{
     position: relative;
     margin:0 auto;
     height: 100%;
-    width:310px;
-    border:1px solid #999;
+    width:510px;
+    border:1px solid #ccc;
     box-sizing: border-box;
     border-radius: 8px;
+    font-size:22px;
 }
 
 .status_display{
     border:none;
-    border-top:2px solid #797979;
-    border-radius: 0px;
 }
 .status header{
     cursor:default;
@@ -60,18 +58,18 @@ td{
 
 .status header span{
     display: inline-block;
-   line-height: 40px;
+   line-height: 60px;
    position: absolute;
    top:0px;
 }
 .status header .text{
     display: inline-block;
-    left:3px;
-    color:#999;
+    left:6px;
+    color:#444;
 }
 .status header .alter{
     right:20px;
-    font-size:12px;
+    font-size:22px;
     color:#02A7F0;
     cursor: pointer;
 }
@@ -86,19 +84,21 @@ td{
 .status .content{
     display: none;
     position: absolute;
-    width:300px;
+    width:530px;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
 }
 .status .individual{
+    
     display: inline-block;
     margin:15px;
-    color:#777;
-    border:1px solid #999;
+    color:#444;
+    border:1px solid #ccc;
     border-radius: 15px;
-    line-height: 30px;
-    width:80px;
+    font-size:22px;
+    line-height: 50px;
+    width:230px;
     cursor: pointer;
 }
 .status .individual:hover{
@@ -107,39 +107,41 @@ td{
 }
 
 
-
-
 /* 邮箱 */
 .email_out{
     padding-top:10px;
-    color:#777;
+    color:#444;
     height: 50px;
 }
 .email{
-    width:310px;
+    width:530px;
     margin:0 auto;
+    font-size: 22px;
+}
+.email span{
+    font-size:22px;
 }
 .email_input,.email_tail{
-    
-    border:1px solid #999;
-    color:#777;
+    border:1px solid #ccc;
+    color:#444;
     outline: none;
-    font-size:15px;
+    font-size:22px;
 }
 .email_input{
     padding:2px 5px;
-    line-height: 25px;
-    width: 180px;
+    line-height: 50px;
+    width: 313px;
+    letter-spacing: 0.1em;
     background-color: transparent;
     border-radius: 8px;
 }
 .email_tail{
     padding:2px 5px;
     display: inline-block;
-    line-height: 22px;
-    font-size:13px;
-    border-radius: 16px;
-    width:80px;
+    line-height: 50px;
+    font-size:22px;
+    border-radius: 8px;
+    width:140px;
 }
 
 /*验证码*/
@@ -150,8 +152,8 @@ td{
 .confirm{
     position: relative;
     margin:0 auto;
-    width:310px;
-    height: 40px;
+    width:510px;
+    height: 50px;
 }
 .confirm_input{
     position: absolute;
@@ -159,14 +161,15 @@ td{
     transform: translate(0,-50%);
     left:0px;
     padding:2px 5px;
-    width:180px;
-    line-height: 25px;
-    font-size:15px;
-    color:#777;
+    width:313px;
+    line-height: 50px;
+    font-size:22px;
+    color:#444;
     background-color: transparent;
-    border:1px solid #797979;
+    border:1px solid #ccc;
     border-radius: 8px;
     outline: none;
+    letter-spacing: 0.1em;
 }
 
 .btn_disable{
@@ -177,17 +180,17 @@ td{
 .send_btn{
     position: absolute;
     padding:2px 5px;
-    line-height: 22px;
-    width:80px;
+    line-height: 50px;
+    width:140px;
     top:50%;
     transform: translate(0,-50%);
     right:0px;
     outline: none;
     color: #fff;
-    font-size:14px;
+    font-size:22px;
     border:none;
     box-sizing: content-box;
-    border-radius: 16px;
+    border-radius: 8px;
     cursor: pointer;
 }
 .btn_available{
@@ -205,22 +208,25 @@ input{
 
 /*下一步按钮*/
 .next_out{
-    height: 90px;
+    height: 50px;
 }
 .next_btn{
     display: block;
     margin:0 auto;
-    height:40px;
-    width:200px;
+    padding:3px;
+    height:55px;
+    width:510px;
     color:#fff;
-    font-size:16px;
+    font-size:24px;
+    font-weight: 550;
     border:none;
-    border-radius: 20px;
+    border-radius: 8px;
     cursor: pointer;
+    box-sizing: content-box;
 }
 
 /* 输入为空错误提示 */
-input.emailError{
+input.error{
     color:#f00;
     border:1px solid #f00;
     box-shadow: 0 0 1px #f00;
@@ -242,26 +248,29 @@ input.emailError{
     left:50%;
     top:50%;
     transform: translate(-50%,-50%);
-    width:460px;
-    height: 510px;
+    width:680px;
+    height: 825px;
     background-color: rgba(255,255,255,0.85);
     border-radius: 24px;
-    color:#333;
+    color:#444;
 }
 .form .row{
-    height:35px;
-    line-height: 35px;
-    width:450px;
-    margin:15px auto;
-    border-radius: 4px;
+    height:50px;
+    line-height: 50px;
+    width:650px;
+    margin:27px auto;
     text-align: left;
+    font-size:22px;
 }
 .form .row .tip{
     display: block;
-    width:80px;
+    width:115px;
     text-align: right;
     position: absolute;
     left:70px;
+    font-size:23px;
+    color:#666;
+    font-weight: 600;
 }
 .form .row .tip_2{
     letter-spacing: 1em;
@@ -273,8 +282,8 @@ input.emailError{
     display: block;
     float: left;
     position: absolute;
-    left:160px;
-    width:240px;
+    left:180px;
+    width:430px;
     border-bottom: 1px solid #797979;
 }
 .form .input[type=text]{
@@ -286,7 +295,7 @@ input.emailError{
     display: block;
     float: left;
     padding:0 5px;
-    height: 35px;
+    height: 45px;
     cursor: pointer;
     box-sizing: border-box;
 }
@@ -296,7 +305,7 @@ input.emailError{
     width:100%;
     position: absolute;
     top:27px;
-    height: 15px;
+    height: 50px;
     content: "";
 }
 
@@ -304,19 +313,19 @@ input.emailError{
     position: absolute;
     display:none;
     padding: 3px;
-    top:37px;
-    width:220px;
+    top:50px;
+    width:300px;
     list-style: none;
-    border:1px solid #999;
-    background-color: #fff;
-    z-index:4;
+    border:1px solid #ccc;
+    background-color: rgba(255,255,255,0.96);
+    z-index:10;
     overflow: hidden;
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.4);
 }
 .college .list{
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: #797979;
+    scrollbar-color: #ccc;
 }
 .college .list::-webkit-scrollbar{
     width:10px;
@@ -324,7 +333,7 @@ input.emailError{
 }
 .college .list::-webkit-scrollbar-thumb{
     border-radius: 5px;
-    background-color: #797979;
+    background-color: #ccc;
 }
 .college .list::-webkit-scrollbar-track{
     border-radius: 0;
@@ -333,12 +342,12 @@ input.emailError{
 .major .list{
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: #797979;
+    scrollbar-color: #ccc;
 }
 .slideDown .list li{
     padding-left: 10px;
-    line-height: 30px;
-    font-size: 15px;
+    line-height: 40px;
+    font-size: 22px;
     cursor: pointer;
 }
 .slideDown .list li:hover{
@@ -359,7 +368,7 @@ input.emailError{
     display: block;
     float: left;
     padding:0 5px;
-    height: 35px;
+    height: 45px;
     box-sizing: border-box;
 }
 .campus .switch,.sex .switch{
@@ -374,11 +383,9 @@ input.emailError{
     display: block;
     position: absolute;
     border:none;
-    line-height:30px;
-    width:80px;
-    height:30px;
-    border:1px solid #fff;
-    border-radius: 12.5px;
+    line-height:45px;
+    width:110px;
+    height:45px;
     cursor: pointer;
 }
 /* 校本部 */
@@ -389,7 +396,7 @@ input.emailError{
 
 /* 校区 */
 .campus .Zhaoqing{
-    width:105px;
+    width:140px;
     right:5px;
     text-align: right;
 }
@@ -406,12 +413,12 @@ input.emailError{
     top:4px;
 }
 .markNumber input,.userName input,#graduatedUniversity input{
-    width:240px;
+    width:380px;
     height: 30px;
     line-height: 30px;
     box-sizing: border-box;
     padding:2px 5px;
-    font-size: 16px;
+    font-size: 22px;
     border:none;
     letter-spacing: 0.1em;
 }
@@ -436,8 +443,8 @@ input.emailError{
 .password{
     position: relative;
     display: inline-block;
-    height: 30px;
-    line-height: 30px;
+    height: 45px;
+    line-height: 45px;
     box-sizing: border-box;
     padding:2px 5px; 
 }
@@ -447,9 +454,9 @@ input.emailError{
     float: left;
     position: relative;
     top:-0.5px;
-    width:185px;
-    font-size: 12px;
-    line-height: 25px;
+    width:380px;
+    font-size: 22px;
+    line-height: 45px;
     border:none;
 }
 .password svg{
@@ -467,12 +474,14 @@ input.emailError{
     margin:0 auto;
     position: relative;
     top:2.5px;
-    height: 30px;
-    width:220px;
+    height: 50px;
+    font-size:24px;
+    font-weight: 600;
+    width:318px;
     border:none;
     background-color: #02A7F0;
     color:#fff;
-    border-radius: 15px;
+    border-radius: 8px;
     cursor: pointer;
 }
 
@@ -485,7 +494,7 @@ input.emailError{
     left:50%;
     transform: translate(-50%,0);
     z-index: 4;
-    height: 1px;
+    height: 1.1px;
     background-color: #02A7F0;
     box-shadow: 0 0 2px #02A7F0;
     width:0px;
@@ -493,20 +502,19 @@ input.emailError{
     transition: width,ease-in 0.3s;
 }
 .row .value:hover .active_line{
-    width:240px;
+    width:430px;
 }
 
 /* form2输入错误 */
 
 .error_form2{
     border-bottom:1px solid #f00;
-
 }
 
 
 /* 错误信息用模态框 */
 .modal_bg{
-    display: none;
+   display: none;
     background-color: rgba(0,0,0,0.4);
     position: fixed;
     width:100%;
@@ -522,7 +530,7 @@ input.emailError{
     background-color: #fdfdfd;
     border-radius: 4px;
     padding:10px;
-    width:250px;
+    width:370px;
     height: 180px;
     position: absolute;
     top:50%;
@@ -533,33 +541,12 @@ input.emailError{
 }
 
 .modal_content{
-    text-indent: 2em;
     position: absolute;
-    top:40px;
-    width: 250px;
+    top:50%;
+    transform:translate(0,-50%);
+    width: 100%;
     line-height: 40px;
-    font-size:18px;
-    color:#666;
-    text-align: left;
-}
-.modal_foot{
-    position: absolute;
-   
-    width: 250px;
+    font-size:25px;
+    color:#333;
     text-align: center;
-    bottom:20px;
-}
-.modal_foot button{
-    text-align: center;
-    width:80px;
-    height:35px;
-    color:#fff;
-    background-color: #02A7F0;
-    border:none;
-    font-size: 16px;
-    border-radius: 17.5px;
-   
-}
-.modal_foot button:hover{
-    background-color:#2db4e5;
 }

@@ -16,22 +16,6 @@ public class Response<T> {
     String userType;
     T messagePojo;
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
     Response(int status) {
         this.statusCode = status;
     }
@@ -59,6 +43,22 @@ public class Response<T> {
 
     public static int getGetLost() {
         return GET_LOST;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public long getId() {

@@ -2,7 +2,10 @@ package dao.impl;
 
 import commom.strategy.JdbcGetPojoStrategy;
 import dao.BaseDao;
-import util.*;
+import util.ArrayUtil;
+import util.C3P0Util;
+import util.JdbcUtil;
+import util.ReflectUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,10 +21,10 @@ import static util.ArrayUtil.getArrByOddOrEven;
  * @author Florence
  */
 public abstract class BaseDaoImpl<T> implements BaseDao<T> {
+    private static final int TWO = 2;
     Connection connection;
     PreparedStatement preparedStatement;
     ResultSet resultSet;
-    private static final int TWO = 2;
 
     /**
      * 获取 T 表的名字
@@ -155,7 +158,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
      * 根据一个杂乱的map，获取只跟实体信息有关的map，然后进行插入
      *
      * @param pojo               实体对象
-     * @param wantToInsertKeyVal 想插入的键值对
+     * @param wantToInsertKeyVal 想插入的键值对没有无关信息
      * @return 插入对象的id
      */
     @Override
@@ -252,4 +255,6 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
         String sql = "SELECT count(*) FROM " + getTableName() + " WHERE " + ReflectUtil.getConditionAnd(pojo, ArrayUtil.getArrByOddOrEven(objects, ArrayUtil.ODD));
         return JdbcUtil.getCount(sql, ArrayUtil.getArrByOddOrEven(objects, ArrayUtil.EVEN));
     }
+
+
 }

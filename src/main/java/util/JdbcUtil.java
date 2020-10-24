@@ -10,9 +10,6 @@ import java.util.List;
  * @author Florence
  */
 public class JdbcUtil {
-    static Connection connection;
-    static PreparedStatement preparedStatement;
-    static ResultSet resultSet;
 
     /**
      * 执行一条sql语句（一般用来执行DDL语句）
@@ -22,14 +19,14 @@ public class JdbcUtil {
      */
     public static int executeSql(String sql) {
         try {
-            connection = C3P0Util.getConnection();
+            Connection connection = C3P0Util.getConnection();
             assert connection != null;
-            preparedStatement = connection.prepareStatement(sql);
-            return preparedStatement.executeUpdate();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            int i = preparedStatement.executeUpdate();
+            C3P0Util.close(connection, preparedStatement);
+            return i;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
-        } finally {
-            C3P0Util.close(connection, preparedStatement);
         }
         return -1;
     }
@@ -75,15 +72,15 @@ public class JdbcUtil {
      */
     public static int update(String sql, Object... value) {
         try {
-            connection = C3P0Util.getConnection();
+            Connection connection = C3P0Util.getConnection();
             assert connection != null;
-            preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             setPrepareStatementUnknown(preparedStatement, value);
-            return preparedStatement.executeUpdate();
+            int i = preparedStatement.executeUpdate();
+            C3P0Util.close(connection, preparedStatement);
+            return i;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
-        } finally {
-            C3P0Util.close(connection, preparedStatement);
         }
         return -1;
     }
@@ -98,17 +95,17 @@ public class JdbcUtil {
      */
     public static <T> T queryForJavaBean(String sql, JdbcGetPojoStrategy<T> strategyObject) {
         try {
-            connection = C3P0Util.getConnection();
+            Connection connection = C3P0Util.getConnection();
             assert connection != null;
-            preparedStatement = connection.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return strategyObject.strategy(resultSet);
+                T pojo = strategyObject.strategy(resultSet);
+                C3P0Util.close(connection, preparedStatement, resultSet);
+                return pojo;
             }
         } catch (SQLException throwable) {
             throwable.printStackTrace();
-        } finally {
-            C3P0Util.close(connection, preparedStatement, resultSet);
         }
         return null;
     }
@@ -123,20 +120,19 @@ public class JdbcUtil {
      */
     public static <T> List<T> queryForJavaBeanAllData(String sql, JdbcGetPojoStrategy<T> pojoStrategy, Object... value) {
         try {
-            connection = C3P0Util.getConnection();
+            Connection connection = C3P0Util.getConnection();
             assert connection != null;
-            preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             setPrepareStatementUnknown(preparedStatement, value);
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             List<T> resultList = new LinkedList<>();
             while (resultSet.next()) {
                 resultList.add(pojoStrategy.strategy(resultSet));
             }
+            C3P0Util.close(connection, preparedStatement, resultSet);
             return resultList;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
-        } finally {
-            C3P0Util.close(connection, preparedStatement, resultSet);
         }
         return null;
     }
@@ -150,12 +146,10 @@ public class JdbcUtil {
      */
     public static ResultSet queryForGetResultSet(Connection con, String sql, Object... value) {
         try {
-            connection = con;
-            assert connection != null;
-            preparedStatement = connection.prepareStatement(sql);
+            assert con != null;
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
             setPrepareStatementUnknown(preparedStatement, value);
-            resultSet = preparedStatement.executeQuery();
-            return resultSet;
+            return preparedStatement.executeQuery();
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
@@ -172,9 +166,9 @@ public class JdbcUtil {
     public static int insertOneRow(String sql, Object[] value) {
         try {
             int nowArticleId = 0;
-            connection = C3P0Util.getConnection();
+            Connection connection = C3P0Util.getConnection();
             assert connection != null;
-            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             setPrepareStatementUnknown(preparedStatement, value);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -182,12 +176,11 @@ public class JdbcUtil {
             if (generatedKeys.next()) {
                 nowArticleId = generatedKeys.getInt(1);
             }
+            C3P0Util.close(connection, preparedStatement);
             System.out.println(nowArticleId);
             return nowArticleId;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
-        } finally {
-            C3P0Util.close(connection, preparedStatement);
         }
         return -1;
     }
@@ -200,23 +193,22 @@ public class JdbcUtil {
      */
     public static boolean isExistByOneCondition(String sql, Object... value) {
         try {
-            connection = C3P0Util.getConnection();
+            boolean isExist = false;
+            Connection connection = C3P0Util.getConnection();
             assert connection != null;
-            //声明预备语句（放在enum类中）
-            preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             //设置条件
             setPrepareStatementUnknown(preparedStatement, value);
             //查找用户是否存在
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             //是否存在？
             if (resultSet.next()) {
-                return true;
+                isExist = true;
             }
+            C3P0Util.close(connection, preparedStatement, resultSet);
+            return isExist;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
-        } finally {
-            //清理数据库资源
-            C3P0Util.close(connection, preparedStatement, resultSet);
         }
         //不存在
         return false;
@@ -233,18 +225,19 @@ public class JdbcUtil {
      */
     public static <T> T queryForJavaBean(String sql, JdbcGetPojoStrategy packageStrategy, Object... o) {
         try {
-            connection = C3P0Util.getConnection();
+            Connection connection = C3P0Util.getConnection();
             assert connection != null;
-            preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             setPrepareStatementUnknown(preparedStatement, o);
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            T pojo = null;
             if (resultSet.next()) {
-                return (T) packageStrategy.strategy(resultSet);
+                pojo = (T) packageStrategy.strategy(resultSet);
             }
+            C3P0Util.close(connection, preparedStatement, resultSet);
+            return pojo;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
-        } finally {
-            C3P0Util.close(connection, preparedStatement, resultSet);
         }
         return null;
     }
@@ -258,22 +251,23 @@ public class JdbcUtil {
      */
     public static int getCount(String sql, Object[] value) {
         try {
-            connection = C3P0Util.getConnection();
+            int anInt = -1;
+            Connection connection = C3P0Util.getConnection();
             assert connection != null;
             //声明预备语句（放在enum类中）
-            preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             //设置未知参数
             setPrepareStatementUnknown(preparedStatement, value);
             //执行查询
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             //获取总数
             if (resultSet.next()) {
-                return resultSet.getInt(1);
+                anInt = resultSet.getInt(1);
             }
+            C3P0Util.close(connection, preparedStatement, resultSet);
+            return anInt;
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            C3P0Util.close(connection, preparedStatement, resultSet);
         }
         return -1;
     }

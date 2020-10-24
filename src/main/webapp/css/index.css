@@ -1,0 +1,1091 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+body {
+    background-color: #fbfbfb;
+    font-family: 'Microsoft YaHei', 'iconfont'!important;
+}
+
+b,
+i,
+em,
+h2,
+h3 {
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+button {
+    cursor: pointer;
+    outline: none;
+    border: 0;
+}
+
+input {
+    outline: none;
+    /* bottom: 0; */
+    border: 0;
+}
+
+.w {
+    max-width: 1790px;
+    min-width: 1790px;
+    margin: 0 auto;
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 14px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* #region                             导航栏                                     */
+
+.nav {
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    height: 120px;
+    background-color: #02a7f0;
+    /* background-color: #02A7BE; */
+    margin-bottom: 10px;
+    box-shadow: 0px 2px 12px 3px rgba(25, 24, 40, .35);
+}
+
+.nav .w {
+    width: 1790px;
+    height: 120px;
+    position: relative;
+}
+
+
+/* #region 校徽   */
+
+.nav .logo {
+    float: left;
+    height: 120px;
+    line-height: 100%;
+}
+
+.nav .logo img {
+    position: relative;
+    top: 27px;
+    left: 0;
+    height: 65px;
+}
+
+
+/* #endregion */
+
+
+/* #region 首页+校区互通+失物招领+提问 功能导航 */
+
+.nav .functionNav {
+    display: none;
+    float: left;
+    width: 550px;
+    height: 120px;
+    margin-left: 38px;
+}
+
+.nav .functionNav ul {
+    height: 50px;
+}
+
+.nav .functionNav li {
+    float: left;
+    width: 100px;
+    position: relative;
+    top: 25px;
+    overflow: hidden;
+    height: 50px;
+    padding: 10px;
+    margin: 0 10px 0 0;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 50px;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.nav .functionNav li:hover {
+    top: 15px;
+}
+
+
+/* #endregion */
+
+
+/* #region 搜索框 */
+
+.nav .search {
+    position: absolute;
+    width: 600px;
+    height: 120px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    float: left;
+    transition: all 0.2s;
+}
+
+.nav .search form {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 600px;
+    height: 60px;
+}
+
+.nav .search input.searchBar {
+    float: left;
+    border-radius: 40px 0 0 40px;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 460px;
+    height: 60px;
+    font-size: 21px;
+    padding: 0 20px;
+}
+
+.nav .search .searchBtn {
+    float: left;
+    position: relative;
+    width: 100px;
+    height: 60px;
+    border-radius: 0 40px 40px 0;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.nav .search .iconfont {
+    position: absolute;
+    top: 6px;
+    right: 28px;
+    font-size: 45px;
+    color: #02a7f0;
+    cursor: pointer;
+}
+
+.nav .search .searchBtn:hover .iconfont {
+    color: #1a237e;
+}
+
+.nav .search .iconfont:hover {
+    color: #1a237e;
+}
+
+
+/* #endregion */
+
+
+/* #region 登录注册按钮 */
+
+.nav .personal {
+    display: none;
+    margin-right: 50px;
+    width: 125px;
+    float: right;
+    height: 120px;
+}
+
+.nav .personal .signUpBtn {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 125px;
+    color: #02a7f0;
+    height: 60px;
+    background-color: #fff;
+    border-radius: 38px;
+    font-size: 19px;
+    transition: all 0.3s;
+    border: #fff 1px solid;
+    line-height: 60px;
+}
+
+.nav .personal .signUpBtn:hover {
+    background-color: #02a7f0;
+    color: #fff;
+}
+
+
+/* #endregion */
+
+
+/* #region 消息+头像 */
+
+.messageAndHeadPortrait {
+    margin-top: 30px;
+    width: 180px;
+    float: right;
+    height: 90px;
+    box-sizing: border-box;
+}
+
+.messageAndHeadPortrait .message {
+    float: left;
+    margin-left: 30px;
+    width: 65px;
+    margin-top: 2px;
+    transition: all 0.2s;
+}
+
+.messageAndHeadPortrait .message .iconfont {
+    font-size: 40px;
+    color: #fff;
+    line-height: 60px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.messageAndHeadPortrait .message:hover {
+    margin-top: -10px;
+}
+
+
+/* #region 头像 */
+
+.messageAndHeadPortrait .headPortrait {
+    float: right;
+    width: 65px;
+    height: 65px;
+    cursor: pointer;
+    position: relative;
+}
+
+.messageAndHeadPortrait .headPortrait img {
+    width: 65px;
+    height: 65px;
+    border-radius: 65px;
+}
+
+
+/* #region 头像二级导航 */
+
+.messageAndHeadPortrait .headPortrait .hpSecond {
+    display: none;
+    position: absolute;
+    top: 90px;
+    left: -195px;
+    background-color: #fff;
+    width: 465px;
+    box-shadow: 0 0 20px 0 rgba(43, 51, 59, 0.08);
+    height: 640px;
+    z-index: 100;
+    box-sizing: border-box;
+    padding: 35px;
+}
+
+.messageAndHeadPortrait .headPortrait:hover .hpSecond {
+    display: block;
+}
+
+.messageAndHeadPortrait .headPortrait .hpSecond>div {
+    height: 85px;
+    transition: all 0.1s;
+}
+
+.messageAndHeadPortrait .headPortrait .hpSecond>div:nth-of-type(1) {
+    height: 150px;
+    cursor: default;
+}
+
+.messageAndHeadPortrait .headPortrait .hpSecond>div:nth-of-type(1):hover {
+    background-color: transparent;
+    color: #000;
+}
+
+.messageAndHeadPortrait .headPortrait .hpSecond>div:nth-last-of-type(1) {
+    border-bottom: 0;
+    width: 170px;
+    float: right;
+}
+
+.messageAndHeadPortrait .headPortrait .hpSecond>div:hover {
+    background-color: transparent;
+    color: #0d47a1;
+}
+
+.messageAndHeadPortrait .headPortrait .hpSecond .triangle {
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-bottom-color: #fff;
+    z-index: 999;
+    position: absolute;
+    top: -40px;
+    left: 208px;
+}
+
+.messageAndHeadPortrait .headPortrait .hpSecond .hpPersonalAttributes>img {
+    width: 130px;
+    height: 130px;
+    border-radius: 130px;
+    float: left;
+    margin-right: 25px;
+}
+
+.messageAndHeadPortrait .headPortrait .hpSecond>div em {
+    font-size: 25px;
+    line-height: 85px;
+    padding-right: 15px;
+}
+
+.messageAndHeadPortrait .headPortrait .hpSecond .hpPersonalAttributes em {
+    display: block;
+    line-height: 2em;
+    margin-bottom: 25px;
+}
+
+
+/* #region 二级导航的 icon */
+
+.messageAndHeadPortrait .headPortrait .hpSecond>div .iconfont {
+    font-size: 45px;
+    position: relative;
+    top: 7px;
+    margin-right: 10px;
+}
+
+.messageAndHeadPortrait .headPortrait .hpSecond>div .iconwodeguanzhu {
+    top: 1px;
+}
+
+.messageAndHeadPortrait .headPortrait .hpSecond>div .iconV {
+    top: 7px;
+    font-size: 50px;
+}
+
+.messageAndHeadPortrait .headPortrait .hpSecond>div .iconwodeshoucang {
+    top: 0px;
+    left: 8px;
+    margin-right: 20px;
+    font-size: 37px;
+}
+
+.messageAndHeadPortrait .headPortrait .hpSecond>div .icontuichudenglu {
+    margin-right: 0px;
+}
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #region                       校区互通+失物招领+提问 功能                       */
+
+.otherPage {
+    width: 100%;
+    height: 350px;
+    padding-top: 200px;
+    padding-bottom: 60px;
+    min-width: 1790px;
+}
+
+.otherPage .w {
+    height: 350px;
+}
+
+
+/* 3d转换的3个父盒子 */
+
+.otherPage .w>div {
+    float: left;
+    width: 500px;
+    height: 350px;
+    margin: 0 72px;
+    cursor: pointer;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.otherPage .w>div:nth-of-type(1) {
+    margin-left: 0;
+}
+
+.otherPage .w>div:nth-last-of-type(1) {
+    margin-right: 0;
+}
+
+
+/* 3d转换的3个子盒子 */
+
+.otherPage .w>div .rotate-div {
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s;
+    position: relative;
+    cursor: pointer;
+}
+
+.otherPage .w>div .rotate-div:hover {
+    transform: rotateY(30deg);
+}
+
+.otherPage .w>div .rotate-div a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.otherPage .w>div .rotate-div .imgShadow img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 20px;
+}
+
+
+/* 3d盒子里的 文字 */
+
+.otherPage .w>div .rotate-div a span {
+    font-size: 40px;
+    font-weight: 700;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    line-height: 65px;
+    height: 65px;
+    width: 220px;
+    text-align: center;
+    border-radius: 27px;
+    background-color: rgba(25, 24, 40, .5);
+}
+
+
+/* #endregion */
+
+
+/* #region                            主要内容                                    */
+
+.maincontent {
+    width: 100%;
+    height: 1000px;
+    margin-top: 50px;
+}
+
+.maincontent .w {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.maincontent h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+
+/* #region               问题内容 的固定 左边栏                        */
+
+.quizLeftSidar {
+    position: absolute;
+    width: 300px;
+    height: 419px;
+    background-color: #e1f5fe;
+}
+
+.quizLeftSidar ul {
+    width: 100%;
+    height: 100%;
+}
+
+.quizLeftSidar ul li {
+    position: relative;
+    width: 100%;
+    letter-spacing: 0.2em;
+    line-height: 75px;
+    margin: 10px 0;
+    text-align: center;
+    height: 75px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.quizLeftSidar ul li:nth-of-type(1) {
+    margin-top: 0;
+}
+
+.quizLeftSidar ul li:nth-last-of-type(1) {
+    margin-bottom: 0;
+}
+
+
+/* #region li的 icon */
+
+.quizLeftSidar ul li .iconfont {
+    position: absolute;
+    left: 70px;
+    font-size: 34px;
+    color: #40c4ff;
+    transition: all 0.2s;
+}
+
+.quizLeftSidar ul li .iconxuexi {
+    font-size: 40px;
+    line-height: 70px;
+}
+
+.quizLeftSidar ul li .iconkaoshi3 {
+    font-size: 38px;
+    line-height: 61px;
+}
+
+.quizLeftSidar ul li .iconsushe {
+    line-height: 63px;
+    font-size: 44px;
+}
+
+.quizLeftSidar ul li .iconshitang {
+    line-height: 63px;
+    font-size: 44px;
+}
+
+.quizLeftSidar ul li .iconziyuan {
+    line-height: 61px;
+    font-size: 35px;
+    margin-left: 2px;
+}
+
+
+/* #endregion */
+
+.quizLeftSidar ul li span {
+    overflow: hidden;
+    display: block;
+    height: 100%;
+    line-height: 70px;
+    padding-left: 30px;
+    box-sizing: border-box;
+    font-weight: 500;
+    font-size: 24px;
+    color: #40c4ff;
+    transition: all 0.2s;
+}
+
+.quizLeftSidar ul li:hover {
+    background-color: #40c4ff;
+}
+
+.quizLeftSidar ul li:hover span {
+    color: #fff;
+}
+
+.quizLeftSidar ul li:hover .iconfont {
+    color: #fff;
+}
+
+
+/* #endregion */
+
+
+/* #region               问题列表部分 */
+
+.maincontent .indexQuizList {
+    width: 1400px;
+    height: 100%;
+    float: right;
+    /* margin-left: 352px; */
+    background-color: antiquewhite;
+}
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #region                            校内新闻                                    */
+
+.schoolNews {
+    min-width: 1790px;
+    height: 715px;
+    margin-top: 150px;
+}
+
+.schoolNews .w {
+    height: 100%;
+}
+
+.schoolNews .w>h1 {
+    /* 学校通知 */
+    font-size: 28px;
+    font-weight: 700;
+}
+
+
+/* #region 通知框 */
+
+.schoolNews .w>div {
+    margin-top: 30px;
+    width: 23%;
+    height: 646px;
+    box-sizing: border-box;
+    margin-right: 47px;
+    float: left;
+}
+
+.schoolNews .w>div:nth-last-of-type(1) {
+    margin-right: 0;
+}
+
+.schoolNews .w>div h2 {
+    font-size: 25px;
+    font-weight: 700;
+    color: #02a7f0;
+    padding: 10px 0 10px 0;
+    border-bottom: #02a7f0 2px solid;
+}
+
+
+/* #region 每一个通知 */
+
+.schoolNews .w>div ul {
+    width: 100%;
+    height: 550px;
+    position: relative;
+}
+
+.schoolNews .w>div ul div {
+    width: 100%;
+    height: 100%;
+}
+
+.schoolNews .w>div ul li {
+    height: 25%;
+    width: 100%;
+    border-bottom: #ccc dashed 1px;
+    box-sizing: border-box;
+    padding: 27px 0px 20px 0;
+}
+
+
+/* #region 通知的日期 */
+
+.schoolNews .w>div ul li span {
+    float: left;
+    box-sizing: border-box;
+    margin-right: 20px;
+    width: 90px;
+    height: 90px;
+    background-color: #ececec;
+    text-align: center;
+}
+
+.schoolNews .w>div ul li span em {
+    height: 50%;
+    font-size: 24px;
+    display: block;
+    line-height: 40px;
+}
+
+.schoolNews .w>div ul li span em.month {
+    border-bottom: 1px dashed #ccc;
+}
+
+.schoolNews .w>div ul li span em.data {
+    font-weight: 600;
+    font-size: 22px;
+}
+
+
+/* #endregion */
+
+
+/* 通知内容 */
+
+.schoolNews .w>div ul li a {
+    display: block;
+    float: left;
+    height: 80px;
+    width: 263px;
+    line-height: 1.6em;
+    font-size: 24px;
+    color: #000;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.schoolNews .w>.other ul li a {
+    padding: 0 0 10px 0;
+}
+
+.schoolNews .w>div ul li a:hover {
+    color: #0d47a1;
+}
+
+
+/* 通知分类 */
+
+.schoolNews .w>div ul li i {
+    display: block;
+    width: 6em;
+    height: 1.4em;
+    font-size: 20px;
+    float: right;
+    color: #0d47a1;
+    position: relative;
+    bottom: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: default;
+}
+
+.schoolNews .w>div ul>div {
+    position: absolute;
+    display: none;
+}
+
+
+/* 另一个通知显示 */
+
+.schoolNews .w>div ul>div.displayNewsDiv {
+    display: block;
+}
+
+.schoolNews .changeTheBatchNews {
+    font-size: 20px;
+    float: right;
+    cursor: pointer;
+    bottom: 35px;
+    right: 5px;
+    position: relative;
+    /* margin-top: 5px;
+    margin-right: 10px; */
+}
+
+.schoolNews .changeTheBatchNews:hover {
+    color: #02a7f0;
+}
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #region                            页脚前面                                     */
+
+.beforeFooter {
+    width: 100%;
+    min-width: 1790px;
+    height: 600px;
+}
+
+.beforeFooter .w {
+    height: 100%;
+    background: url(../img/footerBg.jpg) no-repeat;
+    background-size: cover;
+}
+
+
+/* #endregion */
+
+
+/* #region                              页脚                                      */
+
+.footer {
+    width: 100%;
+    height: 370px;
+    padding-top: 30px;
+    background-color: #59abe3;
+}
+
+.footer .w {
+    position: relative;
+    /* font-size: 12px; */
+    height: 100%;
+}
+
+
+/* #region  左边 p  */
+
+.footer .w>div {
+    display: inline-block;
+    width: 660px;
+}
+
+.footer div img {
+    height: 37px;
+}
+
+.footer .w div p {
+    margin-top: 40px;
+    font-size: 25px;
+    color: #000;
+    font-weight: 600;
+}
+
+
+/* #endregion */
+
+
+/* #region 右边 自定义标签 */
+
+.footer dl {
+    float: right;
+    width: 210px;
+    height: 200px;
+    margin-right: 50px;
+    margin-top: 30px;
+    overflow: hidden;
+}
+
+.footer dl:nth-of-type(2) {
+    overflow: visible;
+}
+
+
+/*  三个标题 */
+
+.footer dl dt {
+    height: 35px;
+    margin-bottom: 30px;
+    font-size: 26px;
+    color: #fff;
+    font-weight: 600;
+    overflow: hidden;
+}
+
+
+/* 页脚 右边的a链接  */
+
+.footer dl dd>a {
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
+    color: #000075;
+}
+
+.footer dl dd>a:hover {
+    color: #000;
+}
+
+.footer dl:nth-of-type(3) dd>a {
+    width: 48%;
+}
+
+
+/* 页脚 右边 第二个 dl(放图标的) */
+
+.footer dl:nth-of-type(2) dd {
+    display: inline-block;
+    position: relative;
+    margin-right: 15px;
+}
+
+
+/* 页脚 右边 第二个dl b(放图标) */
+
+.footer dl:nth-of-type(2) dd>b {
+    cursor: pointer;
+    display: block;
+    width: 80px;
+    height: 80px;
+    border: 1px solid #fff;
+    border-radius: 80px;
+    background: url(../img/appLogofff.png) no-repeat -96px 12px;
+    background-size: 600%;
+}
+
+.footer dl:nth-of-type(2) dd:nth-of-type(2) b {
+    background-position-x: -206px;
+}
+
+.footer dl:nth-of-type(2) dd:nth-of-type(1)>b:hover {
+    border-color: #00c758;
+    background-image: url(../img/appLogoGreen.png);
+}
+
+.footer dl:nth-of-type(2) dd:nth-of-type(2)>b:hover {
+    background-image: url(../img/appLogoRed.png);
+    border-color: red;
+}
+
+
+/* #region 微信的二级导航 */
+
+.footer dl:nth-of-type(2) dd:nth-of-type(1) div {
+    position: absolute;
+    display: none;
+    top: -230px;
+    left: -53px;
+    width: 200px;
+    height: 200px;
+    line-height: 1100px;
+    text-align: center;
+    background-color: #fff;
+    transition: all 0.2s;
+}
+
+.footer dl:nth-of-type(2) dd:nth-of-type(1) div img {
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin: 5px auto;
+}
+
+
+/* 二级导航的小三角 */
+
+.footer dl:nth-of-type(2) dd:nth-of-type(1) div>b {
+    position: absolute;
+    bottom: -40px;
+    left: 78px;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-top-color: #fff;
+    border-radius: 0;
+    background-color: transparent;
+    z-index: 1000;
+}
+
+.footer dl:nth-of-type(2) dd:nth-of-type(1):hover div {
+    display: block;
+}
+
+
+/* #endregion */
+
+
+/*  #region 开发人员的信息 */
+
+.footer dl:nth-of-type(3) {
+    width: 280px;
+}
+
+.footer dl:nth-of-type(3) a {
+    cursor: default;
+}
+
+.footer dl:nth-of-type(3) a:hover {
+    color: #000;
+}
+
+
+/* #endregion */
+
+
+/* #region 页脚 底部 */
+
+.footer>.w>p {
+    position: absolute;
+    bottom: 0.5em;
+    width: 100%;
+    font-size: 22px;
+    height: 30px;
+    text-align: center;
+    color: #666;
+    overflow: hidden;
+}
+
+.footer>.w>p:nth-of-type(1) {
+    bottom: 2em;
+}
+
+.footer .w>p>a {
+    color: #666;
+    font-size: 22px;
+}
+
+.footer .w>p>a:hover {
+    color: #fff;
+}
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #region                           右下角侧边栏                                 */
+
+.bottomRightSidebar {
+    position: fixed;
+    width: 70px;
+    height: 70px;
+    bottom: 70px;
+    right: 50px;
+}
+
+.bottomRightSidebar li {
+    width: 70px;
+    height: 70px;
+    position: relative;
+    background-color: #b3e5fc;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.bottomRightSidebar li:hover {
+    background-color: #e1f5fe;
+}
+
+.bottomRightSidebar li .iconfont {
+    position: absolute;
+    line-height: 70px;
+    left: 15px;
+    font-size: 40px;
+    color: #304ffe;
+}
+
+.bottomRightSidebar li.returnTop {
+    display: none;
+}
+
+
+/* #endregion */

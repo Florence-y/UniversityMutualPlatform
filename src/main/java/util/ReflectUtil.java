@@ -218,42 +218,55 @@ public class ReflectUtil {
     public static <T> String getOrder(Map<String, Object> condition, T pojo) {
         //获取具体的数据库列名
         String direction = (String) condition.get("direction");
+        //加入这个语句可以默认倒叙
+        direction=direction==null?"desc":direction;
+        String order = (String) condition.get("order");
+        //加入这个语句可以默认不加参数根据id排序
+        order=order==null?getIdField(pojo):ReflectUtil.getColVal(pojo, order);
         return "ORDER BY " +
                 //获取数据库列名
-                ReflectUtil.getColVal(pojo, (String) condition.get("order"))
+                order
                 //正序或者逆序
                 + " " + direction + " ," + getIdField(pojo) + " " + direction;
     }
 
     /**
      * 获取一个对象有效值的map（可能一些map参杂着不少有效的参数）
+     *
      * @param object 实体对象
-     * @param <T> 实体类型
+     * @param <T>    实体类型
      * @return 包含着 field名：具体的值的map
      */
-    public static <T> Map<String,Object> getValidFieldMap(T object) {
-        Class<?> clazz =object.getClass();
+    public static <T> Map<String, Object> getValidFieldMap(T object) {
+        Class<?> clazz = object.getClass();
         Field[] declaredFields = clazz.getDeclaredFields();
-        Map<String,Object> map = new HashMap<>(declaredFields.length);
-        for (Field field:declaredFields){
-            if (field.isAnnotationPresent(IsValid.class)){
-                map.put(field.getName(),field.getAnnotation(IsValid.class).fieldName());
+        Map<String, Object> map = new HashMap<>(declaredFields.length);
+        for (Field field : declaredFields) {
+            if (field.isAnnotationPresent(IsValid.class)) {
+                map.put(field.getName(), field.getAnnotation(IsValid.class).fieldName());
             }
         }
         return map;
     }
 
-    public static <T> Map<String, Object> getFieldAndValueFromTheMixMap(Map<String, Object> map, T question) {
+    /**
+     * 获取有效域区域
+     * @param map 原始的map
+     * @param pojo 包含有效域注解的实体
+     * @param <T> 实体的具体类型
+     * @return 得到的 有效域真实有效的列值（可能不是成员变量名）：加他要更改的值
+     */
+    public static <T> Map<String, Object> getFieldAndValueFromTheMixMap(Map<String, Object> map, T pojo) {
         //获取有效值的键值对
-        Map<String,Object> validMap=getValidFieldMap(question);
-        Map<String,Object> newMap= new HashMap<>(validMap.size());
-        for (Map.Entry<String,Object> entry:map.entrySet()){
+        Map<String, Object> validMap = getValidFieldMap(pojo);
+        Map<String, Object> newMap = new HashMap<>(validMap.size());
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
             //获取真正有效的域
-            String realFieldValue= (String) validMap.get(entry.getKey());
-            String value= (String) entry.getValue();
+            String realFieldValue = (String) validMap.get(entry.getKey());
+            Object value = entry.getValue();
             //如果域不为空
-            if (realFieldValue!=null&&value!=null&& !"".equals(value)){
-                newMap.put(realFieldValue,value);
+            if (realFieldValue != null && value != null && !"".equals(value)) {
+                newMap.put(realFieldValue, value);
             }
         }
         return newMap;
