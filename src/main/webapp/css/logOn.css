@@ -24,14 +24,14 @@ button {
 
 .modal_content button {
     position: absolute;
-    bottom: -55px;
+    bottom: -15px;
     right: 0px;
-    width: 124px;
-    height: 34px;
+    width: 249px;
+    height: 63px;
     border: 0;
-    border-radius: 12px;
+    border-radius: 8px;
     color: #fff;
-    font-size: 16px;
+    font-size: 33px;
     text-align: center;
     background-color: #02A7F0;
     line-height: 34px;
@@ -42,17 +42,74 @@ button {
     background-color: #2db4e5;
 }
 
-@font-face {
-    font-family: 'iconfont';
-    src: url('http://iconfont.eot');
-    src: url('http://iconfont.eot?#iefix') format('embedded-opentype'), url('http://iconfont.woff') format('woff'), url('http://iconfont.ttf') format('truetype'), url('http://iconfont.svg#iconfont') format('svg');
+.icondibudaohanglan- {
+    font-size: 106px;
+    color: #02A7F0;
+    font-style: normal;
+    position: absolute;
+    /* top: 22px; */
+    bottom: 1px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.modal_bg {
+    display: none;
+    background-color: #00000066;
+    /* background-color: transparent; */
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+}
+
+.modal {
+    background-color: #F2F2F2;
+    border-radius: 24px;
+    width: 900px;
+    height: 810px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    transition: all ease 0.5s;
+    transform: translate(-50%, -50%) scale(0.7);
+    box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.2);
+}
+
+.fadeout {
+    float: right;
+}
+
+.active_line {
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 4;
+    height: 4px;
+    background-color: #02A7F0;
+    box-shadow: 0 0 3px #02A7F0;
+    width: 0px;
+    border-radius: 20px;
+    transition: width, ease-in 0.3s;
+}
+
+.value:hover .active_line {
+    width: 530px;
 }
 
 
 /* #region 模态框关闭按钮*/
 
 .modal_head {
-    height: 82px;
+    height: 155px;
     width: 100%;
     position: relative;
 }
@@ -60,15 +117,25 @@ button {
 .modal_head button {
     /* 相对于整个模态框 的定位  */
     position: relative;
-    top: 8px;
-    right: 14px;
+    top: 10px;
+    right: 36px;
     /* right: 342px; */
-    height: 30px;
-    width: 30px;
-    font-size: 30px;
+    height: 50px;
+    width: 40px;
+    font-size: 63px;
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.modal_head b {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 200px;
+    letter-spacing: 5px;
 }
 
 
@@ -77,10 +144,11 @@ button {
 .modal_content {
     /* 为 logOn 的定位 */
     position: relative;
-    width: 380px;
-    height: 330px;
-    padding-left: 40px;
-    padding-right: 40px;
+    width: 533px;
+    height: 685px;
+    /* padding-left: 40px; */
+    /* padding-right: 40px; */
+    margin: 20px auto;
 }
 
 
@@ -88,10 +156,8 @@ button {
 
 .modal_content .logOn {
     /* 父级定位在 modal_content */
-    position: absolute;
-    left: 86px;
-    height: 320px;
-    margin: 0 auto;
+    height: 100%;
+    width: 100%;
 }
 
 
@@ -105,10 +171,10 @@ button {
 .modal_content .logOn h2 {
     /* 为下面的#02A7F0 条 设置的定位 */
     position: relative;
-    font-size: 22px;
+    font-size: 45px;
     text-align: center;
-    width: 80px;
-    height: 35px;
+    width: 188px;
+    height: 77px;
     margin: 20px;
     box-sizing: content-box;
     cursor: pointer;
@@ -126,7 +192,7 @@ button {
 .modal_content .logOn form {
     /* 父级定位 */
     position: absolute;
-    top: 80px;
+    top: 150px;
     left: 0;
 }
 
@@ -134,7 +200,7 @@ button {
 .modal_content .logOn .logOnStudent form {
     /* 文字下方的表单  在没有logOnDisplay时 不显示 */
     display: none;
-    width: 280px;
+    width: 536px;
 }
 
 
@@ -142,29 +208,29 @@ button {
 
 .modal_content>.logOn form .confirm {
     position: relative;
-    margin-top: 20px;
+    margin-top: 35px;
 }
 
 .modal_content .logOn form .input {
     background-color: transparent;
     margin: 0 auto;
     /* 使表单一行显示一个 */
-    font-size: 18px;
+    font-size: 44px;
     display: block;
     border: none;
-    width: 265px;
-    height: 38px;
-    border-bottom: 1px solid #000;
-    padding-left: 3px;
-    margin-left: 10px;
+    width: 530px;
+    height: 75px;
+    border-bottom: 3px solid #000;
+    /* padding-left: 3px; */
+    /* margin-left: 10px; */
 }
 
 .modal_content .logOn form .tip {
-    font-size: 18px;
+    font-size: 35px;
     color: #555;
     position: absolute;
-    top: 6px;
-    left: 10px;
+    top: 11px;
+    left: 9px;
 }
 
 
@@ -182,11 +248,11 @@ button {
     /* b 在非logOnDisplay时  无 */
     /* 父级定位在 h2 */
     position: absolute;
-    top: 35px;
-    left: 0px;
+    top: 70px;
+    left: 15px;
     display: block;
-    width: 78px;
-    height: 3px;
+    width: 154px;
+    height: 7px;
     border-radius: 100px/20px;
     background-color: #02A7F0;
     transition: all 0.5s;
@@ -213,19 +279,20 @@ button {
 .modal_content .btnLogon,
 .modal_content .btnRegister {
     position: absolute;
-    bottom: 30px;
-    left: 10px;
-    width: 116px;
-    height: 39px;
-    border-radius: 15px;
+    bottom: 129px;
+    left: 4px;
+    width: 230px;
+    height: 74px;
+    border-radius: 8px;
     background-color: #02A7F0;
     color: #fff;
     border: 0;
     cursor: pointer;
+    font-size: 29px;
 }
 
 .modal_content .logOn .btnLogon {
-    left: 162px;
+    left: 305px;
 }
 
 .modal_content button.btnLogon {
@@ -234,10 +301,10 @@ button {
 
 .modal_content b {
     position: absolute;
-    right: -5px;
-    bottom: 98px;
+    right: -18px;
+    bottom: 272px;
     color: #111;
-    font-size: 11px;
+    font-size: 22px;
     line-height: 18px;
     display: block;
     cursor: pointer;
@@ -259,17 +326,22 @@ button {
 .modal_content .forgetPas {
     display: none;
     position: absolute;
+    width: 755px;
+    height: 500px;
+    left: -116px;
+    top: 0;
 }
 
 .modal_content .forgetPas>div {
     /* 忘记密码页面 的三个框 */
-    margin: 32px 0;
+    margin: 60px 0;
 }
 
 .modal_content .forgetPas .teacherOrStudent label {
     /* 老师/学生 单选框的label */
-    margin: 0 17px 0 9px;
-    font-size: 16px;
+    margin: 0 39px 0 31px;
+    font-size: 32px;
+    cursor: pointer;
 }
 
 .modal_content .forgetPas .teacherOrStudent label input {
@@ -280,53 +352,68 @@ button {
 .modal_content .forgetPas .writeEmail em,
 .modal_content .forgetPas .verificationCode input {
     /* 页面里所有的框 */
-    width: 136px;
-    height: 22px;
-    border: 1px #797979 solid;
+    width: 270px;
+    height: 50px;
+    border: 3px #797979 solid;
     border-radius: 8px;
     padding: 2px;
-    padding-left: 6px;
-    font-size: 13px;
+    padding-left: 14px;
+    font-size: 25px;
     color: #000000;
 }
 
 .modal_content .forgetPas .writeEmail .inEmail {
-    margin-left: 8px;
+    margin-left: 16px;
+}
+
+.modal_content .forgetPas .writeEmail i {
+    font-size: 32px;
 }
 
 .modal_content .forgetPas .writeEmail .emailSuffix {
     /* 邮箱 后缀名 */
     display: inline-block;
     vertical-align: top;
-    width: 90px;
+    width: 180px;
     border-color: #333333;
-    font-size: 13px;
-    line-height: 22px;
+    font-size: 25px;
+    line-height: 49px;
     color: #000;
     text-align: center;
     padding-left: 0;
 }
 
 .modal_content .forgetPas .verificationCode input {
-    width: 141px;
-    margin-left: 46px;
+    width: 285px;
+    margin-left: 95px;
 }
 
 .modal_content .forgetPas .verificationCode .sendVerificationCode {
     /* 发送验证码按钮 */
-    width: 95px;
-    height: 30px;
-    bottom: 30px;
+    width: 190px;
+    height: 62px;
+    bottom: 145px;
     right: 0px;
-    font-size: 13px;
-    line-height: 30px;
+    font-size: 25px;
+    line-height: 33px;
+    border-radius: 8px;
 }
 
 .modal_content .forgetPas span,
 .modal_content .resetPas span {
     font-weight: 700;
-    font-size: 19px;
+    font-size: 38px;
     color: #333333;
+}
+
+.modal_content .forgetPas .forgetPasLast,
+.modal_content .forgetPas .forgetPasNext {
+    width: 249px;
+    height: 63px;
+}
+
+.modal_content .forgetPas .forgetPasLast {
+    right: 500px;
 }
 
 
@@ -340,11 +427,13 @@ button {
     position: absolute;
     display: none;
     top: 30px;
-    left: 93px;
+    left: -13px;
+    width: 613px;
+    height: 377px;
 }
 
 .modal_content .resetPas>div {
-    margin: 35px 0;
+    margin: 85px 0;
 }
 
 .modal_content .resetPas>div span {
@@ -353,21 +442,21 @@ button {
 
 .modal_content .resetPas>div input {
     /* 两个密码框 */
-    width: 171px;
-    height: 21px;
+    width: 355px;
+    height: 50px;
     border-radius: 8px;
     border: #797979 solid 1px;
-    font-size: 12px;
-    line-height: 21px;
+    font-size: 25px;
+    line-height: 45px;
     padding: 2px;
-    padding-left: 6px;
+    padding-left: 14px;
     vertical-align: bottom;
     margin-left: 8px;
 }
 
 .modal_content .resetPas .resetPasConfirm {
     bottom: -44px;
-    left: 73px;
+    left: 150px;
 }
 
 
