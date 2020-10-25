@@ -1,6 +1,5 @@
 package util;
 
-import pojo.QuestionContent;
 import pojo.Response;
 
 import java.io.BufferedReader;
@@ -67,7 +66,6 @@ public class SensitiveWordFilterUtil {
         boolean flag=true;
         for (Map.Entry<String,Object> entry:map.entrySet()){
             Class<?> clazz = entry.getValue().getClass();
-            System.out.println(clazz.getName());
             //首先判断是否是字符串
             if(clazz.isAssignableFrom(String.class)){
                 boolean isIncludeForbid = filterForbiddenWord((String) entry.getValue());

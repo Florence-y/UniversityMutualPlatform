@@ -14,4 +14,5 @@ public class ServletConstantVal {
     public static final String TEACHER_MARK_NUMBER_COL = "teacher_markNumber";
     public static final String STUDENT_MARK_NUMBER_COL = "student_markNumber";
     public static final String SENSITIVE_WORD_INF="包含黄色敏感词汇";
+    public static final String POJO_QUESTION="question";
 }

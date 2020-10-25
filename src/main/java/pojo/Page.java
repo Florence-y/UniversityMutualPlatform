@@ -11,6 +11,7 @@ public class Page<T> {
     private boolean next;
     private int totalPage;
     private int nowPosition;
+    private String additionContent;
     private String scrollId;
     private List<T> dataList;
 
@@ -57,6 +58,13 @@ public class Page<T> {
     public void setScrollId(String scrollId) {
         this.scrollId = scrollId;
     }
+    public String getAdditionContent() {
+        return additionContent;
+    }
+
+    public void setAdditionContent(String additionContent) {
+        this.additionContent = additionContent;
+    }
 
     @Override
     public String toString() {
@@ -64,6 +72,7 @@ public class Page<T> {
                 "next=" + next +
                 ", totalPage=" + totalPage +
                 ", nowPosition=" + nowPosition +
+                ", additionContent='" + additionContent + '\'' +
                 ", scrollId='" + scrollId + '\'' +
                 ", dataList=" + dataList +
                 '}';

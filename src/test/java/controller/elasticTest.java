@@ -4,6 +4,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.Test;
 import pojo.Found;
 import pojo.Page;
+import pojo.Question;
 import pojo.QuestionContent;
 import util.ElasticUtil;
 import util.WebUtil;
@@ -106,5 +107,10 @@ public class elasticTest {
         map.put("lostObjectName", "hua7");
         List<String> list = ElasticUtil.multiOrSearch("lost", map, 5, true);
         System.out.println(list);
+    }
+    @Test
+    public void nestSearchTest() throws IOException {
+        Page<Question> questionPage = ElasticUtil.scrollSearchFirst("question", ElasticUtil.getNestedQuery("contents","contentMain","饭你说好不好吃"), new Question());
+        System.out.println(questionPage);
     }
 }

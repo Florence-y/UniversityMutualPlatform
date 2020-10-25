@@ -54,7 +54,7 @@ public class QuestionServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
-        Question question = service.getDetailQuestion((String) map.get("questionId"), map);
+            Question question = service.getDetailQuestion((String) map.get("questionId"), map);
         WebUtil.writeObjToResponse(response, question);
         System.out.println("get");
     }

@@ -1,6 +1,7 @@
 package util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
+import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -35,6 +36,7 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import pojo.Page;
 import pojo.Response;
 import java.io.IOException;
+import java.rmi.MarshalledObject;
 import java.util.*;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 /**
@@ -128,6 +130,13 @@ public class ElasticUtil {
             list.add((T) WebUtil.jsonToObj(clazz.getClass(), hit.getSourceAsString()));
         }
         return list;
+    }
+
+    public static NestedQueryBuilder getNestedQuery(String path,String detailPro,String value){
+        NestedQueryBuilder nestedQueryBuilder = QueryBuilders.nestedQuery(path,
+                getMatchBuilder(path+"."+detailPro,value),
+                ScoreMode.Max);
+        return nestedQueryBuilder;
     }
 
     /**
@@ -370,7 +379,6 @@ public class ElasticUtil {
         return "505:fail";
     }
 
-
     public static QueryBuilder getMatchBuilder(String wantToSearch, String value) {
         return QueryBuilders.matchQuery(wantToSearch, value);
     }
@@ -383,15 +391,15 @@ public class ElasticUtil {
      * 获取多重布尔值的builder
      *
      * @param type    and or
-     * @param mustMap 条件map
+     * @param matchMap 条件map
      * @param isFuzzy 是否模糊查询
      * @return
      */
-    public static QueryBuilder getMultiplyBoolBuilder(String type, Map<String, Object> mustMap, Boolean isFuzzy) {
+    public static QueryBuilder getMultiplyBoolBuilder(String type, Map<String, Object> matchMap, Boolean isFuzzy) {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         // 循环添加多个条件
         if ("or".equals(type)) {
-            for (Map.Entry<String, Object> entry : mustMap.entrySet()) {
+            for (Map.Entry<String, Object> entry : matchMap.entrySet()) {
                 MatchQueryBuilder matchQueryBuilder = matchQuery(entry.getKey(), entry.getValue());
                 matchQueryBuilder = isFuzzy ? matchQueryBuilder.fuzziness(Fuzziness.AUTO).prefixLength(3).maxExpansions(10) : matchQueryBuilder;
                 //or
@@ -399,11 +407,34 @@ public class ElasticUtil {
             }
         } else if ("and".equals(type)) {
             // 循环添加多个条件
-            for (Map.Entry<String, Object> entry : mustMap.entrySet()) {
+            for (Map.Entry<String, Object> entry : matchMap.entrySet()) {
                 MatchQueryBuilder matchQueryBuilder = matchQuery(entry.getKey(), entry.getValue());
                 matchQueryBuilder = isFuzzy ? matchQueryBuilder.fuzziness(Fuzziness.AUTO).prefixLength(3).maxExpansions(10) : matchQueryBuilder;
                 //and
                 boolQueryBuilder.must(matchQueryBuilder);
+            }
+        }
+        return boolQueryBuilder;
+    }
+
+    /**
+     * term多条件查询
+     * @param type
+     * @param termMap
+     * @return
+     */
+    public static QueryBuilder getMultiplyBoolBuilder(String type, Map<String,Object> termMap){
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        if ("or".equals(type)){
+            for (Map.Entry<String,Object> entry:termMap.entrySet()){
+                TermQueryBuilder termQueryBuilder = new TermQueryBuilder(entry.getKey(),entry.getValue());
+                boolQueryBuilder.should(termQueryBuilder);
+            }
+        }
+        else if ("and".equals(type)){
+            for (Map.Entry<String,Object> entry:termMap.entrySet()){
+                TermQueryBuilder termQueryBuilder = new TermQueryBuilder(entry.getKey(),entry.getValue());
+                boolQueryBuilder.must(termQueryBuilder);
             }
         }
         return boolQueryBuilder;

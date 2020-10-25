@@ -1,35 +1,33 @@
 package controller;
 
 import commom.constantval.ServletConstantVal;
+import commom.factory.ResponseFactory;
 import pojo.Page;
 import pojo.Question;
+import pojo.Response;
 import service.ExploreService;
 import service.impl.ExploreServiceImpl;
 import util.ElasticUtil;
-import util.ReflectUtil;
 import util.WebUtil;
 
+import javax.lang.model.util.ElementScanner6;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PipedReader;
-import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
+import static commom.constantval.ServletConstantVal.POJO_QUESTION;
+
 /**
- * @author DELL
+ * @author Florence
+ * 分页查询search
  */
-@WebServlet("/Servlet/MainPageServlet")
-public class MainPageServlet extends HttpServlet {
-    private static final String INIT="init";
-    private static final String SPECIAL="special";
-    private static final String EXPLORE="explore";
+@WebServlet("/Servlet/ScrollSearchServlet")
+public class ScrollSearchServlet extends HttpServlet {
     Map<String, Object> map;
-    ExploreService service = new ExploreServiceImpl();
+    ExploreService exploreService = new ExploreServiceImpl();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
@@ -47,23 +45,18 @@ public class MainPageServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
+        //滚动id
+        String id = (String) map.get("scrollId");
+        //实体类型
+        String type= (String) map.get("pojoType");
+        if (POJO_QUESTION.equals(type)){
+            WebUtil.writeObjToResponse(response,ElasticUtil.scrollSearch(id,new Question()));
+        }
+        else if (1==2){
 
-        String getType= (String) map.get("getType");
-        try {
-            if (INIT.equals(getType)) {
-                List<Page> pages  = service.initPage();
-                WebUtil.writeObjToResponse(response,pages);
-            }
-            else if (SPECIAL.equals(getType)){
-                Page<Question> page=service.getSpecialType((String)map.get("questionType"));
-                WebUtil.writeObjToResponse(response,page);
-            }
-            else if (EXPLORE.equals(getType)){
-                Page<Question> page=service.exploreQuestion((String)map.get("exploreContent"));
-                WebUtil.writeObjToResponse(response,page);
-            }
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+        }
+        else {
+            WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(500));
         }
         System.out.println("get");
     }
