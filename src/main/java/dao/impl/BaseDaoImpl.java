@@ -54,8 +54,8 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
      * @return 返回一个javabean对象
      */
     @Override
-    public T selectById(Integer id) {
-        String sql = MessageFormat.format("select * from {0} where {1} = " + id, getTableName(), getTableIdField());
+    public T selectById(int id) {
+        String sql = MessageFormat.format("select * from {0} where {1} = {2}", getTableName(), getTableIdField(), id);
         return JdbcUtil.queryForJavaBean(sql, getPackageStrategy());
     }
 
@@ -106,7 +106,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
      */
     @Override
     public int deleteById(int id) {
-        String sql = MessageFormat.format("DELETE FROM {0} WHERE {1} = " + id, getTableName(), getTableIdField());
+        String sql = MessageFormat.format("DELETE FROM {0} WHERE {1} = {2}", getTableName(), getTableIdField(), id);
         return JdbcUtil.executeSql(sql);
     }
 

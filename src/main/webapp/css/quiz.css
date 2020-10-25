@@ -31,13 +31,41 @@ button {
 
 /* #region 模态框关闭按钮*/
 
-.modal_head {
+.modal_bg {
+    display: none;
+    background-color: #00000066;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+}
+
+.modal_bg_askQuestion .modal {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 30px;
+    width:750px;
+    height: 840px;
+    position: absolute;
+    /* border: 2px solid #02A7F0; */
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    transition: all ease 0.5s;
+    transform: translate(-50%, -50%) scale(0.7);
+    box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.2);
+}
+.modal_bg_askQuestion .modal_head {
     height: 40px;
     width: 100%;
     position: relative;
 }
 
-.modal_head button {
+.modal_bg_askQuestion .modal_head button {
     position: relative;
     top: 8px;
     right: 14px;
@@ -49,10 +77,9 @@ button {
     cursor: pointer;
 }
 
-
 /* #endregion */
 
-.modal_content {
+.modal_bg_askQuestion .modal_content {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
@@ -62,56 +89,58 @@ button {
 
 /* #region 输入问题 + 问题备注 */
 
-.modal_content > div {
+.modal_bg_askQuestion .modal_content>div {
     width: 100%;
+    height: 135px;
     box-sizing: border-box;
     padding: 14px;
     position: relative;
 }
 
-.modal_content div:nth-of-type(1) textarea,
-.modal_content div:nth-of-type(3) textarea {
+.modal_bg_askQuestion .modal_content div:nth-of-type(1) textarea,
+.modal_bg_askQuestion .modal_content div:nth-of-type(3) textarea {
     resize: none;
     width: 100%;
     height: 100%;
     background-color: #fff;
-    border: 1px solid #797979;
+    border: 1px solid #ccc;
     border-radius: 20px;
     padding: 20px;
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: 23px;
 }
 
-.modal_content div:nth-of-type(1) textarea {
+.modal_bg_askQuestion .modal_content div:nth-of-type(1) textarea {
     font-weight: 700;
 }
 
-.modal_content div:nth-of-type(1) textarea::-webkit-input-placeholder,
-.modal_content div:nth-of-type(3) textarea::-webkit-input-placeholder {
+.modal_bg_askQuestion .modal_content div:nth-of-type(1) textarea::-webkit-input-placeholder,
+.modal_bg_askQuestion .modal_content div:nth-of-type(3) textarea::-webkit-input-placeholder {
     color: #c2c2c2;
     line-height: 20px;
     font-size: 15px;
 }
 
-.modal_content .mainQuestion {
+.modal_bg_askQuestion .modal_bg_askQuestion .modal_content .mainQuestion {
     height: 100px;
 }
 
-.modal_content .mainQuestion > span,
-.modal_content .questionNote > span {
+.modal_bg_askQuestion .modal_content .mainQuestion>span,
+.modal_bg_askQuestion .modal_content .questionNote>span {
     position: absolute;
     bottom: 18px;
     right: 30px;
+    font-size:18px
 }
 
-.modal_content .mainQuestion > span b,
-.modal_content .questionNote > span b {
-    font-size: 13px;
+.modal_bg_askQuestion .modal_content .mainQuestion>span b,
+.modal_bg_askQuestion .modal_content .questionNote>span b {
+    font-size: 16px;
     color: #333;
 }
 
-.modal_content .questionNote {
-    height: 160px;
+.modal_bg_askQuestion .modal_content .questionNote {
+    height: 200px;
 }
 
 
@@ -120,16 +149,20 @@ button {
 
 /* #region 插入图片 */
 
-.modal .modal_content > .insertPicture {
-    height: 90px;
+.modal_bg_askQuestion .modal .modal_content>.insertPicture {
+    margin:10px 0;
+    height: 115px;
     padding: 0 14px;
     box-sizing: border-box;
 }
 
-.modal .modal_content > .insertPicture .picture {
+.modal_bg_askQuestion .modal .modal_content>.insertPicture .picture_containner{
+    float: left;
+}
+.modal_bg_askQuestion .modal .modal_content>.insertPicture .picture {
     position: relative;
-    width: 90px;
-    height: 90px;
+    max-width: 150px;
+    height: 115px;
     float: left;
     margin-right: 20px;
     border-radius: 8px;
@@ -144,14 +177,14 @@ button {
     background-color: rgba(0, 0, 0, 0.5);
 } */
 
-.modal .modal_content > .insertPicture img {
+.modal_bg_askQuestion .modal .modal_content>.insertPicture img {
     width: 100%;
     height: 100%;
     border-radius: 8px;
     cursor: pointer;
 }
 
-.modal .modal_content > .insertPicture .removePicture {
+.modal_bg_askQuestion .modal .modal_content>.insertPicture .removePicture {
     display: none;
     cursor: pointer;
     position: absolute;
@@ -159,10 +192,11 @@ button {
     top: -4px;
     width: 30px;
     height: 30px;
-    font-size: 20px;
+    font-size: 30px;
     text-align: center;
     line-height: 30px;
     top: 0;
+    color:#f00
 }
 
 
@@ -170,12 +204,12 @@ button {
     display: block;
 } */
 
-.modal_content .insertPicture .file {
+.modal_bg_askQuestion .modal_content .insertPicture .file {
     position: relative;
     display: block;
-    width: 90px;
-    height: 90px;
-    line-height: 90px;
+    width: 115px;
+    height: 115px;
+    line-height: 115px;
     text-align: center;
     border: 1px #666 dashed;
     box-sizing: border-box;
@@ -189,22 +223,22 @@ button {
     margin-right: 20px;
 }
 
-.modal_content .insertPicture .insertP {
+.modal_bg_askQuestion .modal_content .insertPicture .insertP {
     cursor: pointer;
 }
 
-.modal_content .insertPicture .file:hover {
+.modal_bg_askQuestion .modal_content .insertPicture .file:hover {
     color: #02A7F0;
     font-weight: 400;
     border-color: #02A7F0;
 }
 
-.modal_content .insertPicture .iconjiahao1::before {
+.modal_bg_askQuestion .modal_content .insertPicture .iconjiahao1::before {
     content: "\e60b";
     font-size: 35px;
 }
 
-.modal_content .insertPicture input {
+.modal_bg_askQuestion .modal_content .insertPicture input {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -219,104 +253,237 @@ button {
 
 /* #region 标签栏*/
 
-.modal_content .label {
+.modal_bg_askQuestion .modal_content .label {
     /* width: 100%; */
     height: 120px;
     padding-top: 0;
     /* border: 1px solid #797979; */
 }
 
-.modal_content .label > div {
+.modal_bg_askQuestion .modal_content .label>div {
     float: left;
 }
 
-.modal_content .label .labelFont {
+.modal_bg_askQuestion .modal_content .label .labelFont {
     display: block;
-    font-size: 12px;
+    font-size: 26px;
     color: #333;
     position: relative;
     left: 7px;
 }
 
-.modal_content .label .nodeBoard {
+.modal_bg_askQuestion .modal_content .label .nodeBoard {
     width: 64%;
     height: 85px;
     padding: 0;
 }
 
-.modal_content .label span {
+.modal_bg_askQuestion .modal_content .label .nodeBoard span {
     position: relative;
     /* width: 67px; */
-    height: 33px;
+    height: 40px;
     background-color: #fff;
-    margin-right: 8px;
+    margin-right: 15px;
     float: left;
-    padding: 0 8px;
+    padding: 0 20px;
     display: block;
     margin-top: 8px;
     border-radius: 8px;
     text-align: center;
-    line-height: 33px;
+    line-height: 40px;
+    border: 1px solid #02A7F0;
+    cursor: default;
     /* background-color: rgba(0, 0, 0, 0.5); */
 }
 
-.modal_content .label .nodeBoard span i {
+.modal_bg_askQuestion .modal_content .label .nodeBoard .text{
+    color: #0fa3e2;
+    display: inline;
+    font-size:20px
+}
+
+
+
+.modal_bg_askQuestion .modal_content .label .nodeBoard span i {
     position: absolute;
     right: 3px;
     top: -9px;
+    font-size:30px;
     display: none;
+    color:#0fa3e2;
     cursor: pointer;
 }
 
-.modal_content .label .addLabel {
-    width: 36%;
+.modal_bg_askQuestion .modal_content .label .addLabel {
+    width: 35%;
     float: right;
+    height:90px;
     position: relative;
-    /* border: #000 1px solid; */
     margin-top: 8px;
     cursor: pointer;
 }
 
-.modal_content .label .addLabel span {
-    width: 140px;
+.modal_bg_askQuestion .modal_content .label .addLabel input {
+    width: 200px;
     box-sizing: border-box;
-    padding-left: 18px;
+    padding-left: 20px;
+    height:45px;
     /* vertical-align: middle; */
     margin: 0;
+    border-radius: 8px;
+    line-height: 45px;
+    font-size:20px;
+    text-align: left;
+    background-color: #fff;
+    color:#666;
     float: right;
 }
-
-.modal_content .label .addLabel .iconfont {
+.modal_bg_askQuestion .modal_content .label .addLabel .add_btn{
+    position: absolute;
+    bottom: 0;
+    right:10px;
+    height: 33px;
+    width: 100px;
+    font-size:20px;
+    text-align: center;
+    color:#fff;
+    background-color: #02A7F0;
+    border-radius: 8px;
+    border:none;
+}
+.modal_bg_askQuestion .modal_content .label .addLabel .iconfont {
     position: absolute;
     left: 0px;
-    top: -2px;
+    top:6px;
     font-size: 33px;
+}
+.modal_bg_askQuestion .modal_content .rowBox{
+    margin-top: 30px;
+    padding:0 14px;
+    height: 45px;
+}
+
+/* 选择文章类型 */
+.modal_bg_askQuestion .modal_content .questionType{
+    border:1px solid #ccc;
+    position: relative;
+    float: left;
+    height: 40px;
+    width:200px;
+    border-radius: 8px;
+    background-color: #fff;
+    line-height: 40px;
+    padding:0;
+    font-size:20px;
+    text-align: left;
+}
+
+
+
+.modal_bg_askQuestion .modal_content .questionType svg{
+    position: absolute;
+    top:5px;
+    right:10px;
+    cursor: pointer;
+}
+.modal_bg_askQuestion .modal_content .questionType .cur_val{
+    margin-left:20px;
+    color:#666;
+    font-size:20px
+}
+
+.modal_bg_askQuestion .modal_content .questionType .list{
+    position: relative;
+    top:10px;
+    z-index:10;
+    list-style: none;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.4);
+}
+.modal_bg_askQuestion .modal_content .questionType .list li{
+    color:#666;
+    text-indent: 14px;
+    font-size:19px;
+    line-height: 30px;
+    cursor: pointer;
+}
+.modal_bg_askQuestion .modal_content .questionType .list li:hover{
+    color:#02A7F0
+}
+
+.modal_bg_askQuestion .modal_content .invite{
+    float:right;
+    height: 45px;
+    width:200px;
+    border-radius: 8px;
+    background-color: #fff;
+    line-height: 45px;
+    text-align: center;
+    color:#666;
+    font-size:20px;
+    cursor: pointer;
+}
+.modal_bg_askQuestion .modal_content .invite:hover{
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 
 /* #endregion */
 
-
 /* #region 立即发表按钮 */
 
-.modal_content .publish {
+.modal_bg_askQuestion .modal_content .publish {
     position: absolute;
     bottom: 28px;
     /* margin: 0 auto; */
-    left: 156px;
-    width: 140px;
-    height: 40px;
+    left: 50%;
+    transform: translate(-50%,0);
+    width: 300px;
+    height: 45px;
     background-color: #02A7F0;
     text-align: center;
-    line-height: 40px;
+    line-height: 45px;
     color: #fff;
-    font-size: 16px;
+    font-weight: 500;
+    font-size: 22px;
     border-radius: 10px;
 }
 
-.modal_content .publish:hover {
+.modal_bg_askQuestion .modal_content .publish:hover {
     background-color: #2db4e5;
 }
 
+
+
+/* 匿名提交 */
+.modal_bg_askQuestion .modal_content .anonymity{
+    width:150px;
+    height: 45px;
+    text-indent: 55px;
+    line-height: 45px;
+    position: absolute;
+    bottom:28px;
+    right:50px;
+    font-size: 24px;
+    color:#666;
+    font-weight: 600;
+    padding:0;
+}
+.modal_bg_askQuestion .modal_content .anonymity .btn{
+    background-color: transparent;
+    position: absolute;
+    top:50%;
+    border-radius: 4px;
+    left:10px;
+    width:34px;
+    height: 34px;
+    border:1px solid #bbb;
+    transform: translate(0,-50%);
+}
+.modal_bg_askQuestion .modal_content .anonymity .btn svg{
+    display: none;
+}
 
 /* #endregion */

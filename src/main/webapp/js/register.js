@@ -25,7 +25,7 @@ $('input[type=text]').val('');
 function isEmpty($obj, $errorMessage) {
     if ($obj.val() == '') {
         $obj.attr('placeholder', $errorMessage);
-        $obj.addClass('emailError');
+        $obj.addClass('error');
         return true;
     }
     return false;
@@ -47,38 +47,21 @@ function setSendBtn() {
     }
 }
 
-//邮箱有效性验证 //不能为中文
-// function isEmailAvailable($obj,$errorMessage){
-//     var reg = /^m/;
-//     var reg2 = /[\u4E00-\u9FFF]+/;//非中文
-//     if(reg2.test($obj.val())){
-//         $obj.attr('placeholder',$errorMessage);
-//         $(obj).val();
-//         $obj.addClass('emailError');
-//         return;
-//     }
-//     //学生
-//     if(reg.test($('.email_tail').html())){
-//         var reg1 = /(\d|\w){9}/;
-//         if(!reg1.test($('.email_input').val())){
-//             $($obj).val();
-//             $obj.attr('placeholder',$errorMessage);
-//             $obj.addClass('emailError');
-//         }
-//     }
-// }
+
 
 //清空错误信息
 function clearErrorMessage($obj, $tip) {
     $obj.attr('placeholder', $tip);
-    $obj.removeClass('emptyError');
+    $obj.removeClass('error');
 }
 
 //设置一些输入框样式
-$('.email_input').focus(function () {
+$('.email_input').on("focus",function () {
+    
     clearErrorMessage($('.email_input'), '请输入校园邮箱');
 });
-$('.confirm_input').focus(function () {
+$('.confirm_input').on("focus",function () {
+    
     clearErrorMessage($('.confirm_input'), '请输入验证码');
 });
 $('.input_text_page1').bind('focus', function () {
@@ -88,12 +71,8 @@ $('.input_text_page1').bind('blur', function () {
     $(this).removeClass('editing');
 });
 
-
 //身份展示
 function statusDisplay() {
-    $('.status_out').animate({
-        height: "80px"
-    });
     $('.status header').fadeOut();
     $('.status .content').fadeIn();
 }
@@ -102,9 +81,7 @@ function statusDisplay() {
 //身份选择
 $('.individual').bind("click", function () {
     $('.status').removeClass('status_display');
-    $('.status_out').animate({
-        height: "40px"
-    });
+   
     $('.status header').fadeIn();
     $('.status .content').fadeOut();
 
@@ -123,21 +100,45 @@ $('.alter').bind("click", function () {
     $('.status').addClass('status_display');
     statusDisplay();
 })
-
+//邮箱有效性验证 //不能为中文
+function isEmailAvailable($errorMessage){
+    var $obj = $(".email_input");
+    var reg = /^m.*$/;
+    var reg2 = /[\u4E00-\u9FFF]+/;//非中文
+    if(reg2.test($obj.val())){
+        $obj.attr('placeholder',$errorMessage);
+        $obj.val("");
+        $obj.addClass('error');
+        return false;
+    }
+    //学生
+    if(reg.test($('.email_tail').html())){
+        var reg1 = /^(\d|\w){9}$/; //开头和结尾一定要做好
+        if(!reg1.test($('.email_input').val())){
+            $obj.val("");
+            $obj.attr('placeholder',$errorMessage);
+            $obj.addClass('error');
+            return false;
+        }
+    }
+    return true;
+}
 
 //判断用户名、邮箱是否存在
 function dataIsExiste(field, value, errorMessage) {
-    //设置同步请求
+     //设置同步请求
+   
     var result = false;
     $.ajax({
-        url: 'http://192.168.137.141:8080/Servlet/IsExistInfoServle',
-        data: {
-            field: field,
-            value: value,
-            requestTpye: "get",
-            userType: userType,
-        },
-        async: false,
+       
+        url : 'http://192.168.137.108:8080/Servlet/IsExistInfoServlet',
+       data : {
+        field: field,
+        value: value,
+        requestTpye: "get",
+        userType: userType,
+       },
+       
         success: function (res) {
             if (res.statusCode == 200) {
                 set_displayMessage(errorMessage);
@@ -149,7 +150,6 @@ function dataIsExiste(field, value, errorMessage) {
             }
         }
     });
-
     return result;
 }
 
@@ -164,16 +164,17 @@ function getUserType() {
 //发送验证码的逻辑
 //定时器做的工作，减少数字，显示数字，当time==0时，清除定时器，并且把按钮重新恢复，并改变内容
 $('.send_btn').click(function () {
-    if (time == 0 && !isEmpty($('.email_input'), "邮箱号码禁止为空")) {
+
+    if (time == 0 && !isEmpty($('.email_input'), "邮箱禁止为空！") && isEmailAvailable("邮箱有误！")) {
         requestData.email = $('.email_input').val() + "@" + $('.email_tail').html();
         userType = getUserType();
-        if (!dataIsExiste('email', requestData.email, "该邮箱已被注册，请之间前往登录页之间登录！")) {
-            //    console.log(requestData.email);
-            console.log('发送验证码');
-            $.get("http://192.168.137.141:8080/Servlet/VerifyCodeServlet", {
-                email: requestData.email,
-                requestType: "get"
-            }, function (res) {
+        if (!dataIsExiste('email', requestData.email, "该邮箱已被注册！")) {
+        //    console.log(requestData.email);
+            // console.log('发送验证码');
+            $.get("http://192.168.137.108:8080/Servlet/VerifyCodeServlet",{
+                email : requestData.email,
+                requestType : "get"
+            },function(res){
                 confirmCode = res.message.toLowerCase();
             });
             time = 60;
@@ -187,7 +188,6 @@ $('.send_btn').click(function () {
     }
 })
 
-
 //输入判空
 /**
  * 邮箱判空 输入的val()判断 ""
@@ -197,7 +197,6 @@ $('.send_btn').click(function () {
 //验证
 //不能为空
 //发送请求，获得后端返回验证码，进行匹配
-
 
 /**角色选择 */
 /**
@@ -223,7 +222,7 @@ $('.send_btn').click(function () {
 //选择进入那一个注册页面的逻辑
 function changeToNextPage(nextPage) {
     //本页缩小,左滑消失
-    set_displayMessage(" 恭喜您，邮箱验证成功！");
+    set_displayMessage("邮箱验证成功！");
     setTimeout(() => {
         $('.modal_bg').fadeOut();
         $('#form1').animate({
@@ -258,8 +257,8 @@ $(".next_btn").click(function () {
         }
     } else {
         $('.confirm_input').val("");
-        $('.confirm_input').attr('placeholder', '验证码错误');
-        $('.confirm_input').addClass('emptyError');
+        $('.confirm_input').attr('placeholder', '验证码错误！');
+        $('.confirm_input').addClass('error');
     }
 })
 
@@ -270,6 +269,19 @@ $(".next_btn").click(function () {
 var major_target = 30;//专业的初始下拉高度
 var $pwd_view = false;
 var $pwd_confirm_view = false;
+
+
+//输入框悬浮时激活线变长
+$(".form .row .value input").on("focus",function(){
+    $(this).parents(".row").find(".active_line").animate({
+        width: "430px"
+    },300)
+})
+$(".form .row .value input").on("blur",function(){
+    $(this).parents(".row").find(".active_line").animate({
+        width: "0px"
+    },300)
+})
 
 
 //性别、校区的动画效果
@@ -340,7 +352,6 @@ function animationSlide(obj, target) {
     }
 }
 
-
 //专业的下拉动画展示
 function animationSlide_major(obj) {
     $(obj + " .list").click(function (event) {
@@ -371,10 +382,10 @@ function animationSlide_major(obj) {
     }
 }
 
-animationSlide('#grade', 120);
-animationSlide('.college', 240);
+animationSlide('#grade', 160);
+animationSlide('.college', 320);
 animationSlide_major('.major');
-animationSlide("#degree", 120);
+animationSlide("#degree", 160);
 //不同的专业，高度不一样
 
 //专业信息
@@ -386,9 +397,9 @@ function fillMajorContent(key) {
     $('.major .value').attr('data', majors[0]);
     $('.major .list').empty();//删除子元素
     if (majors.length <= 8) {
-        major_target = 30 * majors.length;
+        major_target = 40 * majors.length;
     } else {
-        major_target = 30 * 8;
+        major_target = 40 * 8;
     }
     for (var i = 0; i < majors.length; i++) {
         $('.major .list').append('<li>' + majors[i] + '</li>');
@@ -450,8 +461,7 @@ function pwdIsSame(pwd, pwd2) {
 //密码格式错误
 function pwdIsVailable(pwd) {
     //6-16非空字符，区分大小写
-
-    var reg = new RegExp('.{6,16}');
+    var reg = new RegExp('^.{6,16}$');
     //有个bug
     return (reg.test(pwd));
 }
@@ -462,15 +472,15 @@ function set_displayMessage(message, duration) {
     $('.modal_bg').fadeIn();
     setTimeout(() => {
         $('.modal_bg').fadeOut();
-    }, duration || 2000)//默认2s
+    }, duration || 1200)//默认2s
 }
 
 //设置成成功信息
 
 
-//判断用户名是否合法: 8-20位非空格字符
+//判断用户名是否合法: 1-15位非空格字符
 function userNameIsAvailable(userName) {
-    var reg = /\S{1,20}/;
+    var reg = /^\S{1,15}$/;
     return reg.test(userName);
 }
 
@@ -478,9 +488,9 @@ function userNameIsAvailable(userName) {
 $('.userName input').blur(function () {
     $('.userName .success_icon').css("display", "none");
     if (!userNameIsAvailable($(this).val())) {
-        set_displayMessage('用户应该由1-15个字符组成');
+        set_displayMessage('用户名格式有误！');
     } else {
-        dataIsExiste('userName', $(this).val(), '该用户名已存在，换一个试试吧~');
+        dataIsExiste('userName', $(this).val(), '该用户名已存在！');
     }
 })
 
@@ -489,7 +499,6 @@ $('.fadeOut').click(function () {
     $('.modal_bg').fadeOut();
 })
 
-
 //数据提交
 $('.submit_btn').click(() => {
     //学号是自动填充，但是教工号用户自己写的，根据userType来进行选择，
@@ -497,7 +506,7 @@ $('.submit_btn').click(() => {
     if (userType == 'teacher') {
         //教工号判空
         if ($('#markNumber_teacher input').val() == '') {
-            set_displayMessage("请填写您的教工号");
+            set_displayMessage("请填写您的教工号！");
             return;
         }
         markNumber = $('#markNumber_teacher input').val();
@@ -509,12 +518,12 @@ $('.submit_btn').click(() => {
 
         //性别判空
         if ($('.sex .value').eq(1).attr('data') == '') {
-            set_displayMessage('请选择您的性别');
+            set_displayMessage('请选择您的性别！');
             return;
         }
         //学院判空
         if ($('.college .value').eq(1).attr('data') == '') {
-            set_displayMessage('请选择您所属的学院');
+            set_displayMessage('请选择您所属的学院！');
             return;
         }
 
@@ -527,24 +536,24 @@ $('.submit_btn').click(() => {
         }
         //性别判空
         if ($('.sex .value').eq(0).attr('data') == '') {
-            set_displayMessage('请选择您的性别');
+            set_displayMessage('请选择您的性别！');
             return;
         }
 
         //年级判空
         if ($('#grade .value').attr('data') == '') {
-            set_displayMessage('请选择您所在年级');
+            set_displayMessage('请选择您所在年级！');
             return;
         }
 
         //学院判空
         if ($('.college .value').eq(0).attr('data') == '') {
-            set_displayMessage('请选择您所属的学院');
+            set_displayMessage('请选择您所属的学院！');
             return;
         }
         //专业判空
         if ($('.major .value').attr('data') == '') {
-            set_displayMessage('请选择您的专业');
+            set_displayMessage('请选择您的专业！');
             return;
         }
     }
@@ -552,25 +561,21 @@ $('.submit_btn').click(() => {
 
     //校区判空
     if ($('.campus .value').eq(0).attr('data') + $('.campus .value').eq(1).attr('data') == '') {
-        set_displayMessage('请选择您现所属的校区');
+        set_displayMessage('请选择您现所属的校区！');
         return;
     }
 
     //密码判空
     if ($('.pwd input').eq(0).val() + $('.pwd input').eq(1).val() == '') {
-        set_displayMessage('请输入您想设置的密码！');
+        set_displayMessage('密码禁止为空！');
         return;
     }
 
     //密码有效性判断
-
-
     if (!pwdIsVailable($('.pwd input').eq(1).val() + $('.pwd input').eq(0).val())) {
-        set_displayMessage('密码格式错误！应为6-16个字符。');
+        set_displayMessage('密码格式错误！');
         return;
     }
-
-
     //确认密码判空
     if ($('.pwd_confirm input').eq(0).val() + $('.pwd_confirm input').eq(1).val() == '') {
         set_displayMessage('请输入确认密码！');
@@ -598,13 +603,13 @@ $('.submit_btn').click(() => {
         "graduatedUniversity": $('#graduatedUniversity input').val(),
         "degree": $('#degree .value').attr('data')
     }
-    $.post('http://192.168.137.141:8080/Servlet/UserServlet', JSON.stringify(formData), function (res) {
+    $.post('http://192.168.137.108:8080/Servlet/UserServlet', JSON.stringify(formData), function (res) {
 
         set_displayMessage('注册成功！正跳转到首页...');
         //跳转。。。
-        setTimeout(() => {
-            window.open("questionPage.html", 'blank')
-        }, 1500);
+        setTimeout(()=>{
+            window.open("../index.html")
+        },1500);
     }, 'json');
 })
 

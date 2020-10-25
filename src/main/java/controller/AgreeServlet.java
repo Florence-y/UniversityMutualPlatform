@@ -1,11 +1,6 @@
 package controller;
-
 import commom.constantval.ServletConstantVal;
-import commom.factory.ResponseFactory;
-import service.AgreeService;
-import service.impl.AgreeServiceImpl;
 import util.WebUtil;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +14,6 @@ import java.util.Map;
 @WebServlet("/Servlet/AgreeServlet")
 public class AgreeServlet extends HttpServlet {
     Map<String, Object> map;
-    AgreeService service = new AgreeServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -28,8 +22,6 @@ public class AgreeServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
-        int code = service.agree((String) map.get("agreeType"), map);
-        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("post");
     }
 
@@ -40,7 +32,6 @@ public class AgreeServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
-
         System.out.println("get");
     }
 
@@ -50,9 +41,7 @@ public class AgreeServlet extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int code = service.unAgree((String) map.get("agreeType"), map);
-        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("delete");
     }
 }

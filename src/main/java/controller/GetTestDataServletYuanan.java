@@ -2,13 +2,12 @@ package controller;
 
 import util.WebUtil;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,17 +21,9 @@ public class GetTestDataServletYuanan extends HttpServlet {
     Map<String, Object> map;
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
         WebUtil.writeObjToResponse(response, map);
-        ArrayList<String> dataArr = (ArrayList<String>) map.get("dataArr");
-        for (String data : dataArr) {
-            System.out.println(data);
-        }
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            System.out.println(cookie.getName());
-        }
         System.out.println("获取测试数据");
     }
 

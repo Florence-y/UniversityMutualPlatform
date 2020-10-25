@@ -1,23 +1,22 @@
 package service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import commom.constantval.ServletConstantVal;
-import dao.AttentionDao;
+import dao.AnswerDao;
 import dao.MarkNumberTypeDao;
 import dao.StudentDao;
 import dao.TeacherDao;
-import dao.impl.AttentionDaoImpl;
+import dao.impl.AnswerDaoImpl;
 import dao.impl.MarkNumberTypeDaoImpl;
 import dao.impl.StudentDaoImpl;
 import dao.impl.TeacherDaoImpl;
 import pojo.*;
-import service.AgreeService;
 import service.AnswerService;
 import service.QuestionService;
 import util.ElasticUtil;
 import util.WebUtil;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,18 +25,15 @@ import java.util.Map;
  */
 public class QuestionServiceImpl implements QuestionService {
     public static final String INDEX = "question";
+    AnswerDao answerDao = new AnswerDaoImpl();
     StudentDao studentDao = new StudentDaoImpl();
     TeacherDao teacherDao = new TeacherDaoImpl();
-    AttentionDao attentionDao = new AttentionDaoImpl();
     MarkNumberTypeDao markNumberTypeDao = new MarkNumberTypeDaoImpl();
     AnswerService answerService = new AnswerServiceImpl();
-    AgreeService agreeService = new AgreeServiceImpl();
-
 
     @Override
-    public String addQuestion(Map<String, Object> fieldAndValueMapDoc) throws JsonProcessingException {
-        System.out.println(WebUtil.mapToJson(fieldAndValueMapDoc));
-        return ElasticUtil.addDoc(WebUtil.mapToJson(fieldAndValueMapDoc), INDEX);
+    public String addQuestion(Map<String, Object> fieldAndValueMapDoc) {
+        return ElasticUtil.addDoc(fieldAndValueMapDoc, INDEX);
     }
 
     @Override
@@ -52,32 +48,26 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Question getDetailQuestion(String id, Map<String, Object> map) throws IOException {
-        String jsonQuestion = ElasticUtil.getDocById(INDEX, id);
+    public Question getDetailQuestion(String id,Map<String,Object> map) throws IOException {
+        String jsonQuestion=ElasticUtil.getDocById(INDEX,id);
         //获取文章的基本内容
         Question question = WebUtil.jsonToObj(Question.class, jsonQuestion);
         String authorMarkNumber = question.getAuthorMarkNumber();
-        String viewerMarkNumber = (String) map.get("ViewerMarkNumber");
-        String userType = markNumberTypeDao.getUserType(authorMarkNumber);
-        int agreeCount = agreeService.getAgreeCountQuestionOrAnswer("question", id);
-        boolean isAgree = agreeService.isAgree("question", id, viewerMarkNumber);
-        boolean isAttention = attentionDao.isAttention(viewerMarkNumber, authorMarkNumber);
+        String userType=markNumberTypeDao.getUserType(authorMarkNumber);
         //设置初始化为第一页
-        map.put("currentPage", "1");
-        Page<Answer> answerList = answerService.getAnswers("question", map);
+        map.put("currentPage","1");
+        Page<Answer> answerList = answerService.getAnswers("question",map);
         //设置用户信息
-        if (ServletConstantVal.STUDENT.equals(userType)) {
-            Student student = studentDao.getStudentByCondition(ServletConstantVal.STUDENT_MARK_NUMBER_COL, authorMarkNumber);
+        if (ServletConstantVal.STUDENT.equals(userType)){
+            Student student = studentDao.getStudentByCondition(ServletConstantVal.STUDENT_MARK_NUMBER_COL,authorMarkNumber);
             question.setStudent(student);
-        } else if (ServletConstantVal.TEACHER.equals(userType)) {
-            Teacher teacher = teacherDao.getTeacherByCondition(ServletConstantVal.TEACHER_MARK_NUMBER_COL, authorMarkNumber);
+        }
+        else if (ServletConstantVal.TEACHER.equals(userType)){
+            Teacher teacher = teacherDao.getTeacherByCondition(ServletConstantVal.TEACHER_MARK_NUMBER_COL,authorMarkNumber);
             question.setTeacher(teacher);
         }
-        question.setAttentionAuthor(isAttention);
         question.setUserType(userType);
         question.setAnswer(answerList);
-        question.setAgreeCount(agreeCount);
-        question.setAgree(isAgree);
         return question;
     }
 }

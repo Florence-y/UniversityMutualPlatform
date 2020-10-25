@@ -28,7 +28,6 @@ public class StudentJdbcStrategy implements JdbcGetPojoStrategy<Student> {
         student.setMarkNumber(resultSet.getString(pojoField.get("markNumber")));
         student.setSex(resultSet.getString(pojoField.get("sex")));
         student.setUserName(resultSet.getString(pojoField.get("userName")));
-        student.setPassword(resultSet.getString(pojoField.get("password")));
         return student;
     }
 }

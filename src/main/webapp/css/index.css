@@ -6,7 +6,7 @@
 
 body {
     background-color: #fbfbfb;
-    font-family: 'Microsoft YaHei', 'iconfont' !important;
+    font-family: 'Microsoft YaHei', 'iconfont'!important;
 }
 
 b,
@@ -299,28 +299,28 @@ input {
     display: block;
 }
 
-.messageAndHeadPortrait .headPortrait .hpSecond > div {
+.messageAndHeadPortrait .headPortrait .hpSecond>div {
     height: 85px;
     transition: all 0.1s;
 }
 
-.messageAndHeadPortrait .headPortrait .hpSecond > div:nth-of-type(1) {
+.messageAndHeadPortrait .headPortrait .hpSecond>div:nth-of-type(1) {
     height: 150px;
     cursor: default;
 }
 
-.messageAndHeadPortrait .headPortrait .hpSecond > div:nth-of-type(1):hover {
+.messageAndHeadPortrait .headPortrait .hpSecond>div:nth-of-type(1):hover {
     background-color: transparent;
     color: #000;
 }
 
-.messageAndHeadPortrait .headPortrait .hpSecond > div:nth-last-of-type(1) {
+.messageAndHeadPortrait .headPortrait .hpSecond>div:nth-last-of-type(1) {
     border-bottom: 0;
     width: 170px;
     float: right;
 }
 
-.messageAndHeadPortrait .headPortrait .hpSecond > div:hover {
+.messageAndHeadPortrait .headPortrait .hpSecond>div:hover {
     background-color: transparent;
     color: #0d47a1;
 }
@@ -336,7 +336,7 @@ input {
     left: 208px;
 }
 
-.messageAndHeadPortrait .headPortrait .hpSecond .hpPersonalAttributes > img {
+.messageAndHeadPortrait .headPortrait .hpSecond .hpPersonalAttributes>img {
     width: 130px;
     height: 130px;
     border-radius: 130px;
@@ -344,7 +344,7 @@ input {
     margin-right: 25px;
 }
 
-.messageAndHeadPortrait .headPortrait .hpSecond > div em {
+.messageAndHeadPortrait .headPortrait .hpSecond>div em {
     font-size: 25px;
     line-height: 85px;
     padding-right: 15px;
@@ -359,30 +359,30 @@ input {
 
 /* #region 二级导航的 icon */
 
-.messageAndHeadPortrait .headPortrait .hpSecond > div .iconfont {
+.messageAndHeadPortrait .headPortrait .hpSecond>div .iconfont {
     font-size: 45px;
     position: relative;
     top: 7px;
     margin-right: 10px;
 }
 
-.messageAndHeadPortrait .headPortrait .hpSecond > div .iconwodeguanzhu {
+.messageAndHeadPortrait .headPortrait .hpSecond>div .iconwodeguanzhu {
     top: 1px;
 }
 
-.messageAndHeadPortrait .headPortrait .hpSecond > div .iconV {
+.messageAndHeadPortrait .headPortrait .hpSecond>div .iconV {
     top: 7px;
     font-size: 50px;
 }
 
-.messageAndHeadPortrait .headPortrait .hpSecond > div .iconwodeshoucang {
+.messageAndHeadPortrait .headPortrait .hpSecond>div .iconwodeshoucang {
     top: 0px;
     left: 8px;
     margin-right: 20px;
     font-size: 37px;
 }
 
-.messageAndHeadPortrait .headPortrait .hpSecond > div .icontuichudenglu {
+.messageAndHeadPortrait .headPortrait .hpSecond>div .icontuichudenglu {
     margin-right: 0px;
 }
 
@@ -419,7 +419,7 @@ input {
 
 /* 3d转换的3个父盒子 */
 
-.otherPage .w > div {
+.otherPage .w>div {
     float: left;
     width: 500px;
     height: 350px;
@@ -429,18 +429,18 @@ input {
     transform-style: preserve-3d;
 }
 
-.otherPage .w > div:nth-of-type(1) {
+.otherPage .w>div:nth-of-type(1) {
     margin-left: 0;
 }
 
-.otherPage .w > div:nth-last-of-type(1) {
+.otherPage .w>div:nth-last-of-type(1) {
     margin-right: 0;
 }
 
 
 /* 3d转换的3个子盒子 */
 
-.otherPage .w > div .rotate-div {
+.otherPage .w>div .rotate-div {
     border-radius: 20px;
     width: 100%;
     height: 100%;
@@ -449,18 +449,18 @@ input {
     cursor: pointer;
 }
 
-.otherPage .w > div .rotate-div:hover {
+.otherPage .w>div .rotate-div:hover {
     transform: rotateY(30deg);
 }
 
-.otherPage .w > div .rotate-div a {
+.otherPage .w>div .rotate-div a {
     display: block;
     width: 100%;
     height: 100%;
     position: relative;
 }
 
-.otherPage .w > div .rotate-div .imgShadow img {
+.otherPage .w>div .rotate-div .imgShadow img {
     width: 100%;
     height: 100%;
     position: relative;
@@ -470,7 +470,7 @@ input {
 
 /* 3d盒子里的 文字 */
 
-.otherPage .w > div .rotate-div a span {
+.otherPage .w>div .rotate-div a span {
     font-size: 40px;
     font-weight: 700;
     color: #fff;
@@ -645,7 +645,7 @@ input {
     height: 100%;
 }
 
-.schoolNews .w > h1 {
+.schoolNews .w>h1 {
     /* 学校通知 */
     font-size: 28px;
     font-weight: 700;
@@ -654,7 +654,7 @@ input {
 
 /* #region 通知框 */
 
-.schoolNews .w > div {
+.schoolNews .w>div {
     margin-top: 30px;
     width: 23%;
     height: 646px;
@@ -663,11 +663,11 @@ input {
     float: left;
 }
 
-.schoolNews .w > div:nth-last-of-type(1) {
+.schoolNews .w>div:nth-last-of-type(1) {
     margin-right: 0;
 }
 
-.schoolNews .w > div h2 {
+.schoolNews .w>div h2 {
     font-size: 25px;
     font-weight: 700;
     color: #02a7f0;
@@ -678,18 +678,18 @@ input {
 
 /* #region 每一个通知 */
 
-.schoolNews .w > div ul {
+.schoolNews .w>div ul {
     width: 100%;
     height: 550px;
     position: relative;
 }
 
-.schoolNews .w > div ul div {
+.schoolNews .w>div ul div {
     width: 100%;
     height: 100%;
 }
 
-.schoolNews .w > div ul li {
+.schoolNews .w>div ul li {
     height: 25%;
     width: 100%;
     border-bottom: #ccc dashed 1px;
@@ -700,7 +700,7 @@ input {
 
 /* #region 通知的日期 */
 
-.schoolNews .w > div ul li span {
+.schoolNews .w>div ul li span {
     float: left;
     box-sizing: border-box;
     margin-right: 20px;
@@ -710,18 +710,18 @@ input {
     text-align: center;
 }
 
-.schoolNews .w > div ul li span em {
+.schoolNews .w>div ul li span em {
     height: 50%;
     font-size: 24px;
     display: block;
     line-height: 40px;
 }
 
-.schoolNews .w > div ul li span em.month {
+.schoolNews .w>div ul li span em.month {
     border-bottom: 1px dashed #ccc;
 }
 
-.schoolNews .w > div ul li span em.data {
+.schoolNews .w>div ul li span em.data {
     font-weight: 600;
     font-size: 22px;
 }
@@ -732,7 +732,7 @@ input {
 
 /* 通知内容 */
 
-.schoolNews .w > div ul li a {
+.schoolNews .w>div ul li a {
     display: block;
     float: left;
     height: 80px;
@@ -748,18 +748,18 @@ input {
     -webkit-box-orient: vertical;
 }
 
-.schoolNews .w > .other ul li a {
+.schoolNews .w>.other ul li a {
     padding: 0 0 10px 0;
 }
 
-.schoolNews .w > div ul li a:hover {
+.schoolNews .w>div ul li a:hover {
     color: #0d47a1;
 }
 
 
 /* 通知分类 */
 
-.schoolNews .w > div ul li i {
+.schoolNews .w>div ul li i {
     display: block;
     width: 6em;
     height: 1.4em;
@@ -774,7 +774,7 @@ input {
     cursor: default;
 }
 
-.schoolNews .w > div ul > div {
+.schoolNews .w>div ul>div {
     position: absolute;
     display: none;
 }
@@ -782,7 +782,7 @@ input {
 
 /* 另一个通知显示 */
 
-.schoolNews .w > div ul > div.displayNewsDiv {
+.schoolNews .w>div ul>div.displayNewsDiv {
     display: block;
 }
 
@@ -847,7 +847,7 @@ input {
 
 /* #region  左边 p  */
 
-.footer .w > div {
+.footer .w>div {
     display: inline-block;
     width: 660px;
 }
@@ -897,7 +897,7 @@ input {
 
 /* 页脚 右边的a链接  */
 
-.footer dl dd > a {
+.footer dl dd>a {
     display: inline-block;
     width: 100%;
     height: 40px;
@@ -906,11 +906,11 @@ input {
     color: #000075;
 }
 
-.footer dl dd > a:hover {
+.footer dl dd>a:hover {
     color: #000;
 }
 
-.footer dl:nth-of-type(3) dd > a {
+.footer dl:nth-of-type(3) dd>a {
     width: 48%;
 }
 
@@ -926,7 +926,7 @@ input {
 
 /* 页脚 右边 第二个dl b(放图标) */
 
-.footer dl:nth-of-type(2) dd > b {
+.footer dl:nth-of-type(2) dd>b {
     cursor: pointer;
     display: block;
     width: 80px;
@@ -941,12 +941,12 @@ input {
     background-position-x: -206px;
 }
 
-.footer dl:nth-of-type(2) dd:nth-of-type(1) > b:hover {
+.footer dl:nth-of-type(2) dd:nth-of-type(1)>b:hover {
     border-color: #00c758;
     background-image: url(../img/appLogoGreen.png);
 }
 
-.footer dl:nth-of-type(2) dd:nth-of-type(2) > b:hover {
+.footer dl:nth-of-type(2) dd:nth-of-type(2)>b:hover {
     background-image: url(../img/appLogoRed.png);
     border-color: red;
 }
@@ -977,7 +977,7 @@ input {
 
 /* 二级导航的小三角 */
 
-.footer dl:nth-of-type(2) dd:nth-of-type(1) div > b {
+.footer dl:nth-of-type(2) dd:nth-of-type(1) div>b {
     position: absolute;
     bottom: -40px;
     left: 78px;
@@ -1018,7 +1018,7 @@ input {
 
 /* #region 页脚 底部 */
 
-.footer > .w > p {
+.footer>.w>p {
     position: absolute;
     bottom: 0.5em;
     width: 100%;
@@ -1029,16 +1029,16 @@ input {
     overflow: hidden;
 }
 
-.footer > .w > p:nth-of-type(1) {
+.footer>.w>p:nth-of-type(1) {
     bottom: 2em;
 }
 
-.footer .w > p > a {
+.footer .w>p>a {
     color: #666;
     font-size: 22px;
 }
 
-.footer .w > p > a:hover {
+.footer .w>p>a:hover {
     color: #fff;
 }
 

@@ -51,7 +51,7 @@ button {
 
 /* #region 模态框关闭按钮*/
 
-.modal_bg_logon {
+.modal_bg_logon{
     display: none;
     background-color: #00000066;
     position: fixed;
@@ -83,7 +83,7 @@ button {
     float: right;
 }
 
-.modal_bg_logon .modal_head {
+.modal_bg_logon  .modal_head {
     height: 82px;
     width: 100%;
     position: relative;
@@ -124,7 +124,7 @@ button {
 
 /* #endregion */
 
-.modal_bg_logon .modal_content {
+.modal_bg_logon  .modal_content {
     /* 为 logOn 的定位 */
     position: relative;
     width: 380px;
@@ -190,9 +190,7 @@ button {
 
 /* #region 登录--学生/教师 input  */
 
-
-.modal_bg_logon .modal_content > .logOn form .confirm {
-
+.modal_bg_logon .modal_content>.logOn form .confirm {
     position: relative;
     margin-top: 20px;
 }
@@ -313,9 +311,7 @@ button {
     position: absolute;
 }
 
-
-.modal_bg_logon .modal_content .forgetPas > div {
-
+.modal_bg_logon .modal_content .forgetPas>div {
     /* 忘记密码页面 的三个框 */
     margin: 32px 0;
 }
@@ -397,16 +393,15 @@ button {
     left: 93px;
 }
 
-
-.modal_bg_logon .modal_content .resetPas > div {
+.modal_bg_logon .modal_content .resetPas>div {
     margin: 35px 0;
 }
 
-.modal_bg_logon .modal_content .resetPas > div span {
+.modal_bg_logon .modal_content .resetPas>div span {
     vertical-align: bottom;
 }
 
-.modal_bg_logon .modal_content .resetPas > div input {
+.modal_bg_logon .modal_content .resetPas>div input {
     /* 两个密码框 */
     width: 171px;
     height: 21px;

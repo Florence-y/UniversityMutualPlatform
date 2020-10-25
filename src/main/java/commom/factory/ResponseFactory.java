@@ -37,19 +37,4 @@ public class ResponseFactory {
         response.setMessagePojo(pojo);
         return response;
     }
-
-    public static <T> Response<T> getId(long id, int code) {
-        Response<T> response = new Response<>();
-        //设置数据库id
-        response.setId(id);
-        response.setStatusCode(code);
-        return response;
-    }
-
-    public static <T> Response<T> getMessageAndStatusCode(int statusCode, String message) {
-        Response<T> response = new Response<>();
-        response.setStatusCode(statusCode);
-        response.setMessage(message);
-        return response;
-    }
 }
