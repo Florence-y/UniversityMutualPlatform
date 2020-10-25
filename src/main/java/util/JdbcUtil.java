@@ -223,7 +223,7 @@ public class JdbcUtil {
      * @param <T>             实体具体类型
      * @return 封装好的实体对象
      */
-    public static <T> T queryForJavaBean(String sql, JdbcGetPojoStrategy packageStrategy, Object... o) {
+    public static <T> T queryForJavaBean(String sql, JdbcGetPojoStrategy<T> packageStrategy, Object... o) {
         try {
             Connection connection = C3P0Util.getConnection();
             assert connection != null;
@@ -232,7 +232,7 @@ public class JdbcUtil {
             ResultSet resultSet = preparedStatement.executeQuery();
             T pojo = null;
             if (resultSet.next()) {
-                pojo = (T) packageStrategy.strategy(resultSet);
+                pojo = packageStrategy.strategy(resultSet);
             }
             C3P0Util.close(connection, preparedStatement, resultSet);
             return pojo;
@@ -249,7 +249,7 @@ public class JdbcUtil {
      * @param value ？ 的值
      * @return 返回行的数量
      */
-    public static int getCount(String sql, Object[] value) {
+    public static int getCount(String sql, Object... value) {
         try {
             int anInt = -1;
             Connection connection = C3P0Util.getConnection();

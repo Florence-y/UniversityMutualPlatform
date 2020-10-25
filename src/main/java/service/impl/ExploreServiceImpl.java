@@ -51,4 +51,9 @@ public class ExploreServiceImpl implements ExploreService {
         //查询
         return ElasticUtil.scrollSearchFirst("question",boolQueryBuilder,new Question());
     }
+
+    @Override
+    public <T> Page getPageByScrollId(String scrollId,T pojo) throws IOException {
+        return ElasticUtil.scrollSearch(scrollId,pojo);
+    }
 }

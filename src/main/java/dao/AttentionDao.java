@@ -45,4 +45,13 @@ public interface AttentionDao extends BaseDao<Attention> {
      * @return 刚插入的id
      */
     int addAttention(Map<String, Object> map);
+
+    /**
+     * 是否关注API
+     *
+     * @param majorMarkNumber 关注者的API
+     * @param passMarkNumber  被关注者的API
+     * @return 是否关注
+     */
+    boolean isAttention(String majorMarkNumber, String passMarkNumber);
 }

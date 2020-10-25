@@ -73,7 +73,7 @@ public class LostAndFoundServiceImpl implements LostAndFoundService {
         if (scrollId != null) {
             return ElasticUtil.scrollSearch(scrollId, new Found());
         }
-        Map<String, Object> orMap = ReflectUtil.getFieldAndValueFromTheMixMap(map, new Found());
-        return ElasticUtil.scrollSearchFirst("found", ElasticUtil.getMultiplyBoolBuilder("or", orMap, true), new Found());
+        Map<String, Object> andMap = ReflectUtil.getFieldAndValueFromTheMixMap(map, new Found());
+        return ElasticUtil.scrollSearchFirst("found", ElasticUtil.getMultiplyBoolBuilder("or", andMap, true), new Found());
     }
 }

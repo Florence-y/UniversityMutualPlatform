@@ -2,8 +2,6 @@ package service.impl;
 
 import dao.CommentDao;
 import dao.impl.CommentDaoImpl;
-import pojo.Answer;
-import pojo.Attention;
 import pojo.Comment;
 import pojo.Page;
 import service.CommentService;
@@ -19,9 +17,9 @@ import java.util.Map;
  * 评论服务类
  */
 public class CommentServiceImpl implements CommentService {
+    private static final String ANSWER_TYPE = "answer";
+    private static final String INDIVIDUAL_TYPE = "individual";
     CommentDao commentDao = new CommentDaoImpl();
-    private static final String ANSWER_TYPE="answer";
-    private static final String INDIVIDUAL_TYPE="individual";
 
     @Override
     public int addComment(Map<String, Object> map) {
@@ -31,9 +29,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment editComment(Map<String, Object> map, String condition) {
         //获取条件的的值
-        int conditionValue = Integer.parseInt((String) map.get(condition));
+        Integer conditionValue = Integer.parseInt((String) map.get(condition));
         //获取key value key value condition conditionValue 去更新
-        Object[] objects = ArrayUtil.mapToUpdateArr(ReflectUtil.getObjectFieldMap(new Answer()), map, condition);
+        Object[] objects = ArrayUtil.mapToUpdateArr(ReflectUtil.getObjectFieldMap(new Comment()), map, condition);
         //更新数据库
         commentDao.updateColByOneCondition(new Comment(), objects);
         return commentDao.selectById(conditionValue);
@@ -48,12 +46,11 @@ public class CommentServiceImpl implements CommentService {
         //页面大小
         int pageSize = Page.PAGE_SIZE;
         //页面开始的地方
-        int begin=(curPage - 1) * pageSize;
+        int begin = (curPage - 1) * pageSize;
         if (ANSWER_TYPE.equals(getType)) {
             totalPage = commentDao.getCountByCondition(new Comment(), map);
             comments = commentDao.getRowBeginNumAndSizeByCondition(new Comment(), begin, pageSize, map);
-        }
-        else if (INDIVIDUAL_TYPE.equals(getType)){
+        } else if (INDIVIDUAL_TYPE.equals(getType)) {
 
         }
         page.setDataList(comments);

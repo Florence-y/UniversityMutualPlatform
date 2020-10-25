@@ -138,6 +138,14 @@ public class AttentionDaoImpl extends BaseDaoImpl<Attention> implements Attentio
         return super.insertRowByKeyAndValue(new Attention(), map);
     }
 
+    @Override
+    public boolean isAttention(String viewerMarkNumber, String beAttentionMarkNumber) {
+        String majorTableCol = ReflectUtil.getColVal(new Attention(), "majorMarkNumber");
+        String passTableCol = ReflectUtil.getColVal(new Attention(), "passMarkNumber");
+        String sql = "SELECT * FROM " + getTableName() + " WHERE " + majorTableCol + " = ? AND " + passTableCol + " = ? limit 1";
+        return JdbcUtil.isExistByOneCondition(sql, viewerMarkNumber, beAttentionMarkNumber);
+    }
+
     private void addInfToAttention(Student student, Attention attention) {
         if (student == null) {
             log.error("为关注列表增添信息的时候学生对象为空");

@@ -28,7 +28,6 @@ public class AnswerJdbcStrategy implements JdbcGetPojoStrategy<Answer> {
         Answer answer = new Answer();
         String answerMarkNumber = resultSet.getString("answer_MarkNumber");
         answer.setId(resultSet.getInt("answer_id"));
-        answer.setContent(resultSet.getString("answer_content"));
         answer.setMarkNumber(answerMarkNumber);
         answer.setQuestionId(resultSet.getString("answer_questionId"));
         String type=markNumberTypeDao.getUserType(answerMarkNumber);

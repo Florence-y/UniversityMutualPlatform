@@ -3,6 +3,7 @@ package service;
 import pojo.Answer;
 import pojo.Page;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -15,7 +16,7 @@ public interface AnswerService {
      * @param map 包含我们需要的参数的map
      * @return
      */
-    int  addAnswer(Map<String, Object> map);
+    int  addAnswer(Map<String, Object> map) throws IOException;
 
     /**
      * 修改回答

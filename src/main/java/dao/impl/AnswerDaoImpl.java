@@ -17,8 +17,8 @@ import java.util.Map;
  * @author Florence
  */
 public class AnswerDaoImpl extends BaseDaoImpl<Answer> implements AnswerDao {
-    private static final String INDIVIDUAL ="individual";
-    private static final String QUESTION ="question";
+    private static final String INDIVIDUAL = "individual";
+    private static final String QUESTION = "question";
 
     @Override
     public String getTableName() {

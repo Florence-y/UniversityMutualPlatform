@@ -36,7 +36,9 @@ public interface ExploreService {
     /**
      * 获取分页对象
      * @param scrollId 滑动id
+     * @param <T> 具体实体类型
+     * @param pojo 实体对象
      * @return 得到的分页对象
      */
-    Page getPageByScrollId(String  scrollId);
+    <T> Page<T> getPageByScrollId(String  scrollId,T pojo) throws IOException;
 }

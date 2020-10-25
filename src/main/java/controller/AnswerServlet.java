@@ -3,6 +3,8 @@ package controller;
 import commom.constantval.ServletConstantVal;
 import commom.factory.ResponseFactory;
 import pojo.Answer;
+import pojo.Page;
+import pojo.Response;
 import service.AnswerService;
 import service.impl.AnswerServiceImpl;
 import util.WebUtil;
@@ -28,8 +30,9 @@ public class AnswerServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
-        int code= service.addAnswer(WebUtil.getPureMapFromMixMapToPojo(map,new Answer()));
-        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
+        int id = service.addAnswer(map);
+        int codeAdd = id > 0 ? Response.OK : Response.ERROR;
+        WebUtil.writeObjToResponse(response, ResponseFactory.getId(id, codeAdd));
         System.out.println("post");
     }
 
@@ -40,7 +43,8 @@ public class AnswerServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
-//        service.getAnswer
+        Page<Answer> answerPage = service.getAnswers((String) map.get("getAnswerType"), map);
+        WebUtil.writeObjToResponse(response, answerPage);
         System.out.println("get");
     }
 

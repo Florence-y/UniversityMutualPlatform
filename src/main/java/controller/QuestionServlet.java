@@ -45,16 +45,11 @@ public class QuestionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.formToMap(request);
-        int code = SensitiveWordFilterUtil.filterMap(map);
-        if (code!=Response.OK) {
-            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(code, ServletConstantVal.SENSITIVE_WORD_INF));
-            return;
-        }
         if (ServletConstantVal.DELETE.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
             doDelete(request, response);
             return;
         }
-            Question question = service.getDetailQuestion((String) map.get("questionId"), map);
+        Question question = service.getDetailQuestion((String) map.get("questionId"), map);
         WebUtil.writeObjToResponse(response, question);
         System.out.println("get");
     }
