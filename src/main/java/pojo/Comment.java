@@ -12,6 +12,8 @@ import commom.annontation.DbTable;
 public class Comment {
 
 
+    Student student;
+    Teacher teacher;
     @DbPriKey
     @DbCol("comment_id")
     private long id;
@@ -21,8 +23,6 @@ public class Comment {
     private String content;
     @DbCol("comment_markNumber")
     private String markNumber;
-    Student student;
-    Teacher teacher;
 
     public long getId() {
         return id;

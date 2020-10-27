@@ -35,11 +35,11 @@ public class TagDaoImpl extends BaseDaoImpl implements TagDao {
 
     @Override
     public List<String> getAllQuestionType() throws SQLException {
-        List<String > list = new ArrayList<>();
-        String sql ="SELECT tag_name from "+getTableName();
-        Connection connection= C3P0Util.getConnection();
+        List<String> list = new ArrayList<>();
+        String sql = "SELECT tag_name from " + getTableName();
+        Connection connection = C3P0Util.getConnection();
         ResultSet resultSet = JdbcUtil.queryForGetResultSet(connection, sql);
-        while (resultSet.next()){
+        while (resultSet.next()) {
             list.add(resultSet.getString("tag_name"));
         }
         return list;

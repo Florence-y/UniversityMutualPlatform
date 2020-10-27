@@ -1,4 +1,5 @@
 package util;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.apache.lucene.search.join.ScoreMode;
@@ -33,12 +34,17 @@ import org.elasticsearch.script.ScriptType;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import pojo.IndexObject;
 import pojo.Page;
+import pojo.Question;
 import pojo.Response;
+
 import java.io.IOException;
-import java.rmi.MarshalledObject;
 import java.util.*;
+
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
+import static org.elasticsearch.index.query.QueryBuilders.moreLikeThisQuery;
+
 /**
  * @author Florence
  */
@@ -124,17 +130,20 @@ public class ElasticUtil {
         return list;
     }
 
-    private static <T> List<T> getPojoFromHits(SearchHits hits, T clazz) throws IOException {
+    private static <T extends IndexObject> List<T> getPojoFromHits(SearchHits hits, T clazz) throws IOException {
         List<T> list = new LinkedList<>();
         for (SearchHit hit : hits) {
-            list.add((T) WebUtil.jsonToObj(clazz.getClass(), hit.getSourceAsString()));
+            T t = (T) WebUtil.jsonToObj(clazz.getClass(), hit.getSourceAsString());
+            t.setId(hit.getId());
+            list.add(t);
         }
         return list;
     }
 
-    public static NestedQueryBuilder getNestedQuery(String path,String detailPro,String value){
+
+    public static NestedQueryBuilder getNestedQuery(String path, String detailPro, String value) {
         NestedQueryBuilder nestedQueryBuilder = QueryBuilders.nestedQuery(path,
-                getMatchBuilder(path+"."+detailPro,value),
+                getMatchBuilder(path + "." + detailPro, value),
                 ScoreMode.Max);
         return nestedQueryBuilder;
     }
@@ -155,7 +164,7 @@ public class ElasticUtil {
         return multiAndSearch(index, map, length, isFuzzy);
     }
 
-    public static <T> Page<T> scrollSearch(String scrollId, T pojo) throws IOException {
+    public static <T extends IndexObject> Page<T> scrollSearch(String scrollId, T pojo) throws IOException {
         Page<T> page = new Page<>();
         SearchScrollRequest scrollRequest = new SearchScrollRequest(scrollId);
         scrollRequest.scroll(TimeValue.timeValueMinutes(20));
@@ -164,7 +173,7 @@ public class ElasticUtil {
         return page;
     }
 
-    public static <T> Page<T> scrollSearchFirst(String index, QueryBuilder queryBuilder, T pojo) throws IOException {
+    public static <T extends IndexObject> Page<T> scrollSearchFirst(String index, QueryBuilder queryBuilder, T pojo) throws IOException {
         Page<T> page = new Page<>();
         SearchRequest searchRequest = new SearchRequest(index);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -182,12 +191,22 @@ public class ElasticUtil {
         return length >= Page.PAGE_SIZE;
     }
 
-    private static <T> void setScrollPage(SearchResponse searchResponse, Page<T> page, T pojo) throws IOException {
+    private static <T extends IndexObject> List<String> setScrollPage(SearchResponse searchResponse, Page<T> page, T pojo) throws IOException {
         SearchHits hits = searchResponse.getHits();
         List<T> pojoFromHits = getPojoFromHits(hits, pojo);
+        List<String> idStrings= getIdFromHits(hits);
         page.setDataList(pojoFromHits);
         page.setNext(hasNext(hits.getHits().length));
         page.setScrollId(searchResponse.getScrollId());
+        return idStrings;
+    }
+
+    private static List<String> getIdFromHits(SearchHits hits) {
+        List<String >list = new LinkedList<>();
+        for (SearchHit hit:hits){
+            list.add(hit.getId());
+        }
+        return list;
     }
 //    public static QueryBuilder getQueryBuilder(String type,Map<String,Object> condition){
 //
@@ -390,9 +409,9 @@ public class ElasticUtil {
     /**
      * 获取多重布尔值的builder
      *
-     * @param type    and or
+     * @param type     and or
      * @param matchMap 条件map
-     * @param isFuzzy 是否模糊查询
+     * @param isFuzzy  是否模糊查询
      * @return
      */
     public static QueryBuilder getMultiplyBoolBuilder(String type, Map<String, Object> matchMap, Boolean isFuzzy) {
@@ -419,21 +438,21 @@ public class ElasticUtil {
 
     /**
      * term多条件查询
+     *
      * @param type
      * @param termMap
      * @return
      */
-    public static QueryBuilder getMultiplyBoolBuilder(String type, Map<String,Object> termMap){
+    public static QueryBuilder getMultiplyBoolBuilder(String type, Map<String, Object> termMap) {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        if ("or".equals(type)){
-            for (Map.Entry<String,Object> entry:termMap.entrySet()){
-                TermQueryBuilder termQueryBuilder = new TermQueryBuilder(entry.getKey(),entry.getValue());
+        if ("or".equals(type)) {
+            for (Map.Entry<String, Object> entry : termMap.entrySet()) {
+                TermQueryBuilder termQueryBuilder = new TermQueryBuilder(entry.getKey(), entry.getValue());
                 boolQueryBuilder.should(termQueryBuilder);
             }
-        }
-        else if ("and".equals(type)){
-            for (Map.Entry<String,Object> entry:termMap.entrySet()){
-                TermQueryBuilder termQueryBuilder = new TermQueryBuilder(entry.getKey(),entry.getValue());
+        } else if ("and".equals(type)) {
+            for (Map.Entry<String, Object> entry : termMap.entrySet()) {
+                TermQueryBuilder termQueryBuilder = new TermQueryBuilder(entry.getKey(), entry.getValue());
                 boolQueryBuilder.must(termQueryBuilder);
             }
         }

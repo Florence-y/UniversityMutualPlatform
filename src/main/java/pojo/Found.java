@@ -10,7 +10,7 @@ import java.util.Date;
  * @author Florence
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Found {
+public class Found  extends IndexObject{
     @IsValid(valid = true, fieldName = "contact")
     private String contact;
     @IsValid(valid = true, fieldName = "imgs")

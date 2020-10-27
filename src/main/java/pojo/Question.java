@@ -9,7 +9,7 @@ import java.util.Arrays;
  * @author Florence
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Question {
+public class Question extends IndexObject {
 
     @IsValid(valid = true, fieldName = "title")
     String title;
@@ -21,7 +21,7 @@ public class Question {
     String[] tag;
     @IsValid(valid = true, fieldName = "contents")
     QuestionContent[] contents;
-    @IsValid(valid = true,fieldName = "anonymity")
+    @IsValid(valid = true, fieldName = "anonymity")
     boolean anonymity;
     boolean isAgree;
     boolean isAttentionAuthor;
@@ -31,7 +31,6 @@ public class Question {
     Student student;
     Teacher teacher;
     Page<Answer> answer;
-
 
 
     public String getAuthorMarkNumber() {
@@ -139,12 +138,15 @@ public class Question {
     public void setContents(QuestionContent[] contents) {
         this.contents = contents;
     }
+
     public boolean isAnonymity() {
         return anonymity;
     }
+
     public void setAnonymity(boolean anonymity) {
         this.anonymity = anonymity;
     }
+
     @Override
     public String toString() {
         return "Question{" +

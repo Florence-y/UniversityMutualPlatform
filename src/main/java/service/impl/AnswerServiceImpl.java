@@ -12,7 +12,6 @@ import pojo.Page;
 import service.AgreeService;
 import service.AnswerService;
 import util.ArrayUtil;
-import util.JdbcUtil;
 import util.ReflectUtil;
 import util.WebUtil;
 
@@ -73,7 +72,7 @@ public class AnswerServiceImpl implements AnswerService {
             answers = answerDao.getAnswers(begin, pageSize, map);
         }
         for (Answer answer : answers) {
-            countMap.put("viewerMarkNumber",map.get("viewerMarkNumber"));
+            countMap.put("viewerMarkNumber", map.get("viewerMarkNumber"));
             countMap.put("answerId", answer.getId());
             setAnswerInf(answer, countMap);
         }
@@ -93,7 +92,7 @@ public class AnswerServiceImpl implements AnswerService {
 
         boolean isAgree = agreeService.isAgree("answer", answer.getId(), String.valueOf(map.get("viewerMarkNumber")));
         answer.setAgree(isAgree);
-        answer.setAgreeCount(agreeService.getAgreeCountQuestionOrAnswer("answer",answer.getId()));
+        answer.setAgreeCount(agreeService.getAgreeCountQuestionOrAnswer("answer", answer.getId()));
         answer.setContents(answerContentDao.getAnswerContentByAnswerId((int) answer.getId()));
         answer.setCommentCount(commentDao.getCountByCondition(new Comment(), map));
     }

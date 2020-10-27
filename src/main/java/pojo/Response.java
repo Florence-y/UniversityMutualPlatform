@@ -8,7 +8,7 @@ public class Response<T> {
     public static final int OK = 200;
     public static final int ERROR = 500;
     public static final int GET_LOST = 404;
-    public static final int COMMON_SENSITIVE=501;
+    public static final int COMMON_SENSITIVE = 501;
     long id;
     String markNumber;
     int statusCode;

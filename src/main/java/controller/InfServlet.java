@@ -35,7 +35,7 @@ public class InfServlet extends HttpServlet {
         }
         //调用服务添加信息
         int id = service.addInf(map);
-        //成功并写回状态码】
+        //成功并写回状态码
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(Response.OK).setMessage(String.valueOf(id)));
         System.out.println("post");
     }

@@ -23,6 +23,7 @@ import java.util.Map;
 public class AnswerServlet extends HttpServlet {
     Map<String, Object> map;
     AnswerService service = new AnswerServiceImpl();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
@@ -53,7 +54,7 @@ public class AnswerServlet extends HttpServlet {
         //获取修改完的回答的内容
         Answer answer = service.editAnswer(map, String.valueOf(map.get("condition")));
         //将对象写回
-        WebUtil.writeObjToResponse(response,answer);
+        WebUtil.writeObjToResponse(response, answer);
         System.out.println("put");
     }
 

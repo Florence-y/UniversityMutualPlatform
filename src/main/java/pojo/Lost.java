@@ -10,7 +10,7 @@ import java.util.Date;
  * @author 丢失实体
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Lost {
+public class Lost  extends IndexObject{
     @IsValid(valid = true, fieldName = "contact")
     private String contact;
     @IsValid(valid = true, fieldName = "imgs")

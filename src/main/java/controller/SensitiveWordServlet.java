@@ -30,11 +30,11 @@ public class SensitiveWordServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
-        if (list==null){
-            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(Response.ERROR,"包含黄色敏感词"));
+        if (list == null) {
+            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(Response.ERROR, "包含黄色敏感词"));
             return;
         }
-        WebUtil.writeObjToResponse(response,list);
+        WebUtil.writeObjToResponse(response, list);
         System.out.println("post");
     }
 

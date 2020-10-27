@@ -31,6 +31,7 @@ public class EncodingFilter implements Filter {
         System.out.println("过滤器被访问");
         chain.doFilter(request, rep);
     }
+
     @Override
     public void destroy() {
     }

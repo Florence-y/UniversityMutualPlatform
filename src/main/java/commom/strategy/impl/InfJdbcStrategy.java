@@ -22,6 +22,7 @@ public class InfJdbcStrategy implements JdbcGetPojoStrategy<Inf> {
         inf.setSendTime(resultSet.getTimestamp("inf_sendTime"));
         inf.setAdditionContent(resultSet.getString("inf_additionContent"));
         inf.setType(resultSet.getString("inf_type"));
+        inf.setSenderFace(resultSet.getString("inf_senderFace"));
         inf.setSenderName(resultSet.getString("inf_senderName"));
         inf.setInfIsRead(resultSet.getInt("inf_isRead"));
         //设置离目前是多长时间

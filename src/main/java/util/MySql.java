@@ -91,8 +91,8 @@ public enum MySql {
             "content_type VARCHAR(10) NOT NULL ," +
             "content_main VARCHAR(500) NOT NULL" +
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
-    CREATE_TABLE_TAGS("CREATE TABLE IF NOT EXISTS t_tags ("+
-            "tag_id INT PRIMARY KEY AUTO_INCREMENT,"+
+    CREATE_TABLE_TAGS("CREATE TABLE IF NOT EXISTS t_tags (" +
+            "tag_id INT PRIMARY KEY AUTO_INCREMENT," +
             "tag_name VARCHAR(10) NOT NULL" +
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //文章表

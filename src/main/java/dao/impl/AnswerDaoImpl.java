@@ -4,12 +4,8 @@ import commom.strategy.JdbcGetPojoStrategy;
 import commom.strategy.impl.AnswerJdbcStrategy;
 import dao.AnswerDao;
 import pojo.Answer;
-import pojo.Attention;
-import pojo.Page;
-import pojo.Question;
 import util.ReflectUtil;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +33,6 @@ public class AnswerDaoImpl extends BaseDaoImpl<Answer> implements AnswerDao {
 
     @Override
     public List<Answer> getAnswers(int begin, int pageSize, Map<String, Object> map) {
-            return super.getRowBeginNumAndSizeByCondition(new Answer(),begin,pageSize,map);
+        return super.getRowBeginNumAndSizeByCondition(new Answer(), begin, pageSize, map);
     }
 }

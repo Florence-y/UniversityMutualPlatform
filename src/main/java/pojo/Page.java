@@ -58,6 +58,7 @@ public class Page<T> {
     public void setScrollId(String scrollId) {
         this.scrollId = scrollId;
     }
+
     public String getAdditionContent() {
         return additionContent;
     }

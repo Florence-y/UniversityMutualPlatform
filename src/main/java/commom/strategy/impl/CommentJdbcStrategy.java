@@ -8,11 +8,9 @@ import dao.TeacherDao;
 import dao.impl.MarkNumberTypeDaoImpl;
 import dao.impl.StudentDaoImpl;
 import dao.impl.TeacherDaoImpl;
-import pojo.Answer;
 import pojo.Comment;
 import pojo.Student;
 import pojo.Teacher;
-import util.ReflectUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,13 +34,12 @@ public class CommentJdbcStrategy implements JdbcGetPojoStrategy<Comment> {
         comment.setAnswerId(resultSet.getInt("comment_answerId"));
         comment.setMarkNumber(comment_markNumber);
         //根据学号得到类型
-        String type=markNumberTypeDao.getUserType(comment_markNumber);
-        if (ServletConstantVal.STUDENT.equals(type)){
-            Student student = studentDao.getStudentByCondition(ServletConstantVal.STUDENT_MARK_NUMBER_COL,comment_markNumber);
+        String type = markNumberTypeDao.getUserType(comment_markNumber);
+        if (ServletConstantVal.STUDENT.equals(type)) {
+            Student student = studentDao.getStudentByCondition(ServletConstantVal.STUDENT_MARK_NUMBER_COL, comment_markNumber);
             comment.setStudent(student);
-        }
-        else if (ServletConstantVal.TEACHER.equals(type)){
-            Teacher teacher = teacherDao.getTeacherByCondition(ServletConstantVal.TEACHER_MARK_NUMBER_COL,comment_markNumber);
+        } else if (ServletConstantVal.TEACHER.equals(type)) {
+            Teacher teacher = teacherDao.getTeacherByCondition(ServletConstantVal.TEACHER_MARK_NUMBER_COL, comment_markNumber);
             comment.setTeacher(teacher);
         }
         return comment;

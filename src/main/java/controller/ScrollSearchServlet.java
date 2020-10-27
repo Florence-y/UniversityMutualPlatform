@@ -2,15 +2,12 @@ package controller;
 
 import commom.constantval.ServletConstantVal;
 import commom.factory.ResponseFactory;
-import pojo.Page;
 import pojo.Question;
-import pojo.Response;
 import service.ExploreService;
 import service.impl.ExploreServiceImpl;
 import util.ElasticUtil;
 import util.WebUtil;
 
-import javax.lang.model.util.ElementScanner6;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +25,7 @@ import static commom.constantval.ServletConstantVal.POJO_QUESTION;
 public class ScrollSearchServlet extends HttpServlet {
     Map<String, Object> map;
     ExploreService exploreService = new ExploreServiceImpl();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
@@ -48,14 +46,12 @@ public class ScrollSearchServlet extends HttpServlet {
         //滚动id
         String id = (String) map.get("scrollId");
         //实体类型
-        String type= (String) map.get("pojoType");
-        if (POJO_QUESTION.equals(type)){
-            WebUtil.writeObjToResponse(response,ElasticUtil.scrollSearch(id,new Question()));
-        }
-        else if (1==2){
+        String type = (String) map.get("pojoType");
+        if (POJO_QUESTION.equals(type)) {
+            WebUtil.writeObjToResponse(response, ElasticUtil.scrollSearch(id, new Question()));
+        } else if (1 == 2) {
 
-        }
-        else {
+        } else {
             WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(500));
         }
         System.out.println("get");

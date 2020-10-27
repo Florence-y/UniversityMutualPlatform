@@ -1,0 +1,636 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 1790px;
+    /* background-image: url(../../../../img/register/bg.jpg); */
+    background-image: url(../img/bg.jpg);
+    background-repeat: none;
+    background-position: 0 0;
+    background-size: cover;
+}
+
+table {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 780px;
+    height: 680px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 24px;
+}
+
+
+/*头部标题*/
+
+.head_title {
+    height: 80px;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 700;
+    color: #333;
+}
+
+td {
+    text-align: center;
+}
+
+.status_out {
+    padding-top: 10px;
+    height: 60px;
+    /* height: 40px; */
+}
+
+
+/*身份  */
+
+.status {
+    position: relative;
+    margin: 0 auto;
+    height: 100%;
+    width: 510px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-size: 22px;
+}
+
+.status_display {
+    border: none;
+}
+
+.status header {
+    cursor: default;
+    position: relative;
+}
+
+.status header span {
+    display: inline-block;
+    line-height: 60px;
+    position: absolute;
+    top: 0px;
+}
+
+.status header .text {
+    display: inline-block;
+    left: 6px;
+    color: #444;
+}
+
+.status header .alter {
+    right: 20px;
+    font-size: 22px;
+    color: #02A7F0;
+    cursor: pointer;
+}
+
+.individual_inner {
+    position: relative;
+}
+
+.individual_inner svg {
+    position: relative;
+    top: 4px;
+}
+
+.status .content {
+    display: none;
+    position: absolute;
+    width: 530px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.status .individual {
+    display: inline-block;
+    margin: 15px;
+    color: #444;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    font-size: 22px;
+    line-height: 50px;
+    width: 230px;
+    cursor: pointer;
+}
+
+.status .individual:hover {
+    border: 1px solid #02A7F0;
+    box-shadow: 0 0 1px #02A7F0;
+}
+
+
+/* 邮箱 */
+
+.email_out {
+    padding-top: 10px;
+    color: #444;
+    height: 50px;
+}
+
+.email {
+    width: 530px;
+    margin: 0 auto;
+    font-size: 22px;
+}
+
+.email span {
+    font-size: 22px;
+}
+
+.email_input,
+.email_tail {
+    border: 1px solid #ccc;
+    color: #444;
+    outline: none;
+    font-size: 22px;
+}
+
+.email_input {
+    padding: 2px 5px;
+    line-height: 50px;
+    width: 313px;
+    letter-spacing: 0.1em;
+    background-color: transparent;
+    border-radius: 8px;
+}
+
+.email_tail {
+    padding: 2px 5px;
+    display: inline-block;
+    line-height: 50px;
+    font-size: 22px;
+    border-radius: 8px;
+    width: 140px;
+}
+
+
+/*验证码*/
+
+
+/* 填写 */
+
+.confirm_out {
+    height: 50px;
+}
+
+.confirm {
+    position: relative;
+    margin: 0 auto;
+    width: 510px;
+    height: 50px;
+}
+
+.confirm_input {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 0px;
+    padding: 2px 5px;
+    width: 313px;
+    line-height: 50px;
+    font-size: 22px;
+    color: #444;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    letter-spacing: 0.1em;
+}
+
+.btn_disable {
+    background-color: #ccc;
+    border: 1px solid #ccc;
+}
+
+.send_btn {
+    position: absolute;
+    padding: 2px 5px;
+    line-height: 50px;
+    width: 140px;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 0px;
+    outline: none;
+    color: #fff;
+    font-size: 22px;
+    border: none;
+    box-sizing: content-box;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn_available {
+    background-color: #02A7F0;
+    border: 1px solid #02a7f0;
+}
+
+.btn_available:hover {
+    background-color: #2db4e5;
+}
+
+input {
+    background-color: transparent;
+    outline: none;
+}
+
+
+/* 发送验证码按钮 */
+
+
+/*下一步按钮*/
+
+.next_out {
+    height: 50px;
+}
+
+.next_btn {
+    display: block;
+    margin: 0 auto;
+    padding: 3px;
+    height: 55px;
+    width: 510px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 550;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-sizing: content-box;
+}
+
+
+/* 输入为空错误提示 */
+
+input.error {
+    color: #f00;
+    border: 1px solid #f00;
+    box-shadow: 0 0 1px #f00;
+}
+
+.editing {
+    border: 1px solid #02A7F0;
+    box-shadow: 0 0 1px #02A7F0;
+}
+
+
+/* 注册页下一步 */
+
+.form {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 680px;
+    height: 825px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 24px;
+    color: #444;
+}
+
+.form .row {
+    height: 50px;
+    line-height: 50px;
+    width: 650px;
+    margin: 27px auto;
+    text-align: left;
+    font-size: 22px;
+}
+
+.form .row .tip {
+    display: block;
+    width: 115px;
+    text-align: right;
+    position: absolute;
+    left: 70px;
+    font-size: 23px;
+    color: #666;
+    font-weight: 600;
+}
+
+.form .row .tip_2 {
+    letter-spacing: 1em;
+}
+
+.form .row .tip_3 {
+    letter-spacing: 0.33em;
+}
+
+.form .row .value {
+    display: block;
+    float: left;
+    position: absolute;
+    left: 180px;
+    width: 430px;
+    border-bottom: 1px solid #797979;
+}
+
+.form .input[type=text] {
+    border: none;
+}
+
+
+/* 年级选择 */
+
+.slideDown .choice {
+    position: relative;
+    display: block;
+    float: left;
+    padding: 0 5px;
+    height: 45px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.slideDown .choice::after {
+    display: block;
+    background-color: transparent;
+    width: 100%;
+    position: absolute;
+    top: 27px;
+    height: 50px;
+    content: "";
+}
+
+.slideDown .list {
+    position: absolute;
+    display: none;
+    padding: 3px;
+    top: 50px;
+    width: 300px;
+    list-style: none;
+    border: 1px solid #ccc;
+    background-color: rgba(255, 255, 255, 0.96);
+    z-index: 10;
+    overflow: hidden;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.4);
+}
+
+.college .list {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc;
+}
+
+.college .list::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.college .list::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #ccc;
+}
+
+.college .list::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: transparent;
+}
+
+.major .list {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc;
+}
+
+.slideDown .list li {
+    padding-left: 10px;
+    line-height: 40px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.slideDown .list li:hover {
+    color: #02A7F0;
+}
+
+.slideDown .choice svg {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    cursor: pointer;
+}
+
+
+/* 先做完下拉动画，接着把overflow改成auto 选完后改回hidden*/
+
+.campus .choice,
+.sex .choice {
+    position: relative;
+    display: block;
+    float: left;
+    padding: 0 5px;
+    height: 45px;
+    box-sizing: border-box;
+}
+
+.campus .switch,
+.sex .switch {
+    position: absolute;
+    display: none;
+    top: 10px;
+    right: 12px;
+    cursor: pointer;
+}
+
+.campus .item,
+.sex .item {
+    display: block;
+    position: absolute;
+    border: none;
+    line-height: 45px;
+    width: 110px;
+    height: 45px;
+    cursor: pointer;
+}
+
+
+/* 校本部 */
+
+.campus .headquarter {
+    left: 5px;
+    text-align: left;
+}
+
+
+/* 校区 */
+
+.campus .Zhaoqing {
+    width: 140px;
+    right: 5px;
+    text-align: right;
+}
+
+.sex .male {
+    left: 5px;
+    text-align: left;
+}
+
+.sex .female {
+    right: 5px;
+    text-align: right;
+}
+
+.campus .item svg,
+.sex .item svg {
+    position: relative;
+    top: 4px;
+}
+
+.markNumber input,
+.userName input,
+#graduatedUniversity input {
+    width: 380px;
+    height: 30px;
+    line-height: 30px;
+    box-sizing: border-box;
+    padding: 2px 5px;
+    font-size: 22px;
+    border: none;
+    letter-spacing: 0.1em;
+}
+
+
+/* 用户名的验证成功 */
+
+.userName .value {
+    position: relative;
+}
+
+.userName .value input {
+    width: 205px;
+}
+
+.userName .success_icon {
+    position: absolute;
+    display: none;
+    top: 5px;
+    right: 5px;
+}
+
+
+/* 密码框 */
+
+.password {
+    position: relative;
+    display: inline-block;
+    height: 45px;
+    line-height: 45px;
+    box-sizing: border-box;
+    padding: 2px 5px;
+}
+
+.password>input {
+    display: block;
+    float: left;
+    position: relative;
+    top: -0.5px;
+    width: 380px;
+    font-size: 22px;
+    line-height: 45px;
+    border: none;
+}
+
+.password svg {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.campus .choice {
+    display: inline-block;
+}
+
+
+/* 注册按钮 */
+
+.submit_btn {
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    top: 2.5px;
+    height: 50px;
+    font-size: 24px;
+    font-weight: 600;
+    width: 318px;
+    border: none;
+    background-color: #02A7F0;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+/*激活底线*/
+
+.active_line {
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 4;
+    height: 1.1px;
+    background-color: #02A7F0;
+    box-shadow: 0 0 2px #02A7F0;
+    width: 0px;
+    border-radius: 20px;
+    transition: width, ease-in 0.3s;
+}
+
+.row .value:hover .active_line {
+    width: 430px;
+}
+
+
+/* form2输入错误 */
+
+.error_form2 {
+    border-bottom: 1px solid #f00;
+}
+
+
+/* 错误信息用模态框 */
+
+.modal_bg {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+}
+
+.modal {
+    background-color: #fdfdfd;
+    border-radius: 4px;
+    padding: 10px;
+    width: 370px;
+    height: 180px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal_content {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 100%;
+    line-height: 40px;
+    font-size: 25px;
+    color: #333;
+    text-align: center;
+}

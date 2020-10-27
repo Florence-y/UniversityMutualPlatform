@@ -108,9 +108,10 @@ public class elasticTest {
         List<String> list = ElasticUtil.multiOrSearch("lost", map, 5, true);
         System.out.println(list);
     }
+
     @Test
     public void nestSearchTest() throws IOException {
-        Page<Question> questionPage = ElasticUtil.scrollSearchFirst("question", ElasticUtil.getNestedQuery("contents","contentMain","饭你说好不好吃"), new Question());
+        Page<Question> questionPage = ElasticUtil.scrollSearchFirst("question", ElasticUtil.getNestedQuery("contents", "contentMain", "饭你说好不好吃"), new Question());
         System.out.println(questionPage);
     }
 }
