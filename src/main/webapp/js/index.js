@@ -46,6 +46,7 @@ window.onload = function() {
 
     //#endregion
 
+    alert("页面加载完成");
 }
 
 var mainScrollid = new Array();
@@ -111,7 +112,7 @@ var inmaincontent2 = function(res, quizlist) {
 
         //创建添加 div.queY > h3
         var contenturl = 'html/questionPage.html?id=' + data.id;
-        var div = $("<div class='queY'><h3><a target='_blank' href='" + contenturl + "'>" + res.dataList[j].title + "</a></h3></div>");
+        var div = $("<div class='queY'><h3><a target='_blank' href='" + contenturl + "'>" + data.title + "</a></h3></div>");
         $(quizlist).find("h4").before(div);
 
         //创建添加 h3>span
@@ -345,7 +346,7 @@ $(function() {
                 requestType: "get",
                 pojoType: "question",
             }, function(res) {
-                // console.log(res);
+                console.log(res);
 
                 if (res.questionType === "学习篇") {
                     // quizlist = ".studyParty";
