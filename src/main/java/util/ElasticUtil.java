@@ -21,6 +21,7 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.*;
 import org.elasticsearch.cluster.metadata.MappingMetadata;
 import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentBuilder;
@@ -34,16 +35,16 @@ import org.elasticsearch.script.ScriptType;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import pojo.IndexObject;
 import pojo.Page;
-import pojo.Question;
 import pojo.Response;
 
 import java.io.IOException;
 import java.util.*;
 
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
-import static org.elasticsearch.index.query.QueryBuilders.moreLikeThisQuery;
 
 /**
  * @author Florence
@@ -130,10 +131,29 @@ public class ElasticUtil {
         return list;
     }
 
-    private static <T extends IndexObject> List<T> getPojoFromHits(SearchHits hits, T clazz) throws IOException {
+    private static <T extends IndexObject> List<T> getPojoFromHits(SearchHits hits, T clazz, boolean isHighlight) throws IOException {
         List<T> list = new LinkedList<>();
+        T t;
         for (SearchHit hit : hits) {
-            T t = (T) WebUtil.jsonToObj(clazz.getClass(), hit.getSourceAsString());
+            if (!isHighlight) {
+                t = (T) WebUtil.jsonToObj(clazz.getClass(), hit.getSourceAsString());
+            } else {
+                Map<String, HighlightField> highlightFields = hit.getHighlightFields();
+                Map<String, Object> sourceAsMap = hit.getSourceAsMap();
+                if (highlightFields != null) {
+                    for (Map.Entry<String, HighlightField> entry : highlightFields.entrySet()) {
+                        String fieldName = entry.getKey();
+                        HighlightField value = entry.getValue();
+                        Text[] fragments = value.fragments();
+                        String newFieldsValue = "";
+                        for (Text text : fragments) {
+                            newFieldsValue += text;
+                        }
+                        sourceAsMap.put(fieldName, newFieldsValue);
+                    }
+                }
+                t = (T) WebUtil.mapToObj(sourceAsMap, clazz.getClass());
+            }
             t.setId(hit.getId());
             list.add(t);
         }
@@ -169,11 +189,11 @@ public class ElasticUtil {
         SearchScrollRequest scrollRequest = new SearchScrollRequest(scrollId);
         scrollRequest.scroll(TimeValue.timeValueMinutes(20));
         SearchResponse searchScrollResponse = client.scroll(scrollRequest, RequestOptions.DEFAULT);
-        setScrollPage(searchScrollResponse, page, pojo);
+        setScrollPage(searchScrollResponse, page, pojo, true);
         return page;
     }
 
-    public static <T extends IndexObject> Page<T> scrollSearchFirst(String index, QueryBuilder queryBuilder, T pojo) throws IOException {
+    public static <T extends IndexObject> Page<T> scrollSearchFirst(String index, QueryBuilder queryBuilder, T pojo, boolean isHighlight, String... values) throws IOException {
         Page<T> page = new Page<>();
         SearchRequest searchRequest = new SearchRequest(index);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -181,9 +201,19 @@ public class ElasticUtil {
         searchSourceBuilder.size(Page.PAGE_SIZE);
         searchRequest.source(searchSourceBuilder);
         searchRequest.scroll(TimeValue.timeValueMinutes(20));
+        if (isHighlight) {
+            HighlightBuilder highlightBuilder = new HighlightBuilder();
+            for (String val : values) {
+                HighlightBuilder.Field highlightTitle = new HighlightBuilder.Field(val);
+                highlightBuilder.field(highlightTitle);
+            }
+            highlightBuilder.preTags("<span style='color:#000; font-size:23px'>");
+            highlightBuilder.postTags("</span>");
+            searchSourceBuilder.highlighter(highlightBuilder);
+        }
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
         //设置分页信息
-        setScrollPage(searchResponse, page, pojo);
+        setScrollPage(searchResponse, page, pojo, isHighlight);
         return page;
     }
 
@@ -191,10 +221,10 @@ public class ElasticUtil {
         return length >= Page.PAGE_SIZE;
     }
 
-    private static <T extends IndexObject> List<String> setScrollPage(SearchResponse searchResponse, Page<T> page, T pojo) throws IOException {
+    private static <T extends IndexObject> List<String> setScrollPage(SearchResponse searchResponse, Page<T> page, T pojo, boolean isHighlight) throws IOException {
         SearchHits hits = searchResponse.getHits();
-        List<T> pojoFromHits = getPojoFromHits(hits, pojo);
-        List<String> idStrings= getIdFromHits(hits);
+        List<T> pojoFromHits = getPojoFromHits(hits, pojo, isHighlight);
+        List<String> idStrings = getIdFromHits(hits);
         page.setDataList(pojoFromHits);
         page.setNext(hasNext(hits.getHits().length));
         page.setScrollId(searchResponse.getScrollId());
@@ -202,8 +232,8 @@ public class ElasticUtil {
     }
 
     private static List<String> getIdFromHits(SearchHits hits) {
-        List<String >list = new LinkedList<>();
-        for (SearchHit hit:hits){
+        List<String> list = new LinkedList<>();
+        for (SearchHit hit : hits) {
             list.add(hit.getId());
         }
         return list;
@@ -372,7 +402,7 @@ public class ElasticUtil {
             //添加map数据
             IndexRequest indexRequest = new IndexRequest(indexName).source(json, XContentType.JSON);
             //索引
-            indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
+            indexResponse = client. index(indexRequest, RequestOptions.DEFAULT);
         } catch (IOException e) {
             e.printStackTrace();
             log.error("添加文档出现异常 {}", e.getMessage());

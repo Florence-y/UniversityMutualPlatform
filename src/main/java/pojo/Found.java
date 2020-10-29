@@ -10,7 +10,7 @@ import java.util.Date;
  * @author Florence
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Found  extends IndexObject{
+public class Found extends IndexObject {
     @IsValid(valid = true, fieldName = "contact")
     private String contact;
     @IsValid(valid = true, fieldName = "imgs")
@@ -25,6 +25,11 @@ public class Found  extends IndexObject{
     private Date foundTime;
     @IsValid(valid = true, fieldName = "objectType")
     private String objectType;
+    @IsValid(valid = true, fieldName = "authorMarkNumber")
+    private String authorMarkNumber;
+    private Student student;
+    private Teacher teacher;
+    private String userType;
 
     public String getContact() {
         return contact;
@@ -82,6 +87,38 @@ public class Found  extends IndexObject{
         this.objectType = objectType;
     }
 
+    public String getAuthorMarkNumber() {
+        return authorMarkNumber;
+    }
+
+    public void setAuthorMarkNumber(String authorMarkNumber) {
+        this.authorMarkNumber = authorMarkNumber;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
     @Override
     public String toString() {
         return "Found{" +
@@ -92,6 +129,10 @@ public class Found  extends IndexObject{
                 ", foundObjectName='" + foundObjectName + '\'' +
                 ", foundTime=" + foundTime +
                 ", objectType='" + objectType + '\'' +
+                ", authorMarkNumber='" + authorMarkNumber + '\'' +
+                ", student=" + student +
+                ", teacher=" + teacher +
+                ", userType='" + userType + '\'' +
                 '}';
     }
 }

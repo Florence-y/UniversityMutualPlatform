@@ -10,8 +10,6 @@ import commom.annontation.DbTable;
  */
 @DbTable("t_comment")
 public class Comment {
-
-
     Student student;
     Teacher teacher;
     @DbPriKey

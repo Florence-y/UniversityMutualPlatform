@@ -10,7 +10,7 @@ import java.util.Date;
  * @author 丢失实体
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Lost  extends IndexObject{
+public class Lost extends IndexObject {
     @IsValid(valid = true, fieldName = "contact")
     private String contact;
     @IsValid(valid = true, fieldName = "imgs")
@@ -25,19 +25,13 @@ public class Lost  extends IndexObject{
     private Date lostTime;
     @IsValid(valid = true, fieldName = "objectType")
     private String objectType;
+    @IsValid(valid = true, fieldName = "authorMarkNumber")
+    private String authorMarkNumber;
 
-    @Override
-    public String toString() {
-        return "Lost{" +
-                "contact='" + contact + '\'' +
-                ", imgs=" + Arrays.toString(imgs) +
-                ", lostDescribe='" + lostDescribe + '\'' +
-                ", lostLocation='" + lostLocation + '\'' +
-                ", lostObjectName='" + lostObjectName + '\'' +
-                ", lostTime=" + lostTime +
-                ", objectType='" + objectType + '\'' +
-                '}';
-    }
+
+    private Student student;
+    private Teacher teacher;
+    private String userType;
 
     public String getContact() {
         return contact;
@@ -93,5 +87,54 @@ public class Lost  extends IndexObject{
 
     public void setObjectType(String objectType) {
         this.objectType = objectType;
+    }
+
+    public String getAuthorMarkNumber() {
+        return authorMarkNumber;
+    }
+
+    public void setAuthorMarkNumber(String authorMarkNumber) {
+        this.authorMarkNumber = authorMarkNumber;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    @Override
+    public String toString() {
+        return "Lost{" +
+                "contact='" + contact + '\'' +
+                ", imgs=" + Arrays.toString(imgs) +
+                ", lostDescribe='" + lostDescribe + '\'' +
+                ", lostLocation='" + lostLocation + '\'' +
+                ", lostObjectName='" + lostObjectName + '\'' +
+                ", lostTime=" + lostTime +
+                ", objectType='" + objectType + '\'' +
+                ", authorMarkNumber='" + authorMarkNumber + '\'' +
+                ", student=" + student +
+                ", teacher=" + teacher +
+                ", userType='" + userType + '\'' +
+                '}';
     }
 }

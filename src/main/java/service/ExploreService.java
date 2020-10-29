@@ -1,8 +1,6 @@
 package service;
 
-import pojo.IndexObject;
-import pojo.Page;
-import pojo.Question;
+import pojo.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -45,4 +43,9 @@ public interface ExploreService {
      * @return 得到的分页对象
      */
     <T extends IndexObject> Page<T> getPageByScrollId(String scrollId, T pojo) throws IOException;
+
+    Page<Found> exploreFound(String exploreContent) throws IOException;
+
+    Page<Lost> exploreLost(String exploreContent) throws IOException;
+
 }

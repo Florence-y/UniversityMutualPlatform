@@ -110,6 +110,7 @@ body {
     overflow: auto;
     scrollbar-color: #797979;
     scrollbar-width: thin;
+    position: relative;
 }
 
 .hoverBox .itemList_box::-webkit-scrollbar {
@@ -125,6 +126,15 @@ body {
 .hoverBox .itemList_box::-webkit-scrollbar-track {
     border-radius: 0;
     background-color: transparent;
+}
+
+.hoverBox .itemList {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
 
 
@@ -517,10 +527,15 @@ body {
 
 .hoverBox .contentBox_information .item img {
     position: relative;
-    /* top: 5px; */
+    top: 10px;
     width: 80px;
     height: 80px;
     border-radius: 80px;
+    transition: all 0.3s;
+}
+
+.hoverBox .contentBox_information .item img:hover {
+    top: 5px;
 }
 
 

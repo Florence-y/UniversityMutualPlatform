@@ -7,15 +7,18 @@
     <title>广金互助</title>
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/logOn.css">
-    <link href="css/quiz.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/quiz.css">
     <link rel="stylesheet" href="css/hoverPaneY.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/nav.css">
 
     <script src="js/jquery-3.5.1.js"></script>
     <script src="js/myCookie.js"></script>
     <script src="js/logOn.js"></script>
     <script src="js/quiz.js"></script>
     <script src="js/debounce.js"></script>
+
+    <script src="js/nav.js"></script>
     <script src="js/index.js"></script>
 
 </head>
@@ -29,7 +32,7 @@
             <div class="modal_head">
                 <button class="fadeout">&times;</button>
                 <!-- <i class="iconfont icondibudaohanglan-"></i> -->
-                <b class="logonTitle">登录</b>
+                <b class="logonTitle">用户登录</b>
             </div>
 
             <!-- 模态框 内容 ->登录页面logOn -> 忘记密码页面forgetPas -> 重置密码页面resetPas -->
@@ -240,8 +243,34 @@
                     <input type="text" class="searchBar">
                     <input type="button" class="searchBtn">
                     <i class="iconfont iconsousuo"></i>
-                    <!-- </input> -->
                 </form>
+                <ul class="searchContent" style="display: none;">
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <!-- <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会考什么立刻就会考什么立刻就会1</a></li>
+                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a> </li>
+                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li>
+                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li>
+                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li> -->
+                </ul>
             </div>
 
             <!--         登录注册按钮      -->
@@ -282,7 +311,7 @@
                         <div><i class="iconfont iconjinru2"></i><em>进入个人中心</em> </div>
 
                         <!-- 我的关注 -->
-                        <div>
+                        <div class="attention">
                             <i class="iconfont iconwodeguanzhu"></i>
                             <em>我的关注</em>
                             <div class="hpSecondSecond concernsY">
@@ -298,14 +327,15 @@
             <!-- 内容框 -->
             <div class="contentBox_subscribe">
                 <div class="itemList_box">
-                    <ul class="itemList">
-                        <li class="item">
+                    <ul class="itemList myAttention" style="display: block;">
+                        <!-- <li class="item">
                             <a class="img_link" href="#" title="进入主页">
                                 <img src="img/use1 (1).jpg ">
                             </a>
                             <span class="userName">用户名</span>
                             <span class="status">身份</span>
                             <div class="sex">
+
                                 <svg class="male" height="30" p-id="3642" t="1602171820438 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
                                                             <path
                                                                 d="M262.144 419.84C194.56 270.336 286.72 106.496 407.552 18.432c-2.048 16.384-8.192 49.152-10.24 67.584 32.768-20.48 65.536-40.96 100.352-63.488 18.432 4.096 38.912 6.144 57.344 10.24
@@ -317,7 +347,7 @@
                     12.288 174.08 30.72 258.048 71.68-88.064 110.592-200.704 88.064-313.344 71.68 26.624 151.552 43.008 212.992 90.112 47.104 45.056 51.2 116.736 63.488 176.128V1024H81.92v-96.256c8.192-49.152 14.336-102.4 51.2-139.264z "
                                                                 fill="#17abe3 " p-id="3644 "></path>
                                                         </svg>
-                                <svg class="female on " height="30 " p-id="3272 " t="1602171713920 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
+                                <svg class="female on" height="30 " p-id="3272 " t="1602171713920 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
                                                             <path d="M373.793 306.073a373.53 373.53 0 0 0 283.884-6.724 373.53 373.53 0 0 1 41.089 185.272c-8.965 128.495-118.783 228.601-233.83 188.26s-158.378-259.978-91.143-366.808zM695.03 701.27a705.227
                     705.227 0 0 0 144.183 46.318c86.66 20.918 153.895 173.318 149.413 275.666H32.386s0-224.119 113.553-261.472a1114.617 1114.617 0 0 0 185.272-64.994s-11.206 241.3 114.3 233.83c40.342 0 67.983-93.383 67.983-93.383s50.053 93.383 91.889 93.383c79.935
                     0 88.9-198.718 89.647-229.348zM196.74 530.192a84.418 84.418 0 0 0 19.423 100.106C258 669.145 379.77 656.445 379.77 656.445a149.412 149.412 0 0 1-48.56 40.342l182.284 117.288L692.79 699.028c-50.8-27.64-28.388-44.077-28.388-44.077a313.02
@@ -327,19 +357,18 @@
                                                         </svg>
                             </div>
 
-                            <span class="school_info " title="互联网金融与信息工程学院 ">互联网金融与信息工程学院</span>
-                            <!-- 是否关注 -->
+                            <span class="school_info " title="互联网金融与信息工程学院 ">互联网金融与信息工程学院</span> 是否关注
                             <div class="subscribe " nextAction="turnOn " title="关注 ">
-                                <!--红 #d6204b -->
+                                红 #d6204b
                                 <svg class="do_subscribe " height="30 " p-id="3875 " t="1602172191268 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
                                                             <path d="M513.536 239.104S441.856 87.04 280.064 87.04C102.912 87.04 10.24 235.52 10.24 384c0 246.784 503.296 552.96 503.296 552.96S1013.76 633.856 1013.76 384c0-151.552-95.744-296.96-266.752-296.96-170.496
                     0-233.472 152.064-233.472 152.064z " fill="#bfbfbf " p-id="3876 "></path>
                                                         </svg>
                             </div>
-                            <!-- 私信 -->
+                            私信
                             <div class="sendText " title="私信 ">
-                                <!-- #17abe3 -->
-                                <svg class="icon " height="30 " p-id="4482 " t="1602172441453 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
+                                #17abe3
+                        <svg class="icon " height="30 " p-id="4482 " t="1602172441453 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
                                                             <path d="M935.724138 494.344828c0 204.8-188.910345 370.758621-423.724138 370.75862-67.089655 0-130.648276-14.124138-187.144828-38.841379-35.310345-14.124138-157.131034 60.027586-185.37931 38.841379-28.248276-21.186207
                     38.841379-141.241379 17.655172-167.724138C112.993103 639.117241 88.275862 568.496552 88.275862 494.344828 88.275862 289.544828 277.186207 123.586207 512 123.586207s423.724138 165.958621 423.724138 370.758621z m-605.572414 5.296551c0 14.124138
                     7.062069 26.482759 19.42069 33.544828s26.482759 7.062069 38.841379 0c12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379 0-12.358621
@@ -347,9 +376,10 @@
                     0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z m153.6 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
                     0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z " fill="#bfbfbf " p-id="4483 "></path>
                                                         </svg>
-                            </div>
-                        </li>
+                </div>
+                </li> -->
                     </ul>
+                    <ul class="itemList attentionMe"></ul>
                 </div>
             </div>
 
@@ -421,7 +451,7 @@
                 <!-- 内容框 -->
                 <div class="contentBox_request ">
                     <div class="itemList_box ">
-                        <ul class="itemList ">
+                        <ul class="itemList myCue" style="display: block;">
                             <!-- 我的提问和我的回答框架一样 -->
                             <li class="item ">
                                 <a href="# ">
@@ -469,6 +499,7 @@
                                 </a>
                             </li>
                         </ul>
+                        <ul class="itemList myAns"></ul>
                     </div>
                 </div>
 
@@ -484,7 +515,7 @@
                 <!-- 内容框 -->
                 <div class="contentBox_collection ">
                     <div class="itemList_box ">
-                        <ul class="itemList ">
+                        <ul class="itemList">
                             <li class="item ">
                                 <a href="# ">
                                     <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
@@ -566,9 +597,9 @@
     <!-- 内容框 -->
     <div class="contentBox_information">
         <div class="itemList_box">
-            <ul class="itemList">
+            <ul class="itemList system" style="display: block;">
 
-                <li class="item">
+                <!-- <li class="item">
                     <img src="img/use1 (1).jpg">
                     <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
@@ -627,9 +658,10 @@
                     <span class="userName itemTitle">用户名</span>
                     <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
                     <span class="time">21:53</span>
-                </li>
+                </li> -->
 
             </ul>
+            <ul class="itemList private"></ul>
         </div>
     </div>
 
@@ -646,6 +678,7 @@
 
     </span>
     </div>
+
     </div>
 
     </div>
@@ -693,7 +726,7 @@
     </div>
 
     <!--                          主要内容                           -->
-    <div class="maincontent ">
+    <div class="maincontent">
         <div class="w ">
 
             <!-- 问题内容 的固定 左边栏 -->
@@ -710,12 +743,15 @@
             </div>
 
             <!--  问题列表部分 -->
-            <div class="indexQuizList ">
-                <div class="studyPartY">
-                    <h2><i class="iconfont iconxuexi "></i>学习篇</h2>
+            <div class="indexQuizList">
+                <!-- <div class="loadingY">
+                    <img src="img/loading.gif" alt="">
+                </div> -->
+                <div class="studyPartY" data-part-index='0'>
+                    <h2><i class="iconfont iconxuexi"></i>学习篇</h2>
                     <!-- <div class="queY " data-list-index="0">
                         <h3>
-                            <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
+                            <a href="111111" class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
                             <span>#大一</span>
                             <span>#java</span>
                         </h3>
@@ -731,14 +767,14 @@
                             <span><i class="iconfont icondianzan "></i>点赞</span>
                             <span><i class="iconfont iconchakan "></i>查看回答</span>
                             <span><i class="iconfont iconshoucang "></i>收藏</span>
-                            <span><i class="iconfont "></i>复制链接</span>
+                            <span class="copyurlY"><i class="iconfont "></i>复制链接</span>
                         </div>
-
+                        <span class="active_line"></span>
                     </div> -->
 
                     <!-- <div class="queY " data-list-index="1 ">
                         <h3>
-                            <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
+                            <a href="222222" class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
                             <span>#大一</span>
                             <span>#java</span>
                         </h3>
@@ -753,12 +789,15 @@
                             <span><i class="iconfont icondianzan "></i>点赞</span>
                             <span><i class="iconfont iconchakan "></i>查看回答</span>
                             <span><i class="iconfont iconshoucang "></i>收藏</span>
-                            <span><i class="iconfont "></i>复制链接</span>
+                            <span class="copyurlY"><i class="iconfont "></i>复制链接</span>
                         </div>
+                        <span class="active_line"></span>
                     </div> -->
+
+                    <h4>点击加载更多</h4>
                 </div>
-                <div class="endOfTermPartY ">
-                    <h2><i class="iconfont iconkaoshi3 "></i>期末篇</h2>
+                <div class="endOfTermPartY" data-part-index='1'>
+                    <h2><i class="iconfont iconkaoshi3"></i>期末篇</h2>
                     <!-- <div class="queY " data-list-index="0 ">
                         <h3>
                             <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
@@ -780,10 +819,11 @@
                         </div>
 
                     </div> -->
+                    <h4>点击加载更多</h4>
                 </div>
-                <div class="dormitoryPartY ">
+                <div class="dormitoryPartY" data-part-index='2'>
                     <h2><i class="iconfont iconsushe "></i>宿舍篇</h2>
-                    <div class="queY " data-list-index="0 ">
+                    <!-- <div class="queY " data-list-index="0 ">
                         <h3>
                             <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
                             <span>#大一</span>
@@ -802,12 +842,13 @@
                             <span><i class="iconfont iconshoucang "></i>收藏</span>
                             <span><i class="iconfont "></i>复制链接</span>
                         </div>
-
-                    </div>
+                        <span class="active_line"></span>
+                    </div> -->
+                    <h4>点击加载更多</h4>
                 </div>
-                <div class="canteenPartY ">
+                <div class="canteenPartY" data-part-index='3'>
                     <h2><i class="iconfont iconshitang "></i>食堂篇</h2>
-                    <div class="queY " data-list-index="0 ">
+                    <!-- <div class="queY " data-list-index="0 ">
                         <h3>
                             <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
                             <span>#大一</span>
@@ -827,11 +868,12 @@
                             <span><i class="iconfont"></i>复制链接</span>
                         </div>
 
-                    </div>
+                    </div> -->
+                    <h4>点击加载更多</h4>
                 </div>
-                <div class="textualResearchPartY ">
+                <div class="textualResearchPartY" data-part-index='4'>
                     <h2><i class="iconfont iconziyuan "></i>考证篇</h2>
-                    <div class="queY " data-list-index="0 ">
+                    <!-- <div class="queY " data-list-index="0 ">
                         <h3>
                             <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
                             <span>#大一</span>
@@ -851,13 +893,13 @@
                             <span><i class="iconfont "></i>复制链接</span>
                         </div>
 
-                    </div>
+                    </div> -->
+                    <h4>点击加载更多</h4>
                 </div>
 
-                <div class="otherY">
-
+                <div class="otherY" data-part-index='5'>
                     <h2><i class="iconfont iconqita"></i>其他</h2>
-                    <div class="queY " data-list-index="0 ">
+                    <!-- <div class="queY " data-list-index="0 ">
                         <h3>
                             <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
                             <span>#大一</span>
@@ -878,8 +920,8 @@
                             <span><i class="iconfont "></i>复制链接</span>
                         </div>
 
-                    </div>
-
+                    </div> -->
+                    <h4>点击加载更多</h4>
                 </div>
 
             </div>

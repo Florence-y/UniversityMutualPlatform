@@ -207,7 +207,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     @Override
     public T selectOneColByOneCondition(String condition, Object o) {
         String sql = "SELECT * FROM " + getTableName() + " WHERE " + condition + "= ? LIMIT 1";
-        return (T) JdbcUtil.queryForJavaBean(sql, getPackageStrategy(), o);
+        return JdbcUtil.queryForJavaBean(sql, getPackageStrategy(), o);
     }
 
     /**

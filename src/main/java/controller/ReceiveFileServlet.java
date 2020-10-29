@@ -27,7 +27,7 @@ public class ReceiveFileServlet extends HttpServlet {
     Map<String, Object> map;
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         String savePath = makeSureMkdirExist(request);
         try {
             //创建一个DiskFileItemFactory工厂
@@ -46,10 +46,6 @@ public class ReceiveFileServlet extends HttpServlet {
                 //自定义获取信息方法
                 getInfFromFromData(item, map, savePath);
             }
-//            UserServer server= new UserServerImpl();
-//            //调用服务改变用户头像地址
-//            server.changeUserFace(map.get("account"),map.get("face"));
-//            返回用户头像地址
             WebUtil.writeObjToResponse(response, ResponseFactory.getMessage(map.get("face")));
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +87,13 @@ public class ReceiveFileServlet extends HttpServlet {
         if (!file.exists() && !file.isDirectory()) {
             System.out.println(savePath + "目录不存在，需要创建");
             //创建目录
-            file.mkdir();
+            boolean mkdir = file.mkdir();
+            if (mkdir){
+                System.out.println("创建成功");
+            }
+            else {
+                System.out.println("创建失败");
+            }
         }
         return savePath;
     }

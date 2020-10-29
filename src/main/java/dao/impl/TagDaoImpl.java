@@ -38,6 +38,7 @@ public class TagDaoImpl extends BaseDaoImpl implements TagDao {
         List<String> list = new ArrayList<>();
         String sql = "SELECT tag_name from " + getTableName();
         Connection connection = C3P0Util.getConnection();
+        assert connection != null;
         ResultSet resultSet = JdbcUtil.queryForGetResultSet(connection, sql);
         while (resultSet.next()) {
             list.add(resultSet.getString("tag_name"));

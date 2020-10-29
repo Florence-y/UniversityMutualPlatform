@@ -122,11 +122,11 @@ public class UserServiceImpl implements UserService {
             }
             //用户不存在(用户名和哪个都不行)
             if (inf == null) {
-                return (Response<T>) ResponseFactory.getMessage("用户不存在").setStatusCode(500);
+                return (Response<T>) ResponseFactory.getMessage("用户不存在").setStatusCode(Response.ERROR);
             }
             //密码错误
             if (!inf.getPassword().equals(Md5Until.getMd5((String) map.get(PASSWORD)))) {
-                return (Response<T>) ResponseFactory.getMessage("密码错误").setStatusCode(500);
+                return (Response<T>) ResponseFactory.getMessage("密码错误").setStatusCode(Response.ERROR);
             }
             //登录成功发送成功对象
             return (Response<T>) ResponseFactory.getLoginSuccessResponse(inf.getId(),

@@ -46,6 +46,12 @@ public class WebUtil {
         return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
     }
 
+
+    public static <T> T mapToObj(Map<String, Object> map, Class<T> clazz) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(mapToJson(map), clazz);
+    }
+
     /**
      * map转json
      *

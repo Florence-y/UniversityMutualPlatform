@@ -1,6 +1,8 @@
 $(function() {
     //#region //刷新页面 清空表单内容
+
     $('.modal_bg_logon input').val("");
+
     //#endregion
 
     //#region 学号/密码 放缩

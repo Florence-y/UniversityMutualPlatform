@@ -1,8 +1,11 @@
 package controller;
 
 import commom.constantval.ServletConstantVal;
+import commom.factory.ResponseFactory;
+import pojo.Found;
+import pojo.Lost;
 import pojo.Page;
-import pojo.Question;
+import pojo.Response;
 import service.ExploreService;
 import service.impl.ExploreServiceImpl;
 import util.WebUtil;
@@ -12,20 +15,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author DELL
+ * @author Florence
+ * 搜索
  */
-@WebServlet("/Servlet/MainPageServlet")
-public class MainPageServlet extends HttpServlet {
-    private static final String INIT = "init";
-    private static final String SPECIAL = "special";
-    private static final String EXPLORE = "explore";
+@WebServlet("/Servlet/LostAndFoundExploreServlet")
+public class LostAndFoundExploreServlet extends HttpServlet {
     Map<String, Object> map;
-    ExploreService service = new ExploreServiceImpl();
+    ExploreService exploreService = new ExploreServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -44,21 +44,18 @@ public class MainPageServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
-
-        String getType = (String) map.get("getType");
-        try {
-            if (INIT.equals(getType)) {
-                List<Page> pages = service.initPage();
-                WebUtil.writeObjToResponse(response, pages);
-            } else if (SPECIAL.equals(getType)) {
-                Page<Question> page = service.getSpecialType((String) map.get("authorMarkNumber"));
-                WebUtil.writeObjToResponse(response, page);
-            } else if (EXPLORE.equals(getType)) {
-                Page<Question> page = service.exploreQuestion((String) map.get("exploreContent"));
-                WebUtil.writeObjToResponse(response, page);
-            }
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+        String type = (String) map.get("type");
+        String exploreContent= (String) map.get("exploreContent");
+        if (ServletConstantVal.FOUND.equals(type)){
+            Page<Found> page= exploreService.exploreFound(exploreContent);
+            WebUtil.writeObjToResponse(response,page);
+        }
+        else if (ServletConstantVal.LOST.equals(type)){
+            Page<Lost> page= exploreService.exploreLost(exploreContent);
+            WebUtil.writeObjToResponse(response,page);
+        }
+        else {
+            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(Response.OK,"搜索类型没输入或者输入错误"));
         }
         System.out.println("get");
     }

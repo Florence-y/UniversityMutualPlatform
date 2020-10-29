@@ -2,7 +2,7 @@ var isLogon;
 //
 var oAuthor;
 //整篇文章的id
-var questionId_local = "-v7_XXUBiXTkHA3SnKPb";
+var questionId_local = getQueryVariable("id");
 
 loadQuestion();
 // console.log(getCookie("markNumber"));
@@ -1151,7 +1151,7 @@ $('.copyLink_btn').click(function() {
 //回答和评论都有判断
 //发送通知
 function sendInfo(data) {
-    console.log("发送了通知！")
+    // console.log("发送了通知！")
     $.ajax({
         url: "http://192.168.137.103:8080/Servlet/InfServlet",
         type: "post",
@@ -1161,14 +1161,14 @@ function sendInfo(data) {
         }
     })
 }
-var data = {
-    "senderMarkNumber": getCookie("markNumber")[2],
-    "receiverMarkNumber": "",
-    "content": "关注了你",
-    "additionContent": "额外内容 可以为空",
-    "type": "inf",
-    "senderName": getCookie("userName")[2],
-    "isRead": false,
-    "senderFace": getCookie("face")[2],
-    "requestType": "post"
-}
+// var data = {
+//     "senderMarkNumber": getCookie("markNumber")[2],
+//     "receiverMarkNumber": "",
+//     "content": "关注了你",
+//     "additionContent": "额外内容 可以为空",
+//     "type": "inf",
+//     "senderName": getCookie("userName")[2],
+//     "isRead": false,
+//     "senderFace": getCookie("face")[2],
+//     "requestType": "post"
+// }

@@ -19,8 +19,6 @@ public class Attention {
     private String passMarkNumber;
     @DbCol("attention_isMutual")
     private boolean isMutual;
-
-
     private String userFace;
     private String userName;
     private String userType;

@@ -88,7 +88,7 @@ public class AttentionDaoImpl extends BaseDaoImpl<Attention> implements Attentio
         //循环遍历增加attention信息
         for (Attention attention : attentions) {
             //获取学号
-            markNumber = attention.getPassMarkNumber();
+            markNumber = attention.getMajorMarkNumber();
             //获取用户类型
             userType = markNumberTypeDao.getUserType(markNumber);
             //如果类型为学生的话

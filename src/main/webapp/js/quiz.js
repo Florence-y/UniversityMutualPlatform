@@ -1,4 +1,20 @@
 $(function() {
+
+    $(".quizModal_bg").on({
+        click: function() {
+            // console.log("点击了");
+            $('.quizModal_bg').fadeOut(); // 其实就是css 的过渡+ display
+            $('.quizModal').css({
+                transform: 'translate(-50%,-50%) scale(0.7)'
+            })
+        }
+    })
+    $(".quizModal").on({
+        click: function(e) {
+            e.stopPropagation();
+        }
+    })
+
     //设置背景高度
     $('.cueY').click(function() {
         // $(".quizModal").siblings().fadeOut();
@@ -103,7 +119,6 @@ $(function() {
     // })
     //#endregion
 
-    //#endregion
     //打开文章列表
     $(".quizModal_bg_askQuestion .questionType svg").click(function() {
         $('.quizModal_bg_askQuestion .questionType .list').slideDown();

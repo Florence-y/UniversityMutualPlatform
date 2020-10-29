@@ -24,7 +24,7 @@ public class UserServlet extends HttpServlet {
     Map<String, Object> map;
     UserService service = new UserServiceImpl();
 
-    private static void setCookie(HttpServletResponse response, Response rep) {
+    private static <T> void setCookie(HttpServletResponse response, Response<T> rep) {
         if (Response.OK == rep.getStatusCode()) {
             //设置用户名，用户类型cookie
             response.addCookie(new Cookie("userName", rep.getUserName()));
@@ -61,7 +61,7 @@ public class UserServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
-        Response rep = service.userLogin((String) map.get("userType"), map);
+        Response<Object> rep = service.userLogin((String) map.get("userType"), map);
         //设置Cookie
         setCookie(response, rep);
         //写回状态

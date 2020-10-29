@@ -62,7 +62,7 @@ public class elasticTest {
 
     @Test
     public void getDoc() throws IOException {
-        Page<Found> found = ElasticUtil.scrollSearchFirst("found", QueryBuilders.matchAllQuery(), new Found());
+        Page<Found> found = ElasticUtil.scrollSearchFirst("found", QueryBuilders.matchAllQuery(), new Found(), false);
         Page<Found> foundPage = ElasticUtil.scrollSearch(found.getScrollId(), new Found());
         Page<Found> foundPage1 = ElasticUtil.scrollSearch(foundPage.getScrollId(), new Found());
         for (Found found1 : found.getDataList()) {
@@ -111,7 +111,7 @@ public class elasticTest {
 
     @Test
     public void nestSearchTest() throws IOException {
-        Page<Question> questionPage = ElasticUtil.scrollSearchFirst("question", ElasticUtil.getNestedQuery("contents", "contentMain", "饭你说好不好吃"), new Question());
+        Page<Question> questionPage = ElasticUtil.scrollSearchFirst("question", ElasticUtil.getNestedQuery("contents", "contentMain", "饭你说好不好吃"), new Question(), false);
         System.out.println(questionPage);
     }
 }

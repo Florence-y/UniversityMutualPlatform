@@ -1,5 +1,9 @@
 package pojo;
 
+/**
+ * @author Florence
+ * 索引对象父类
+ */
 public class IndexObject {
     String id;
 

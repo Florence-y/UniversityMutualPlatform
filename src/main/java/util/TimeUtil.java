@@ -1,7 +1,5 @@
 package util;
-
 import lombok.extern.slf4j.Slf4j;
-
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -141,7 +139,6 @@ public class TimeUtil {
         long days = diff / (1000 * 60 * 60 * 24);
         long hours = diff / (1000 * 60 * 60);
         long minutes = diff / (1000 * 60);
-        System.out.println("" + days + "天" + hours + "小时" + minutes + "分");
         if (MINUTE.equals(type)) {
             return minutes;
         } else if (HOUR.equals(type)) {

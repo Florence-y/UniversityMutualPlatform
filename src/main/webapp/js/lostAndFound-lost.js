@@ -7,6 +7,5 @@ $(function() {
         }
     })
 
-
     //#endregion
 })
