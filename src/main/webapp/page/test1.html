@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>json接口测试</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.js"></script>
+</head>
+<body>
+<button>开始</button>
+<script>
+    $('button').click(function () {
+        $.get("../Servlet/VerifyCodeServlet", {email: "2213576511@qq.com", requestType: "get"}, function (data) {
+            alert(data.message);
+        }, "json");
+    })
+</script>
+</body>
+</html>

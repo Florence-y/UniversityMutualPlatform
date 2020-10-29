@@ -1,0 +1,636 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 25px;
+}
+
+body {
+    background-color: #efefef;
+    font-family: "微软雅黑", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", PingHei, STHeiti;
+    /* font-family: 'Microsoft YaHei', 'iconfont'!important; */
+}
+
+b,
+i,
+em,
+h2,
+h3 {
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+button {
+    cursor: pointer;
+    outline: none;
+    border: 0;
+}
+
+input {
+    outline: none;
+    /* bottom: 0; */
+    border: 0;
+}
+
+.w {
+    max-width: 1790px;
+    min-width: 1790px;
+    margin: 0 auto;
+}
+
+
+/* .iconfont {
+    font-size: 14px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+} */
+
+
+/* #region                             导航栏                                     */
+
+.nav {
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    height: 120px;
+    background-color: #02a7f0;
+    /* background-color: #02A7BE; */
+    margin-bottom: 10px;
+    box-shadow: 0px 2px 12px 3px rgba(25, 24, 40, .35);
+}
+
+.nav .w {
+    width: 1790px;
+    height: 120px;
+    position: relative;
+}
+
+
+/* #region 校徽   */
+
+.nav .logo {
+    float: left;
+    height: 120px;
+    line-height: 100%;
+}
+
+.nav .logo img {
+    position: relative;
+    top: 27px;
+    left: 0;
+    height: 65px;
+}
+
+
+/* #endregion */
+
+
+/* #region 首页+校区互通+失物招领+提问 功能导航 */
+
+.nav .functionNav {
+    display: none;
+    float: left;
+    width: 480px;
+    height: 120px;
+    margin-left: 38px;
+}
+
+.nav .functionNav ul {
+    height: 50px;
+}
+
+.nav .functionNav li {
+    float: left;
+    /* width: 100px; */
+    position: relative;
+    top: 25px;
+    overflow: hidden;
+    height: 50px;
+    padding: 10px;
+    margin: 0 22px 0 15px;
+    text-align: center;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 50px;
+    cursor: pointer;
+    transition: all 0.1s;
+    letter-spacing: 2px;
+}
+
+.nav .functionNav li:hover {
+    top: 15px;
+}
+
+
+/* #endregion */
+
+
+/* #region 搜索框 */
+
+.nav .search {
+    position: absolute;
+    width: 600px;
+    height: 120px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    float: left;
+    transition: all 0.2s;
+}
+
+.nav .search form {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 600px;
+    height: 60px;
+}
+
+.nav .search input.searchBar {
+    float: left;
+    border-radius: 40px 0 0 40px;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 380px;
+    height: 60px;
+    font-size: 25px;
+    padding: 0 60px;
+    transition: all 0.3s;
+}
+
+.nav .search .searchBtn {
+    float: left;
+    position: relative;
+    width: 100px;
+    height: 60px;
+    border-radius: 0 40px 40px 0;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.nav .search .iconsousuo {
+    position: absolute;
+    top: 6px;
+    right: 28px;
+    font-size: 45px;
+    color: #02a7f0;
+    cursor: pointer;
+}
+
+.nav .search .searchBtn:hover .iconsousuo {
+    color: #1a237e;
+}
+
+.nav .search .iconsousuo:hover {
+    color: #1a237e;
+}
+
+
+/* #region 联想词内容*/
+
+.nav .searchContent {
+    position: absolute;
+    width: 100%;
+    height: 350px;
+    background-color: #fff;
+    top: 90px;
+    /* left: 17px; */
+    border-radius: 0 0 40px 40px;
+    padding: 15px 50px;
+    box-sizing: border-box;
+    box-shadow: 0 0 20px 20px rgba(43, 51, 59, 0.08);
+}
+
+.nav .searchContent li {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 23px;
+    margin: 10px;
+    cursor: pointer;
+    color: #1a237e;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    /* border-bottom: 2px #777 solid; */
+    background-color: #fff;
+    border-radius: 16px;
+}
+
+.nav .searchContent li a {
+    font-size: 23px;
+    color: #777;
+}
+
+.nav .searchContent li:hover {
+    color: #333;
+    box-shadow: 0 0 10px 10px rgba(43, 51, 59, 0.08);
+}
+
+.nav .searchContent li span {
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    float: left;
+    /* background-color: #81d4fa; */
+    margin: 0 5px 0 15px;
+    border-radius: 16px;
+}
+
+.nav .searchContent li span .iconfont {
+    font-size: 40px;
+    color: #02a7f0;
+    text-align: center;
+    line-height: 50px;
+}
+
+.nav .searchContent>li>em {
+    font-size: 23px;
+    /* font-weight: 700; */
+    /* color: #1a237e; */
+    /* color: #304ffe; */
+}
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #region 提问 + 消息 */
+
+
+/* #region 提问 */
+
+.quizModal_bg {
+    display: none;
+    background-color: #00000066;
+    /* position: absolute; */
+    position: fixed;
+    /* width: 100%; */
+    /* height: 100%;     */
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+}
+
+.quizModal {
+    background-color: #F2F2F2;
+    border-radius: 30px;
+    width: 730px;
+    height: 900px;
+    position: absolute;
+    border: 2px solid #02A7F0;
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    transition: all ease 0.5s;
+    transform: translate(-50%, -50%) scale(0.7);
+    box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.2);
+}
+
+.quizModal_bg .fadeout {
+    float: right;
+}
+
+.quizModal_bg .active_line {
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    left: 51%;
+    transform: translate(-50%, 0);
+    z-index: 4;
+    height: 1px;
+    background-color: #02A7F0;
+    box-shadow: 0 0 3px #02A7F0;
+    width: 0px;
+    border-radius: 20px;
+    transition: width, ease-in 0.3s;
+}
+
+.quizModal_bg .value:hover .active_line {
+    width: 271px;
+}
+
+
+/* #endregion */
+
+
+/* #region 消息 */
+
+.QAndM {
+    float: right;
+    width: 150px;
+    height: 120px;
+    float: right;
+    margin-right: 30px;
+    transition: all 0.3s;
+}
+
+.QAndM span.message,
+.QAndM span.cueY {
+    float: left;
+    width: 40px;
+    height: 41px;
+    margin-right: 35px;
+    /* line-height: 120px; */
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.QAndM .message .iconfont,
+.QAndM .cueY .iconfont {
+    font-size: 40px;
+    color: #fff;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    transition: all 0.15s;
+}
+
+.QAndM .message:hover .iconfont,
+.QAndM .cueY:hover .iconfont {
+    top: -10px;
+    /* margin-top: -10px; */
+}
+
+.QAndM .message .messageNotification {
+    display: none;
+    width: 465px;
+    height: 640px;
+    position: absolute;
+    top: 74px;
+    right: -210px;
+}
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #region 登录注册按钮 */
+
+.nav .personal {
+    /* display: none; */
+    /* margin-right: 50px; */
+    width: 145px;
+    float: right;
+    height: 120px;
+}
+
+.nav .personal .signUpBtn {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 145px;
+    height: 50px;
+    color: #02a7f0;
+    font-size: 22px;
+    background-color: #fff;
+    border-radius: 38px;
+    /* transition: all 0.3s; */
+    border: #fff 1px solid;
+    line-height: 50px;
+}
+
+
+/* .nav .personal .signUpBtn:hover {
+    background-color: #02a7f0;
+    color: #fff;
+} */
+
+.nav .personal .signUpBtn em {
+    float: right;
+    color: #02a7f0;
+    font-size: 22px;
+    height: 48px;
+    line-height: 50px;
+    width: 3em;
+    position: relative;
+    transition: all 0.3s;
+    border-radius: 0 38px 38px 0;
+    /* top: 1px; */
+    text-align: center;
+}
+
+.nav .personal .signUpBtn em.fadein {
+    float: left;
+    /* left: 1px; */
+    border-radius: 38px 0 0 38px;
+}
+
+.nav .personal .signUpBtn em:hover {
+    color: #fff;
+    /* right: 1px; */
+    background-color: #02a7f0;
+}
+
+
+/* #endregion */
+
+
+/* #region 头像 */
+
+.logonHeadPortrait {
+    display: none;
+    margin-top: 30px;
+    width: 85px;
+    float: right;
+    height: 90px;
+    box-sizing: border-box;
+}
+
+
+/* #region 头像 */
+
+.logonHeadPortrait .headPortrait {
+    float: right;
+    width: 65px;
+    height: 65px;
+    cursor: pointer;
+    position: relative;
+}
+
+.logonHeadPortrait .headPortrait img {
+    width: 65px;
+    height: 65px;
+    border-radius: 65px;
+}
+
+
+/* #region 头像二级导航 */
+
+.logonHeadPortrait .headPortrait .hpSecond {
+    display: none;
+    position: absolute;
+    top: 83px;
+    left: -195px;
+    background-color: #fff;
+    width: 465px;
+    box-shadow: -5px 0 20px 0 rgba(43, 51, 59, 0.08);
+    height: 640px;
+    z-index: 100;
+    box-sizing: border-box;
+    padding: 35px;
+    border-radius: 22px;
+}
+
+.logonHeadPortrait .headPortrait:hover .hpSecond {
+    display: block;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond>div {
+    height: 85px;
+    transition: all 0.1s;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond>div:nth-of-type(1) {
+    height: 150px;
+    cursor: default;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond>div:nth-of-type(1):hover {
+    background-color: transparent;
+    color: #000;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond>div:nth-last-of-type(1) {
+    border-bottom: 0;
+    width: 170px;
+    float: right;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond>div:hover {
+    background-color: transparent;
+    color: #0d47a1;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond .triangle {
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-bottom-color: #fff;
+    z-index: 999;
+    position: absolute;
+    top: -38px;
+    left: 208px;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond .hpPersonalAttributes>img {
+    width: 130px;
+    height: 130px;
+    border-radius: 130px;
+    float: left;
+    margin-right: 25px;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond>div em {
+    font-size: 24px;
+    line-height: 85px;
+    padding-right: 10px;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond .hpPersonalAttributes em {
+    float: left;
+    line-height: 1.8em;
+    /* margin-bottom: 17px; */
+    width: 225px;
+    /* margin-top: 16px; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond .hpPersonalAttributes em b {
+    font-size: 25px;
+    color: #000075;
+}
+
+
+/* #region 我的关注 问答 收藏 的二级导航 */
+
+.hpSecond .hpSecondSecond {
+    position: absolute;
+    width: 465px;
+    height: 640px;
+    /* background-color: #aaa; */
+    border-right: 2px solid #ccc;
+    top: 0;
+    right: 0;
+    display: none;
+    /* transition: all 0.5s; */
+    z-index: -10;
+}
+
+
+/* .hpSecond>div:hover .hpSecondSecond {
+    right: 465px;
+    z-index: 999;
+} */
+
+
+/* #endregion */
+
+
+/* #region 二级导航的 icon */
+
+.logonHeadPortrait .headPortrait .hpSecond>div .iconfont {
+    font-size: 45px;
+    position: relative;
+    top: 7px;
+    margin-right: 10px;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond>div .iconwodeguanzhu {
+    top: 1px;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond>div .iconV {
+    top: 7px;
+    font-size: 50px;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond>div .iconwodeshoucang {
+    top: 0px;
+    left: 8px;
+    margin-right: 20px;
+    font-size: 37px;
+}
+
+.logonHeadPortrait .headPortrait .hpSecond>div .icontuichudenglu {
+    margin-right: 0px;
+}
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #endregion */
+
+
+/* #endregion */
