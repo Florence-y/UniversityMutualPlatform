@@ -390,7 +390,7 @@ input {
 /* #region 登录注册按钮 */
 
 .nav .personal {
-    /* display: none; */
+    display: none;
     /* margin-right: 50px; */
     width: 145px;
     float: right;

@@ -122,15 +122,16 @@ $(function() {
     //#endregion
 
     //#region  点击模态框以外的地方 模态框消失
-    $(".modal_bg").on({
+    $(".modal_bg_logon").on({
         click: function() {
             // console.log("点击了");
-            $('.modal_bg').fadeOut(); // 其实就是css 的过渡+ display
+            $('.modal_bg_logon').fadeOut(); // 其实就是css 的过渡+ display
             $('.modal').css({
                 transform: 'translate(-50%,-50%) scale(0.7)'
             })
         }
     })
+
     $(".modal").on({
         click: function(e) {
             e.stopPropagation();

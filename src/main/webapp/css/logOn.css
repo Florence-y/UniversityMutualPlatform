@@ -1,7 +1,7 @@
 * {
     padding: 0;
     margin: 0;
-    color: #000;
+    /* color: #000; */
     font-size: 14px;
 }
 
@@ -22,9 +22,9 @@ button {
     outline: none;
 }
 
-.modal_content button {
+.logonBody .modal_content button {
     position: absolute;
-    bottom: -15px;
+    bottom: 133px;
     right: 0px;
     width: 249px;
     height: 63px;
@@ -38,7 +38,7 @@ button {
     cursor: pointer;
 }
 
-.modal_content button:hover {
+.logonBody .modal_content button:hover {
     background-color: #2db4e5;
 }
 
@@ -53,7 +53,7 @@ button {
     transform: translate(-50%, 0);
 }
 
-.modal_bg {
+.logonBody .modal_bg {
     display: none;
     background-color: #00000066;
     /* background-color: transparent; */
@@ -68,7 +68,7 @@ button {
     opacity: 1;
 }
 
-.modal {
+.logonBody .modal {
     background-color: #F2F2F2;
     border-radius: 24px;
     width: 900px;
@@ -82,7 +82,7 @@ button {
     box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.2);
 }
 
-.fadeout {
+.logonBody .fadeout {
     float: right;
 }
 
@@ -108,7 +108,7 @@ button {
 
 /* #region 模态框关闭按钮*/
 
-.modal_head {
+.logonBody .modal_head {
     height: 155px;
     width: 100%;
     position: relative;
@@ -141,7 +141,7 @@ button {
 
 /* #endregion */
 
-.modal_content {
+.logonBody .modal_content {
     /* 为 logOn 的定位 */
     position: relative;
     width: 533px;
@@ -154,10 +154,11 @@ button {
 
 /* #region 登录*/
 
-.modal_content .logOn {
+.logonBody .modal_content .logOn {
     /* 父级定位在 modal_content */
     height: 100%;
     width: 100%;
+    position: absolute;
 }
 
 

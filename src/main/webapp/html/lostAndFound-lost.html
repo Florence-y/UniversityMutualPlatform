@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>失主物品界面</title>
-    <link rel="stylesheet" href="../css/index.css">
+
     <link rel="stylesheet" href="../css/iconfont.css">
     <link rel="stylesheet" href="../css/quiz.css">
     <link rel="stylesheet" href="../css/hoverPaneY.css">
     <link rel="stylesheet" href="../css/logOn.css">
+    <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/lostAndFound-lost.css">
 
     <script src="../js/jquery-3.5.1.js"></script>
@@ -18,132 +19,135 @@
     <script src="../js/debounce.js"></script>
     <script src="../js/quiz.js"></script>
     <script src="../js/logOn.js"></script>
+    <script src="../js/nav.js"></script>
     <script src="../js/lostAndFound-lost.js"></script>
 </head>
 
 <body style="height: 2000px;">
     <!--                          登录页面                            -->
-    <div class="modal_bg_logon modal_bg">
-        <div class="modal">
+    <div class="logonBody">
+        <div class="modal_bg_logon modal_bg">
+            <div class="modal logonYmadal">
 
-            <!-- 模态框 头部 一个×按钮 + 一个学校 icon -->
-            <div class="modal_head">
-                <button class="fadeout">&times;</button>
-                <!-- <i class="iconfont icondibudaohanglan-"></i> -->
-                <b class="logonTitle">用户登录</b>
-            </div>
+                <!-- 模态框 头部 一个×按钮 + 一个学校 icon -->
+                <div class="modal_head">
+                    <button class="fadeout">&times;</button>
+                    <!-- <i class="iconfont icondibudaohanglan-"></i> -->
+                    <b class="logonTitle">用户登录</b>
+                </div>
 
-            <!-- 模态框 内容 ->登录页面logOn -> 忘记密码页面forgetPas -> 重置密码页面resetPas -->
-            <div class="modal_content">
+                <!-- 模态框 内容 ->登录页面logOn -> 忘记密码页面forgetPas -> 重置密码页面resetPas -->
+                <div class="modal_content">
 
-                <!-- ->登录页面logOn -->
-                <div class="logOn">
+                    <!-- ->登录页面logOn -->
+                    <div class="logOn">
 
-                    <!-- ->登录页面logOn 学生part 文字 + 表单  -->
-                    <div class="student logOnDisplay">
-                        <h2>学生<b></b></h2>
-                        <div class="logOnStudent">
+                        <!-- ->登录页面logOn 学生part 文字 + 表单  -->
+                        <div class="student logOnDisplay">
+                            <h2>学生<b></b></h2>
+                            <div class="logOnStudent">
+                                <form action="">
+                                    <div class="confirm value">
+                                        <span class="tip">用户名/学号</span>
+                                        <input class="input account" id="stu_account" type="text" value="">
+                                        <span class="active_line"></span>
+                                    </div>
+                                    <div class="confirm value">
+                                        <span class="tip">密码</span>
+                                        <input class="input pas" id='stu_pwd' type="password" value="">
+                                        <span class="active_line"></span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- ->登录页面logOn 老师part 文字 + 表单  -->
+                        <div class="teacher">
+                            <h2>教师<b></b></h2>
+                            <div class="logOnTeacher">
+                                <form action="">
+                                    <div class="confirm value">
+                                        <span class="tip">用户名/教工号</span>
+                                        <input class="input account" id="teacher_account" type="text" value="">
+                                        <span class="active_line"></span>
+                                    </div>
+                                    <div class="confirm value">
+                                        <span class="tip">密码</span>
+                                        <input class="input pas" id='teacher_pwd' type="password" value="">
+                                        <span class="active_line"></span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- ->登录页面logOn 登录按钮 -->
+                        <button class="btnRegister">注册</button>
+                        <button class="btnLogon logon_btn">登录</button>
+
+                        <!-- ->登录页面logOn 注册页面 忘记密码页面 跳转 -->
+                        <b href="" class="aForgetPas">忘记密码</b>
+
+                    </div>
+
+                    <!-- -> 忘记密码页面forgetPas -->
+                    <div class="forgetPas">
+
+                        <!-- -> 忘记密码页面forgetPas 单选框 学生/教师  -->
+                        <div class="teacherOrStudent">
                             <form action="">
-                                <div class="confirm value">
-                                    <span class="tip">用户名/学号</span>
-                                    <input class="input account" id="stu_account" type="text" value="">
-                                    <span class="active_line"></span>
-                                </div>
-                                <div class="confirm value">
-                                    <span class="tip">密码</span>
-                                    <input class="input pas" id='stu_pwd' type="password" value="">
-                                    <span class="active_line"></span>
-                                </div>
+                                <span>请选择身份: </span>
+                                <label for=""><input type="radio" class="chooseStudent" name="chooseTeacherOrStudent"
+                                    style="zoom:2;"> 学生</label>
+                                <label for=""><input type="radio" class="chooseTeacher" name="chooseTeacherOrStudent"
+                                    style="zoom:2;"> 教师</label>
                             </form>
                         </div>
-                    </div>
 
-                    <!-- ->登录页面logOn 老师part 文字 + 表单  -->
-                    <div class="teacher">
-                        <h2>教师<b></b></h2>
-                        <div class="logOnTeacher">
+                        <!-- -> 忘记密码页面forgetPas 文本框:输入邮箱 span:邮箱后缀  -->
+                        <div class="writeEmail">
                             <form action="">
-                                <div class="confirm value">
-                                    <span class="tip">用户名/教工号</span>
-                                    <input class="input account" id="teacher_account" type="text" value="">
-                                    <span class="active_line"></span>
-                                </div>
-                                <div class="confirm value">
-                                    <span class="tip">密码</span>
-                                    <input class="input pas" id='teacher_pwd' type="password" value="">
-                                    <span class="active_line"></span>
-                                </div>
+                                <span>请输入邮箱:</span>
+                                <input type="text" class="inEmail">
+                                <i>@</i>
+                                <em class="emailSuffix ">m.gduf.edu.cn</em>
                             </form>
                         </div>
+
+                        <!-- -> 忘记密码页面forgetPas 文本框:验证码  按钮:发送验证码-->
+                        <div class="verificationCode ">
+                            <form action=" ">
+                                <span>验证码:</span>
+                                <input type="text" class="vCode">
+                            </form>
+                            <button class="sendVerificationCode logon_btn">发送验证码</button>
+                        </div>
+
+                        <!-- -> 忘记密码页面forgetPas 按钮:下一步 跳转重设密码 -->
+                        <button class="forgetPasLast logon_btn">上一步</button>
+                        <button class="forgetPasNext logon_btn">下一步</button>
                     </div>
-                    <!-- ->登录页面logOn 登录按钮 -->
-                    <button class="btnRegister">注册</button>
-                    <button class="btnLogon logon_btn">登录</button>
 
-                    <!-- ->登录页面logOn 注册页面 忘记密码页面 跳转 -->
-                    <b href="" class="aForgetPas">忘记密码</b>
-
+                    <!-- -> 重置密码页面resetPas -->
+                    <div class="resetPas ">
+                        <!-- -> 重置密码页面resetPas 文本框:重设密码 -->
+                        <div class="toResetPas ">
+                            <form action=" ">
+                                <span>重设密码: </span>
+                                <input type="password" class="reset " placeholder="请输入密码 ">
+                            </form>
+                        </div>
+                        <!-- -> 重置密码页面resetPas 文本框:确认密码 -->
+                        <div class="confirmPas ">
+                            <form action=" ">
+                                <span>确认密码: </span>
+                                <input type="password" class="confirm " placeholder="请输入密码 ">
+                            </form>
+                        </div>
+                        <!-- -> 重置密码页面resetPas 按钮:确定 返回登录页面 -->
+                        <button class="resetPasConfirm logon_btn">确定</button>
+                    </div>
                 </div>
-
-                <!-- -> 忘记密码页面forgetPas -->
-                <div class="forgetPas">
-
-                    <!-- -> 忘记密码页面forgetPas 单选框 学生/教师  -->
-                    <div class="teacherOrStudent">
-                        <form action="">
-                            <span>请选择身份: </span>
-                            <label for=""><input type="radio" class="chooseStudent" name="chooseTeacherOrStudent"
-                                        style="zoom:2;"> 学生</label>
-                            <label for=""><input type="radio" class="chooseTeacher" name="chooseTeacherOrStudent"
-                                        style="zoom:2;"> 教师</label>
-                        </form>
-                    </div>
-
-                    <!-- -> 忘记密码页面forgetPas 文本框:输入邮箱 span:邮箱后缀  -->
-                    <div class="writeEmail">
-                        <form action="">
-                            <span>请输入邮箱:</span>
-                            <input type="text" class="inEmail">
-                            <i>@</i>
-                            <em class="emailSuffix ">m.gduf.edu.cn</em>
-                        </form>
-                    </div>
-
-                    <!-- -> 忘记密码页面forgetPas 文本框:验证码  按钮:发送验证码-->
-                    <div class="verificationCode ">
-                        <form action=" ">
-                            <span>验证码:</span>
-                            <input type="text" class="vCode">
-                        </form>
-                        <button class="sendVerificationCode logon_btn">发送验证码</button>
-                    </div>
-
-                    <!-- -> 忘记密码页面forgetPas 按钮:下一步 跳转重设密码 -->
-                    <button class="forgetPasLast logon_btn">上一步</button>
-                    <button class="forgetPasNext logon_btn">下一步</button>
-                </div>
-
-                <!-- -> 重置密码页面resetPas -->
-                <div class="resetPas ">
-                    <!-- -> 重置密码页面resetPas 文本框:重设密码 -->
-                    <div class="toResetPas ">
-                        <form action=" ">
-                            <span>重设密码: </span>
-                            <input type="password" class="reset " placeholder="请输入密码 ">
-                        </form>
-                    </div>
-                    <!-- -> 重置密码页面resetPas 文本框:确认密码 -->
-                    <div class="confirmPas ">
-                        <form action=" ">
-                            <span>确认密码: </span>
-                            <input type="password" class="confirm " placeholder="请输入密码 ">
-                        </form>
-                    </div>
-                    <!-- -> 重置密码页面resetPas 按钮:确定 返回登录页面 -->
-                    <button class="resetPasConfirm logon_btn">确定</button>
-                </div>
+                <div class="modal_foot "></div>
             </div>
-            <div class="modal_foot "></div>
         </div>
     </div>
 
@@ -162,12 +166,12 @@
                     <div class="picture_containner"></div>
                     <!-- <img src="" alt=""> -->
                     <!-- <div class="picture">
-                            <img src="../img/01.jpg" alt="">
-                            <i class="removePicture">&times;</i>
-                        </div> -->
+                        <img src="../../img/01.jpg" alt="">
+                        <i class="removePicture">&times;</i>
+                    </div> -->
                     <i class="file iconfont iconjiahao1">
-                            <input type="file" class="insertP" accept="image/*">
-                        </i>
+                        <input type="file" class="insertP" accept="image/*">
+                    </i>
                 </div>
                 <div class="questionNote">
                     <textarea maxlength="80" name="" id="" cols="30" rows="10" class="queN" placeholder="问题备注"></textarea>
@@ -189,9 +193,9 @@
                     <div class="questionType">
                         <span class="cur_val" value="null">请选择文章类型</span>
                         <svg class="icon" height="23" p-id="6815" t="1601959179699" version="1.1" viewBox="0 0 1024 1024" width="23" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M539.9 631.25c-6.3 6.3-14.85 12.15-22.95 10.35-8.1 1.35-15.75-4.95-22.05-10.35L300.05 435.5c-9.9-9.9-9.9-26.1 0-36s26.1-9.9 36 0L517.4 585.8l181.8-186.3c9.9-9.9 26.1-9.9 36 0s9.9 26.1 0 36L539.9 631.25z"
-                                      p-id="6816"></path>
-                            </svg>
+                            <path d="M539.9 631.25c-6.3 6.3-14.85 12.15-22.95 10.35-8.1 1.35-15.75-4.95-22.05-10.35L300.05 435.5c-9.9-9.9-9.9-26.1 0-36s26.1-9.9 36 0L517.4 585.8l181.8-186.3c9.9-9.9 26.1-9.9 36 0s9.9 26.1 0 36L539.9 631.25z"
+                                  p-id="6816"></path>
+                        </svg>
                         <ul class="list">
                             <li>学习篇</li>
                             <li>期末篇</li>
@@ -208,8 +212,8 @@
                 <button class="publish">立即发表</button>
                 <div class="anonymity" anonymity="false">
                     <button class="btn">
-                            <svg t="1603548623411" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5481" width="32" height="32"><path d="M117.99552 565.54496l80.87552-53.00224c77.3632-50.67776 181.67808-28.27264 229.90848 50.95424 34.95936 57.23136 49.31584 114.05312 49.31584 114.05312s185.74336-421.79584 443.9552-500.8896c0 0-80.60928 185.63072 36.98688 319.63136 0 0-267.9808 75.264-466.176 390.92224-6.63552 10.6496-22.08768 10.38336-28.18048-0.54272-39.424-68.97664-163.52256-262.79936-346.68544-321.1264z" p-id="5482" fill="#1296db"></path></svg>
-                        </button>匿名
+                        <svg t="1603548623411" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5481" width="32" height="32"><path d="M117.99552 565.54496l80.87552-53.00224c77.3632-50.67776 181.67808-28.27264 229.90848 50.95424 34.95936 57.23136 49.31584 114.05312 49.31584 114.05312s185.74336-421.79584 443.9552-500.8896c0 0-80.60928 185.63072 36.98688 319.63136 0 0-267.9808 75.264-466.176 390.92224-6.63552 10.6496-22.08768 10.38336-28.18048-0.54272-39.424-68.97664-163.52256-262.79936-346.68544-321.1264z" p-id="5482" fill="#1296db"></path></svg>
+                    </button>匿名
                 </div>
             </div>
 
@@ -230,7 +234,7 @@
                 <ul>
                     <li title="首页" class="index-li">首页</li>
                     <li title="校区互通" class="campus-li">校区互通</li>
-                    <li title="失物招领" class="lostAndFound-li">失物招领</li>
+                    <li title="失物招领" class="lostAndFound-li" onclick="window.open('lost&found_index.html')">失物招领</li>
                     <!-- <li title="提问" class="quiz-li">提问</li> -->
                 </ul>
             </div>
@@ -241,17 +245,43 @@
                     <input type="text" class="searchBar">
                     <input type="button" class="searchBtn">
                     <i class="iconfont iconsousuo"></i>
-                    <!-- </input> -->
                 </form>
+                <ul class="searchContent" style="display: none;">
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <!-- <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会考什么立刻就会考什么立刻就会1</a></li>
+                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a> </li>
+                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li>
+                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li>
+                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li> -->
+                </ul>
             </div>
 
             <!--         登录注册按钮      -->
             <div class="personal">
                 <button class="signUpBtn">
-                        <em class="fadein">登录</em>
-                        |
-                        <em class="toRegister" onclick="window.open('../html/register.html')">注册</em>
-                    </button>
+                    <em class="fadein">登录</em>
+                    |
+                    <em class="toRegister"  onclick="window.open('register.html')">注册</em>
+                </button>
             </div>
 
             <!--         头像            -->
@@ -259,38 +289,38 @@
 
                 <!-- 头像 -->
                 <span class="headPortrait">
-    
-                        <!-- 导航栏上的头像 -->
-                        <img  class="navHPY" src="../img/InitialPortrait.jpg" alt=" " title="个人中心 ">
-    
-                        <!-- 头像的二级导航 -->
-                        <div class="hpSecond">
-    
-                            <!-- 小三角 -->
-                            <b class="triangle"></b>
-    
-                            <!-- 个人属性part -->
-                            <!-- 用户头像 用户名 -->
-                            <div class="hpPersonalAttributes">
-                                <img class="ResMessageFace" src="img/InitialPortrait.jpg " alt=" ">
-                                <em> <b class="ResUserName"></b></em>
-                                <em> <b class="ResMarkNumber"></b></em>
-                                <em> <b class="ResMessagePojoMajor"></b> </em>
-                                
-                            </div>
-    
-                            <!-- 进入个人中心 -->
-                            <div><i class="iconfont iconjinru2"></i><em>进入个人中心</em> </div>
-    
-                            <!-- 我的关注 -->
-                            <div>
-                                <i class="iconfont iconwodeguanzhu"></i>
-                                <em>我的关注</em>
-                                <div class="hpSecondSecond concernsY">
-                                    <div class="hoverBox">
-                                        <div class="title">我的关注</div>
-                                        <div class="mode_selection">
-                                            <span class="mode active" id="hoverBox_interest">我关注的人</span>
+
+                    <!-- 导航栏上的头像 -->
+                    <img  class="navHPY" src="../img/InitialPortrait.jpg" alt=" " title="个人中心 ">
+
+                    <!-- 头像的二级导航 -->
+                    <div class="hpSecond">
+
+                        <!-- 小三角 -->
+                        <b class="triangle"></b>
+
+                        <!-- 个人属性part -->
+                        <!-- 用户头像 用户名 -->
+                        <div class="hpPersonalAttributes">
+                            <img class="ResMessageFace" src="../img/InitialPortrait.jpg " alt=" ">
+                            <em> <b class="ResUserName"></b></em>
+                            <em> <b class="ResMarkNumber"></b></em>
+                            <em> <b class="ResMessagePojoMajor"></b> </em>
+                            
+                        </div>
+
+                        <!-- 进入个人中心 -->
+                        <div><i class="iconfont iconjinru2"></i><em>进入个人中心</em> </div>
+
+                        <!-- 我的关注 -->
+                        <div class="attention">
+                            <i class="iconfont iconwodeguanzhu"></i>
+                            <em>我的关注</em>
+                            <div class="hpSecondSecond concernsY">
+                                <div class="hoverBox">
+                                    <div class="title">我的关注</div>
+                                    <div class="mode_selection">
+                                        <span class="mode active" id="hoverBox_interest">我关注的人</span>
                 <span class="mode" id="hoverBox_fans">关注我的人</span>
                 <span class="activeLine toLeft"></span>
             </div>
@@ -299,58 +329,59 @@
             <!-- 内容框 -->
             <div class="contentBox_subscribe">
                 <div class="itemList_box">
-                    <ul class="itemList">
-                        <li class="item">
+                    <ul class="itemList myAttention" style="display: block;">
+                        <!-- <li class="item">
                             <a class="img_link" href="#" title="进入主页">
-                                <img src="img/use1 (1).jpg ">
+                                <img src="../img/use1 (1).jpg ">
                             </a>
                             <span class="userName">用户名</span>
                             <span class="status">身份</span>
                             <div class="sex">
+
                                 <svg class="male" height="30" p-id="3642" t="1602171820438 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
-                                                                <path
-                                                                    d="M262.144 419.84C194.56 270.336 286.72 106.496 407.552 18.432c-2.048 16.384-8.192 49.152-10.24 67.584 32.768-20.48 65.536-40.96 100.352-63.488 18.432 4.096 38.912 6.144 57.344 10.24
-                        63.488 65.536 180.224 69.632 215.04 165.888 34.816 114.688-26.624 225.28-61.44 333.824-20.48 69.632-67.584 135.168-137.216 161.792-65.536 26.624-143.36 4.096-192.512-45.056-63.488-65.536-67.584-159.744-116.736-229.376zM358.4 307.2c-79.872
-                        118.784-36.864 309.248 100.352 364.544 124.928 43.008 233.472-81.92 241.664-198.656 16.384-61.44-26.624-114.688-51.2-167.936-94.208 40.96-196.608 28.672-290.816 2.048z "
-                                                                    fill="#17abe3 " p-id="3643 "></path>
-                                                                <path
-                                                                    d="M133.12 788.48c61.44-59.392 147.456-81.92 227.328-102.4-4.096 118.784 20.48 245.76 114.688 325.632 12.288-88.064 20.48-178.176 18.432-268.288 12.288 0 38.912 0 51.2 2.048 0 88.064
-                        12.288 174.08 30.72 258.048 71.68-88.064 110.592-200.704 88.064-313.344 71.68 26.624 151.552 43.008 212.992 90.112 47.104 45.056 51.2 116.736 63.488 176.128V1024H81.92v-96.256c8.192-49.152 14.336-102.4 51.2-139.264z "
-                                                                    fill="#17abe3 " p-id="3644 "></path>
-                                                            </svg>
-                                <svg class="female on " height="30 " p-id="3272 " t="1602171713920 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
-                                                                <path d="M373.793 306.073a373.53 373.53 0 0 0 283.884-6.724 373.53 373.53 0 0 1 41.089 185.272c-8.965 128.495-118.783 228.601-233.83 188.26s-158.378-259.978-91.143-366.808zM695.03 701.27a705.227
-                        705.227 0 0 0 144.183 46.318c86.66 20.918 153.895 173.318 149.413 275.666H32.386s0-224.119 113.553-261.472a1114.617 1114.617 0 0 0 185.272-64.994s-11.206 241.3 114.3 233.83c40.342 0 67.983-93.383 67.983-93.383s50.053 93.383 91.889 93.383c79.935
-                        0 88.9-198.718 89.647-229.348zM196.74 530.192a84.418 84.418 0 0 0 19.423 100.106C258 669.145 379.77 656.445 379.77 656.445a149.412 149.412 0 0 1-48.56 40.342l182.284 117.288L692.79 699.028c-50.8-27.64-28.388-44.077-28.388-44.077a313.02
-                        313.02 0 0 0 134.47-4.482c74.707-25.4 34.366-127.748 34.366-127.748 49.306-5.23 24.653-61.259-11.953-104.589S763.013 196.255 704.742 86.437C656.93 7.995 530.677 0.524 504.53 0.524a194.236 194.236 0 0 0-158.377 63.5C281.906 132.007 251.276
-                        299.35 243.06 350.15S168.35 481.633 168.35 499.562s28.39 30.63 28.39 30.63z " fill="#e8989a "
-                                                                    p-id="3273 "></path>
-                                                            </svg>
+                                                            <path
+                                                                d="M262.144 419.84C194.56 270.336 286.72 106.496 407.552 18.432c-2.048 16.384-8.192 49.152-10.24 67.584 32.768-20.48 65.536-40.96 100.352-63.488 18.432 4.096 38.912 6.144 57.344 10.24
+                    63.488 65.536 180.224 69.632 215.04 165.888 34.816 114.688-26.624 225.28-61.44 333.824-20.48 69.632-67.584 135.168-137.216 161.792-65.536 26.624-143.36 4.096-192.512-45.056-63.488-65.536-67.584-159.744-116.736-229.376zM358.4 307.2c-79.872
+                    118.784-36.864 309.248 100.352 364.544 124.928 43.008 233.472-81.92 241.664-198.656 16.384-61.44-26.624-114.688-51.2-167.936-94.208 40.96-196.608 28.672-290.816 2.048z "
+                                                                fill="#17abe3 " p-id="3643 "></path>
+                                                            <path
+                                                                d="M133.12 788.48c61.44-59.392 147.456-81.92 227.328-102.4-4.096 118.784 20.48 245.76 114.688 325.632 12.288-88.064 20.48-178.176 18.432-268.288 12.288 0 38.912 0 51.2 2.048 0 88.064
+                    12.288 174.08 30.72 258.048 71.68-88.064 110.592-200.704 88.064-313.344 71.68 26.624 151.552 43.008 212.992 90.112 47.104 45.056 51.2 116.736 63.488 176.128V1024H81.92v-96.256c8.192-49.152 14.336-102.4 51.2-139.264z "
+                                                                fill="#17abe3 " p-id="3644 "></path>
+                                                        </svg>
+                                <svg class="female on" height="30 " p-id="3272 " t="1602171713920 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
+                                                            <path d="M373.793 306.073a373.53 373.53 0 0 0 283.884-6.724 373.53 373.53 0 0 1 41.089 185.272c-8.965 128.495-118.783 228.601-233.83 188.26s-158.378-259.978-91.143-366.808zM695.03 701.27a705.227
+                    705.227 0 0 0 144.183 46.318c86.66 20.918 153.895 173.318 149.413 275.666H32.386s0-224.119 113.553-261.472a1114.617 1114.617 0 0 0 185.272-64.994s-11.206 241.3 114.3 233.83c40.342 0 67.983-93.383 67.983-93.383s50.053 93.383 91.889 93.383c79.935
+                    0 88.9-198.718 89.647-229.348zM196.74 530.192a84.418 84.418 0 0 0 19.423 100.106C258 669.145 379.77 656.445 379.77 656.445a149.412 149.412 0 0 1-48.56 40.342l182.284 117.288L692.79 699.028c-50.8-27.64-28.388-44.077-28.388-44.077a313.02
+                    313.02 0 0 0 134.47-4.482c74.707-25.4 34.366-127.748 34.366-127.748 49.306-5.23 24.653-61.259-11.953-104.589S763.013 196.255 704.742 86.437C656.93 7.995 530.677 0.524 504.53 0.524a194.236 194.236 0 0 0-158.377 63.5C281.906 132.007 251.276
+                    299.35 243.06 350.15S168.35 481.633 168.35 499.562s28.39 30.63 28.39 30.63z " fill="#e8989a "
+                                                                p-id="3273 "></path>
+                                                        </svg>
                             </div>
 
-                            <span class="school_info " title="互联网金融与信息工程学院 ">互联网金融与信息工程学院</span>
-                            <!-- 是否关注 -->
+                            <span class="school_info " title="互联网金融与信息工程学院 ">互联网金融与信息工程学院</span> 是否关注
                             <div class="subscribe " nextAction="turnOn " title="关注 ">
-                                <!--红 #d6204b -->
+                                红 #d6204b
                                 <svg class="do_subscribe " height="30 " p-id="3875 " t="1602172191268 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
-                                                                <path d="M513.536 239.104S441.856 87.04 280.064 87.04C102.912 87.04 10.24 235.52 10.24 384c0 246.784 503.296 552.96 503.296 552.96S1013.76 633.856 1013.76 384c0-151.552-95.744-296.96-266.752-296.96-170.496
-                        0-233.472 152.064-233.472 152.064z " fill="#bfbfbf " p-id="3876 "></path>
-                                                            </svg>
+                                                            <path d="M513.536 239.104S441.856 87.04 280.064 87.04C102.912 87.04 10.24 235.52 10.24 384c0 246.784 503.296 552.96 503.296 552.96S1013.76 633.856 1013.76 384c0-151.552-95.744-296.96-266.752-296.96-170.496
+                    0-233.472 152.064-233.472 152.064z " fill="#bfbfbf " p-id="3876 "></path>
+                                                        </svg>
                             </div>
-                            <!-- 私信 -->
+                            私信
                             <div class="sendText " title="私信 ">
-                                <!-- #17abe3 -->
-                                <svg class="icon " height="30 " p-id="4482 " t="1602172441453 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
-                                                                <path d="M935.724138 494.344828c0 204.8-188.910345 370.758621-423.724138 370.75862-67.089655 0-130.648276-14.124138-187.144828-38.841379-35.310345-14.124138-157.131034 60.027586-185.37931 38.841379-28.248276-21.186207
-                        38.841379-141.241379 17.655172-167.724138C112.993103 639.117241 88.275862 568.496552 88.275862 494.344828 88.275862 289.544828 277.186207 123.586207 512 123.586207s423.724138 165.958621 423.724138 370.758621z m-605.572414 5.296551c0 14.124138
-                        7.062069 26.482759 19.42069 33.544828s26.482759 7.062069 38.841379 0c12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379 0-12.358621
-                        7.062069-19.42069 19.42069-19.42069 33.544827z m155.365517 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
-                        0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z m153.6 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
-                        0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z " fill="#bfbfbf " p-id="4483 "></path>
-                                                            </svg>
-                            </div>
-                        </li>
+                                #17abe3
+                        <svg class="icon " height="30 " p-id="4482 " t="1602172441453 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
+                                                            <path d="M935.724138 494.344828c0 204.8-188.910345 370.758621-423.724138 370.75862-67.089655 0-130.648276-14.124138-187.144828-38.841379-35.310345-14.124138-157.131034 60.027586-185.37931 38.841379-28.248276-21.186207
+                    38.841379-141.241379 17.655172-167.724138C112.993103 639.117241 88.275862 568.496552 88.275862 494.344828 88.275862 289.544828 277.186207 123.586207 512 123.586207s423.724138 165.958621 423.724138 370.758621z m-605.572414 5.296551c0 14.124138
+                    7.062069 26.482759 19.42069 33.544828s26.482759 7.062069 38.841379 0c12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379 0-12.358621
+                    7.062069-19.42069 19.42069-19.42069 33.544827z m155.365517 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
+                    0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z m153.6 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
+                    0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z " fill="#bfbfbf " p-id="4483 "></path>
+                                                        </svg>
+                </div>
+                </li> -->
                     </ul>
+                    <ul class="itemList attentionMe"></ul>
                 </div>
             </div>
 
@@ -366,16 +397,16 @@
                     {{sex}}
                     <!-- 参数为一个标签 -->
                     <!-- <svg class="male " t="1602171820438 " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3642 " width="23 " height="23 "><path d="M262.144 419.84C194.56 270.336 286.72 106.496 407.552 18.432c-2.048
-                        16.384-8.192 49.152-10.24 67.584 32.768-20.48 65.536-40.96 100.352-63.488 18.432 4.096 38.912 6.144 57.344 10.24 63.488 65.536 180.224 69.632 215.04 165.888 34.816 114.688-26.624 225.28-61.44 333.824-20.48 69.632-67.584 135.168-137.216
-                        161.792-65.536 26.624-143.36 4.096-192.512-45.056-63.488-65.536-67.584-159.744-116.736-229.376zM358.4 307.2c-79.872 118.784-36.864 309.248 100.352 364.544 124.928 43.008 233.472-81.92 241.664-198.656 16.384-61.44-26.624-114.688-51.2-167.936-94.208
-                        40.96-196.608 28.672-290.816 2.048z " p-id="3643 " fill="#17abe3 "></path><path d="M133.12 788.48c61.44-59.392 147.456-81.92 227.328-102.4-4.096 118.784 20.48 245.76 114.688 325.632 12.288-88.064 20.48-178.176 18.432-268.288 12.288 0 38.912
-                        0 51.2 2.048 0 88.064 12.288 174.08 30.72 258.048 71.68-88.064 110.592-200.704 88.064-313.344 71.68 26.624 151.552 43.008 212.992 90.112 47.104 45.056 51.2 116.736 63.488 176.128V1024H81.92v-96.256c8.192-49.152 14.336-102.4 51.2-139.264z
-                        " p-id="3644 " fill="#17abe3 "></path></svg>
-                                            <svg class="female on " t="1602171713920 "  viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3272 " width="23 " height="23 "><path d="M373.793 306.073a373.53 373.53 0 0 0 283.884-6.724
-                        373.53 373.53 0 0 1 41.089 185.272c-8.965 128.495-118.783 228.601-233.83 188.26s-158.378-259.978-91.143-366.808zM695.03 701.27a705.227 705.227 0 0 0 144.183 46.318c86.66 20.918 153.895 173.318 149.413 275.666H32.386s0-224.119 113.553-261.472a1114.617
-                        1114.617 0 0 0 185.272-64.994s-11.206 241.3 114.3 233.83c40.342 0 67.983-93.383 67.983-93.383s50.053 93.383 91.889 93.383c79.935 0 88.9-198.718 89.647-229.348zM196.74 530.192a84.418 84.418 0 0 0 19.423 100.106C258 669.145 379.77 656.445
-                        379.77 656.445a149.412 149.412 0 0 1-48.56 40.342l182.284 117.288L692.79 699.028c-50.8-27.64-28.388-44.077-28.388-44.077a313.02 313.02 0 0 0 134.47-4.482c74.707-25.4 34.366-127.748 34.366-127.748 49.306-5.23 24.653-61.259-11.953-104.589S763.013
-                        196.255 704.742 86.437C656.93 7.995 530.677 0.524 504.53 0.524a194.236 194.236 0 0 0-158.377 63.5C281.906 132.007 251.276 299.35 243.06 350.15S168.35 481.633 168.35 499.562s28.39 30.63 28.39 30.63z " p-id="3273 " fill="#e8989a "></path></svg> -->
+                    16.384-8.192 49.152-10.24 67.584 32.768-20.48 65.536-40.96 100.352-63.488 18.432 4.096 38.912 6.144 57.344 10.24 63.488 65.536 180.224 69.632 215.04 165.888 34.816 114.688-26.624 225.28-61.44 333.824-20.48 69.632-67.584 135.168-137.216
+                    161.792-65.536 26.624-143.36 4.096-192.512-45.056-63.488-65.536-67.584-159.744-116.736-229.376zM358.4 307.2c-79.872 118.784-36.864 309.248 100.352 364.544 124.928 43.008 233.472-81.92 241.664-198.656 16.384-61.44-26.624-114.688-51.2-167.936-94.208
+                    40.96-196.608 28.672-290.816 2.048z " p-id="3643 " fill="#17abe3 "></path><path d="M133.12 788.48c61.44-59.392 147.456-81.92 227.328-102.4-4.096 118.784 20.48 245.76 114.688 325.632 12.288-88.064 20.48-178.176 18.432-268.288 12.288 0 38.912
+                    0 51.2 2.048 0 88.064 12.288 174.08 30.72 258.048 71.68-88.064 110.592-200.704 88.064-313.344 71.68 26.624 151.552 43.008 212.992 90.112 47.104 45.056 51.2 116.736 63.488 176.128V1024H81.92v-96.256c8.192-49.152 14.336-102.4 51.2-139.264z
+                    " p-id="3644 " fill="#17abe3 "></path></svg>
+                                        <svg class="female on " t="1602171713920 "  viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3272 " width="23 " height="23 "><path d="M373.793 306.073a373.53 373.53 0 0 0 283.884-6.724
+                    373.53 373.53 0 0 1 41.089 185.272c-8.965 128.495-118.783 228.601-233.83 188.26s-158.378-259.978-91.143-366.808zM695.03 701.27a705.227 705.227 0 0 0 144.183 46.318c86.66 20.918 153.895 173.318 149.413 275.666H32.386s0-224.119 113.553-261.472a1114.617
+                    1114.617 0 0 0 185.272-64.994s-11.206 241.3 114.3 233.83c40.342 0 67.983-93.383 67.983-93.383s50.053 93.383 91.889 93.383c79.935 0 88.9-198.718 89.647-229.348zM196.74 530.192a84.418 84.418 0 0 0 19.423 100.106C258 669.145 379.77 656.445
+                    379.77 656.445a149.412 149.412 0 0 1-48.56 40.342l182.284 117.288L692.79 699.028c-50.8-27.64-28.388-44.077-28.388-44.077a313.02 313.02 0 0 0 134.47-4.482c74.707-25.4 34.366-127.748 34.366-127.748 49.306-5.23 24.653-61.259-11.953-104.589S763.013
+                    196.255 704.742 86.437C656.93 7.995 530.677 0.524 504.53 0.524a194.236 194.236 0 0 0-158.377 63.5C281.906 132.007 251.276 299.35 243.06 350.15S168.35 481.633 168.35 499.562s28.39 30.63 28.39 30.63z " p-id="3273 " fill="#e8989a "></path></svg> -->
                 </div>
 
                 <span class="school_info ">{{school_info}}</span>
@@ -383,23 +414,23 @@
                 <div class="subscribe " nextAction="{{action}} " title="关注 ">
                     <!--红 #d6204b -->
                     <svg t="1602172191268 " class="do_subscribe " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3875 " width="23 " height="23 ">
-                                                <path d="M513.536 239.104S441.856 87.04 280.064 87.04C102.912 87.04 10.24 235.52 10.24 384c0 246.784 503.296 552.96 503.296 552.96S1013.76 633.856 1013.76 384c0-151.552-95.744-296.96-266.752-296.96-170.496
-                        0-233.472 152.064-233.472 152.064z "
-                                                      p-id="3876 " fill="#bfbfbf "></path>
-                                            </svg>
+                                            <path d="M513.536 239.104S441.856 87.04 280.064 87.04C102.912 87.04 10.24 235.52 10.24 384c0 246.784 503.296 552.96 503.296 552.96S1013.76 633.856 1013.76 384c0-151.552-95.744-296.96-266.752-296.96-170.496
+                    0-233.472 152.064-233.472 152.064z "
+                                                  p-id="3876 " fill="#bfbfbf "></path>
+                                        </svg>
                 </div>
                 <!-- 私信 -->
                 <div class="sendText " title="私信 ">
                     <!-- #17abe3 -->
                     <svg t="1602172441453 " class="icon " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="4482 " width="23 " height="23 ">
-                                                <path d="M935.724138 494.344828c0 204.8-188.910345 370.758621-423.724138 370.75862-67.089655 0-130.648276-14.124138-187.144828-38.841379-35.310345-14.124138-157.131034 60.027586-185.37931 38.841379-28.248276-21.186207
-                        38.841379-141.241379 17.655172-167.724138C112.993103 639.117241 88.275862 568.496552 88.275862 494.344828 88.275862 289.544828 277.186207 123.586207 512 123.586207s423.724138 165.958621 423.724138 370.758621z m-605.572414 5.296551c0 14.124138
-                        7.062069 26.482759 19.42069 33.544828s26.482759 7.062069 38.841379 0c12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379 0-12.358621
-                        7.062069-19.42069 19.42069-19.42069 33.544827z m155.365517 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
-                        0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z m153.6 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
-                        0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z "
-                                                      fill="#bfbfbf " p-id="4483 "></path>
-                                            </svg>
+                                            <path d="M935.724138 494.344828c0 204.8-188.910345 370.758621-423.724138 370.75862-67.089655 0-130.648276-14.124138-187.144828-38.841379-35.310345-14.124138-157.131034 60.027586-185.37931 38.841379-28.248276-21.186207
+                    38.841379-141.241379 17.655172-167.724138C112.993103 639.117241 88.275862 568.496552 88.275862 494.344828 88.275862 289.544828 277.186207 123.586207 512 123.586207s423.724138 165.958621 423.724138 370.758621z m-605.572414 5.296551c0 14.124138
+                    7.062069 26.482759 19.42069 33.544828s26.482759 7.062069 38.841379 0c12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379 0-12.358621
+                    7.062069-19.42069 19.42069-19.42069 33.544827z m155.365517 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
+                    0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z m153.6 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
+                    0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z "
+                                                  fill="#bfbfbf " p-id="4483 "></path>
+                                        </svg>
                 </div>
             </li>
         </script>
@@ -407,7 +438,7 @@
     </div>
 
     <!-- 我的问答 -->
-    <div>
+    <div class="myQAY">
         <i class="iconfont iconV "></i>
         <em>我的问答</em>
 
@@ -422,9 +453,9 @@
                 <!-- 内容框 -->
                 <div class="contentBox_request ">
                     <div class="itemList_box ">
-                        <ul class="itemList ">
+                        <ul class="itemList myCue" style="display: block;">
                             <!-- 我的提问和我的回答框架一样 -->
-                            <li class="item ">
+                            <!-- <li class="item ">
                                 <a href="# ">
                                     <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
                                     <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
@@ -433,8 +464,8 @@
                                         <span class="time ">2小时前</span>
                                     </div>
                                 </a>
-                            </li>
-                            <li class="item ">
+                            </li> -->
+                            <!-- <li class="item ">
                                 <a href="# ">
                                     <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
                                     <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
@@ -450,9 +481,9 @@
                                         <span class="time ">2小时前</span>
                                     </div>
                                 </a>
-                            </li>
+                            </li> -->
 
-                            <li class="item ">
+                            <!-- <li class="item ">
                                 <a href="# ">
                                     <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
                                     <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
@@ -468,8 +499,9 @@
                                         <span class="time ">2小时前</span>
                                     </div>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
+                        <ul class="itemList myAns"></ul>
                     </div>
                 </div>
 
@@ -478,14 +510,14 @@
     </div>
 
     <!-- 我的收藏 -->
-    <div><i class="iconfont iconwodeshoucang "></i><em>我的收藏</em>
+    <div class="myCollY"><i class="iconfont iconwodeshoucang "></i><em>我的收藏</em>
         <div class="hpSecondSecond collectionY ">
             <div class="hoverBox ">
                 <div class="title ">我的收藏</div>
                 <!-- 内容框 -->
                 <div class="contentBox_collection ">
                     <div class="itemList_box ">
-                        <ul class="itemList ">
+                        <ul class="itemList mycollection">
                             <li class="item ">
                                 <a href="# ">
                                     <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
@@ -525,21 +557,21 @@
                     </div>
                 </div>
                 <!-- <div class="foot ">
-                        <input type="text " placeholder="请输入... ">
-                        <div class="search_btn "><svg t="1602165226427 " class="icon " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3356 " width="23 " height="23 ">
-                            <path d="M222.6944 222.7968A323.1488 323.1488 0 0 0 133.6832 512c19.2512-87.3728 64.512-172.7488 135.0144-243.3024C339.2512 198.1184 424.6272 152.8832 512 133.632c-101.632-19.1488-210.688 10.5216-289.3056 89.1648z " fill="#ffffff
-                        " p-id="3357 "></path><path d="M989.44 822.1184l-121.7024-121.7024a118.016 118.016 0 0 0-92.8-34.1248c114.4576-165.5552 97.92-394.3936-49.4848-541.824-165.9392-165.9904-435.0464-165.9904-601.0368 0-165.9392 165.9904-165.9392 435.1232 0 601.1136
-                        147.4048 147.4304 376.064 163.84 541.7216 49.3824-2.56 33.28 8.8576 67.5328 34.1248 92.8l121.7024 121.728c46.08 45.9776 121.3696 45.9776 167.3472 0 46.208-45.9776 46.208-121.2928 0.128-167.3728zM676.096 676.096c-138.6752 138.6752-363.392
-                        138.6752-502.016 0-138.6752-138.6752-138.6752-363.4432 0-502.1184 138.624-138.6752 363.3408-138.6752 502.016 0 138.6496 138.5728 138.6496 363.4432 0 502.1184z " fill="#ffffff " p-id="3358 "></path></svg>
-                        </div>
-                    </div> -->
+                    <input type="text " placeholder="请输入... ">
+                    <div class="search_btn "><svg t="1602165226427 " class="icon " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3356 " width="23 " height="23 ">
+                        <path d="M222.6944 222.7968A323.1488 323.1488 0 0 0 133.6832 512c19.2512-87.3728 64.512-172.7488 135.0144-243.3024C339.2512 198.1184 424.6272 152.8832 512 133.632c-101.632-19.1488-210.688 10.5216-289.3056 89.1648z " fill="#ffffff
+                    " p-id="3357 "></path><path d="M989.44 822.1184l-121.7024-121.7024a118.016 118.016 0 0 0-92.8-34.1248c114.4576-165.5552 97.92-394.3936-49.4848-541.824-165.9392-165.9904-435.0464-165.9904-601.0368 0-165.9392 165.9904-165.9392 435.1232 0 601.1136
+                    147.4048 147.4304 376.064 163.84 541.7216 49.3824-2.56 33.28 8.8576 67.5328 34.1248 92.8l121.7024 121.728c46.08 45.9776 121.3696 45.9776 167.3472 0 46.208-45.9776 46.208-121.2928 0.128-167.3728zM676.096 676.096c-138.6752 138.6752-363.392
+                    138.6752-502.016 0-138.6752-138.6752-138.6752-363.4432 0-502.1184 138.624-138.6752 363.3408-138.6752 502.016 0 138.6496 138.5728 138.6496 363.4432 0 502.1184z " fill="#ffffff " p-id="3358 "></path></svg>
+                    </div>
+                </div> -->
             </div>
 
         </div>
     </div>
 
     <!-- 退出登录 -->
-    <div><i class="iconfont icontuichudenglu "></i><em>退出登录</em></div>
+    <div class="exitLogonY"><i class="iconfont icontuichudenglu "></i><em>退出登录</em></div>
     </div>
     </span>
     </div>
@@ -549,104 +581,106 @@
 
         <!-- 提问 -->
         <span class="cueY" title="提问">
-                <i class="iconfont iconwenhao- fadeinQuiz"></i>
-        </span>
+            <i class="iconfont iconwenhao- fadeinQuiz"></i>
+    </span>
 
         <!-- 消息 -->
         <span class="message">
-                        <i class="iconfont iconxiaoxitongzhitixinglingshenglingdang-xianxing "></i>
-    
-                        <div class="messageNotification">
-                            <div class="hoverBox">
-                                <div class="title">消息通知</div>
-                                <div class="mode_selection">
-                                    <span class="mode active" id="hoverBox_interest">系统通知</span>
+                    <i class="iconfont iconxiaoxitongzhitixinglingshenglingdang-xianxing "></i>
+
+                    <div class="messageNotification">
+                        <div class="hoverBox">
+                            <div class="title">动态通知</div>
+                            <div class="mode_selection">
+                                <span class="mode active" id="hoverBox_interest">系统通知</span>
         <span class="mode" id="hoverBox_fans">私信通知</span>
         <span class="activeLine toLeft"></span>
     </div>
     <!-- 内容框 -->
     <div class="contentBox_information">
         <div class="itemList_box">
-            <ul class="itemList">
+            <ul class="itemList system" style="display: block;">
 
-                <li class="item">
-                    <img src="img/use1 (1).jpg">
+                <!-- <li class="item">
+                    <img src="../img/use1 (1).jpg">
                     <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
-                                                        fill="#E6A23C" p-id="12381"></path>
-                                                </svg>
+                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
+                                                    fill="#E6A23C" p-id="12381"></path>
+                                            </svg>
                     <span class="userName itemTitle">用户名</span>
                     <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
                     <span class="time">21:53</span>
                 </li>
                 <li class="item">
-                    <img src="img/use1 (1).jpg">
+                    <img src="../img/use1 (1).jpg">
                     <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
-                                                        fill="#E6A23C" p-id="12381"></path>
-                                                </svg>
+                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
+                                                    fill="#E6A23C" p-id="12381"></path>
+                                            </svg>
                     <span class="userName itemTitle">用户名</span>
                     <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
                     <span class="time">21:53</span>
                 </li>
                 <li class="item">
-                    <img src="img/use1 (1).jpg">
+                    <img src="../img/use1 (1).jpg">
                     <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
-                                                        fill="#E6A23C" p-id="12381"></path>
-                                                </svg>
+                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
+                                                    fill="#E6A23C" p-id="12381"></path>
+                                            </svg>
                     <span class="userName itemTitle">用户名</span>
                     <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
                     <span class="time">21:53</span>
                 </li>
                 <li class="item">
-                    <img src="img/use1 (1).jpg">
+                    <img src="../img/use1 (1).jpg">
                     <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
-                                                        fill="#E6A23C" p-id="12381"></path>
-                                                </svg>
+                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
+                                                    fill="#E6A23C" p-id="12381"></path>
+                                            </svg>
                     <span class="userName itemTitle">用户名</span>
                     <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
                     <span class="time">21:53</span>
                 </li>
                 <li class="item">
-                    <img src="img/use1 (1).jpg">
+                    <img src="../img/use1 (1).jpg">
                     <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
-                                                        fill="#E6A23C" p-id="12381"></path>
-                                                </svg>
+                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
+                                                    fill="#E6A23C" p-id="12381"></path>
+                                            </svg>
                     <span class="userName itemTitle">用户名</span>
                     <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
                     <span class="time">21:53</span>
                 </li>
                 <li class="item">
-                    <img src="img/use1 (1).jpg">
+                    <img src="../img/use1 (1).jpg">
                     <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
-                                                        fill="#E6A23C" p-id="12381"></path>
-                                                </svg>
+                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
+                                                    fill="#E6A23C" p-id="12381"></path>
+                                            </svg>
                     <span class="userName itemTitle">用户名</span>
                     <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
                     <span class="time">21:53</span>
-                </li>
+                </li> -->
 
             </ul>
+            <ul class="itemList private"></ul>
         </div>
     </div>
 
 
     <div class="foot">
         <svg class="clearAllPoint" height="25" title="一键已读" viewBox="0 0 1024 1024" width="25">
-                                        <path
-                                            d="M965.12 286.293333H657.493333V108.8C657.493333 48.64 605.013333 0 540.586667 0H482.56C418.56 0.426667 366.506667 49.066667 366.506667 108.8V285.866667H58.453333C26.026667 285.866667 0 310.613333 0 341.333333v176.213334c0 30.293333 26.453333 55.466667 58.453333 55.466666v253.866667c-0.426667 46.933333-6.826667 93.44-18.346666 135.253333l-0.853334 6.4c0 30.72 26.453333 55.466667 58.453334 55.466667H926.293333c30.293333 0 57.6-22.613333 59.733334-49.493333l-0.853334-7.253334c-12.8-46.933333-19.2-96-19.626666-145.066666v-248.32l19.2-3.84c22.613333-7.68 38.4-28.16 38.4-52.053334V341.76c0.426667-30.72-26.026667-55.466667-58.026667-55.466667z m-210.773333 650.24V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813334c-19.2 0-34.56 14.933333-34.56 33.28v202.666666h-113.92V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666H359.253333V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666l-146.346667 2.56c8.96-34.986667 13.226667-70.826667 13.226667-107.093333v-259.413333h729.173333V836.266667c0 33.706667 3.84 67.84 11.52 99.84h-133.546666zM931.84 486.4H91.733333V372.906667H456.96v-251.733334c0-27.733333 33.28-30.72 47.786667-30.72h16.213333c14.506667 0 47.786667 2.986667 47.786667 30.72v253.866667h363.093333V486.4z"
-                                            fill="#bfbfbf" p-id="12613"></path>
-                                    </svg>
+                                    <path
+                                        d="M965.12 286.293333H657.493333V108.8C657.493333 48.64 605.013333 0 540.586667 0H482.56C418.56 0.426667 366.506667 49.066667 366.506667 108.8V285.866667H58.453333C26.026667 285.866667 0 310.613333 0 341.333333v176.213334c0 30.293333 26.453333 55.466667 58.453333 55.466666v253.866667c-0.426667 46.933333-6.826667 93.44-18.346666 135.253333l-0.853334 6.4c0 30.72 26.453333 55.466667 58.453334 55.466667H926.293333c30.293333 0 57.6-22.613333 59.733334-49.493333l-0.853334-7.253334c-12.8-46.933333-19.2-96-19.626666-145.066666v-248.32l19.2-3.84c22.613333-7.68 38.4-28.16 38.4-52.053334V341.76c0.426667-30.72-26.026667-55.466667-58.026667-55.466667z m-210.773333 650.24V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813334c-19.2 0-34.56 14.933333-34.56 33.28v202.666666h-113.92V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666H359.253333V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666l-146.346667 2.56c8.96-34.986667 13.226667-70.826667 13.226667-107.093333v-259.413333h729.173333V836.266667c0 33.706667 3.84 67.84 11.52 99.84h-133.546666zM931.84 486.4H91.733333V372.906667H456.96v-251.733334c0-27.733333 33.28-30.72 47.786667-30.72h16.213333c14.506667 0 47.786667 2.986667 47.786667 30.72v253.866667h363.093333V486.4z"
+                                        fill="#bfbfbf" p-id="12613"></path>
+                                </svg>
     </div>
     </div>
     </div>
 
     </span>
     </div>
+
     </div>
 
     </div>

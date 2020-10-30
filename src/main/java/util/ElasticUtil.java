@@ -200,15 +200,15 @@ public class ElasticUtil {
         searchSourceBuilder.query(queryBuilder);
         searchSourceBuilder.size(Page.PAGE_SIZE);
         searchRequest.source(searchSourceBuilder);
-        searchRequest.scroll(TimeValue.timeValueMinutes(20));
+        searchRequest.scroll(TimeValue.timeValueMinutes(10));
         if (isHighlight) {
             HighlightBuilder highlightBuilder = new HighlightBuilder();
             for (String val : values) {
                 HighlightBuilder.Field highlightTitle = new HighlightBuilder.Field(val);
                 highlightBuilder.field(highlightTitle);
             }
-            highlightBuilder.preTags("<span style='color:#000; font-size:23px'>");
-            highlightBuilder.postTags("</span>");
+            highlightBuilder.preTags("<em style='color:#000; font-size:23px'>");
+            highlightBuilder.postTags("</em>");
             searchSourceBuilder.highlighter(highlightBuilder);
         }
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
@@ -304,7 +304,7 @@ public class ElasticUtil {
         AnalyzeResponse response = client.indices().analyze(request, RequestOptions.DEFAULT);
         for (AnalyzeResponse.AnalyzeToken token : response.getTokens()) {
             String word = token.getTerm();
-            if (word.length() < 2 || word.contains("的") || word.contains("了") || word.contains("你") || word.contains("我") || word.contains("是")) {
+            if (word.length() < 2 || word.contains("的") || word.contains("了") || word.contains("你") || word.contains("我") || word.contains("是")||word.length()>8) {
                 continue;
             }
             list.add(token.getTerm());

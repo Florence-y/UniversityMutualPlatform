@@ -164,7 +164,7 @@ input {
 }
 
 .maincontent h1 {
-    font-size: 28px;
+    font-size: 40px;
     font-weight: 700;
     margin-bottom: 20px;
 }
@@ -467,7 +467,7 @@ input {
 /* #region 问题控件 */
 
 .maincontent .indexQuizList .queY .queControlY {
-    width: 600px;
+    width: 460px;
     height: 35px;
     float: right;
 }
@@ -492,10 +492,11 @@ input {
     color: #333;
 }
 
-.maincontent .indexQuizList .queY .queControlY span:nth-of-type(1):hover,
+
+/* .maincontent .indexQuizList .queY .queControlY span:nth-of-type(1):hover,
 .maincontent .indexQuizList .queY .queControlY span:hover .icondianzan {
     color: #f37335;
-}
+} */
 
 
 /* #endregion */
@@ -555,7 +556,7 @@ input {
 
 .schoolNews .w>h1 {
     /* 学校通知 */
-    font-size: 28px;
+    font-size: 40px;
     font-weight: 700;
 }
 

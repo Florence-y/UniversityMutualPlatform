@@ -27,6 +27,7 @@
         <version>4.12</version>
         <scope>test</scope>
       </dependency>
+
       <!--可以引入日志 @Slf4j注解-->
       <dependency>
         <groupId>org.projectlombok</groupId>

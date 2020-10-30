@@ -38,6 +38,7 @@ public class AnalyzeKeyWordServlet extends HttpServlet {
             return;
         }
         List<String> list = ElasticUtil.divideTheKeyWord((String) map.get("keyWord"));
+        System.out.println(list);
         WebUtil.writeObjToResponse(response, list);
         System.out.println("get");
     }

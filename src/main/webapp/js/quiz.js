@@ -138,13 +138,14 @@ $(function() {
     function getKeyword() {
         console.log("获取关键字")
         $.ajax({
-            url: "http://192.168.137.103:8080/Servlet/AnalyzeKeyWordServlet",
+            url: "http://localhost:8080/Servlet/AnalyzeKeyWordServlet",
             type: 'get',
             data: {
                 requestType: "get",
                 keyWord: $(this).val()
             },
             success: function(arr) {
+                console.log(arr);
                 displayLabels(arr); //返回的列表
             }
         })
@@ -156,6 +157,7 @@ $(function() {
         for (var i = 0; i < labels.length && i < 5; i++) {
             // ++label_count;
             // console.log(label_count);
+            console.log(i);
             $('.quizModal_bg_askQuestion .label .nodeBoard').append('<span><div class="text">' + labels[i] + '</div><i class="removeLabel">&times;</i></span>');
         }
         rebindLabel.call($(this));
@@ -258,7 +260,7 @@ $(function() {
     function sendImage(formdata, imgObj) { //imgObj是jq对象
         sendingImg = true;
         $.ajax({
-            url: 'http://192.168.137.103:8080/Servlet/ReceiveFileServlet',
+            url: 'http://localhost:8080/Servlet/ReceiveFileServlet',
             type: 'post',
             data: formdata,
             dataType: 'json',
@@ -341,7 +343,7 @@ $(function() {
         var anonymity = $(".quizModal_bg_askQuestion .anonymity").attr("anonymity") == "true" ? true : false;
         //判断敏感词
         $.ajax({
-            url: "http://192.168.137.103:8080//Servlet/SensitiveWordServlet",
+            url: "http://localhost:8080//Servlet/SensitiveWordServlet",
             data: JSON.stringify({
                 "textArr": [
                     textContent
@@ -363,7 +365,7 @@ $(function() {
             //发送内容
             console.log(anonymity);
             $.ajax({
-                url: "http://192.168.137.103:8080//Servlet/QuestionServlet",
+                url: "http://localhost:8080//Servlet/QuestionServlet",
                 type: "post",
                 dataType: "json",
                 data: JSON.stringify({

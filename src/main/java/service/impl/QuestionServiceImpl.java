@@ -15,6 +15,7 @@ import service.AgreeService;
 import service.AnswerService;
 import service.QuestionService;
 import util.ElasticUtil;
+import util.TimeUtil;
 import util.WebUtil;
 
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public String addQuestion(Map<String, Object> fieldAndValueMapDoc) throws JsonProcessingException {
+        fieldAndValueMapDoc.put("time", TimeUtil.getSystemTimeStamp());
         System.out.println(WebUtil.mapToJson(fieldAndValueMapDoc));
         return ElasticUtil.addDoc(WebUtil.mapToJson(fieldAndValueMapDoc), INDEX);
     }
@@ -60,8 +62,12 @@ public class QuestionServiceImpl implements QuestionService {
         String viewerMarkNumber = (String) map.get("ViewerMarkNumber");
         String userType = markNumberTypeDao.getUserType(authorMarkNumber);
         int agreeCount = agreeService.getAgreeCountQuestionOrAnswer("question", id);
-        boolean isAgree = agreeService.isAgree("question", id, viewerMarkNumber);
-        boolean isAttention = attentionDao.isAttention(viewerMarkNumber, authorMarkNumber);
+        if (viewerMarkNumber!=null) {
+            boolean isAgree = agreeService.isAgree("question", id, viewerMarkNumber);
+            boolean isAttention = attentionDao.isAttention(viewerMarkNumber, authorMarkNumber);
+            question.setAttentionAuthor(isAttention);
+            question.setAgree(isAgree);
+        }
         //设置初始化为第一页
         map.put("currentPage", "1");
         Page<Answer> answerList = answerService.getAnswers("question", map);
@@ -73,11 +79,10 @@ public class QuestionServiceImpl implements QuestionService {
             Teacher teacher = teacherDao.getTeacherByCondition(ServletConstantVal.TEACHER_MARK_NUMBER_COL, authorMarkNumber);
             question.setTeacher(teacher);
         }
-        question.setAttentionAuthor(isAttention);
         question.setUserType(userType);
         question.setAnswer(answerList);
         question.setAgreeCount(agreeCount);
-        question.setAgree(isAgree);
+
         return question;
     }
 }

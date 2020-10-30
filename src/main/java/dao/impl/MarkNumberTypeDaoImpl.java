@@ -40,9 +40,9 @@ public class MarkNumberTypeDaoImpl extends BaseDaoImpl implements MarkNumberType
     @Override
     public String getUserType(String markNumber) {
         try {
-            connection = C3P0Util.getConnection();
+            Connection connection = C3P0Util.getConnection();
             String sql = "SELECT * FROM " + getTableName() + " WHERE " + MARK_NUMBER_COL + " =?";
-            resultSet = JdbcUtil.queryForGetResultSet(connection, sql, markNumber);
+            ResultSet resultSet = JdbcUtil.queryForGetResultSet(connection, sql, markNumber);
             assert resultSet != null;
             if (resultSet.next()) {
                 return resultSet.getString(USER_TYPE_COL);

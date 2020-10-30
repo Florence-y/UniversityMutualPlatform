@@ -2,6 +2,7 @@ package dao;
 
 import pojo.Answer;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -18,5 +19,5 @@ public interface AnswerDao extends BaseDao<Answer> {
      * @param map         包含信息的map
      * @return 一个包含answer的list
      */
-    List<Answer> getAnswers(int currentPage, int pageSize, Map<String, Object> map);
+    List<Answer> getAnswers(int currentPage, int pageSize, Map<String, Object> map) throws IOException;
 }

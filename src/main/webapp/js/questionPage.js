@@ -1,36 +1,56 @@
 var isLogon;
 //
-var oAuthor;
+var oAuthor; //文章的作者
 //整篇文章的id
-var questionId_local = getQueryVariable("id");
+// var questionId_local = getQueryVariable("id");
+var questionId_local = 'O9lweXUB3qqWTmFg4Gx-';
 
-loadQuestion();
-// console.log(getCookie("markNumber"));
-$(window).on("load", () => {
-    console.log("加载成功")
-    if (getCookie("markNumber") != null) {
+//登录者的学号
+
+
+
+
+function sentenceIsLogon() {
+    if (navigator.onLine && getCookie("markNumber") != null && getCookie("markNumber") != undefined &&
+        getCookie("userName") != null && getCookie("userName") != undefined &&
+        getCookie("face") != undefined && getCookie("face") != null) {
         isLogon = true;
-        console.log('设置了cookie');
+        displayTipPane("自动登录成功！");
     } else {
         isLogon = false;
+        displayTipPane("自动登录失败！");
     }
+}
+
+// console.log(getCookie("markNumber"));
+$(window).on("load", () => {
+    sentenceIsLogon(); //判断是否登录
+    loadQuestion();
+    getAnswer(1);
 })
 
 function fixed() {
     // console.log("头部固定");
     if ($(this).scrollTop() > 500) {
-        $('.head_search_outside').addClass("head_search_outside_fixed");
+        // $('.head_search_outside').addClass("head_search_outside_fixed");
         $('.sideBox_fixed').addClass("sideBox_fixed_on");
         $('.sideBox_fixed').css("right", "");
-        $('.sideBox_fixed').css("left", $('.head_search').position().left + $('.head_search').width() - $('.sideBox_fixed').width() + "px");
+        // console.log($('.question_info_main').get(0).offsetLeft);
+        // console.log($('.question_info_main').position().left );
+        // console.log($('.question_info_main').width());
+        // console.log($('.sideBox_fixed').width());
+        $('.sideBox_fixed').css("left", $('.question_info_main').get(0).offsetLeft + $('.question_info_main').width() - $('.sideBox_fixed').width() + "px");
         $('.sideBox_fixed .author_info_box').slideDown();
+
     } else {
-        $('.head_search_outside').removeClass("head_search_outside_fixed");
+        // $('.head_search_outside').removeClass("head_search_outside_fixed");
         $('.sideBox_fixed').removeClass("sideBox_fixed_on");
         $('.sideBox_fixed').removeAttr("style");
         $('.sideBox_fixed').css("right", 0);
         $('.sideBox_fixed .author_info_box').slideUp();
     }
+
+
 }
 $(window).bind("scroll", debounce(fixed, 10, true));
 
@@ -40,7 +60,7 @@ $('.question_info_main .answer_btn').click(() => {
     if (isLogon) {
         $('.textAnswer').slideDown();
     } else {
-        alert("请先登录！")
+        displayTipPane("请先完成登录");
     }
 })
 $('.textAnswer .slideUp').click(() => {
@@ -54,27 +74,14 @@ $('.note .copyText').click(function() {
 })
 
 $('.note .writeAnswer').click(function() {
+    if (isLogon == false) {
+
+        displayTipPane("请先完成登录！")
+        return;
+    }
     scrollUp();
     $('.textAnswer').slideDown();
 })
-
-//点击图片放大
-// $('.fadein_img').on("click",function() {
-//     $('.modal_bg_img').fadeIn();
-//     $('.modal_bg_img .modal').css({
-//         transform: 'translate(-50%,-50%) scale(1)'
-//     })
-//     $('.modal_bg_img .modal').find(".modal_content img").attr("src",$(this).attr("src"));
-// })
-
-// $('.modal_bg_img .fadeout').on("click",function() {
-//     $('.modal_bg_img').fadeOut(); // 其实就是css 的过渡+ display
-//     $('.modal_bg_img .modal').css({
-//         transform: 'translate(-50%,-50%) scale(0.7)'
-//     })
-// })
-//#region  点击模态框以外的地方 模态框消失
-//设置背景高度
 
 $(".modal_bg_img").on({
         click: function() {
@@ -97,7 +104,7 @@ $(".modal").on({
 // 窗口缩放
 $(window).bind("resize", () => {
     if ($(this).scrollTop() > 500) {
-        $('.sideBox_fixed').css("left", $('.head_search').position().left + $('.head_search').width() - $('.sideBox_fixed').width() + "px");
+        $('.sideBox_fixed').css("left", $('.question_info_main').get(0).offsetLeft + $('.question_info_main').width() - $('.sideBox_fixed').width() + "px");
     }
 })
 
@@ -124,7 +131,8 @@ $('.fadeout').click(function() {
 //点击"+"相当于点击input[type=file]
 $('.addImageBtn').click(() => {
         if (sendingImg) {
-            alert("有图片正在上传中！")
+
+            displayTipPane("有图片正在上传中...");
         } else {
             $('.file_input').click();
         }
@@ -173,7 +181,7 @@ var sendingImg = false; // 判断是否正在发送图片，如果是就不能�
 function readFile() {
     var formdata = new FormData();
     if (!oinput['value'].match(/.jpg|.gif|.png|.jpeg|.bmp/i)) {　　 //判断上传文件格式
-        return alert("上传的图片格式不正确，请重新选择");
+        return displayTipPane("图片格式有误！");
     }
     var reader = new FileReader();
     //因为每次表签设置了单文件读取，所以是file[0]
@@ -191,7 +199,7 @@ function readFile() {
             var imgObj = $(newImage);
             //把新的图片添加到编辑区
             $(".answerTextArea").append(imgObj);
-            console.log(imgObj);
+            // console.log(imgObj);
             var otextDiv = $('<div class="textarea edit-div" type="text" contenteditable="true" id="edit-div"></div>');
             //为一行添加图片
             otextDiv.keydown(function() {
@@ -207,7 +215,7 @@ function readFile() {
 function sendImage(formdata, imgObj) { //imgObj是jq对象
     sendingImg = true;
     $.ajax({
-        url: 'http://192.168.137.103:8080/Servlet/ReceiveFileServlet',
+        url: 'http://localhost:8080/Servlet/ReceiveFileServlet',
         type: 'post',
         data: formdata,
         dataType: 'json',
@@ -220,21 +228,27 @@ function sendImage(formdata, imgObj) { //imgObj是jq对象
         error: function(data) {
             imgObj.remove();
             sendingImg = false;
-            alert("图片上传失败！已自动删除！")
+            displayTipPane("图片上传失败！已自动删除！")
         },
         timeout: function(data) {
             imgObj.remove();
             sendingImg = false;
-            alert("图片上传超时！已自动删除！")
+            displayTipPane("图片上传超时！已自动删除！")
         }
     })
 }
 //动态添加回答的数据
+
+
+
 var answerData = {
     "requestType": "get",
     "questionId": questionId_local, //回答的问题的id
-    "markNumber": getCookie("markNumber")[2], //回答者的学号,找cookie
+    //回答者的学号,找cookie
     "answerContents": ""
+}
+if (isLogon) {
+    answerData["markNumber"] = getCookie("markNumber")[2];
 }
 var answerContents = new Array();
 
@@ -294,19 +308,19 @@ function loadAnswerContents() {
 function sendAnswer() {
     //发布文本之前把文本和图片加起来
     if (sendingImg) {
-        alert("有图片正在上传中!")
+        displayTipPane("有图片正在上传中!")
         return;
     }
     //准备发送
     loadAnswerContents();
     if (emptyContent) {
-        alert("请输入内容！");
+        displayTipPane("请输入内容！");
         return;
     }
     answerData["answerContents"] = answerContents;
     // console.log(answerData);
     $.ajax({
-        url: "http://192.168.137.103:8080/Servlet/AnswerServlet",
+        url: "http://localhost:8080/Servlet/AnswerServlet",
         type: "post",
         dataType: 'json',
         data: JSON.stringify(answerData),
@@ -323,7 +337,7 @@ function sendAnswer() {
                 emptyContent = true;
                 //收起
                 $(".answerArea .textAnswer").slideUp();
-                alert("发布成功！");
+                displayTipPane("发布成功！");
                 //加载最新内容
                 loadMyNewAnswer(answerContents, res.id);
                 //发送通知
@@ -341,15 +355,15 @@ function sendAnswer() {
                 sendInfo(data);
 
             } else {
-                alert("发布失败！");
+                displayTipPane("发布失败！");
             }
             answerContents = new Array();
         },
         error: function(res) {
-            alert("发送失败！请检查网络是否正常！")
+            displayTipPane("发送失败！请检查网络是否正常！")
         },
         timeout: function(res) {
-            alert("发送超时！请检查网络是否正常！")
+            displayTipPane("发送超时！请检查网络是否正常！")
         }
     })
 }
@@ -364,13 +378,15 @@ function loadMyNewAnswer(answerContents, answerId) {
     var framObj = $("<div class='answerItem'></div>");
     var reg = /(..\/)/;
     var src = getCookie("face")[2];
-    src = src.replace(reg.exec(src)[0], "http://192.168.137.103:8080//");
+    src = src.replace(reg.exec(src)[0], "http://localhost:8080//");
+    var date = new Date();
+
     var framData = {
             agreeCount: 0,
             commentCount: 0,
             userType: type,
             agree: "no_agree",
-            time: "2020/10/17",
+            time: date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate(),
             face: src,
             userName: getCookie("userName")[2],
             schoolInfo: school_info
@@ -384,6 +400,10 @@ function loadMyNewAnswer(answerContents, answerId) {
     });
     //添加评论
     framObj.find(".comment_btn").on("click", function() {
+            if (isLogon == false) {
+                displayTipPane("请先完成登录！");
+                return;
+            }
             $(this).parents(".answerItem").find(".addComment").slideDown();
         })
         //查看评论
@@ -412,6 +432,10 @@ function loadMyNewAnswer(answerContents, answerId) {
     //点赞
     framObj.find(".like_btn .icon").attr("changing", "false");
     framObj.find(".like_btn .icon").click(function() {
+        if (isLogon == false) {
+            displayTipPane("请先完成登录！");
+            return;
+        }
         agreeAnswer.call($(this), getCookie("markNumber")[2]);
     });
     framObj.find(".like_btn").attr("status", "no_agree");
@@ -430,31 +454,31 @@ function loadMyNewAnswer(answerContents, answerId) {
 //一进入之后加载一些
 var answerPage = 1;
 var totalAnswerPage = 1;
-getAnswer(1);
-// var answer_nowPostiont = 1;
+
+// var answer_nowPostion = 1;
 //获取回答，发送请求，获取相应，动态添加
 function getAnswer(curPage) {
-    console.log("加载回答");
+    // console.log("加载回答");
+
+    var data1 = {
+        requestType: "get",
+        getAnswerType: "question",
+        questionId: questionId_local, // 进入该页面后应该会有questionId
+        // markNumber: getCookie("markNumber")[2], // 用户者的学号
+        currentPage: curPage //当前页面
+    }
+    if (isLogon) {
+        data1["viewerMarkNumber"] = getCookie("markNumber")[2];
+    }
 
     $.ajax({
-        url: "http://192.168.137.103:8080/Servlet/AnswerServlet",
+        url: "http://localhost:8080/Servlet/AnswerServlet",
         dataType: "json",
         type: "get",
-        data: {
-            requestType: "get",
-            getAnswerType: "question",
-            questionId: questionId_local, // 进入该页面后应该会有questionId
-            viewerMarkNumber: getCookie("markNumber")[2],
-            markNumber: getCookie("markNumber")[2], // 用户者的学号
-            currentPage: curPage //当前页面
-        },
-
+        data: data1,
         success: function(res) {
             //获取返回信息，进行渲染
             //调用
-            console.log("问题是")
-            console.log(res);
-            console.log(res.dataList);
             if (curPage == 1) {
                 $(".answerItem_List").html("");
             }
@@ -466,7 +490,7 @@ function getAnswer(curPage) {
             }
         },
         error: function(res) {
-            alert("加载回答失败")
+            displayTipPane("加载回答失败")
         }
     })
 }
@@ -485,14 +509,14 @@ function displayAnswers(arr, markNumber) {
         var src = authorObj.face;
         // console.log(authorObj);
         // console.log("图片地址:"+src);
-        src = src.replace(reg.exec(src)[0], "http://192.168.137.103:8080//");
+        src = src.replace(reg.exec(src)[0], "http://localhost:8080//");
 
         var contentObj = {
             agreeCount: arr[i].agreeCount,
             commentCount: arr[i].commentCount,
             userType: type,
             agree: isAgree,
-            time: "2020/10/17",
+            time: "2020/10/28",
             face: src,
             userName: authorObj.userName,
             schoolInfo: school_info
@@ -510,6 +534,10 @@ function displayAnswers(arr, markNumber) {
             seeComment.call($(this), 1); //初始化加载数据
         });
         oItem.find(".comment_btn").on("click", function() {
+                if (isLogon == false) {
+                    displayTipPane("请先完成登录!");
+                    return;
+                }
                 $(this).parents(".answerItem").find(".addComment").slideDown();
             })
             //关闭对回答进行评论块
@@ -530,6 +558,9 @@ function displayAnswers(arr, markNumber) {
         //绑定函数 $('.answerItem .like_btn .icon').click();
         oItem.find(".like_btn .icon").attr("changing", "false");
         oItem.find(".like_btn .icon").click(function() {
+            if (isLogon == false) {
+                displayTipPane("请先完成登录！")
+            }
             agreeAnswer.call($(this), markNumber);
         });
         // console.log("isAgree"+isAgree);
@@ -555,7 +586,7 @@ $(window).on("scroll", debounce(function() {
     if (scrollTop + curHeight >= totalHeight) {
         //还要根据是否有下一页判断可进行发送请求
         if (isNoMoreAnswer) {
-            alert("没有更多回答了哦！");
+            displayTipPane("没有更多回答了哦！");
             return;
         }
         getAnswer(++answerPage);
@@ -576,7 +607,7 @@ function addAnswerContentText(contentArr) {
             // console.log( arr[i].contents[j]);
             var reg = /(..\/)/;
             var src = contentArr[j]["contentMain"];
-            src = src.replace(reg.exec(src)[0], "http://192.168.137.103:8080//");
+            src = src.replace(reg.exec(src)[0], "http://localhost:8080//");
             // console.log(src);
             contentText += "<img class='' src='" + src + "'/>";
         }
@@ -596,7 +627,7 @@ function seeComment(nextPage) {
     if ($(this).attr("loadingAbility") == "true") { //请求第一页代表初始化
         // console.log("初始化评论条")
         $.ajax({
-            url: "http://192.168.137.103:8080/Servlet/CommentServlet",
+            url: "http://localhost:8080/Servlet/CommentServlet",
             data: {
                 requestType: "get",
                 getType: "answer",
@@ -631,7 +662,7 @@ function displayComment(dataList) {
         var item = dataList[i];
         data = item.student != null ? item.student : item.teacher;
         var reg = /(..\/)/;
-        data.face = data.face.replace(reg.exec(data.face)[0], "http://192.168.137.103:8080//");
+        data.face = data.face.replace(reg.exec(data.face)[0], "http://localhost:8080//");
         // console.log(data.face);
         data.content = item.content;
         var commentItem = template("template_commentItem", data);
@@ -651,7 +682,7 @@ function loadMoreComment() {
     commentList.attr("nextPage", nextPage);
     // console.log(nextPage);
     $.ajax({
-        url: "http://192.168.137.103:8080/Servlet/CommentServlet",
+        url: "http://localhost:8080/Servlet/CommentServlet",
         data: {
             requestType: "get",
             getType: "answer",
@@ -698,7 +729,7 @@ function sendComment() {
     //获取内容
     var text = $(this).parents(".addComment").find(".textBox").val();
     if (text == "" || text == undefined || text == null) {
-        alert("评论不能为空！");
+        displayTipPane("评论不能为空！");
         return;
     }
     var answerItem = $(this).parents(".answerItem");
@@ -712,7 +743,7 @@ function sendComment() {
     //判断敏感词
 
     $.ajax({
-        url: "http://192.168.137.103:8080//Servlet/SensitiveWordServlet",
+        url: "http://localhost:8080//Servlet/SensitiveWordServlet",
         data: JSON.stringify({
             "textArr": [
                 text
@@ -721,7 +752,7 @@ function sendComment() {
         type: "post",
         success: function(res) {
             if (res.statusCode == 500) {
-                alert("内容" + res.message + "请修改后再发送！");
+                displayTipPane("内容" + res.message + "请修改后再发送！");
             } else {
                 data_1.content = res[0];
                 send();
@@ -732,7 +763,7 @@ function sendComment() {
     // 发送评论
     function send() {
         $.ajax({
-            url: "http://192.168.137.103:8080/Servlet/CommentServlet",
+            url: "http://localhost:8080/Servlet/CommentServlet",
             type: "post",
             data: JSON.stringify(data_1),
             dataType: "json",
@@ -770,7 +801,7 @@ function sendComment() {
                         sendInfo(data);
                     }
                 } else {
-                    alert("评论失败！");
+                    displayTipPane("评论失败！");
                 }
             }
         })
@@ -779,7 +810,7 @@ function sendComment() {
     function loadMyNewComment(text) {
         var src = getCookie("face")[2];
         var reg = /(..\/)/;
-        src = src.replace(reg.exec(src)[0], "http://192.168.137.103:8080//");
+        src = src.replace(reg.exec(src)[0], "http://localhost:8080//");
         var data = {
             content: text,
             face: src,
@@ -795,6 +826,10 @@ function sendComment() {
 $('.question_info_main .like_btn .icon').attr("changing", "false"); // 是否状态发生改变，防止多次点击，由于网络原因计数出错
 $('.question_info_main .like_btn .icon').click(function() {
         //当前点击状态
+        if (!isLogon) {
+            displayTipPane("请先完成登录");
+            return;
+        }
         if ($(this).attr("changing") == "true") {
             return;
         }
@@ -803,7 +838,7 @@ $('.question_info_main .like_btn .icon').click(function() {
         var obj = $(this);
         if (status == "agree") { //再次点击为取消点赞
             $.ajax({
-                url: "http://192.168.137.103:8080/Servlet/AgreeServlet",
+                url: "http://localhost:8080/Servlet/AgreeServlet",
                 type: "get",
                 dataType: "json",
                 data: {
@@ -825,7 +860,7 @@ $('.question_info_main .like_btn .icon').click(function() {
             })
         } else if (status == "no_agree") {
             $.ajax({
-                url: "http://192.168.137.103:8080/Servlet/AgreeServlet",
+                url: "http://localhost:8080/Servlet/AgreeServlet",
                 type: "post",
                 dataType: "json",
                 data: JSON.stringify({
@@ -867,6 +902,10 @@ $('.question_info_main .like_btn .icon').click(function() {
     //回答点赞函数
 function agreeAnswer(markNumber_2) {
     //当前点击状态
+    if (isLogon == false) {
+        displayTipPane("请先登录！");
+        return;
+    }
     if ($(this).attr("changing") == "true") {
         return;
     }
@@ -876,7 +915,7 @@ function agreeAnswer(markNumber_2) {
     // console.log($(this));
     if (status == "agree") { //再次点击为取消点赞
         $.ajax({
-            url: "http://192.168.137.103:8080/Servlet/AgreeServlet",
+            url: "http://localhost:8080/Servlet/AgreeServlet",
             type: "get",
             dataType: "json",
             data: {
@@ -898,7 +937,7 @@ function agreeAnswer(markNumber_2) {
     } else if (status == "no_agree") {
         //点赞
         $.ajax({
-            url: "http://192.168.137.103:8080/Servlet/AgreeServlet",
+            url: "http://localhost:8080/Servlet/AgreeServlet",
             type: "post",
             dataType: "json",
             data: JSON.stringify({
@@ -938,12 +977,12 @@ function agreeAnswer(markNumber_2) {
 //关注作者
 function subscribeAuthor() {
     $.ajax({
-        url: "http://192.168.137.103:8080/Servlet/AttentionServlet",
+        url: "http://localhost:8080/Servlet/AttentionServlet",
         type: "post",
         dataType: 'json',
         data: JSON.stringify({
             "majorMarkNumber": getCookie("markNumber")[2],
-            "passMarkNumber": "191541227",
+            "passMarkNumber": oAuthor.markNumber,
             "requestType": "post"
         }),
         success: function(res) {
@@ -972,13 +1011,13 @@ function subscribeAuthor() {
 function cancelSubscribeAuthor() {
 
     $.ajax({
-        url: "http://192.168.137.103:8080/Servlet/AttentionServlet",
+        url: "http://localhost:8080/Servlet/AttentionServlet",
         type: "get",
         dataType: "json",
         data: {
             requestType: "delete",
             majorMarkNumber: getCookie("markNumber")[2],
-            passMarkNumber: "191541227"
+            passMarkNumber: oAuthor.markNumber
         },
         success: function(res) {
             if (res.statusCode == 200) {
@@ -1003,13 +1042,17 @@ function cancelSubscribeAuthor() {
     })
 }
 $(".author_info_box .subscribe_btn").click(function() {
+    if (isLogon == false) {
+        displayTipPane("请先完成登录!");
+        return;
+    }
     if ($(".author_info_box .subscribe_btn").attr("status") == "subscribe") {
         cancelSubscribeAuthor();
 
     } else if ($(".author_info_box .subscribe_btn").attr("status") == "no_subscribe") {
         subscribeAuthor();
     } else {
-        alert("作者匿名，关注已禁用！")
+        displayTipPane("作者匿名，关注已禁用！")
     }
 })
 
@@ -1025,17 +1068,20 @@ function getQueryVariable(variable) {
 }
 
 function loadQuestion() {
+    var data1 = {
+        requestType: "get",
+        questionId: questionId_local, //需要jsp来获取请求
+    }
+    if (isLogon) {
+        data1["viewerMarkNumber"] = getCookie("markNumber")[2];
+    }
     $.ajax({
-        url: "http://192.168.137.103:8080//Servlet/QuestionServlet",
+        url: "http://localhost:8080//Servlet/QuestionServlet",
         type: 'get',
         dataType: 'json',
-        data: {
-            requestType: "get",
-            questionId: questionId_local, //需要jsp来获取请求
-            ViewerMarkNumber: getCookie("markNumber")[2]
-        },
+        data: data1,
         success: function(res) {
-            console.log(res);
+            // console.log(res);
             setQuestionMain(res);
             setAuthorInfo(res);
         }
@@ -1058,7 +1104,7 @@ function setQuestionMain(data) {
         var src = data.contents[i]['contentMain'];
         // console.log(authorObj);
         // console.log("图片地址:"+src);
-        src = src.replace(reg.exec(src)[0], "http://192.168.137.103:8080//");
+        src = src.replace(reg.exec(src)[0], "http://localhost:8080//");
         $('.question_info_main .questionImage').append('<img title="点击放大" class="fadein fadein_img" src="' + src + '">');
 
         //点击图片放大
@@ -1091,7 +1137,6 @@ function setQuestionMain(data) {
     }
     //点赞数目
     $('.question_info_main .like_btn .num').html(data.agreeCount);
-
 }
 
 function setAuthorInfo(data) {
@@ -1118,7 +1163,7 @@ function setAuthorInfo(data) {
         $(".author_info_box .userName").html(oAuthor.userName);
     }
     var reg = /(..\/)/;
-    src = src.replace(reg.exec(src)[0], "http://192.168.137.103:8080//");
+    src = src.replace(reg.exec(src)[0], "http://localhost:8080//");
     $('.author_info_box .profile img').attr("src", src);
 
     //关注和私信禁用
@@ -1141,9 +1186,14 @@ function setAuthorInfo(data) {
 }
 //复制问题链接
 $('.copyLink_btn').click(function() {
-    let query = window.location.search.substring(1);
+    let query = window.location.href;
     //window.location.href
-    $('.note .content textarea').select(query);
+    // alert(query);
+    // displayTipPane("复制成功！");
+    var oInput = $("#copyURL");
+    // console.log(oInput);
+    oInput.val(query);
+    oInput.select();
     document.execCommand("copy"); // 执行浏览器复制命令
 })
 
@@ -1153,7 +1203,7 @@ $('.copyLink_btn').click(function() {
 function sendInfo(data) {
     // console.log("发送了通知！")
     $.ajax({
-        url: "http://192.168.137.103:8080/Servlet/InfServlet",
+        url: "http://localhost:8080/Servlet/InfServlet",
         type: "post",
         data: JSON.stringify(data),
         success: function(res) {
@@ -1161,14 +1211,3 @@ function sendInfo(data) {
         }
     })
 }
-// var data = {
-//     "senderMarkNumber": getCookie("markNumber")[2],
-//     "receiverMarkNumber": "",
-//     "content": "关注了你",
-//     "additionContent": "额外内容 可以为空",
-//     "type": "inf",
-//     "senderName": getCookie("userName")[2],
-//     "isRead": false,
-//     "senderFace": getCookie("face")[2],
-//     "requestType": "post"
-// }

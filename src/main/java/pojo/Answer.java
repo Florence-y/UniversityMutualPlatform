@@ -5,6 +5,7 @@ import commom.annontation.DbCol;
 import commom.annontation.DbPriKey;
 import commom.annontation.DbTable;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -20,12 +21,17 @@ public class Answer {
     private String questionId;
     @DbCol("answer_markNumber")
     private String markNumber;
+    @DbCol("answer_time")
+    private Timestamp time;
     private int commentCount;
     private int agreeCount;
     private boolean isAgree;
     private Student student;
     private Teacher teacher;
+    private String title;
 
+
+    private String timeUpToNow;
     public int getCommentCount() {
         return commentCount;
     }
@@ -99,7 +105,28 @@ public class Answer {
     public void setAgree(boolean agree) {
         isAgree = agree;
     }
+    public String getTitle() {
+        return title;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public String getTimeUpToNow() {
+        return timeUpToNow;
+    }
+
+    public void setTimeUpToNow(String timeUpToNow) {
+        this.timeUpToNow = timeUpToNow;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp timestamp) {
+        this.time = timestamp;
+    }
     @Override
     public String toString() {
         return "Answer{" +

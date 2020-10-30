@@ -3,6 +3,7 @@ package pojo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import commom.annontation.IsValid;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 
 /**
@@ -23,6 +24,8 @@ public class Question extends IndexObject {
     QuestionContent[] contents;
     @IsValid(valid = true, fieldName = "anonymity")
     boolean anonymity;
+    @IsValid(valid = true,fieldName = "time")
+    Timestamp time;
     boolean isAgree;
     boolean isAttentionAuthor;
     String userType;
@@ -31,7 +34,24 @@ public class Question extends IndexObject {
     Student student;
     Teacher teacher;
     Page<Answer> answer;
+    /**
+     * 计算发表的时间长久
+     */
+    private String timeUpToNow;
+    public Timestamp getTime() {
+        return time;
+    }
 
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+    public String getTimeUpToNow() {
+        return timeUpToNow;
+    }
+
+    public void setTimeUpToNow(String timeUpToNow) {
+        this.timeUpToNow = timeUpToNow;
+    }
 
     public String getAuthorMarkNumber() {
         return authorMarkNumber;

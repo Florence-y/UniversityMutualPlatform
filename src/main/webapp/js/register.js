@@ -3,7 +3,7 @@
 //禁用 倒计时 disable属性
 
 //验证码
-var confirmCode =123456;
+var confirmCode ;
 var time = 0;
 var timer = null;
 

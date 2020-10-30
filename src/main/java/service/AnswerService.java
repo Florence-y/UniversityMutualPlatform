@@ -35,5 +35,5 @@ public interface AnswerService {
      * @param map           存有数据的map
      * @return 返回一个包含一页回答的页面对象
      */
-    public Page<Answer> getAnswers(String getAnswerType, Map<String, Object> map);
+    public Page<Answer> getAnswers(String getAnswerType, Map<String, Object> map) throws IOException;
 }

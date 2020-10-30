@@ -11,6 +11,7 @@ import dao.impl.TeacherDaoImpl;
 import pojo.Answer;
 import pojo.Student;
 import pojo.Teacher;
+import util.TimeUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,6 +39,7 @@ public class AnswerJdbcStrategy implements JdbcGetPojoStrategy<Answer> {
             Teacher teacher = teacherDao.getTeacherByCondition(ServletConstantVal.TEACHER_MARK_NUMBER_COL, answerMarkNumber);
             answer.setTeacher(teacher);
         }
+        answer.setTimeUpToNow(TimeUtil.getTimeGapToSpecialStr(resultSet.getTimestamp("answer_time")));
         return answer;
     }
 }

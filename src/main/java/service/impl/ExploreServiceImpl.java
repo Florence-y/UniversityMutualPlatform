@@ -6,6 +6,7 @@ import org.elasticsearch.index.query.*;
 import pojo.*;
 import service.ExploreService;
 import util.ElasticUtil;
+import util.TimeUtil;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,9 +35,13 @@ public class ExploreServiceImpl implements ExploreService {
 
     @Override
     public Page<Question> getSpecialType(String authorMarkNumber) throws IOException {
-        return ElasticUtil.scrollSearchFirst("question", ElasticUtil.getTermBuilder("authorMarkNumber",
+        Page<Question> questionPage = ElasticUtil.scrollSearchFirst("question", ElasticUtil.getTermBuilder("authorMarkNumber",
                 authorMarkNumber),
                 new Question(), false);
+        for (Question question:questionPage.getDataList()){
+            question.setTimeUpToNow(TimeUtil.getTimeGapToSpecialStr(question.getTime()));
+        }
+        return questionPage;
     }
 
 

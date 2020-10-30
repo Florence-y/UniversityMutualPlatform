@@ -13,6 +13,7 @@ import service.AgreeService;
 import service.AnswerService;
 import util.ArrayUtil;
 import util.ReflectUtil;
+import util.TimeUtil;
 import util.WebUtil;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     public int addAnswer(Map<String, Object> map) throws IOException {
+        map.put("time", TimeUtil.getSystemTimeStamp());
         int id = answerDao.insertRowByKeyAndValue(new Answer(), WebUtil.getPureMapFromMixMapToPojo(map, new Answer()));
         ArrayList<String> answerContents = (ArrayList<String>) map.get("answerContents");
         for (String content : answerContents) {
@@ -56,7 +58,7 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public Page<Answer> getAnswers(String getAnswerType, Map<String, Object> map) {
+    public Page<Answer> getAnswers(String getAnswerType, Map<String, Object> map) throws IOException {
         Page<Answer> page = new Page<>();
         Map<String, Object> countMap = new HashMap<>(5);
         List<Answer> answers = null;
