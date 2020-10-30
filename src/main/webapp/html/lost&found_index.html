@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>失物招领</title>
+    <link href="../css/lost&found_index.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/iconfont.css" type="text/css">
+    <link rel="stylesheet" href="../css/logOn.css" type="text/css">
+    <link href="../css/quiz.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/hoverPaneY.css">
+    <link rel="stylesheet" href="../css/nav.css">
+    <link href="../css/tipPane.css" type="text/css" rel="stylesheet">
+    <script src="../js/myMasonry.js"></script>
+    <script src="../js/jquery-3.5.1.js"></script>
+    <script src="../js/logOn.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script src="../js/nav.js"></script>
+    <script src="../js/debounce.js"></script>
+    <script src="../js/scrollUp.js"></script>
+    <script src="../js/myTemplate.js"></script>
+    <script src="../js/myCookie.js"></script>
+    <script src="../js/tipPane.js"></script>
+
+</head>
+
+<body>
+    <!-- 头部 -->
+    <!--                          登录页面                            -->
+    <div class="logonBody">
+        <div class="modal_bg_logon modal_bg">
+            <div class="modal logonYmadal">
+
+                <!-- 模态框 头部 一个×按钮 + 一个学校 icon -->
+                <div class="modal_head">
+                    <button class="fadeout">&times;</button>
+                    <!-- <i class="iconfont icondibudaohanglan-"></i> -->
+                    <b class="logonTitle">用户登录</b>
+                </div>
+
+                <!-- 模态框 内容 ->登录页面logOn -> 忘记密码页面forgetPas -> 重置密码页面resetPas -->
+                <div class="modal_content">
+
+                    <!-- ->登录页面logOn -->
+                    <div class="logOn">
+
+                        <!-- ->登录页面logOn 学生part 文字 + 表单  -->
+                        <div class="student logOnDisplay">
+                            <h2>学生<b></b></h2>
+                            <div class="logOnStudent">
+                                <form action="">
+                                    <div class="confirm value">
+                                        <span class="tip">用户名/学号</span>
+                                        <input class="input account" id="stu_account" type="text" value="">
+                                        <span class="active_line"></span>
+                                    </div>
+                                    <div class="confirm value">
+                                        <span class="tip">密码</span>
+                                        <input class="input pas" id='stu_pwd' type="password" value="">
+                                        <span class="active_line"></span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- ->登录页面logOn 老师part 文字 + 表单  -->
+                        <div class="teacher">
+                            <h2>教师<b></b></h2>
+                            <div class="logOnTeacher">
+                                <form action="">
+                                    <div class="confirm value">
+                                        <span class="tip">用户名/教工号</span>
+                                        <input class="input account" id="teacher_account" type="text" value="">
+                                        <span class="active_line"></span>
+                                    </div>
+                                    <div class="confirm value">
+                                        <span class="tip">密码</span>
+                                        <input class="input pas" id='teacher_pwd' type="password" value="">
+                                        <span class="active_line"></span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- ->登录页面logOn 登录按钮 -->
+                        <button class="btnRegister">注册</button>
+                        <button class="btnLogon logon_btn">登录</button>
+
+                        <!-- ->登录页面logOn 注册页面 忘记密码页面 跳转 -->
+                        <b href="" class="aForgetPas">忘记密码</b>
+
+                    </div>
+
+                    <!-- -> 忘记密码页面forgetPas -->
+                    <div class="forgetPas">
+
+                        <!-- -> 忘记密码页面forgetPas 单选框 学生/教师  -->
+                        <div class="teacherOrStudent">
+                            <form action="">
+                                <span>请选择身份: </span>
+                                <label for=""><input type="radio" class="chooseStudent" name="chooseTeacherOrStudent"
+                                    style="zoom:2;"> 学生</label>
+                                <label for=""><input type="radio" class="chooseTeacher" name="chooseTeacherOrStudent"
+                                    style="zoom:2;"> 教师</label>
+                            </form>
+                        </div>
+
+                        <!-- -> 忘记密码页面forgetPas 文本框:输入邮箱 span:邮箱后缀  -->
+                        <div class="writeEmail">
+                            <form action="">
+                                <span>请输入邮箱:</span>
+                                <input type="text" class="inEmail">
+                                <i>@</i>
+                                <em class="emailSuffix ">m.gduf.edu.cn</em>
+                            </form>
+                        </div>
+
+                        <!-- -> 忘记密码页面forgetPas 文本框:验证码  按钮:发送验证码-->
+                        <div class="verificationCode ">
+                            <form action=" ">
+                                <span>验证码:</span>
+                                <input type="text" class="vCode">
+                            </form>
+                            <button class="sendVerificationCode logon_btn">发送验证码</button>
+                        </div>
+
+                        <!-- -> 忘记密码页面forgetPas 按钮:下一步 跳转重设密码 -->
+                        <button class="forgetPasLast logon_btn">上一步</button>
+                        <button class="forgetPasNext logon_btn">下一步</button>
+                    </div>
+
+                    <!-- -> 重置密码页面resetPas -->
+                    <div class="resetPas ">
+                        <!-- -> 重置密码页面resetPas 文本框:重设密码 -->
+                        <div class="toResetPas ">
+                            <form action=" ">
+                                <span>重设密码: </span>
+                                <input type="password" class="reset " placeholder="请输入密码 ">
+                            </form>
+                        </div>
+                        <!-- -> 重置密码页面resetPas 文本框:确认密码 -->
+                        <div class="confirmPas ">
+                            <form action=" ">
+                                <span>确认密码: </span>
+                                <input type="password" class="confirm " placeholder="请输入密码 ">
+                            </form>
+                        </div>
+                        <!-- -> 重置密码页面resetPas 按钮:确定 返回登录页面 -->
+                        <button class="resetPasConfirm logon_btn">确定</button>
+                    </div>
+                </div>
+                <div class="modal_foot "></div>
+            </div>
+        </div>
+    </div>
+
+    <!--                          提问页面                           -->
+    <div class="quizModal_bg quizModal_bg_askQuestion">
+        <div class="quizModal">
+            <div class="quizModal_head">
+                <button class="fadeout">&times;</button>
+            </div>
+            <div class="quizModal_content">
+                <div class="mainQuestion">
+                    <textarea maxlength="30" t name="" id="" cols="30" rows="10" class="mainQ" placeholder="请输入问题"></textarea>
+                    <span><b class="nowNum">0</b><b>/</b><b class="maxNum">30</b></span>
+                </div>
+                <div class="insertPicture">
+                    <div class="picture_containner"></div>
+                    <!-- <img src="" alt=""> -->
+                    <!-- <div class="picture">
+                        <img src="../../img/01.jpg" alt="">
+                        <i class="removePicture">&times;</i>
+                    </div> -->
+                    <i class="file iconfont iconjiahao1">
+                        <input type="file" class="insertP" accept="image/*">
+                    </i>
+                </div>
+                <div class="questionNote">
+                    <textarea maxlength="80" name="" id="" cols="30" rows="10" class="queN" placeholder="问题备注"></textarea>
+                    <span><b class="nowNum">0</b><b>/</b><b class="maxNum">80</b></span>
+                </div>
+                <div class="label">
+                    <b class="labelFont">标签栏</b>
+                    <div class="nodeBoard">
+
+                    </div>
+                    <div class="addLabel">
+                        <input maxlength="6" type="text" placeholder="自行输入标签"> <i class="iconfont">&#xe720;</i>
+                        <!-- <input type="text" placeholder="请输入标签" class="WriteAddLabel"> -->
+                        <button class="add_btn">添加</button>
+                    </div>
+
+                </div>
+                <div class="rowBox">
+                    <div class="questionType">
+                        <span class="cur_val" value="null">请选择文章类型</span>
+                        <svg class="icon" height="23" p-id="6815" t="1601959179699" version="1.1" viewBox="0 0 1024 1024" width="23" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M539.9 631.25c-6.3 6.3-14.85 12.15-22.95 10.35-8.1 1.35-15.75-4.95-22.05-10.35L300.05 435.5c-9.9-9.9-9.9-26.1 0-36s26.1-9.9 36 0L517.4 585.8l181.8-186.3c9.9-9.9 26.1-9.9 36 0s9.9 26.1 0 36L539.9 631.25z"
+                                  p-id="6816"></path>
+                        </svg>
+                        <ul class="list">
+                            <li>学习篇</li>
+                            <li>期末篇</li>
+                            <li>宿舍篇</li>
+                            <li>食堂篇</li>
+                            <li>考证篇</li>
+                            <li>其他</li>
+                        </ul>
+                    </div>
+                    <div class="invite">
+                        邀请好友回答
+                    </div>
+                </div>
+                <button class="publish">立即发表</button>
+                <div class="anonymity" anonymity="false">
+                    <button class="btn">
+                        <svg t="1603548623411" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5481" width="32" height="32"><path d="M117.99552 565.54496l80.87552-53.00224c77.3632-50.67776 181.67808-28.27264 229.90848 50.95424 34.95936 57.23136 49.31584 114.05312 49.31584 114.05312s185.74336-421.79584 443.9552-500.8896c0 0-80.60928 185.63072 36.98688 319.63136 0 0-267.9808 75.264-466.176 390.92224-6.63552 10.6496-22.08768 10.38336-28.18048-0.54272-39.424-68.97664-163.52256-262.79936-346.68544-321.1264z" p-id="5482" fill="#1296db"></path></svg>
+                    </button>匿名
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--                           导航栏                           -->
+    <div class="nav beforeNav">
+        <div class="w">
+
+            <!--        校徽        -->
+            <div class="logo">
+                <img src="../img/gduf-logo.png" alt="" title="广东金融学院">
+            </div>
+
+            <!-- 首页+校区互通+失物招领+提问 功能页面 -->
+            <div class="functionNav">
+                <ul>
+                    <li title="首页" class="index-li" onclick="window.open('index.html')">首页</li>
+                    <!-- <li title="校区互通" class="campus-li">校区互通</li> -->
+                    <li title="失物招领" class="lostAndFound-li" onclick="window.open('lost&found_index.html')">失物招领</li>
+                    <!-- <li title="提问" class="quiz-li">提问</li> -->
+                </ul>
+            </div>
+
+            <!--         搜索框         -->
+            <div class="search">
+                <form action="">
+                    <input type="text" class="searchBar">
+                    <input type="button" class="searchBtn">
+                    <i class="iconfont iconsousuo"></i>
+                </form>
+                <ul class="searchContent" style="display: none;">
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <span><i class="iconfont"></i></span>
+                        <a href=""></a>
+                    </li>
+                    <!-- <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会考什么立刻就会考什么立刻就会1</a></li>
+                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a> </li>
+                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li>
+                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li>
+                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li> -->
+                </ul>
+            </div>
+
+            <!--         登录注册按钮      -->
+            <div class="personal">
+                <button class="signUpBtn">
+                    <em class="fadein">登录</em>
+                    |
+                    <em class="toRegister"  onclick="window.open('register.html')">注册</em>
+                </button>
+            </div>
+
+            <!--         头像            -->
+            <div class="logonHeadPortrait">
+
+                <!-- 头像 -->
+                <span class="headPortrait">
+
+                    <!-- 导航栏上的头像 -->
+                    <img  class="navHPY" src="../img/InitialPortrait.jpg" alt=" " title="个人中心 ">
+
+                    <!-- 头像的二级导航 -->
+                    <div class="hpSecond">
+
+                        <!-- 小三角 -->
+                        <b class="triangle"></b>
+
+                        <!-- 个人属性part -->
+                        <!-- 用户头像 用户名 -->
+                        <div class="hpPersonalAttributes">
+                            <img class="ResMessageFace" src="../img/InitialPortrait.jpg " alt=" ">
+                            <em> <b class="ResUserName"></b></em>
+                            <em> <b class="ResMarkNumber"></b></em>
+                            <em> <b class="ResMessagePojoMajor"></b> </em>
+                            
+                        </div>
+
+                        <!-- 进入个人中心 -->
+                        <div><i class="iconfont iconjinru2"></i><em>进入个人中心</em> </div>
+
+                        <!-- 我的关注 -->
+                        <div class="attention">
+                            <i class="iconfont iconwodeguanzhu"></i>
+                            <em>我的关注</em>
+                            <div class="hpSecondSecond concernsY">
+                                <div class="hoverBox">
+                                    <div class="title">我的关注</div>
+                                    <div class="mode_selection">
+                                        <span class="mode active" id="hoverBox_interest">我关注的人</span>
+                <span class="mode" id="hoverBox_fans">关注我的人</span>
+                <span class="activeLine toLeft"></span>
+            </div>
+
+
+            <!-- 内容框 -->
+            <div class="contentBox_subscribe">
+                <div class="itemList_box">
+                    <ul class="itemList myAttention" style="display: block;">
+                        <!-- <li class="item">
+                            <a class="img_link" href="#" title="进入主页">
+                                <img src="../img/use1 (1).jpg ">
+                            </a>
+                            <span class="userName">用户名</span>
+                            <span class="status">身份</span>
+                            <div class="sex">
+
+                                <svg class="male" height="30" p-id="3642" t="1602171820438 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
+                                                            <path
+                                                                d="M262.144 419.84C194.56 270.336 286.72 106.496 407.552 18.432c-2.048 16.384-8.192 49.152-10.24 67.584 32.768-20.48 65.536-40.96 100.352-63.488 18.432 4.096 38.912 6.144 57.344 10.24
+                    63.488 65.536 180.224 69.632 215.04 165.888 34.816 114.688-26.624 225.28-61.44 333.824-20.48 69.632-67.584 135.168-137.216 161.792-65.536 26.624-143.36 4.096-192.512-45.056-63.488-65.536-67.584-159.744-116.736-229.376zM358.4 307.2c-79.872
+                    118.784-36.864 309.248 100.352 364.544 124.928 43.008 233.472-81.92 241.664-198.656 16.384-61.44-26.624-114.688-51.2-167.936-94.208 40.96-196.608 28.672-290.816 2.048z "
+                                                                fill="#17abe3 " p-id="3643 "></path>
+                                                            <path
+                                                                d="M133.12 788.48c61.44-59.392 147.456-81.92 227.328-102.4-4.096 118.784 20.48 245.76 114.688 325.632 12.288-88.064 20.48-178.176 18.432-268.288 12.288 0 38.912 0 51.2 2.048 0 88.064
+                    12.288 174.08 30.72 258.048 71.68-88.064 110.592-200.704 88.064-313.344 71.68 26.624 151.552 43.008 212.992 90.112 47.104 45.056 51.2 116.736 63.488 176.128V1024H81.92v-96.256c8.192-49.152 14.336-102.4 51.2-139.264z "
+                                                                fill="#17abe3 " p-id="3644 "></path>
+                                                        </svg>
+                                <svg class="female on" height="30 " p-id="3272 " t="1602171713920 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
+                                                            <path d="M373.793 306.073a373.53 373.53 0 0 0 283.884-6.724 373.53 373.53 0 0 1 41.089 185.272c-8.965 128.495-118.783 228.601-233.83 188.26s-158.378-259.978-91.143-366.808zM695.03 701.27a705.227
+                    705.227 0 0 0 144.183 46.318c86.66 20.918 153.895 173.318 149.413 275.666H32.386s0-224.119 113.553-261.472a1114.617 1114.617 0 0 0 185.272-64.994s-11.206 241.3 114.3 233.83c40.342 0 67.983-93.383 67.983-93.383s50.053 93.383 91.889 93.383c79.935
+                    0 88.9-198.718 89.647-229.348zM196.74 530.192a84.418 84.418 0 0 0 19.423 100.106C258 669.145 379.77 656.445 379.77 656.445a149.412 149.412 0 0 1-48.56 40.342l182.284 117.288L692.79 699.028c-50.8-27.64-28.388-44.077-28.388-44.077a313.02
+                    313.02 0 0 0 134.47-4.482c74.707-25.4 34.366-127.748 34.366-127.748 49.306-5.23 24.653-61.259-11.953-104.589S763.013 196.255 704.742 86.437C656.93 7.995 530.677 0.524 504.53 0.524a194.236 194.236 0 0 0-158.377 63.5C281.906 132.007 251.276
+                    299.35 243.06 350.15S168.35 481.633 168.35 499.562s28.39 30.63 28.39 30.63z " fill="#e8989a "
+                                                                p-id="3273 "></path>
+                                                        </svg>
+                            </div>
+
+                            <span class="school_info " title="互联网金融与信息工程学院 ">互联网金融与信息工程学院</span> 是否关注
+                            <div class="subscribe " nextAction="turnOn " title="关注 ">
+                                红 #d6204b
+                                <svg class="do_subscribe " height="30 " p-id="3875 " t="1602172191268 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
+                                                            <path d="M513.536 239.104S441.856 87.04 280.064 87.04C102.912 87.04 10.24 235.52 10.24 384c0 246.784 503.296 552.96 503.296 552.96S1013.76 633.856 1013.76 384c0-151.552-95.744-296.96-266.752-296.96-170.496
+                    0-233.472 152.064-233.472 152.064z " fill="#bfbfbf " p-id="3876 "></path>
+                                                        </svg>
+                            </div>
+                            私信
+                            <div class="sendText " title="私信 ">
+                                #17abe3
+                        <svg class="icon " height="30 " p-id="4482 " t="1602172441453 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
+                                                            <path d="M935.724138 494.344828c0 204.8-188.910345 370.758621-423.724138 370.75862-67.089655 0-130.648276-14.124138-187.144828-38.841379-35.310345-14.124138-157.131034 60.027586-185.37931 38.841379-28.248276-21.186207
+                    38.841379-141.241379 17.655172-167.724138C112.993103 639.117241 88.275862 568.496552 88.275862 494.344828 88.275862 289.544828 277.186207 123.586207 512 123.586207s423.724138 165.958621 423.724138 370.758621z m-605.572414 5.296551c0 14.124138
+                    7.062069 26.482759 19.42069 33.544828s26.482759 7.062069 38.841379 0c12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379 0-12.358621
+                    7.062069-19.42069 19.42069-19.42069 33.544827z m155.365517 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
+                    0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z m153.6 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
+                    0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z " fill="#bfbfbf " p-id="4483 "></path>
+                                                        </svg>
+                </div>
+                </li> -->
+                    </ul>
+                    <ul class="itemList attentionMe"></ul>
+                </div>
+            </div>
+
+        </div>
+        <script id="item_template " type="text/html ">
+            <li class="item">
+                <a class="img_link " href="# " title="进入主页 ">
+                    <img src="{{}} ">
+                </a>
+                <span class="userName ">{{userName}}</span>
+                <span class="status ">{{status}}</span>
+                <div class="sex ">
+                    {{sex}}
+                    <!-- 参数为一个标签 -->
+                    <!-- <svg class="male " t="1602171820438 " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3642 " width="23 " height="23 "><path d="M262.144 419.84C194.56 270.336 286.72 106.496 407.552 18.432c-2.048
+                    16.384-8.192 49.152-10.24 67.584 32.768-20.48 65.536-40.96 100.352-63.488 18.432 4.096 38.912 6.144 57.344 10.24 63.488 65.536 180.224 69.632 215.04 165.888 34.816 114.688-26.624 225.28-61.44 333.824-20.48 69.632-67.584 135.168-137.216
+                    161.792-65.536 26.624-143.36 4.096-192.512-45.056-63.488-65.536-67.584-159.744-116.736-229.376zM358.4 307.2c-79.872 118.784-36.864 309.248 100.352 364.544 124.928 43.008 233.472-81.92 241.664-198.656 16.384-61.44-26.624-114.688-51.2-167.936-94.208
+                    40.96-196.608 28.672-290.816 2.048z " p-id="3643 " fill="#17abe3 "></path><path d="M133.12 788.48c61.44-59.392 147.456-81.92 227.328-102.4-4.096 118.784 20.48 245.76 114.688 325.632 12.288-88.064 20.48-178.176 18.432-268.288 12.288 0 38.912
+                    0 51.2 2.048 0 88.064 12.288 174.08 30.72 258.048 71.68-88.064 110.592-200.704 88.064-313.344 71.68 26.624 151.552 43.008 212.992 90.112 47.104 45.056 51.2 116.736 63.488 176.128V1024H81.92v-96.256c8.192-49.152 14.336-102.4 51.2-139.264z
+                    " p-id="3644 " fill="#17abe3 "></path></svg>
+                                        <svg class="female on " t="1602171713920 "  viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3272 " width="23 " height="23 "><path d="M373.793 306.073a373.53 373.53 0 0 0 283.884-6.724
+                    373.53 373.53 0 0 1 41.089 185.272c-8.965 128.495-118.783 228.601-233.83 188.26s-158.378-259.978-91.143-366.808zM695.03 701.27a705.227 705.227 0 0 0 144.183 46.318c86.66 20.918 153.895 173.318 149.413 275.666H32.386s0-224.119 113.553-261.472a1114.617
+                    1114.617 0 0 0 185.272-64.994s-11.206 241.3 114.3 233.83c40.342 0 67.983-93.383 67.983-93.383s50.053 93.383 91.889 93.383c79.935 0 88.9-198.718 89.647-229.348zM196.74 530.192a84.418 84.418 0 0 0 19.423 100.106C258 669.145 379.77 656.445
+                    379.77 656.445a149.412 149.412 0 0 1-48.56 40.342l182.284 117.288L692.79 699.028c-50.8-27.64-28.388-44.077-28.388-44.077a313.02 313.02 0 0 0 134.47-4.482c74.707-25.4 34.366-127.748 34.366-127.748 49.306-5.23 24.653-61.259-11.953-104.589S763.013
+                    196.255 704.742 86.437C656.93 7.995 530.677 0.524 504.53 0.524a194.236 194.236 0 0 0-158.377 63.5C281.906 132.007 251.276 299.35 243.06 350.15S168.35 481.633 168.35 499.562s28.39 30.63 28.39 30.63z " p-id="3273 " fill="#e8989a "></path></svg> -->
+                </div>
+
+                <span class="school_info ">{{school_info}}</span>
+                <!-- 是否关注 -->
+                <div class="subscribe " nextAction="{{action}} " title="关注 ">
+                    <!--红 #d6204b -->
+                    <svg t="1602172191268 " class="do_subscribe " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3875 " width="23 " height="23 ">
+                                            <path d="M513.536 239.104S441.856 87.04 280.064 87.04C102.912 87.04 10.24 235.52 10.24 384c0 246.784 503.296 552.96 503.296 552.96S1013.76 633.856 1013.76 384c0-151.552-95.744-296.96-266.752-296.96-170.496
+                    0-233.472 152.064-233.472 152.064z "
+                                                  p-id="3876 " fill="#bfbfbf "></path>
+                                        </svg>
+                </div>
+                <!-- 私信 -->
+                <div class="sendText " title="私信 ">
+                    <!-- #17abe3 -->
+                    <svg t="1602172441453 " class="icon " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="4482 " width="23 " height="23 ">
+                                            <path d="M935.724138 494.344828c0 204.8-188.910345 370.758621-423.724138 370.75862-67.089655 0-130.648276-14.124138-187.144828-38.841379-35.310345-14.124138-157.131034 60.027586-185.37931 38.841379-28.248276-21.186207
+                    38.841379-141.241379 17.655172-167.724138C112.993103 639.117241 88.275862 568.496552 88.275862 494.344828 88.275862 289.544828 277.186207 123.586207 512 123.586207s423.724138 165.958621 423.724138 370.758621z m-605.572414 5.296551c0 14.124138
+                    7.062069 26.482759 19.42069 33.544828s26.482759 7.062069 38.841379 0c12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379 0-12.358621
+                    7.062069-19.42069 19.42069-19.42069 33.544827z m155.365517 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
+                    0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z m153.6 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
+                    0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z "
+                                                  fill="#bfbfbf " p-id="4483 "></path>
+                                        </svg>
+                </div>
+            </li>
+        </script>
+    </div>
+    </div>
+
+    <!-- 我的问答 -->
+    <div class="myQAY">
+        <i class="iconfont iconV "></i>
+        <em>我的问答</em>
+
+        <div class="hpSecondSecond QandAY">
+            <div class="hoverBox">
+                <div class="title">我的问答</div>
+                <div class="mode_selection">
+                    <span class="mode active" id="hoverBox_request">我的提问</span>
+                    <span class="mode" id="hoverBox_answer">我的回答</span>
+                    <span class="activeLine toLeft"></span>
+                </div>
+                <!-- 内容框 -->
+                <div class="contentBox_request ">
+                    <div class="itemList_box ">
+                        <ul class="itemList myCue" style="display: block;">
+                            <!-- 我的提问和我的回答框架一样 -->
+                            <!-- <li class="item ">
+                                <a href="# ">
+                                    <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
+                                    <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
+
+                                    <div class="time_box ">
+                                        <span class="time ">2小时前</span>
+                                    </div>
+                                </a>
+                            </li> -->
+                            <!-- <li class="item ">
+                                <a href="# ">
+                                    <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
+                                    <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
+                                    <div class="problem_lable_box ">
+                                        <div class="lable ">
+                                            标签一标签一标签一
+                                        </div>
+                                        <div class="lable ">
+                                            标签二标签二标签二
+                                        </div>
+                                    </div>
+                                    <div class="time_box ">
+                                        <span class="time ">2小时前</span>
+                                    </div>
+                                </a>
+                            </li> -->
+
+                            <!-- <li class="item ">
+                                <a href="# ">
+                                    <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
+                                    <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
+                                    <div class="problem_lable_box ">
+                                        <div class="lable ">
+                                            标签一标签一标签一
+                                        </div>
+                                        <div class="lable ">
+                                            标签二标签二标签二
+                                        </div>
+                                    </div>
+                                    <div class="time_box ">
+                                        <span class="time ">2小时前</span>
+                                    </div>
+                                </a>
+                            </li> -->
+                        </ul>
+                        <ul class="itemList myAns"></ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 我的收藏 -->
+    <div class="myCollY"><i class="iconfont iconwodeshoucang "></i><em>我的收藏</em>
+        <div class="hpSecondSecond collectionY ">
+            <div class="hoverBox ">
+                <div class="title ">我的收藏</div>
+                <!-- 内容框 -->
+                <div class="contentBox_collection ">
+                    <div class="itemList_box ">
+                        <ul class="itemList mycollection">
+                            <li class="item ">
+                                <a href="# ">
+                                    <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
+                                    <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
+                                    <div class="problem_lable_box ">
+                                        <div class="lable ">
+                                            标签一标签一标签一
+                                        </div>
+                                        <div class="lable ">
+                                            标签二标签二标签二
+                                        </div>
+                                    </div>
+                                    <div class="time_box ">
+                                        <span class="time ">2小时前</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="item ">
+                                <a href="# ">
+                                    <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
+                                    <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
+                                    <div class="problem_lable_box ">
+                                        <div class="lable ">
+                                            标签一标签一标签一
+                                        </div>
+                                        <div class="lable ">
+                                            标签二标签二标签二
+                                        </div>
+                                    </div>
+                                    <div class="time_box ">
+                                        <span class="time ">2小时前</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <div class="foot ">
+                    <input type="text " placeholder="请输入... ">
+                    <div class="search_btn "><svg t="1602165226427 " class="icon " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3356 " width="23 " height="23 ">
+                        <path d="M222.6944 222.7968A323.1488 323.1488 0 0 0 133.6832 512c19.2512-87.3728 64.512-172.7488 135.0144-243.3024C339.2512 198.1184 424.6272 152.8832 512 133.632c-101.632-19.1488-210.688 10.5216-289.3056 89.1648z " fill="#ffffff
+                    " p-id="3357 "></path><path d="M989.44 822.1184l-121.7024-121.7024a118.016 118.016 0 0 0-92.8-34.1248c114.4576-165.5552 97.92-394.3936-49.4848-541.824-165.9392-165.9904-435.0464-165.9904-601.0368 0-165.9392 165.9904-165.9392 435.1232 0 601.1136
+                    147.4048 147.4304 376.064 163.84 541.7216 49.3824-2.56 33.28 8.8576 67.5328 34.1248 92.8l121.7024 121.728c46.08 45.9776 121.3696 45.9776 167.3472 0 46.208-45.9776 46.208-121.2928 0.128-167.3728zM676.096 676.096c-138.6752 138.6752-363.392
+                    138.6752-502.016 0-138.6752-138.6752-138.6752-363.4432 0-502.1184 138.624-138.6752 363.3408-138.6752 502.016 0 138.6496 138.5728 138.6496 363.4432 0 502.1184z " fill="#ffffff " p-id="3358 "></path></svg>
+                    </div>
+                </div> -->
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 退出登录 -->
+    <div class="exitLogonY"><i class="iconfont icontuichudenglu "></i><em>退出登录</em></div>
+    </div>
+    </span>
+    </div>
+
+    <!-- 提问 + 消息通知 -->
+    <div class="QAndM">
+
+        <!-- 提问 -->
+        <span class="cueY" title="提问">
+            <i class="iconfont iconwenhao- fadeinQuiz"></i>
+    </span>
+
+        <!-- 消息 -->
+        <span class="message">
+                    <i class="iconfont iconxiaoxitongzhitixinglingshenglingdang-xianxing "></i>
+
+                    <div class="messageNotification">
+                        <div class="hoverBox">
+                            <div class="title">动态通知</div>
+                            <div class="mode_selection">
+                                <span class="mode active" id="hoverBox_interest">系统通知</span>
+        <span class="mode" id="hoverBox_fans">私信通知</span>
+        <span class="activeLine toLeft"></span>
+    </div>
+    <!-- 内容框 -->
+    <div class="contentBox_information">
+        <div class="itemList_box">
+            <ul class="itemList system" style="display: block;">
+
+                <!-- <li class="item">
+                    <img src="../img/use1 (1).jpg">
+                    <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
+                                                    fill="#E6A23C" p-id="12381"></path>
+                                            </svg>
+                    <span class="userName itemTitle">用户名</span>
+                    <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
+                    <span class="time">21:53</span>
+                </li>
+                <li class="item">
+                    <img src="../img/use1 (1).jpg">
+                    <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
+                                                    fill="#E6A23C" p-id="12381"></path>
+                                            </svg>
+                    <span class="userName itemTitle">用户名</span>
+                    <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
+                    <span class="time">21:53</span>
+                </li>
+                <li class="item">
+                    <img src="../img/use1 (1).jpg">
+                    <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
+                                                    fill="#E6A23C" p-id="12381"></path>
+                                            </svg>
+                    <span class="userName itemTitle">用户名</span>
+                    <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
+                    <span class="time">21:53</span>
+                </li>
+                <li class="item">
+                    <img src="../img/use1 (1).jpg">
+                    <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
+                                                    fill="#E6A23C" p-id="12381"></path>
+                                            </svg>
+                    <span class="userName itemTitle">用户名</span>
+                    <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
+                    <span class="time">21:53</span>
+                </li>
+                <li class="item">
+                    <img src="../img/use1 (1).jpg">
+                    <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
+                                                    fill="#E6A23C" p-id="12381"></path>
+                                            </svg>
+                    <span class="userName itemTitle">用户名</span>
+                    <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
+                    <span class="time">21:53</span>
+                </li>
+                <li class="item">
+                    <img src="../img/use1 (1).jpg">
+                    <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
+                                                    fill="#E6A23C" p-id="12381"></path>
+                                            </svg>
+                    <span class="userName itemTitle">用户名</span>
+                    <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
+                    <span class="time">21:53</span>
+                </li> -->
+
+            </ul>
+            <ul class="itemList private"></ul>
+        </div>
+    </div>
+
+
+    <div class="foot">
+        <svg class="clearAllPoint" height="25" title="一键已读" viewBox="0 0 1024 1024" width="25">
+                                    <path
+                                        d="M965.12 286.293333H657.493333V108.8C657.493333 48.64 605.013333 0 540.586667 0H482.56C418.56 0.426667 366.506667 49.066667 366.506667 108.8V285.866667H58.453333C26.026667 285.866667 0 310.613333 0 341.333333v176.213334c0 30.293333 26.453333 55.466667 58.453333 55.466666v253.866667c-0.426667 46.933333-6.826667 93.44-18.346666 135.253333l-0.853334 6.4c0 30.72 26.453333 55.466667 58.453334 55.466667H926.293333c30.293333 0 57.6-22.613333 59.733334-49.493333l-0.853334-7.253334c-12.8-46.933333-19.2-96-19.626666-145.066666v-248.32l19.2-3.84c22.613333-7.68 38.4-28.16 38.4-52.053334V341.76c0.426667-30.72-26.026667-55.466667-58.026667-55.466667z m-210.773333 650.24V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813334c-19.2 0-34.56 14.933333-34.56 33.28v202.666666h-113.92V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666H359.253333V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666l-146.346667 2.56c8.96-34.986667 13.226667-70.826667 13.226667-107.093333v-259.413333h729.173333V836.266667c0 33.706667 3.84 67.84 11.52 99.84h-133.546666zM931.84 486.4H91.733333V372.906667H456.96v-251.733334c0-27.733333 33.28-30.72 47.786667-30.72h16.213333c14.506667 0 47.786667 2.986667 47.786667 30.72v253.866667h363.093333V486.4z"
+                                        fill="#bfbfbf" p-id="12613"></path>
+                                </svg>
+    </div>
+    </div>
+    </div>
+
+    </span>
+    </div>
+
+    </div>
+
+    </div>
+
+    <div class="body">
+        <!-- 筛选盒子 -->
+        <div class="platform">
+            <!-- 右边的展示区 -->
+            <div class="selector">
+                <div class="item findMaster">
+                    <span class="name">招领物品</span>
+                    <div class="hoverPane">
+                        <span class="name_inner">招领物品</span>
+                        <div class="tipBox">点击切换模式</div>
+                    </div>
+                </div>
+                <div class="item findGoods">
+                    <span class="name">寻找物品</span>
+                    <div class="hoverPane">
+                        <span class="name_inner">招领物品</span>
+                        <div class="tipBox">点击切换模式</div>
+                    </div>
+                </div>
+            </div>
+            <div class="item_containner">
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound2.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound3.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound1.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound2.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound3.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound1.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound2.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound3.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound3.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound1.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound2.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#" class="item">
+                    <div class="imgBox">
+                        <img src="../img/lostAndFound3.jpg">
+                    </div>
+                    <div class="textBox">
+                        <div class="item_title">
+                            互联网院学生饭卡
+                        </div>
+                        <span class="label">饭卡</span>
+                        <div class="detail">
+                            <span class="area">
+                                北教C302
+                            </span>
+                            <div class="time">
+                                10月26日上午
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+        <div class="select_box" status="open">
+            <div class="switch_btn">
+                <svg t="1603731060183" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="18943" width="32" height="32"><path d="M278.34101563 490.15566406l416.32822265-416.32822265c6.66298828-6.66298828 15.86689453-10.78330078 26.03408203-10.78330079 20.33349609 0 36.81738281 16.48388672 36.81738282 36.81738282 0 10.1671875-4.12119141 19.37109375-10.78330079 26.03408203l-394.49355468 394.49355469 381.82675781 381.89707031c6.07763672 6.2859375 9.82265625 14.86054687 9.82265625 24.30878906 0 19.32539062-15.66650391 34.99189453-34.99189453 34.99189453-9.44912109 0-18.02285156-3.74501953-24.31845703-9.83144531l-395.88398438-395.88398438c-4.78740234-4.87265625-8.14042969-11.16914062-9.36738281-18.19599609 0.759375 4.89814453-0.29003906 5.52919922-0.99052734 4.47978516-6.64277344-6.65859375-10.75078125-15.8484375-10.75078125-25.99892578 0-10.14960938 4.10800781-19.34033203 10.75166015-25.99892578z" fill="#ffffff" p-id="18944"></path></svg>
+            </div>
+            <div class="title">筛选</div>
+
+            <div class="nav1 column1">
+                <ul>
+                    <li class="selected">
+                        <svg t="1603725364119" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8805" width="32" height="32"><path d="M921.6 102.4a102.4 102.4 0 0 1 102.4 102.4v614.4a102.4 102.4 0 0 1-102.4 102.4H102.4a102.4 102.4 0 0 1-102.4-102.4V204.8a102.4 102.4 0 0 1 102.4-102.4h819.2z m0 51.2H102.4a51.2 51.2 0 0 0-50.8416 45.2096L51.2 204.8v614.4a51.2 51.2 0 0 0 45.2096 50.8416L102.4 870.4h819.2a51.2 51.2 0 0 0 50.8416-45.2096L972.8 819.2V204.8a51.2 51.2 0 0 0-45.2096-50.8416L921.6 153.6zM332.8 256a153.6 153.6 0 0 1 63.8464 293.376c79.872 29.3376 140.9536 110.4384 140.9536 193.024a25.6 25.6 0 1 1-51.2 0c0-75.8784-73.728-153.6-153.6-153.6s-153.6 77.7216-153.6 153.6a25.6 25.6 0 1 1-51.2 0c0-82.5856 61.0304-163.6864 140.9536-193.1776A153.6 153.6 0 0 1 332.8 256z m486.4 435.2a25.6 25.6 0 0 1 4.608 50.7904L819.2 742.4h-153.6a25.6 25.6 0 0 1-4.608-50.7904L665.6 691.2h153.6z m0-204.8a25.6 25.6 0 0 1 4.608 50.7904L819.2 537.6h-230.4a25.6 25.6 0 0 1-4.608-50.7904l4.608-0.4096H819.2zM332.8 307.2a102.4 102.4 0 1 0 0 204.8 102.4 102.4 0 0 0 0-204.8z m486.4-25.6a25.6 25.6 0 0 1 4.608 50.7904L819.2 332.8h-256a25.6 25.6 0 0 1-4.608-50.7904L563.2 281.6h256z" p-id="8806" fill="#8a8a8a"></path></svg>
+                        <span class="text">证件</span>
+                    </li>
+                    <li>
+                        <svg t="1603849554027" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8615" width="32" height="32"><path d="M512 168.448c83.456 0 160.256 29.184 221.184 77.824V80.896c0-9.216-7.68-16.896-16.896-16.896H306.176c-11.264 0-20.48 9.216-20.48 20.48v165.888c61.44-51.2 140.288-81.92 226.304-81.92zM733.184 798.208c-60.416 48.64-137.216 77.824-221.184 77.824-86.016 0-164.864-30.72-225.792-81.92V947.2c0 16.384 28.672 12.288 45.056 12.288h382.976c10.24 0 18.432-8.192 18.432-18.432v-142.848z" p-id="8616" fill="#999999"></path><path d="M840.192 522.24c0-94.72-39.936-179.712-103.936-239.616-1.024-0.512-2.048-1.536-2.56-2.048v-0.512C675.328 226.816 598.016 194.56 512.512 194.56 424.96 194.56 345.088 228.864 286.72 285.184v0.512C234.496 339.456 193.536 413.696 185.856 496.64c-0.512 8.704-1.024 17.408-1.024 26.112 0 16.384 1.024 32.256 3.584 48.128 0 1.024 0.512 2.048 0.512 3.072 0 1.536 0.512 3.072 1.024 4.608 10.752 59.904 38.912 114.176 74.752 158.72 58.88 68.608 147.968 112.64 247.296 112.64 181.248 0 328.192-146.432 328.192-327.68z m-359.936 36.864V353.792c0-1.024 1.024-2.048 2.048-2.048h55.808c1.024 0 2.048 1.024 2.048 2.048v147.456h117.76c1.024 0 2.048 1.024 2.048 2.048v55.808c0 1.024-1.024 2.048-2.048 2.048h-119.296-56.32c-1.024 0-2.048-0.512-2.048-2.048z" p-id="8617" fill="#999999"></path><path d="M808.96 456.704h49.664v111.104H808.96z" p-id="8618" fill="#999999"></path><path d="M849.92 437.248h49.664v149.504H849.92z" p-id="8619" fill="#999999"></path></svg>
+                        <span class="text">饰品</span>
+                    </li>
+                    <li>
+                        <svg t="1603725441315" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9547" width="32" height="32"><path d="M859.349009 848.02101l110.897739 0c11.298324 0 20.457938-9.159614 20.457938-20.457938L990.704686 571.838853C990.704686 683.148985 939.535283 782.550902 859.349009 848.02101zM353.441774 196.436928c0-11.298324-9.159614-20.457938-20.457938-20.457938L135.564535 175.97899c-11.298324 0-20.457938 9.159614-20.457938 20.457938l0 18.412348 238.334153 0L353.440751 196.436928zM632.18015 373.397269c-109.313661 0-197.929932 88.61627-197.929932 197.929932s88.61627 197.929932 197.929932 197.929932S830.110081 680.641885 830.110081 571.328223 741.493811 373.397269 632.18015 373.397269zM612.233865 494.099305c-0.023536-0.00307-24.282033 6.444782-39.892569 23.526833-14.314007 15.663748-19.434631 40.915875-19.434631 40.915875s-6.013971 14.534018-20.457938 12.274558c-16.669658-2.607384-17.389042-17.389042-17.389042-17.389042s3.181459-35.576263 29.6636-63.419402c11.342326-11.924587 24.344454-21.242813 35.801391-26.595728 15.286148-7.141654 27.618011-8.18338 27.618011-8.18338s17.84953-3.339048 23.526833 16.366759C636.675534 488.977657 612.233865 494.099305 612.233865 494.099305zM632.691803 254.741845c-175.692465 0-318.120314 141.740188-318.120314 316.586378s142.42785 316.586378 318.120314 316.586378 318.120314-141.740188 318.120314-316.586378S808.384267 254.741845 632.691803 254.741845zM632.18015 809.150724c-131.911332 0-238.845807-106.477057-238.845807-237.823524s106.935498-237.823524 238.845807-237.823524 238.845807 106.477057 238.845807 237.823524S764.091482 809.150724 632.18015 809.150724zM970.246749 253.718539 862.842577 253.718539l-46.030359-92.060719c-3.471055-6.942109-5.916756-13.095249-9.205663-17.389042-4.207835-5.492084-10.239202-8.18338-14.320147-8.18338L470.051609 136.085398c-2.503007 0-6.619768 2.097778-10.228969 6.137791-4.326539 4.843308-8.256034 12.269441-12.274558 19.434631l-46.030359 92.060719L55.779398 253.718539c-11.298324 0-20.457938 9.159614-20.457938 20.457938l0 553.386596c0 11.298324 9.159614 20.457938 20.457938 20.457938l349.231893 0c-80.186274-65.470107-131.355677-164.872025-131.355677-276.181133 0-197.160405 160.516834-356.9906 358.524536-356.9906s358.524536 159.830195 358.524536 356.9906L990.704686 274.176476C990.704686 262.878153 981.545072 253.718539 970.246749 253.718539zM233.763045 393.855206c0 10.733459-8.701173 19.434631-19.434631 19.434631l-79.786161 0c-10.733459 0-19.434631-8.701173-19.434631-19.434631l0-1.023306c0-10.733459 8.701173-19.434631 19.434631-19.434631l79.786161 0c10.733459 0 19.434631 8.701173 19.434631 19.434631L233.763045 393.855206z" p-id="9548" fill="#8a8a8a"></path></svg>
+                        <span class="text">数码</span>
+                    </li>
+                    <li>
+                        <svg t="1603849704579" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12554" width="36" height="36"><path d="M666.550447 127.639029c-109.455901 0-198.530612 89.053222-198.530612 198.531636 0 38.792515 11.617595 74.753541 30.949896 105.368816L177.645444 752.863766c-25.162076 25.161053-25.162076 65.967434 0 91.088578 12.580526 12.579503 29.061896 18.87079 45.544289 18.87079 16.480346 0 32.962739-6.291287 45.543266-18.87079l47.137577-47.097668c1.76111 2.977821 3.228531 6.123464 5.829775 8.723685l36.651758 36.652781c16.776082 16.775059 43.951001 16.775059 60.727083 0l97.419773-97.377818c16.776082-16.777105 16.776082-43.972491 0-60.746526l-36.653805-36.652781c-2.599198-2.600221-5.785773-4.047176-8.763594-5.850242l124.720559-124.743072c1.426489-1.404999 1.929955-3.270487 3.186576-4.78191 21.179368 7.738241 43.742247 12.643971 67.560722 12.643971 109.49888 0 198.575638-89.074711 198.575638-198.552102C865.126085 216.693274 776.049327 127.639029 666.550447 127.639029zM666.550447 395.891586c-38.413891 0-69.698408-31.286564-69.698408-69.720921 0-38.435381 31.284517-69.700455 69.698408-69.700455 38.457894 0 69.742411 31.265074 69.742411 69.700455C736.292857 364.606045 705.00834 395.891586 666.550447 395.891586z" p-id="12555" fill="#999999"></path></svg>
+                        <span class="text">用品</span>
+                    </li>
+                    <li>
+                        <svg t="1603725816060" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17005" width="32" height="32"><path d="M787.2 422.4c46.08 0 83.2 37.12 83.2 83.2S833.28 588.8 787.2 588.8 704 551.68 704 505.6s37.12-83.2 83.2-83.2zM505.6 422.4c46.08 0 83.2 37.12 83.2 83.2S551.68 588.8 505.6 588.8 422.4 551.68 422.4 505.6s37.12-83.2 83.2-83.2zM211.2 422.4c46.08 0 83.2 37.12 83.2 83.2S257.28 588.8 211.2 588.8 128 551.68 128 505.6s37.12-83.2 83.2-83.2z" p-id="17006" fill="#8a8a8a"></path><path d="M512 25.6c268.8 0 486.4 217.6 486.4 486.4S780.8 998.4 512 998.4 25.6 780.8 25.6 512 243.2 25.6 512 25.6m0-25.6C229.12 0 0 229.12 0 512s229.12 512 512 512 512-229.12 512-512S794.88 0 512 0z" p-id="17007" fill="#8a8a8a"></path></svg>
+                        <span class="text">其他</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav2 column2">
+                <!-- 根据不同的选项进行不同添加 -->
+                <ul>
+                    <li>身份证</li>
+                    <li>校园卡</li>
+                    <li>学生证</li>
+                    <li>银行卡</li>
+                </ul>
+            </div>
+            <div class="column3">
+                <div class="timeBox">
+                    <span class="title">时间</span>
+                    <div class="calendar_entrance">
+                        <svg t="1603790426545" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5658" width="32" height="32"><path d="M831.97 64.09H704.03V32.045a32.045 32.045 0 0 0-64.09 0V64.09H384.06V32.045a32.045 32.045 0 0 0-64.09 0V64.09H191.312A191.312 191.312 0 0 0 0 250.14v586.851a191.312 191.312 0 0 0 191.312 186.051H831.97a191.312 191.312 0 0 0 191.313-191.312v-575.85A191.312 191.312 0 0 0 831.97 64.09z m127.94 767.88a128.18 128.18 0 0 1-127.94 127.94H191.312a127.94 127.94 0 0 1-127.94-127.94V415.865H959.91z m0-479.955H64.09v-95.656A127.94 127.94 0 0 1 191.312 127.94h127.94v63.372a32.045 32.045 0 0 0 64.09 0V127.94h255.88v63.372a32.045 32.045 0 0 0 64.09 0V127.94h127.94a128.18 128.18 0 0 1 127.94 127.94z" fill="#8a8a8a" p-id="5659"></path><path d="M296.295 621.766H186.53a36.589 36.589 0 0 1 0-73.177h109.765a36.589 36.589 0 1 1 0 73.177z m292.47 0H442.41a36.589 36.589 0 0 1 0-73.177h146.354a36.589 36.589 0 0 1 0 73.177z m255.88 0H735.118a36.589 36.589 0 1 1 0-73.177h109.527a36.589 36.589 0 1 1 0 73.177z m-548.35 219.291H186.53a36.589 36.589 0 1 1 0-73.177h109.765a36.589 36.589 0 0 1 0 73.177z m292.47 0H442.41a36.589 36.589 0 0 1 0-73.177h146.354a36.589 36.589 0 0 1 0 73.177z m255.88 0H735.118a36.589 36.589 0 1 1 0-73.177h109.527a36.589 36.589 0 1 1 0 73.177z" fill="#999999" p-id="5660"></path></svg>
+                        <table class="calendar">
+                            <tr>
+                                <th colspan="7">
+                                    <span class="year"></span> 年
+                                    <span class="month"></span> 月
+                                    <div class="switch_btn_calendar">
+                                        <svg t="1603789866897" class="up" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4709" width="33" height="33"><path d="M544 235.008l0 631.296a32 32 0 1 1-64 0L480 235.008 289.59999999 425.344a32 32 0 0 1-45.248-45.248l244.99200001-244.992a32 32 0 0 1 45.312 0l244.99200001 244.992a32 32 0 1 1-45.248 45.248L544 235.008z" p-id="4710" fill="#ffffff"></path></svg>
+                                        <svg t="1603789747858" class="down" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4477" width="33" height="33"><path d="M511.99 141.211c10.234 0 18.955 3.61 26.212 10.818 7.253 7.208 10.867 15.968 10.867 26.266v577.892l196.162-196.44c7.1-7.005 15.904-10.614 26.34-10.614 10.62 0 19.435 3.505 26.515 10.51 7.045 7.105 10.545 15.97 10.545 26.574 0 10.407-3.545 19.162-10.694 26.375L538.38 872.075c-7.148 7.213-15.934 10.714-26.37 10.714-10.456 0-19.242-3.5-26.37-10.714L226.086 612.592c-7.139-7.213-10.718-15.968-10.718-26.375 0-10.61 3.525-19.469 10.57-26.573 7.055-7.006 15.89-10.516 26.509-10.516 10.422 0 19.217 3.61 26.366 10.615l196.112 196.439V178.295c0-10.303 3.61-19.058 10.886-26.266 7.243-7.214 15.989-10.818 26.218-10.818h-0.04z" p-id="4478" fill="#ffffff"></path></svg>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>SUN</td>
+                                <td>MON</td>
+                                <td>TUE</td>
+                                <td>WED</td>
+                                <td>TUS</td>
+                                <td>FRI</td>
+                                <td>SAT</td>
+                            </tr>
+                            <tr class="day">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="day">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="day">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="day">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="day">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="day">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="time_display">
+                        <span class="yearNum num"> </span>
+                        <sapn class="text">年</sapn>
+                        <span class="monthNum num"> </span>
+                        <sapn class="text">月</sapn>
+                        <span class="dayNum num"> </span>
+                        <sapn class="text">日</sapn>
+                    </div>
+                </div>
+                <div class="areaBox">
+                    <span class="title">地点</span>
+                    <div class="area">
+                        <svg t="1603850571231" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="16514" width="32" height="32"><path d="M515.2 243.104a80.96 80.96 0 1 0-0.064 161.92 80.96 80.96 0 0 0 0.064-161.92zM515.2 0C336.192 0 191.104 145.088 191.104 324.096c0 135.488 270.208 540.544 324.096 540.192 52.992 0.352 324.096-406.496 324.096-540.192C839.328 145.088 694.176 0 515.2 0z m0 459.2a135.104 135.104 0 1 1 0-270.24 135.104 135.104 0 0 1 0 270.24z" fill="#999999" p-id="16515"></path><path d="M640.064 794.592c-3.2 7.68-6.464 15.168-10.368 22.144 111.904 10.528 190.752 35.616 190.752 64.928 0 38.816-138.048 70.24-308.448 70.24-170.304 0-308.384-31.424-308.384-70.24 0-29.856 81.696-55.232 196.8-65.44a204.064 204.064 0 0 1-10.24-22.048C166.336 806.656 0 852.544 0 907.36 0 971.808 229.248 1024 512 1024c282.784 0 512-52.192 512-116.64 0-54.4-163.264-99.84-383.936-112.768z" fill="#999999" p-id="16516"></path></svg>
+                        <div class=areaPane>
+                            <div class="row">
+                                <div class="title_row">教学区</div>
+                                <div class="itemBox">
+                                    <span class="item">北教</span>
+                                    <span class="item">1-7号教学楼</span>
+                                    <span class="item">实验教学楼</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="title_row">办公区</div>
+                                <div class="itemBox">
+                                    <span class="item">白宫</span>
+                                    <span class="item">南苑专家楼</span>
+                                    <span class="item">系办</span>
+                                    <span class="item">招就处</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="title_row">文娱区</div>
+                                <div class="itemBox">
+                                    <span class="item">青年文化广场</span>
+                                    <span class="item">北教广场</span>
+                                    <span class="item">货币博物馆</span>
+                                    <span class="item">大礼堂</span>
+                                    <span class="item">融创空间</span>
+                                    <span class="item">学贤阁</span>
+                                    <span class="item">青年文化广场</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="title_row">体育区</div>
+                                <div class="itemBox">
+                                    <span class="item">北苑操场</span>
+                                    <span class="item">南苑操场</span>
+                                    <span class="item">系办运动场</span>
+                                    <span class="item">南苑乒乓球室</span>
+                                    <span class="item">游泳池</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="title_row">图书馆</div>
+                                <div class="itemBox">
+                                    <span class="item">自科图书馆</span>
+                                    <span class="item">人文图书馆</span>
+                                    <span class="item">南苑自习室</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="title_row">食堂</div>
+                                <div class="itemBox">
+                                    <span class="item">北苑饭堂</span>
+                                    <span class="item">南苑饭堂</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="areaText">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 提示信息弹框 -->
+    <div class="tipPane">
+        请先完成登录！
+    </div>
+    <script src="../js/lost&found.js"></script>
+    <script src="../js/calendar.js"></script>
+
+</body>
+
+</html>
