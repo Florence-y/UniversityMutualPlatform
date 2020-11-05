@@ -7,23 +7,25 @@ import pojo.Page;
 import pojo.Question;
 import pojo.QuestionContent;
 import util.ElasticUtil;
+import util.TimeUtil;
 import util.WebUtil;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class elasticTest {
-    @Test
-    public void divideWordTest() throws IOException {
-        ElasticUtil.addIndex();
-    }
+//    @Test
+////    public void divideWordTest() throws IOException {
+////        ElasticUtil.addIndex();
+////    }
 
-    @Test
-    public void getMappings() throws IOException {
-        ElasticUtil.getMappings("test");
-    }
+//    @Test
+//    public void getMappings() throws IOException {
+//        ElasticUtil.getMappings("lost");
+//    }
 
     @Test
     public void addDoc() throws IOException {
@@ -50,15 +52,15 @@ public class elasticTest {
         System.out.println(list);
     }
 
-    @Test
-    public void updateByIdTest() {
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("sex", "男");
-        map.put("userName", "傻59");
-        int i = ElasticUtil.updateDocById("test", "VLyB9nQBGNAVaRfr6Bmn", map);
-
-    }
+//    @Test
+//    public void updateByIdTest() {
+//
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("sex", "男");
+//        map.put("userName", "傻59");
+//        int i = ElasticUtil.updateDocById("test", "VLyB9nQBGNAVaRfr6Bmn", map);
+//
+//    }
 
     @Test
     public void getDoc() throws IOException {
@@ -84,17 +86,17 @@ public class elasticTest {
 
     }
 
-    @Test
-    public void divideWord() throws IOException {
-        List<String> list = ElasticUtil.divideTheKeyWord("广东金融学院");
-        System.out.println(list);
-    }
+//    @Test
+//    public void divideWord() throws IOException {
+//        List<String> list = ElasticUtil.divideTheKeyWord("广东金融学院");
+//        System.out.println(list);
+//    }
 
-    @Test
-    public void getScroll() throws IOException {
-//        Page<Found> found = ElasticUtil.scrollSearchFirst("found", QueryBuilders.matchAllQuery(), new Found());
-        System.out.println(ElasticUtil.scrollSearch("FGluY2x1ZGVfY29udGV4dF91dWlkDXF1ZXJ5QW5kRmV0Y2gBFENnX0xPblVCZXNqYnpFeE9CWVRsAAAAAAAAKi8WMXR3aE5VRUtUX21EMTNZUkNaV09fQQ==", new Found()));
-    }
+//    @Test
+//    public void getScroll() throws IOException {
+////        Page<Found> found = ElasticUtil.scrollSearchFirst("found", QueryBuilders.matchAllQuery(), new Found());
+//        System.out.println(ElasticUtil.scrollSearch("FGluY2x1ZGVfY29udGV4dF91dWlkDXF1ZXJ5QW5kRmV0Y2gBFENnX0xPblVCZXNqYnpFeE9CWVRsAAAAAAAAKi8WMXR3aE5VRUtUX21EMTNZUkNaV09fQQ==", new Found()));
+//    }
 
     @Test
     public void addLost() {
@@ -113,5 +115,15 @@ public class elasticTest {
     public void nestSearchTest() throws IOException {
         Page<Question> questionPage = ElasticUtil.scrollSearchFirst("question", ElasticUtil.getNestedQuery("contents", "contentMain", "饭你说好不好吃"), new Question(), false);
         System.out.println(questionPage);
+    }
+
+    @Test
+    public void TimeTest() {
+        Date detailSystemTime = TimeUtil.getDetailSystemTime();
+        Date date = TimeUtil.addOrSubDayOfDate(detailSystemTime, -3);
+        Date date1 = TimeUtil.addOrSubDayOfDate(detailSystemTime, 3);
+        System.out.println(TimeUtil.getNotDetailDateString(detailSystemTime));
+        System.out.println(TimeUtil.getNotDetailDateString(date));
+        System.out.println(TimeUtil.getNotDetailDateString(date1));
     }
 }

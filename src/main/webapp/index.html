@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>广金互助</title>
-    <link rel="stylesheet" href="css/iconfont.css">
-    <link rel="stylesheet" href="css/logOn.css">
-    <link rel="stylesheet" href="css/quiz.css">
-    <link rel="stylesheet" href="css/hoverPaneY.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/nav.css">
+    <link href="css/iconfont.css" rel="stylesheet">
+    <link href="css/logOn.css" rel="stylesheet">
+    <link href="css/quiz.css" rel="stylesheet">
+    <link href="css/hoverPaneY.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
 
     <script src="js/jquery-3.5.1.js"></script>
     <script src="js/myCookie.js"></script>
@@ -24,274 +24,281 @@
 </head>
 
 <body style="height: 100%;">
-    <!--                          登录页面                            -->
-    <div class="modal_bg_logon modal_bg">
-        <div class="modal">
+<!--                          登录页面                            -->
+<div class="modal_bg_logon modal_bg">
+    <div class="modal">
 
-            <!-- 模态框 头部 一个×按钮 + 一个学校 icon -->
-            <div class="modal_head">
-                <button class="fadeout">&times;</button>
-                <!-- <i class="iconfont icondibudaohanglan-"></i> -->
-                <b class="logonTitle">用户登录</b>
-            </div>
-
-            <!-- 模态框 内容 ->登录页面logOn -> 忘记密码页面forgetPas -> 重置密码页面resetPas -->
-            <div class="modal_content">
-
-                <!-- ->登录页面logOn -->
-                <div class="logOn">
-
-                    <!-- ->登录页面logOn 学生part 文字 + 表单  -->
-                    <div class="student logOnDisplay">
-                        <h2>学生<b></b></h2>
-                        <div class="logOnStudent">
-                            <form action="">
-                                <div class="confirm value">
-                                    <span class="tip">用户名/学号</span>
-                                    <input class="input account" id="stu_account" type="text" value="">
-                                    <span class="active_line"></span>
-                                </div>
-                                <div class="confirm value">
-                                    <span class="tip">密码</span>
-                                    <input class="input pas" id='stu_pwd' type="password" value="">
-                                    <span class="active_line"></span>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- ->登录页面logOn 老师part 文字 + 表单  -->
-                    <div class="teacher">
-                        <h2>教师<b></b></h2>
-                        <div class="logOnTeacher">
-                            <form action="">
-                                <div class="confirm value">
-                                    <span class="tip">用户名/教工号</span>
-                                    <input class="input account" id="teacher_account" type="text" value="">
-                                    <span class="active_line"></span>
-                                </div>
-                                <div class="confirm value">
-                                    <span class="tip">密码</span>
-                                    <input class="input pas" id='teacher_pwd' type="password" value="">
-                                    <span class="active_line"></span>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- ->登录页面logOn 登录按钮 -->
-                    <button class="btnRegister">注册</button>
-                    <button class="btnLogon logon_btn">登录</button>
-
-                    <!-- ->登录页面logOn 注册页面 忘记密码页面 跳转 -->
-                    <b href="" class="aForgetPas">忘记密码</b>
-
-                </div>
-
-                <!-- -> 忘记密码页面forgetPas -->
-                <div class="forgetPas">
-
-                    <!-- -> 忘记密码页面forgetPas 单选框 学生/教师  -->
-                    <div class="teacherOrStudent">
-                        <form action="">
-                            <span>请选择身份: </span>
-                            <label for=""><input type="radio" class="chooseStudent" name="chooseTeacherOrStudent"
-                                    style="zoom:2;"> 学生</label>
-                            <label for=""><input type="radio" class="chooseTeacher" name="chooseTeacherOrStudent"
-                                    style="zoom:2;"> 教师</label>
-                        </form>
-                    </div>
-
-                    <!-- -> 忘记密码页面forgetPas 文本框:输入邮箱 span:邮箱后缀  -->
-                    <div class="writeEmail">
-                        <form action="">
-                            <span>请输入邮箱:</span>
-                            <input type="text" class="inEmail">
-                            <i>@</i>
-                            <em class="emailSuffix ">m.gduf.edu.cn</em>
-                        </form>
-                    </div>
-
-                    <!-- -> 忘记密码页面forgetPas 文本框:验证码  按钮:发送验证码-->
-                    <div class="verificationCode ">
-                        <form action=" ">
-                            <span>验证码:</span>
-                            <input type="text" class="vCode">
-                        </form>
-                        <button class="sendVerificationCode logon_btn">发送验证码</button>
-                    </div>
-
-                    <!-- -> 忘记密码页面forgetPas 按钮:下一步 跳转重设密码 -->
-                    <button class="forgetPasLast logon_btn">上一步</button>
-                    <button class="forgetPasNext logon_btn">下一步</button>
-                </div>
-
-                <!-- -> 重置密码页面resetPas -->
-                <div class="resetPas ">
-                    <!-- -> 重置密码页面resetPas 文本框:重设密码 -->
-                    <div class="toResetPas ">
-                        <form action=" ">
-                            <span>重设密码: </span>
-                            <input type="password" class="reset " placeholder="请输入密码 ">
-                        </form>
-                    </div>
-                    <!-- -> 重置密码页面resetPas 文本框:确认密码 -->
-                    <div class="confirmPas ">
-                        <form action=" ">
-                            <span>确认密码: </span>
-                            <input type="password" class="confirm " placeholder="请输入密码 ">
-                        </form>
-                    </div>
-                    <!-- -> 重置密码页面resetPas 按钮:确定 返回登录页面 -->
-                    <button class="resetPasConfirm logon_btn">确定</button>
-                </div>
-            </div>
-            <div class="modal_foot "></div>
+        <!-- 模态框 头部 一个×按钮 + 一个学校 icon -->
+        <div class="modal_head">
+            <button class="fadeout">&times;</button>
+            <!-- <i class="iconfont icondibudaohanglan-"></i> -->
+            <b class="logonTitle">用户登录</b>
         </div>
-    </div>
 
-    <!--                          提问页面                           -->
-    <div class="quizModal_bg quizModal_bg_askQuestion">
-        <div class="quizModal">
-            <div class="quizModal_head">
-                <button class="fadeout">&times;</button>
-            </div>
-            <div class="quizModal_content">
-                <div class="mainQuestion">
-                    <textarea maxlength="30" t name="" id="" cols="30" rows="10" class="mainQ" placeholder="请输入问题"></textarea>
-                    <span><b class="nowNum">0</b><b>/</b><b class="maxNum">30</b></span>
-                </div>
-                <div class="insertPicture">
-                    <div class="picture_containner"></div>
-                    <!-- <img src="" alt=""> -->
-                    <!-- <div class="picture">
-                        <img src="../img/01.jpg" alt="">
-                        <i class="removePicture">&times;</i>
-                    </div> -->
-                    <i class="file iconfont iconjiahao1">
-                        <input type="file" class="insertP" accept="image/*">
-                    </i>
-                </div>
-                <div class="questionNote">
-                    <textarea maxlength="80" name="" id="" cols="30" rows="10" class="queN" placeholder="问题备注"></textarea>
-                    <span><b class="nowNum">0</b><b>/</b><b class="maxNum">80</b></span>
-                </div>
-                <div class="label">
-                    <b class="labelFont">标签栏</b>
-                    <div class="nodeBoard">
+        <!-- 模态框 内容 ->登录页面logOn -> 忘记密码页面forgetPas -> 重置密码页面resetPas -->
+        <div class="modal_content">
 
-                    </div>
-                    <div class="addLabel">
-                        <input maxlength="6" type="text" placeholder="自行输入标签"> <i class="iconfont">&#xe720;</i>
-                        <!-- <input type="text" placeholder="请输入标签" class="WriteAddLabel"> -->
-                        <button class="add_btn">添加</button>
-                    </div>
+            <!-- ->登录页面logOn -->
+            <div class="logOn">
 
-                </div>
-                <div class="rowBox">
-                    <div class="questionType">
-                        <span class="cur_val" value="null">请选择文章类型</span>
-                        <svg class="icon" height="23" p-id="6815" t="1601959179699" version="1.1" viewBox="0 0 1024 1024" width="23" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M539.9 631.25c-6.3 6.3-14.85 12.15-22.95 10.35-8.1 1.35-15.75-4.95-22.05-10.35L300.05 435.5c-9.9-9.9-9.9-26.1 0-36s26.1-9.9 36 0L517.4 585.8l181.8-186.3c9.9-9.9 26.1-9.9 36 0s9.9 26.1 0 36L539.9 631.25z"
-                                  p-id="6816"></path>
-                        </svg>
-                        <ul class="list">
-                            <li>学习篇</li>
-                            <li>期末篇</li>
-                            <li>宿舍篇</li>
-                            <li>食堂篇</li>
-                            <li>考证篇</li>
-                            <li>其他</li>
-                        </ul>
-                    </div>
-                    <div class="invite">
-                        邀请好友回答
+                <!-- ->登录页面logOn 学生part 文字 + 表单  -->
+                <div class="student logOnDisplay">
+                    <h2>学生<b></b></h2>
+                    <div class="logOnStudent">
+                        <form action="">
+                            <div class="confirm value">
+                                <span class="tip">用户名/学号</span>
+                                <input class="input account" id="stu_account" type="text" value="">
+                                <span class="active_line"></span>
+                            </div>
+                            <div class="confirm value">
+                                <span class="tip">密码</span>
+                                <input class="input pas" id='stu_pwd' type="password" value="">
+                                <span class="active_line"></span>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <button class="publish">立即发表</button>
-                <div class="anonymity" anonymity="false">
-                    <button class="btn">
-                        <svg t="1603548623411" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5481" width="32" height="32"><path d="M117.99552 565.54496l80.87552-53.00224c77.3632-50.67776 181.67808-28.27264 229.90848 50.95424 34.95936 57.23136 49.31584 114.05312 49.31584 114.05312s185.74336-421.79584 443.9552-500.8896c0 0-80.60928 185.63072 36.98688 319.63136 0 0-267.9808 75.264-466.176 390.92224-6.63552 10.6496-22.08768 10.38336-28.18048-0.54272-39.424-68.97664-163.52256-262.79936-346.68544-321.1264z" p-id="5482" fill="#1296db"></path></svg>
-                    </button>匿名
+
+                <!-- ->登录页面logOn 老师part 文字 + 表单  -->
+                <div class="teacher">
+                    <h2>教师<b></b></h2>
+                    <div class="logOnTeacher">
+                        <form action="">
+                            <div class="confirm value">
+                                <span class="tip">用户名/教工号</span>
+                                <input class="input account" id="teacher_account" type="text" value="">
+                                <span class="active_line"></span>
+                            </div>
+                            <div class="confirm value">
+                                <span class="tip">密码</span>
+                                <input class="input pas" id='teacher_pwd' type="password" value="">
+                                <span class="active_line"></span>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+                <!-- ->登录页面logOn 登录按钮 -->
+                <button class="btnRegister">注册</button>
+                <button class="btnLogon logon_btn">登录</button>
+
+                <!-- ->登录页面logOn 注册页面 忘记密码页面 跳转 -->
+                <b class="aForgetPas" href="">忘记密码</b>
+
             </div>
 
+            <!-- -> 忘记密码页面forgetPas -->
+            <div class="forgetPas">
+
+                <!-- -> 忘记密码页面forgetPas 单选框 学生/教师  -->
+                <div class="teacherOrStudent">
+                    <form action="">
+                        <span>请选择身份: </span>
+                        <label for=""><input class="chooseStudent" name="chooseTeacherOrStudent" style="zoom:2;"
+                                             type="radio"> 学生</label>
+                        <label for=""><input class="chooseTeacher" name="chooseTeacherOrStudent" style="zoom:2;"
+                                             type="radio"> 教师</label>
+                    </form>
+                </div>
+
+                <!-- -> 忘记密码页面forgetPas 文本框:输入邮箱 span:邮箱后缀  -->
+                <div class="writeEmail">
+                    <form action="">
+                        <span>请输入邮箱:</span>
+                        <input class="inEmail" type="text">
+                        <i>@</i>
+                        <em class="emailSuffix ">m.gduf.edu.cn</em>
+                    </form>
+                </div>
+
+                <!-- -> 忘记密码页面forgetPas 文本框:验证码  按钮:发送验证码-->
+                <div class="verificationCode ">
+                    <form action=" ">
+                        <span>验证码:</span>
+                        <input class="vCode" type="text">
+                    </form>
+                    <button class="sendVerificationCode logon_btn">发送验证码</button>
+                </div>
+
+                <!-- -> 忘记密码页面forgetPas 按钮:下一步 跳转重设密码 -->
+                <button class="forgetPasLast logon_btn">上一步</button>
+                <button class="forgetPasNext logon_btn">下一步</button>
+            </div>
+
+            <!-- -> 重置密码页面resetPas -->
+            <div class="resetPas ">
+                <!-- -> 重置密码页面resetPas 文本框:重设密码 -->
+                <div class="toResetPas ">
+                    <form action=" ">
+                        <span>重设密码: </span>
+                        <input class="reset " placeholder="请输入密码 " type="password">
+                    </form>
+                </div>
+                <!-- -> 重置密码页面resetPas 文本框:确认密码 -->
+                <div class="confirmPas ">
+                    <form action=" ">
+                        <span>确认密码: </span>
+                        <input class="confirm " placeholder="请输入密码 " type="password">
+                    </form>
+                </div>
+                <!-- -> 重置密码页面resetPas 按钮:确定 返回登录页面 -->
+                <button class="resetPasConfirm logon_btn">确定</button>
+            </div>
         </div>
+        <div class="modal_foot "></div>
     </div>
+</div>
 
-    <!--                           导航栏                           -->
-    <div class="nav beforeNav">
-        <div class="w">
-
-            <!--        校徽        -->
-            <div class="logo">
-                <img src="img/gduf-logo.png" alt="" title="广东金融学院">
+<!--                          提问页面                           -->
+<div class="quizModal_bg quizModal_bg_askQuestion">
+    <div class="quizModal">
+        <div class="quizModal_head">
+            <button class="fadeout">&times;</button>
+        </div>
+        <div class="quizModal_content">
+            <div class="mainQuestion">
+                <textarea class="mainQ" cols="30" id="" maxlength="30" name="" placeholder="请输入问题" rows="10"
+                          t></textarea>
+                <span><b class="nowNum">0</b><b>/</b><b class="maxNum">30</b></span>
             </div>
-
-            <!-- 首页+校区互通+失物招领+提问 功能页面 -->
-            <div class="functionNav">
-                <ul>
-                    <li title="首页" class="index-li">首页</li>
-                    <li title="校区互通" class="campus-li">校区互通</li>
-                    <li title="失物招领" class="lostAndFound-li">失物招领</li>
-                    <!-- <li title="提问" class="quiz-li">提问</li> -->
-                </ul>
+            <div class="insertPicture">
+                <div class="picture_containner"></div>
+                <!-- <img src="" alt=""> -->
+                <!-- <div class="picture">
+                    <img src="../img/01.jpg" alt="">
+                    <i class="removePicture">&times;</i>
+                </div> -->
+                <i class="file iconfont iconjiahao1">
+                    <input accept="image/*" class="insertP" type="file">
+                </i>
             </div>
-
-            <!--         搜索框         -->
-            <div class="search">
-                <form action="">
-                    <input type="text" class="searchBar">
-                    <input type="button" class="searchBtn">
-                    <i class="iconfont iconsousuo"></i>
-                </form>
-                <ul class="searchContent" style="display: none;">
-                    <li>
-                        <span><i class="iconfont"></i></span>
-                        <a href=""></a>
-                    </li>
-                    <li>
-                        <span><i class="iconfont"></i></span>
-                        <a href=""></a>
-                    </li>
-                    <li>
-                        <span><i class="iconfont"></i></span>
-                        <a href=""></a>
-                    </li>
-                    <li>
-                        <span><i class="iconfont"></i></span>
-                        <a href=""></a>
-                    </li>
-                    <li>
-                        <span><i class="iconfont"></i></span>
-                        <a href=""></a>
-                    </li>
-                    <!-- <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会考什么立刻就会考什么立刻就会1</a></li>
-                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a> </li>
-                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li>
-                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li>
-                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li> -->
-                </ul>
+            <div class="questionNote">
+                <textarea class="queN" cols="30" id="" maxlength="80" name="" placeholder="问题备注" rows="10"></textarea>
+                <span><b class="nowNum">0</b><b>/</b><b class="maxNum">80</b></span>
             </div>
+            <div class="label">
+                <b class="labelFont">标签栏</b>
+                <div class="nodeBoard">
 
-            <!--         登录注册按钮      -->
-            <div class="personal">
-                <button class="signUpBtn">
-                    <em class="fadein">登录</em>
-                    |
-                    <em class="toRegister"  onclick="window.open('html/register.html')">注册</em>
+                </div>
+                <div class="addLabel">
+                    <input maxlength="6" placeholder="自行输入标签" type="text"> <i class="iconfont">&#xe720;</i>
+                    <!-- <input type="text" placeholder="请输入标签" class="WriteAddLabel"> -->
+                    <button class="add_btn">添加</button>
+                </div>
+
+            </div>
+            <div class="rowBox">
+                <div class="questionType">
+                    <span class="cur_val" value="null">请选择文章类型</span>
+                    <svg class="icon" height="23" p-id="6815" t="1601959179699" version="1.1" viewBox="0 0 1024 1024"
+                         width="23" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M539.9 631.25c-6.3 6.3-14.85 12.15-22.95 10.35-8.1 1.35-15.75-4.95-22.05-10.35L300.05 435.5c-9.9-9.9-9.9-26.1 0-36s26.1-9.9 36 0L517.4 585.8l181.8-186.3c9.9-9.9 26.1-9.9 36 0s9.9 26.1 0 36L539.9 631.25z"
+                              p-id="6816"></path>
+                    </svg>
+                    <ul class="list">
+                        <li>学习篇</li>
+                        <li>期末篇</li>
+                        <li>宿舍篇</li>
+                        <li>食堂篇</li>
+                        <li>考证篇</li>
+                        <li>其他</li>
+                    </ul>
+                </div>
+                <div class="invite">
+                    邀请好友回答
+                </div>
+            </div>
+            <button class="publish">立即发表</button>
+            <div anonymity="false" class="anonymity">
+                <button class="btn">
+                    <svg class="icon" height="32" p-id="5481" t="1603548623411"
+                         version="1.1" viewBox="0 0 1024 1024" width="32" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M117.99552 565.54496l80.87552-53.00224c77.3632-50.67776 181.67808-28.27264 229.90848 50.95424 34.95936 57.23136 49.31584 114.05312 49.31584 114.05312s185.74336-421.79584 443.9552-500.8896c0 0-80.60928 185.63072 36.98688 319.63136 0 0-267.9808 75.264-466.176 390.92224-6.63552 10.6496-22.08768 10.38336-28.18048-0.54272-39.424-68.97664-163.52256-262.79936-346.68544-321.1264z"
+                              fill="#1296db" p-id="5482"></path>
+                    </svg>
                 </button>
+                匿名
             </div>
+        </div>
 
-            <!--         头像            -->
-            <div class="logonHeadPortrait">
+    </div>
+</div>
 
-                <!-- 头像 -->
-                <span class="headPortrait">
+<!--                           导航栏                           -->
+<div class="nav beforeNav">
+    <div class="w">
+
+        <!--        校徽        -->
+        <div class="logo">
+            <img alt="" src="img/gduf-logo.png" title="广东金融学院">
+        </div>
+
+        <!-- 首页+校区互通+失物招领+提问 功能页面 -->
+        <div class="functionNav">
+            <ul>
+                <li class="index-li" title="首页">首页</li>
+                <li class="campus-li" title="校区互通">校区互通</li>
+                <li class="lostAndFound-li" title="失物招领">失物招领</li>
+                <!-- <li title="提问" class="quiz-li">提问</li> -->
+            </ul>
+        </div>
+
+        <!--         搜索框         -->
+        <div class="search">
+            <form action="">
+                <input class="searchBar" type="text">
+                <input class="searchBtn" type="button">
+                <i class="iconfont iconsousuo"></i>
+            </form>
+            <ul class="searchContent" style="display: none;">
+                <li>
+                    <span><i class="iconfont"></i></span>
+                    <a href=""></a>
+                </li>
+                <li>
+                    <span><i class="iconfont"></i></span>
+                    <a href=""></a>
+                </li>
+                <li>
+                    <span><i class="iconfont"></i></span>
+                    <a href=""></a>
+                </li>
+                <li>
+                    <span><i class="iconfont"></i></span>
+                    <a href=""></a>
+                </li>
+                <li>
+                    <span><i class="iconfont"></i></span>
+                    <a href=""></a>
+                </li>
+                <!-- <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会考什么立刻就会考什么立刻就会1</a></li>
+                <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a> </li>
+                <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li>
+                <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li>
+                <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li> -->
+            </ul>
+        </div>
+
+        <!--         登录注册按钮      -->
+        <div class="personal">
+            <button class="signUpBtn">
+                <em class="fadein">登录</em>
+                |
+                <em class="toRegister" onclick="window.open('html/register.html')">注册</em>
+            </button>
+        </div>
+
+        <!--         头像            -->
+        <div class="logonHeadPortrait">
+
+            <!-- 头像 -->
+            <span class="headPortrait">
 
                     <!-- 导航栏上的头像 -->
-                    <img  class="navHPY" src="img/InitialPortrait.jpg" alt=" " title="个人中心 ">
+                    <img alt=" " class="navHPY" src="img/InitialPortrait.jpg" title="个人中心 ">
 
-                    <!-- 头像的二级导航 -->
+                <!-- 头像的二级导航 -->
                     <div class="hpSecond">
 
                         <!-- 小三角 -->
@@ -300,7 +307,7 @@
                         <!-- 个人属性part -->
                         <!-- 用户头像 用户名 -->
                         <div class="hpPersonalAttributes">
-                            <img class="ResMessageFace" src="img/InitialPortrait.jpg " alt=" ">
+                            <img alt=" " class="ResMessageFace" src="img/InitialPortrait.jpg ">
                             <em> <b class="ResUserName"></b></em>
                             <em> <b class="ResMarkNumber"></b></em>
                             <em> <b class="ResMessagePojoMajor"></b> </em>
@@ -324,7 +331,7 @@
             </div>
 
 
-            <!-- 内容框 -->
+                                    <!-- 内容框 -->
             <div class="contentBox_subscribe">
                 <div class="itemList_box">
                     <ul class="itemList myAttention" style="display: block;">
@@ -411,7 +418,8 @@
                 <!-- 是否关注 -->
                 <div class="subscribe " nextAction="{{action}} " title="关注 ">
                     <!--红 #d6204b -->
-                    <svg t="1602172191268 " class="do_subscribe " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3875 " width="23 " height="23 ">
+                    <svg t="1602172191268 " class="do_subscribe " viewBox="0 0 1024 1024 " version="1.1 "
+                         xmlns="http://www.w3.org/2000/svg " p-id="3875 " width="23 " height="23 ">
                                             <path d="M513.536 239.104S441.856 87.04 280.064 87.04C102.912 87.04 10.24 235.52 10.24 384c0 246.784 503.296 552.96 503.296 552.96S1013.76 633.856 1013.76 384c0-151.552-95.744-296.96-266.752-296.96-170.496
                     0-233.472 152.064-233.472 152.064z "
                                                   p-id="3876 " fill="#bfbfbf "></path>
@@ -420,7 +428,8 @@
                 <!-- 私信 -->
                 <div class="sendText " title="私信 ">
                     <!-- #17abe3 -->
-                    <svg t="1602172441453 " class="icon " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="4482 " width="23 " height="23 ">
+                    <svg t="1602172441453 " class="icon " viewBox="0 0 1024 1024 " version="1.1 "
+                         xmlns="http://www.w3.org/2000/svg " p-id="4482 " width="23 " height="23 ">
                                             <path d="M935.724138 494.344828c0 204.8-188.910345 370.758621-423.724138 370.75862-67.089655 0-130.648276-14.124138-187.144828-38.841379-35.310345-14.124138-157.131034 60.027586-185.37931 38.841379-28.248276-21.186207
                     38.841379-141.241379 17.655172-167.724138C112.993103 639.117241 88.275862 568.496552 88.275862 494.344828 88.275862 289.544828 277.186207 123.586207 512 123.586207s423.724138 165.958621 423.724138 370.758621z m-605.572414 5.296551c0 14.124138
                     7.062069 26.482759 19.42069 33.544828s26.482759 7.062069 38.841379 0c12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379 0-12.358621
@@ -435,7 +444,7 @@
     </div>
     </div>
 
-    <!-- 我的问答 -->
+                        <!-- 我的问答 -->
     <div>
         <i class="iconfont iconV "></i>
         <em>我的问答</em>
@@ -507,7 +516,7 @@
         </div>
     </div>
 
-    <!-- 我的收藏 -->
+                        <!-- 我的收藏 -->
     <div><i class="iconfont iconwodeshoucang "></i><em>我的收藏</em>
         <div class="hpSecondSecond collectionY ">
             <div class="hoverBox ">
@@ -568,22 +577,22 @@
         </div>
     </div>
 
-    <!-- 退出登录 -->
+                        <!-- 退出登录 -->
     <div><i class="iconfont icontuichudenglu "></i><em>退出登录</em></div>
     </div>
     </span>
-    </div>
+        </div>
 
-    <!-- 提问 + 消息通知 -->
-    <div class="QAndM">
+        <!-- 提问 + 消息通知 -->
+        <div class="QAndM">
 
-        <!-- 提问 -->
-        <span class="cueY" title="提问">
+            <!-- 提问 -->
+            <span class="cueY" title="提问">
             <i class="iconfont iconwenhao- fadeinQuiz"></i>
     </span>
 
-        <!-- 消息 -->
-        <span class="message">
+            <!-- 消息 -->
+            <span class="message">
                     <i class="iconfont iconxiaoxitongzhitixinglingshenglingdang-xianxing "></i>
 
                     <div class="messageNotification">
@@ -594,7 +603,7 @@
         <span class="mode" id="hoverBox_fans">私信通知</span>
         <span class="activeLine toLeft"></span>
     </div>
-    <!-- 内容框 -->
+                            <!-- 内容框 -->
     <div class="contentBox_information">
         <div class="itemList_box">
             <ul class="itemList system" style="display: block;">
@@ -669,570 +678,606 @@
     <div class="foot">
         <svg class="clearAllPoint" height="25" title="一键已读" viewBox="0 0 1024 1024" width="25">
                                     <path
-                                        d="M965.12 286.293333H657.493333V108.8C657.493333 48.64 605.013333 0 540.586667 0H482.56C418.56 0.426667 366.506667 49.066667 366.506667 108.8V285.866667H58.453333C26.026667 285.866667 0 310.613333 0 341.333333v176.213334c0 30.293333 26.453333 55.466667 58.453333 55.466666v253.866667c-0.426667 46.933333-6.826667 93.44-18.346666 135.253333l-0.853334 6.4c0 30.72 26.453333 55.466667 58.453334 55.466667H926.293333c30.293333 0 57.6-22.613333 59.733334-49.493333l-0.853334-7.253334c-12.8-46.933333-19.2-96-19.626666-145.066666v-248.32l19.2-3.84c22.613333-7.68 38.4-28.16 38.4-52.053334V341.76c0.426667-30.72-26.026667-55.466667-58.026667-55.466667z m-210.773333 650.24V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813334c-19.2 0-34.56 14.933333-34.56 33.28v202.666666h-113.92V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666H359.253333V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666l-146.346667 2.56c8.96-34.986667 13.226667-70.826667 13.226667-107.093333v-259.413333h729.173333V836.266667c0 33.706667 3.84 67.84 11.52 99.84h-133.546666zM931.84 486.4H91.733333V372.906667H456.96v-251.733334c0-27.733333 33.28-30.72 47.786667-30.72h16.213333c14.506667 0 47.786667 2.986667 47.786667 30.72v253.866667h363.093333V486.4z"
-                                        fill="#bfbfbf" p-id="12613"></path>
+                                            d="M965.12 286.293333H657.493333V108.8C657.493333 48.64 605.013333 0 540.586667 0H482.56C418.56 0.426667 366.506667 49.066667 366.506667 108.8V285.866667H58.453333C26.026667 285.866667 0 310.613333 0 341.333333v176.213334c0 30.293333 26.453333 55.466667 58.453333 55.466666v253.866667c-0.426667 46.933333-6.826667 93.44-18.346666 135.253333l-0.853334 6.4c0 30.72 26.453333 55.466667 58.453334 55.466667H926.293333c30.293333 0 57.6-22.613333 59.733334-49.493333l-0.853334-7.253334c-12.8-46.933333-19.2-96-19.626666-145.066666v-248.32l19.2-3.84c22.613333-7.68 38.4-28.16 38.4-52.053334V341.76c0.426667-30.72-26.026667-55.466667-58.026667-55.466667z m-210.773333 650.24V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813334c-19.2 0-34.56 14.933333-34.56 33.28v202.666666h-113.92V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666H359.253333V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666l-146.346667 2.56c8.96-34.986667 13.226667-70.826667 13.226667-107.093333v-259.413333h729.173333V836.266667c0 33.706667 3.84 67.84 11.52 99.84h-133.546666zM931.84 486.4H91.733333V372.906667H456.96v-251.733334c0-27.733333 33.28-30.72 47.786667-30.72h16.213333c14.506667 0 47.786667 2.986667 47.786667 30.72v253.866667h363.093333V486.4z"
+                                            fill="#bfbfbf" p-id="12613"></path>
                                 </svg>
     </div>
     </div>
     </div>
 
     </span>
-    </div>
+        </div>
 
     </div>
 
-    </div>
+</div>
 
-    <!--                校区互通+失物招领+提问 功能                   -->
-    <div class="otherPage ">
-        <div class="w ">
-            <!-- 3d效果 .w>div 作为父盒子 里面的.rotate-div 做3d转换 这样每个效果看起来就会一样了 -->
-            <!-- 校区互通 -->
-            <div class="campus-div ">
-                <div class="rotate-div " title="校区互通 ">
-                    <a href=" ">
-                        <div class="imgShadow ">
-                            <img src="img/campus.jpg " alt=" ">
-                        </div>
-                        <span>校区互通</span>
-                    </a>
-                </div>
+<!--                校区互通+失物招领+提问 功能                   -->
+<div class="otherPage ">
+    <div class="w ">
+        <!-- 3d效果 .w>div 作为父盒子 里面的.rotate-div 做3d转换 这样每个效果看起来就会一样了 -->
+        <!-- 校区互通 -->
+        <div class="campus-div ">
+            <div class="rotate-div " title="校区互通 ">
+                <a href=" ">
+                    <div class="imgShadow ">
+                        <img alt=" " src="img/campus.jpg ">
+                    </div>
+                    <span>校区互通</span>
+                </a>
             </div>
+        </div>
 
-            <!-- 失物招领 -->
-            <div class="lostAndFound-div ">
-                <div class="rotate-div " title="失物招领 ">
-                    <a href=" ">
-                        <div class="imgShadow ">
-                            <img src="img/lostAndFound.jpg " alt=" ">
-                        </div>
-                        <span>失物招领</span>
-                    </a>
-                </div>
+        <!-- 失物招领 -->
+        <div class="lostAndFound-div ">
+            <div class="rotate-div " title="失物招领 ">
+                <a href=" ">
+                    <div class="imgShadow ">
+                        <img alt=" " src="img/lostAndFound.jpg ">
+                    </div>
+                    <span>失物招领</span>
+                </a>
             </div>
+        </div>
 
-            <!-- 提问 -->
-            <div class="quiz-div">
-                <div class="rotate-div" title="提问">
-                    <a href=" ">
-                        <div class="imgShadow ">
-                            <img src="img/quiz.jpg " alt=" ">
-                        </div>
-                        <span>问题交流</span>
-                    </a>
-                </div>
+        <!-- 提问 -->
+        <div class="quiz-div">
+            <div class="rotate-div" title="提问">
+                <a href=" ">
+                    <div class="imgShadow ">
+                        <img alt=" " src="img/quiz.jpg ">
+                    </div>
+                    <span>问题交流</span>
+                </a>
             </div>
         </div>
     </div>
+</div>
 
-    <!--                          主要内容                           -->
-    <div class="maincontent">
-        <div class="w ">
+<!--                          主要内容                           -->
+<div class="maincontent">
+    <div class="w ">
 
-            <!-- 问题内容 的固定 左边栏 -->
-            <h1>交流内容</h1>
-            <div class="quizLeftSidar ">
-                <ul>
-                    <li title="学习篇" data-index="0"><i class="iconfont iconxuexi "></i><span>学习篇</span></li>
-                    <li title="期末篇" data-index="1"><i class="iconfont iconkaoshi3 "></i><span>期末篇</span></li>
-                    <li title="宿舍篇" data-index="2"><i class="iconfont iconsushe "></i><span>宿舍篇</span></li>
-                    <li title="食堂篇" data-index="3"><i class="iconfont iconshitang "></i><span>食堂篇</span></li>
-                    <li title="考证篇" data-index="4"><i class="iconfont iconziyuan "></i><span>考证篇</span></li>
-                    <li title="其他" data-index="5"><i class="iconfont iconqita"></i><span>其他</span></li>
-                </ul>
-            </div>
+        <!-- 问题内容 的固定 左边栏 -->
+        <h1>交流内容</h1>
+        <div class="quizLeftSidar ">
+            <ul>
+                <li data-index="0" title="学习篇"><i class="iconfont iconxuexi "></i><span>学习篇</span></li>
+                <li data-index="1" title="期末篇"><i class="iconfont iconkaoshi3 "></i><span>期末篇</span></li>
+                <li data-index="2" title="宿舍篇"><i class="iconfont iconsushe "></i><span>宿舍篇</span></li>
+                <li data-index="3" title="食堂篇"><i class="iconfont iconshitang "></i><span>食堂篇</span></li>
+                <li data-index="4" title="考证篇"><i class="iconfont iconziyuan "></i><span>考证篇</span></li>
+                <li data-index="5" title="其他"><i class="iconfont iconqita"></i><span>其他</span></li>
+            </ul>
+        </div>
 
-            <!--  问题列表部分 -->
-            <div class="indexQuizList">
-                <!-- <div class="loadingY">
-                    <img src="img/loading.gif" alt="">
+        <!--  问题列表部分 -->
+        <div class="indexQuizList">
+            <!-- <div class="loadingY">
+                <img src="img/loading.gif" alt="">
+            </div> -->
+            <div class="studyPartY" data-part-index='0'>
+                <h2><i class="iconfont iconxuexi"></i>学习篇</h2>
+                <!-- <div class="queY " data-list-index="0">
+                    <h3>
+                        <a href="111111" class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
+                        <span>#大一</span>
+                        <span>#java</span>
+                    </h3>
+                    <div class="queImgY ">
+                        <img src="img/lostAndFound.jpg " alt=" ">
+                        <img src="img/lostAndFound3.jpg " alt=" ">
+                        <img src="img/lostAndFound2.jpg " alt=" ">
+                        <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
+                        </p>
+                    </div>
+
+                    <div class="queControlY ">
+                        <span><i class="iconfont icondianzan "></i>点赞</span>
+                        <span><i class="iconfont iconchakan "></i>查看回答</span>
+                        <span><i class="iconfont iconshoucang "></i>收藏</span>
+                        <span class="copyurlY"><i class="iconfont "></i>复制链接</span>
+                    </div>
+                    <span class="active_line"></span>
                 </div> -->
-                <div class="studyPartY" data-part-index='0'>
-                    <h2><i class="iconfont iconxuexi"></i>学习篇</h2>
-                    <!-- <div class="queY " data-list-index="0">
-                        <h3>
-                            <a href="111111" class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
-                            <span>#大一</span>
-                            <span>#java</span>
-                        </h3>
-                        <div class="queImgY ">
-                            <img src="img/lostAndFound.jpg " alt=" ">
-                            <img src="img/lostAndFound3.jpg " alt=" ">
-                            <img src="img/lostAndFound2.jpg " alt=" ">
-                            <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
-                            </p>
-                        </div>
 
-                        <div class="queControlY ">
-                            <span><i class="iconfont icondianzan "></i>点赞</span>
-                            <span><i class="iconfont iconchakan "></i>查看回答</span>
-                            <span><i class="iconfont iconshoucang "></i>收藏</span>
-                            <span class="copyurlY"><i class="iconfont "></i>复制链接</span>
-                        </div>
-                        <span class="active_line"></span>
-                    </div> -->
+                <!-- <div class="queY " data-list-index="1 ">
+                    <h3>
+                        <a href="222222" class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
+                        <span>#大一</span>
+                        <span>#java</span>
+                    </h3>
+                    <div class="queImgY ">
+                        <img src="img/lostAndFound.jpg " alt=" ">
+                        <img src="img/lostAndFound3.jpg " alt=" ">
+                        <img src="img/lostAndFound2.jpg " alt=" ">
+                        <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
+                        </p>
+                    </div>
+                    <div class="queControlY ">
+                        <span><i class="iconfont icondianzan "></i>点赞</span>
+                        <span><i class="iconfont iconchakan "></i>查看回答</span>
+                        <span><i class="iconfont iconshoucang "></i>收藏</span>
+                        <span class="copyurlY"><i class="iconfont "></i>复制链接</span>
+                    </div>
+                    <span class="active_line"></span>
+                </div> -->
 
-                    <!-- <div class="queY " data-list-index="1 ">
-                        <h3>
-                            <a href="222222" class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
-                            <span>#大一</span>
-                            <span>#java</span>
-                        </h3>
-                        <div class="queImgY ">
-                            <img src="img/lostAndFound.jpg " alt=" ">
-                            <img src="img/lostAndFound3.jpg " alt=" ">
-                            <img src="img/lostAndFound2.jpg " alt=" ">
-                            <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
-                            </p>
-                        </div>
-                        <div class="queControlY ">
-                            <span><i class="iconfont icondianzan "></i>点赞</span>
-                            <span><i class="iconfont iconchakan "></i>查看回答</span>
-                            <span><i class="iconfont iconshoucang "></i>收藏</span>
-                            <span class="copyurlY"><i class="iconfont "></i>复制链接</span>
-                        </div>
-                        <span class="active_line"></span>
-                    </div> -->
-
-                    <h4>点击加载更多</h4>
-                </div>
-                <div class="endOfTermPartY" data-part-index='1'>
-                    <h2><i class="iconfont iconkaoshi3"></i>期末篇</h2>
-                    <!-- <div class="queY " data-list-index="0 ">
-                        <h3>
-                            <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
-                            <span>#大一</span>
-                            <span>#java</span>
-                        </h3>
-                        <div class="queImgY ">
-                            <img src="img/lostAndFound.jpg " alt=" ">
-                            <img src="img/lostAndFound3.jpg " alt=" ">
-                            <img src="img/lostAndFound2.jpg " alt=" ">
-                            <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
-                            </p>
-                        </div>
-                        <div class="queControlY ">
-                            <span><i class="iconfont icondianzan "></i>点赞</span>
-                            <span><i class="iconfont iconchakan "></i>查看回答</span>
-                            <span><i class="iconfont iconshoucang "></i>收藏</span>
-                            <span><i class="iconfont "></i>复制链接</span>
-                        </div>
-
-                    </div> -->
-                    <h4>点击加载更多</h4>
-                </div>
-                <div class="dormitoryPartY" data-part-index='2'>
-                    <h2><i class="iconfont iconsushe "></i>宿舍篇</h2>
-                    <!-- <div class="queY " data-list-index="0 ">
-                        <h3>
-                            <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
-                            <span>#大一</span>
-                            <span>#java</span>
-                        </h3>
-                        <div class="queImgY ">
-                            <img src="img/lostAndFound.jpg " alt=" ">
-                            <img src="img/lostAndFound3.jpg " alt=" ">
-                            <img src="img/lostAndFound2.jpg " alt=" ">
-                            <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
-                            </p>
-                        </div>
-                        <div class="queControlY ">
-                            <span><i class="iconfont icondianzan "></i>点赞</span>
-                            <span><i class="iconfont iconchakan "></i>查看回答</span>
-                            <span><i class="iconfont iconshoucang "></i>收藏</span>
-                            <span><i class="iconfont "></i>复制链接</span>
-                        </div>
-                        <span class="active_line"></span>
-                    </div> -->
-                    <h4>点击加载更多</h4>
-                </div>
-                <div class="canteenPartY" data-part-index='3'>
-                    <h2><i class="iconfont iconshitang "></i>食堂篇</h2>
-                    <!-- <div class="queY " data-list-index="0 ">
-                        <h3>
-                            <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
-                            <span>#大一</span>
-                            <span>#java</span>
-                        </h3>
-                        <div class="queImgY ">
-                            <img src="img/lostAndFound.jpg " alt=" ">
-                            <img src="img/lostAndFound3.jpg " alt=" ">
-                            <img src="img/lostAndFound2.jpg " alt=" ">
-                            <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
-                            </p>
-                        </div>
-                        <div class="queControlY ">
-                            <span><i class="iconfont icondianzan "></i>点赞</span>
-                            <span><i class="iconfont iconchakan "></i>查看回答</span>
-                            <span><i class="iconfont iconshoucang "></i>收藏</span>
-                            <span><i class="iconfont"></i>复制链接</span>
-                        </div>
-
-                    </div> -->
-                    <h4>点击加载更多</h4>
-                </div>
-                <div class="textualResearchPartY" data-part-index='4'>
-                    <h2><i class="iconfont iconziyuan "></i>考证篇</h2>
-                    <!-- <div class="queY " data-list-index="0 ">
-                        <h3>
-                            <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
-                            <span>#大一</span>
-                            <span>#java</span>
-                        </h3>
-                        <div class="queImgY ">
-                            <img src="img/lostAndFound.jpg " alt=" ">
-                            <img src="img/lostAndFound3.jpg " alt=" ">
-                            <img src="img/lostAndFound2.jpg " alt=" ">
-                            <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
-                            </p>
-                        </div>
-                        <div class="queControlY ">
-                            <span><i class="iconfont icondianzan "></i>点赞</span>
-                            <span><i class="iconfont iconchakan "></i>查看回答</span>
-                            <span><i class="iconfont iconshoucang "></i>收藏</span>
-                            <span><i class="iconfont "></i>复制链接</span>
-                        </div>
-
-                    </div> -->
-                    <h4>点击加载更多</h4>
-                </div>
-
-                <div class="otherY" data-part-index='5'>
-                    <h2><i class="iconfont iconqita"></i>其他</h2>
-                    <!-- <div class="queY " data-list-index="0 ">
-                        <h3>
-                            <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
-                            <span>#大一</span>
-                            <span>#java</span>
-                        </h3>
-                        <div class="queImgY ">
-                            <img src="img/lostAndFound.jpg " alt=" ">
-                            <img src="img/lostAndFound3.jpg " alt=" ">
-                            <img src="img/lostAndFound2.jpg " alt=" ">
-                            <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
-                            </p>
-                        </div>
-
-                        <div class="queControlY ">
-                            <span><i class="iconfont icondianzan "></i>点赞</span>
-                            <span><i class="iconfont iconchakan "></i>查看回答</span>
-                            <span><i class="iconfont iconshoucang "></i>收藏</span>
-                            <span><i class="iconfont "></i>复制链接</span>
-                        </div>
-
-                    </div> -->
-                    <h4>点击加载更多</h4>
-                </div>
-
+                <h4>点击加载更多</h4>
             </div>
+            <div class="endOfTermPartY" data-part-index='1'>
+                <h2><i class="iconfont iconkaoshi3"></i>期末篇</h2>
+                <!-- <div class="queY " data-list-index="0 ">
+                    <h3>
+                        <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
+                        <span>#大一</span>
+                        <span>#java</span>
+                    </h3>
+                    <div class="queImgY ">
+                        <img src="img/lostAndFound.jpg " alt=" ">
+                        <img src="img/lostAndFound3.jpg " alt=" ">
+                        <img src="img/lostAndFound2.jpg " alt=" ">
+                        <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
+                        </p>
+                    </div>
+                    <div class="queControlY ">
+                        <span><i class="iconfont icondianzan "></i>点赞</span>
+                        <span><i class="iconfont iconchakan "></i>查看回答</span>
+                        <span><i class="iconfont iconshoucang "></i>收藏</span>
+                        <span><i class="iconfont "></i>复制链接</span>
+                    </div>
+
+                </div> -->
+                <h4>点击加载更多</h4>
+            </div>
+            <div class="dormitoryPartY" data-part-index='2'>
+                <h2><i class="iconfont iconsushe "></i>宿舍篇</h2>
+                <!-- <div class="queY " data-list-index="0 ">
+                    <h3>
+                        <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
+                        <span>#大一</span>
+                        <span>#java</span>
+                    </h3>
+                    <div class="queImgY ">
+                        <img src="img/lostAndFound.jpg " alt=" ">
+                        <img src="img/lostAndFound3.jpg " alt=" ">
+                        <img src="img/lostAndFound2.jpg " alt=" ">
+                        <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
+                        </p>
+                    </div>
+                    <div class="queControlY ">
+                        <span><i class="iconfont icondianzan "></i>点赞</span>
+                        <span><i class="iconfont iconchakan "></i>查看回答</span>
+                        <span><i class="iconfont iconshoucang "></i>收藏</span>
+                        <span><i class="iconfont "></i>复制链接</span>
+                    </div>
+                    <span class="active_line"></span>
+                </div> -->
+                <h4>点击加载更多</h4>
+            </div>
+            <div class="canteenPartY" data-part-index='3'>
+                <h2><i class="iconfont iconshitang "></i>食堂篇</h2>
+                <!-- <div class="queY " data-list-index="0 ">
+                    <h3>
+                        <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
+                        <span>#大一</span>
+                        <span>#java</span>
+                    </h3>
+                    <div class="queImgY ">
+                        <img src="img/lostAndFound.jpg " alt=" ">
+                        <img src="img/lostAndFound3.jpg " alt=" ">
+                        <img src="img/lostAndFound2.jpg " alt=" ">
+                        <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
+                        </p>
+                    </div>
+                    <div class="queControlY ">
+                        <span><i class="iconfont icondianzan "></i>点赞</span>
+                        <span><i class="iconfont iconchakan "></i>查看回答</span>
+                        <span><i class="iconfont iconshoucang "></i>收藏</span>
+                        <span><i class="iconfont"></i>复制链接</span>
+                    </div>
+
+                </div> -->
+                <h4>点击加载更多</h4>
+            </div>
+            <div class="textualResearchPartY" data-part-index='4'>
+                <h2><i class="iconfont iconziyuan "></i>考证篇</h2>
+                <!-- <div class="queY " data-list-index="0 ">
+                    <h3>
+                        <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
+                        <span>#大一</span>
+                        <span>#java</span>
+                    </h3>
+                    <div class="queImgY ">
+                        <img src="img/lostAndFound.jpg " alt=" ">
+                        <img src="img/lostAndFound3.jpg " alt=" ">
+                        <img src="img/lostAndFound2.jpg " alt=" ">
+                        <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
+                        </p>
+                    </div>
+                    <div class="queControlY ">
+                        <span><i class="iconfont icondianzan "></i>点赞</span>
+                        <span><i class="iconfont iconchakan "></i>查看回答</span>
+                        <span><i class="iconfont iconshoucang "></i>收藏</span>
+                        <span><i class="iconfont "></i>复制链接</span>
+                    </div>
+
+                </div> -->
+                <h4>点击加载更多</h4>
+            </div>
+
+            <div class="otherY" data-part-index='5'>
+                <h2><i class="iconfont iconqita"></i>其他</h2>
+                <!-- <div class="queY " data-list-index="0 ">
+                    <h3>
+                        <a href=" " class=" ">主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题</a>
+                        <span>#大一</span>
+                        <span>#java</span>
+                    </h3>
+                    <div class="queImgY ">
+                        <img src="img/lostAndFound.jpg " alt=" ">
+                        <img src="img/lostAndFound3.jpg " alt=" ">
+                        <img src="img/lostAndFound2.jpg " alt=" ">
+                        <p>主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题主要问题
+                        </p>
+                    </div>
+
+                    <div class="queControlY ">
+                        <span><i class="iconfont icondianzan "></i>点赞</span>
+                        <span><i class="iconfont iconchakan "></i>查看回答</span>
+                        <span><i class="iconfont iconshoucang "></i>收藏</span>
+                        <span><i class="iconfont "></i>复制链接</span>
+                    </div>
+
+                </div> -->
+                <h4>点击加载更多</h4>
+            </div>
+
         </div>
     </div>
+</div>
 
-    <!-- 校内新闻part 这个的位置根据maincontent的高度定 现1000px-->
-    <div class="schoolNews ">
-        <div class="w ">
-            <h1>学校通知</h1>
+<!-- 校内新闻part 这个的位置根据maincontent的高度定 现1000px-->
+<div class="schoolNews ">
+    <div class="w ">
+        <h1>学校通知</h1>
 
-            <!-- 教务处 -->
-            <div class="deansOffice ">
-                <h2>教务处</h2>
-                <b class="changeTheBatchNews ">换一批</b>
-                <ul class="news deansOfficeNews ">
-                    <div class="NewsDiv displayNewsDiv " data-part="0 ">
-                        <li>
+        <!-- 教务处 -->
+        <div class="deansOffice ">
+            <h2>教务处</h2>
+            <b class="changeTheBatchNews ">换一批</b>
+            <ul class="news deansOfficeNews ">
+                <div class="NewsDiv displayNewsDiv " data-part="0 ">
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">30</em>
                             </span>
-                            <a href=" ">关于开展2021届毕业论文工作的通知</a>
-                        </li>
-                        <li>
+                        <a href=" ">关于开展2021届毕业论文工作的通知</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">30</em>
                             </span>
-                            <a href=" ">关于开展2021届毕业论文工作的通知</a>
-                        </li>
-                        <li>
+                        <a href=" ">关于开展2021届毕业论文工作的通知</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">28</em>
                             </span>
-                            <a href=" ">关于北教学楼封闭考场的通知</a>
-                        </li>
-                        <li>
+                        <a href=" ">关于北教学楼封闭考场的通知</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">16</em>
                             </span>
-                            <a href=" ">关于教学楼本周五、六封闭考场的通知</a>
-                        </li>
-                    </div>
-                    <div class="NewsDiv " data-part="1 ">
-                        <li>
+                        <a href=" ">关于教学楼本周五、六封闭考场的通知</a>
+                    </li>
+                </div>
+                <div class="NewsDiv " data-part="1 ">
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">14</em>
                             </span>
-                            <a href=" ">关于2020-2021学年第一学期2017、2018、2019级选修课程第四轮退补选通知</a>
-                        </li>
-                        <li>
+                        <a href=" ">关于2020-2021学年第一学期2017、2018、2019级选修课程第四轮退补选通知</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">10</em>
                             </span>
-                            <a href=" ">关于国庆中秋节放假期间教学安排的通知</a>
-                        </li>
-                        <li>
+                        <a href=" ">关于国庆中秋节放假期间教学安排的通知</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">09</em>
                             </span>
-                            <a href=" ">关于启动2020年辅修学位、辅修专业招生工作的通知</a>
-                        </li>
-                        <li>
+                        <a href=" ">关于启动2020年辅修学位、辅修专业招生工作的通知</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">3</em>
                             </span>
-                            <a href=" ">关于2020-2021第一学期教材发放的通知</a>
-                        </li>
-                    </div>
-                </ul>
+                        <a href=" ">关于2020-2021第一学期教材发放的通知</a>
+                    </li>
+                </div>
+            </ul>
 
-            </div>
+        </div>
 
-            <!-- 团委 -->
-            <div class="youthLeagueCommittee ">
-                <h2>团委</h2>
-                <b class="changeTheBatchNews ">换一批</b>
-                <ul class="news youthLeagueCommitteeNews ">
-                    <div class="NewsDiv displayNewsDiv " data-part="0 ">
-                        <li>
+        <!-- 团委 -->
+        <div class="youthLeagueCommittee ">
+            <h2>团委</h2>
+            <b class="changeTheBatchNews ">换一批</b>
+            <ul class="news youthLeagueCommitteeNews ">
+                <div class="NewsDiv displayNewsDiv " data-part="0 ">
+                    <li>
                             <span>
                                 <em class="month ">十月</em>
                                 <em class="data ">09</em>
                             </span>
-                            <a href=" ">广东金融学院2020 年新时代爱国卫生运动 （学生宿舍卫生整治专项行动）结果通报</a>
-                        </li>
-                        <li>
+                        <a href=" ">广东金融学院2020 年新时代爱国卫生运动 （学生宿舍卫生整治专项行动）结果通报</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">21</em>
                             </span>
-                            <a href=" ">关于举办广东省第三届高校防范非法金融活动微视频和海报设计大赛的通知</a>
-                        </li>
-                        <li>
+                        <a href=" ">关于举办广东省第三届高校防范非法金融活动微视频和海报设计大赛的通知</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">17</em>
                             </span>
-                            <a href=" ">关于推报 “全国优秀单位”“全国优秀团队”“全国优秀个人”“全省优秀团队”“全省优秀个人”名单的公示(1)</a>
-                        </li>
-                        <li>
+                        <a href=" ">关于推报 “全国优秀单位”“全国优秀团队”“全国优秀个人”“全省优秀团队”“全省优秀个人”名单的公示(1)</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">八月</em>
                                 <em class="data ">31</em>
                             </span>
-                            <a href=" ">广东金融学院关于开展2020年新时代爱国卫生运动</a>
-                        </li>
-                    </div>
-                    <div class="NewsDiv " data-part="1 ">
-                        <li>
+                        <a href=" ">广东金融学院关于开展2020年新时代爱国卫生运动</a>
+                    </li>
+                </div>
+                <div class="NewsDiv " data-part="1 ">
+                    <li>
                             <span>
                                 <em class="month ">八月</em>
                                 <em class="data ">22</em>
                             </span>
-                            <a href=" ">致全校同学倡议书——节约粮食，杜绝浪费</a>
-                        </li>
-                        <li>
+                        <a href=" ">致全校同学倡议书——节约粮食，杜绝浪费</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">八月</em>
                                 <em class="data ">15</em>
                             </span>
-                            <a href=" ">广州市地方金融监督管理局关于举办2020岭南金融文化大使选拔大赛的通知</a>
-                        </li>
-                        <li>
+                        <a href=" ">广州市地方金融监督管理局关于举办2020岭南金融文化大使选拔大赛的通知</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">七月</em>
                                 <em class="data ">10</em>
                             </span>
-                            <a href=" ">关于开展 2020 年广东大中专学生志愿者暑期文化科技卫生“三下乡”社会实践活动的通知</a>
-                        </li>
-                        <li>
+                        <a href=" ">关于开展 2020 年广东大中专学生志愿者暑期文化科技卫生“三下乡”社会实践活动的通知</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">六月</em>
                                 <em class="data ">05</em>
                             </span>
-                            <a href=" ">关于举办第七届“创青春”广东青年创新创业大赛暨第三届粤港澳大湾区青年创新创业大赛的通知</a>
-                        </li>
-                    </div>
+                        <a href=" ">关于举办第七届“创青春”广东青年创新创业大赛暨第三届粤港澳大湾区青年创新创业大赛的通知</a>
+                    </li>
+                </div>
 
-                </ul>
+            </ul>
 
-            </div>
+        </div>
 
-            <!-- 学生工作处 -->
-            <div class="studentAffairsOffice ">
-                <h2>学生工作处</h2>
-                <b class="changeTheBatchNews ">换一批</b>
-                <ul class="news studentAffairsOfficeNews ">
-                    <div class="NewsDiv displayNewsDiv " data-part="0 ">
-                        <li>
+        <!-- 学生工作处 -->
+        <div class="studentAffairsOffice ">
+            <h2>学生工作处</h2>
+            <b class="changeTheBatchNews ">换一批</b>
+            <ul class="news studentAffairsOfficeNews ">
+                <div class="NewsDiv displayNewsDiv " data-part="0 ">
+                    <li>
                             <span>
                                 <em class="month ">十月</em>
                                 <em class="data ">16</em>
                             </span>
-                            <a href=" ">广东金融学院学生工作处关于曾维涛等40位同学违纪的通报（2020）24号</a>
-                        </li>
-                        <li>
+                        <a href=" ">广东金融学院学生工作处关于曾维涛等40位同学违纪的通报（2020）24号</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">30</em>
                             </span>
-                            <a href=" ">广东金融学院学生工作处关于蔡东雷等70位同学违纪的通报（2020）23号</a>
-                        </li>
-                        <li>
+                        <a href=" ">广东金融学院学生工作处关于蔡东雷等70位同学违纪的通报（2020）23号</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">30</em>
                             </span>
-                            <a href=" ">关于更改2019-2020学年国家励志奖学金拟推荐人选的公示</a>
-                        </li>
-                        <li>
+                        <a href=" ">关于更改2019-2020学年国家励志奖学金拟推荐人选的公示</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">26</em>
                             </span>
-                            <a href=" ">关于做好2020年国庆长假期间学生安全教育与出入校园管理工作的通知</a>
-                        </li>
-                    </div>
-                    <div class="NewsDiv " data-part="1 ">
-                        <li>
+                        <a href=" ">关于做好2020年国庆长假期间学生安全教育与出入校园管理工作的通知</a>
+                    </li>
+                </div>
+                <div class="NewsDiv " data-part="1 ">
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">25</em>
                             </span>
-                            <a href=" ">广东金融学院学生工作处关于岑正阳等36位同学违纪的通报（2020）22号</a>
-                        </li>
-                        <li>
+                        <a href=" ">广东金融学院学生工作处关于岑正阳等36位同学违纪的通报（2020）22号</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">24</em>
                             </span>
-                            <a href=" ">关于2019-2020学年国家奖学金和励志奖学金获奖学生初审名单的公示</a>
-                        </li>
-                        <li>
+                        <a href=" ">关于2019-2020学年国家奖学金和励志奖学金获奖学生初审名单的公示</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">18</em>
                             </span>
-                            <a href=" ">广东金融学院学生工作处关于徐佳颖等5位同学违纪的通报（2020）21号</a>
-                        </li>
-                        <li>
+                        <a href=" ">广东金融学院学生工作处关于徐佳颖等5位同学违纪的通报（2020）21号</a>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">七月</em>
                                 <em class="data ">13</em>
                             </span>
-                            <a href=" ">广东金融学院学生工作处关于给予黄烨翔等12位同学违纪处分的决定（2020）20号 </a>
-                        </li>
-                    </div>
-                </ul>
-            </div>
+                        <a href=" ">广东金融学院学生工作处关于给予黄烨翔等12位同学违纪处分的决定（2020）20号 </a>
+                    </li>
+                </div>
+            </ul>
+        </div>
 
-            <!-- 其他 -->
-            <div class="other ">
-                <h2>其他</h2>
-                <b class="changeTheBatchNews ">换一批</b>
-                <ul class="news otherNews ">
-                    <div class="NewsDiv displayNewsDiv " data-part="0 ">
-                        <li>
+        <!-- 其他 -->
+        <div class="other ">
+            <h2>其他</h2>
+            <b class="changeTheBatchNews ">换一批</b>
+            <ul class="news otherNews ">
+                <div class="NewsDiv displayNewsDiv " data-part="0 ">
+                    <li>
                             <span>
                                 <em class="month ">十月</em>
                                 <em class="data ">13</em>
                             </span>
-                            <a href=" ">关于组织参加及收看校庆庆典活动的通知</a>
-                            <i>校长办公室</i>
-                        </li>
-                        <li>
+                        <a href=" ">关于组织参加及收看校庆庆典活动的通知</a>
+                        <i>校长办公室</i>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">十月</em>
                                 <em class="data ">01</em>
                             </span>
-                            <a href=" ">【温馨提示】教育技术与网络管理中心国庆中秋假期值班安排</a>
-                            <i>教育技术与网络管理中心</i>
-                        </li>
-                        <li>
+                        <a href=" ">【温馨提示】教育技术与网络管理中心国庆中秋假期值班安排</a>
+                        <i>教育技术与网络管理中心</i>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">16</em>
                             </span>
-                            <a href=" ">大学英语等级考试(CET)听力考前试音通知（校本部</a>
-                            <i>教育技术与网络管理中心</i>
-                        </li>
-                        <li>
+                        <a href=" ">大学英语等级考试(CET)听力考前试音通知（校本部</a>
+                        <i>教育技术与网络管理中心</i>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">08</em>
                             </span>
-                            <a href=" ">请同学们注意：四、六级听力考试耳机维修通知！！重要！！(校本部)</a>
-                            <i>教育技术与网络管理中心</i>
-                        </li>
-                    </div>
-                    <div class="NewsDiv " data-part="1 ">
-                        <li>
+                        <a href=" ">请同学们注意：四、六级听力考试耳机维修通知！！重要！！(校本部)</a>
+                        <i>教育技术与网络管理中心</i>
+                    </li>
+                </div>
+                <div class="NewsDiv " data-part="1 ">
+                    <li>
                             <span>
                                 <em class="month ">八月</em>
                                 <em class="data ">29</em>
                             </span>
-                            <a href=" ">关于校园卡的温馨提示</a>
-                            <i>教育技术与网络管理中心</i>
-                        </li>
-                        <li>
+                        <a href=" ">关于校园卡的温馨提示</a>
+                        <i>教育技术与网络管理中心</i>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">八月</em>
                                 <em class="data ">04</em>
                             </span>
-                            <a href=" ">关于开展“爱国心•报国情•强国志”征文活动的通知</a>
-                            <i>党委宣传部_党委统战部</i>
-                        </li>
-                        <li>
+                        <a href=" ">关于开展“爱国心•报国情•强国志”征文活动的通知</a>
+                        <i>党委宣传部_党委统战部</i>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">九月</em>
                                 <em class="data ">09</em>
                             </span>
-                            <a href=" ">16关于组织开展“广东扶贫济困日”活动短视频大赛作品征集的通知</a>
-                            <i>党委宣传部_党委统战部</i>
-                        </li>
-                        <li>
+                        <a href=" ">16关于组织开展“广东扶贫济困日”活动短视频大赛作品征集的通知</a>
+                        <i>党委宣传部_党委统战部</i>
+                    </li>
+                    <li>
                             <span>
                                 <em class="month ">六月</em>
                                 <em class="data ">15</em>
                             </span>
-                            <a href=" ">关于开展2019-2020学年第二学期学生评课的通知</a>
-                            <i>教学质量监控与评估中心</i>
-                        </li>
-                    </div>
-                </ul>
-            </div>
+                        <a href=" ">关于开展2019-2020学年第二学期学生评课的通知</a>
+                        <i>教学质量监控与评估中心</i>
+                    </li>
+                </div>
+            </ul>
         </div>
     </div>
+</div>
 
-    <!-- 页脚前面的那part -->
-    <div class="beforeFooter">
+<!-- 页脚前面的那part -->
+<div class="beforeFooter">
 
-        <a href="https://zs.gduf.edu.cn/index.htm " class="footerImg " target="_blank ">
-            <img src="img/footerGDUF2.jpg " alt=" ">
-            <span>本科招生网</span>
-        </a>
-        <a href="https://www.gduf.edu.cn/ " class="footerImg " target="_blank ">
-            <img src="img/footerGDUF.jpg " alt=" ">
-            <span>GDUF官方网站</span>
-        </a>
-        <a href="https://hbg.gduf.edu.cn/ " class="footerImg " target="_blank ">
-            <img src="img/footerHBBWG.jpg " alt=" ">
-            <span>广州货币金融博物馆</span>
-        </a>
+    <a class="footerImg " href="https://zs.gduf.edu.cn/index.htm " target="_blank ">
+        <img alt=" " src="img/footerGDUF2.jpg ">
+        <span>本科招生网</span>
+    </a>
+    <a class="footerImg " href="https://www.gduf.edu.cn/ " target="_blank ">
+        <img alt=" " src="img/footerGDUF.jpg ">
+        <span>GDUF官方网站</span>
+    </a>
+    <a class="footerImg " href="https://hbg.gduf.edu.cn/ " target="_blank ">
+        <img alt=" " src="img/footerHBBWG.jpg ">
+        <span>广州货币金融博物馆</span>
+    </a>
+    <dl>
+        <dt>关注我们</dt>
+        <dd><b></b>
+            <div>
+                <b class="triangle "></b>
+                <img alt=" " src="img/gzwx.png ">
+            </div>
+        </dd>
+        <dd><b></b>
+        </dd>
+    </dl>
+    <dl>
+        <dt>友情链接</dt>
+        <dd><a href="https://www.gduf.edu.cn/ ">广东金融学院官网</a></dd>
+        <dd><a href="https://www.bilibili.com/ ">中国bilibili大学</a></dd>
+        <dd><a href="https://www.mooc.cn/ ">中国mooc网</a></dd>
+    </dl>
+</div>
+
+<!-- 页脚 -->
+<div class="footer">
+    <div class="w ">
+        <!-- 左边 p -->
+        <!-- <div>
+            <p>致力于帮助有需要的师兄师姐师弟师妹and同学们！</p>
+        </div>
+
+        右边 自定义列表
+        <dl>
+            <dt>友情链接</dt>
+            <dd><a href="https://www.gduf.edu.cn/ ">广东金融学院官网</a></dd>
+            <dd><a href="https://www.bilibili.com/ ">中国bilibili大学</a></dd>
+            <dd><a href="https://www.mooc.cn/ ">中国mooc网</a></dd>
+        </dl>
+
+        dd>b  微信/qq  logo  div>b 三角
         <dl>
             <dt>关注我们</dt>
             <dd><b></b>
@@ -1244,62 +1289,27 @@
             <dd><b></b>
             </dd>
         </dl>
+
         <dl>
-            <dt>友情链接</dt>
-            <dd><a href="https://www.gduf.edu.cn/ ">广东金融学院官网</a></dd>
-            <dd><a href="https://www.bilibili.com/ ">中国bilibili大学</a></dd>
-            <dd><a href="https://www.mooc.cn/ ">中国mooc网</a></dd>
-        </dl>
+            <dt>开发人员</dt>
+            <dd><a href="javascript:; ">产品：</a><a href="javascript:; ">黄小四</a></dd>
+            <dd><a href="javascript:; ">前端开发：</a><a href="javascript:; ">安总 & 小黑</a></dd>
+            <dd><a href="javascript:; ">后端开发:</a><a href="javascript:; ">彦臻</a></dd>
+        </dl> -->
+
+        <!-- 页脚 -->
+        <p><a href="javascript:; ">粤B2-20090191-26</a> | 京ICP备12020869号-2 | <a
+                href="javascript:; ">京公网安备44010602000207</a></p>
+        <p>&copy;2014-2020 icourse163.org</p>
     </div>
+</div>
 
-    <!-- 页脚 -->
-    <div class="footer">
-        <div class="w ">
-            <!-- 左边 p -->
-            <!-- <div>
-                <p>致力于帮助有需要的师兄师姐师弟师妹and同学们！</p>
-            </div>
-
-            右边 自定义列表
-            <dl>
-                <dt>友情链接</dt>
-                <dd><a href="https://www.gduf.edu.cn/ ">广东金融学院官网</a></dd>
-                <dd><a href="https://www.bilibili.com/ ">中国bilibili大学</a></dd>
-                <dd><a href="https://www.mooc.cn/ ">中国mooc网</a></dd>
-            </dl>
-
-            dd>b  微信/qq  logo  div>b 三角
-            <dl>
-                <dt>关注我们</dt>
-                <dd><b></b>
-                    <div>
-                        <b class="triangle "></b>
-                        <img src="img/gzwx.png " alt=" ">
-                    </div>
-                </dd>
-                <dd><b></b>
-                </dd>
-            </dl>
-
-            <dl>
-                <dt>开发人员</dt>
-                <dd><a href="javascript:; ">产品：</a><a href="javascript:; ">黄小四</a></dd>
-                <dd><a href="javascript:; ">前端开发：</a><a href="javascript:; ">安总 & 小黑</a></dd>
-                <dd><a href="javascript:; ">后端开发:</a><a href="javascript:; ">彦臻</a></dd>
-            </dl> -->
-
-            <!-- 页脚 -->
-            <p><a href="javascript:; ">粤B2-20090191-26</a> | 京ICP备12020869号-2 | <a href="javascript:; ">京公网安备44010602000207</a></p>
-            <p>&copy;2014-2020 icourse163.org</p>
-        </div>
-    </div>
-
-    <!-- 返回顶部  -->
-    <div class=" bottomRightSidebar ">
-        <ul>
-            <li class="returnTop "><i class="iconfont iconfanhuidingbu "></i></li>
-        </ul>
-    </div>
+<!-- 返回顶部  -->
+<div class=" bottomRightSidebar ">
+    <ul>
+        <li class="returnTop "><i class="iconfont iconfanhuidingbu "></i></li>
+    </ul>
+</div>
 
 
 </body>

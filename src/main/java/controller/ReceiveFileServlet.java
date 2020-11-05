@@ -88,10 +88,9 @@ public class ReceiveFileServlet extends HttpServlet {
             System.out.println(savePath + "目录不存在，需要创建");
             //创建目录
             boolean mkdir = file.mkdir();
-            if (mkdir){
+            if (mkdir) {
                 System.out.println("创建成功");
-            }
-            else {
+            } else {
                 System.out.println("创建失败");
             }
         }

@@ -78,14 +78,10 @@ body{
     line-height: 70px;
     text-indent:40px; 
 }
-.select_box .column1 li .text{
-    color:#999;
-    font-size:26px;
-}
 .select_box .column1 li:nth-child(1){
     line-height: 50px;
 }
-.select_box .column1 li:hover .text{
+.select_box .column1 li:hover{
     color:#fff;
 }
 .select_box .column1 li:hover svg path{
@@ -185,10 +181,6 @@ body{
     color:#999;
     font-size:18px;
 }
-.select_box .column3 .time_display .text{
-    color:#999;
-    font-size:18px;
-}
 .select_box .column3 .time_display .num{
     font-size:24px;
     font-weight: 700;
@@ -211,7 +203,6 @@ body{
     background-color: rgba(30,117,179);
     box-shadow: 10px 10px 35px 1px rgba(0, 0, 0, 0.5);
 }
-
 .calendar::before{
     content: "";
     display: block;
@@ -229,21 +220,16 @@ body{
 
 .calendar td{
     font-size:20px;
-    color:#fff;
     width:90px;
     height: 40px;
     cursor: default;
     text-align: center;
 }
 .calendar th{
-    color:#fff;
     font-size:26px;
     line-height: 45px;
     position: relative;
-}
-.calendar th span{
-    color:#fff;
-    font-size:28px;
+   
 }
 .calendar .day td{
     font-size:22px;
@@ -462,7 +448,6 @@ body{
 .selector .item .hoverPane .tipBox{
     border:1px solid #fff;
     width:50%;
-    color:#fff;
     height: 150px;
     text-align: center;
     line-height: 150px;
@@ -566,10 +551,4 @@ body{
     font-size:18px;
     font-weight: 500;
     justify-content: space-between;
-}
-.item_containner .item .textBox .area{
-        max-width:57%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
 }

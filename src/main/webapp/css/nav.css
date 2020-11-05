@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-    font-size: 25px;
 }
 
 body {
@@ -15,7 +14,7 @@ i,
 em,
 h2,
 h3 {
-    font-size: 14px;
+    /*font-size: 14px;*/
     font-weight: normal;
     font-style: normal;
 }
@@ -230,7 +229,7 @@ input {
 }
 
 .nav .searchContent li a {
-    font-size: 23px;
+    font-size: 25px;
     color: #777;
 }
 
@@ -365,10 +364,29 @@ input {
     transition: all 0.15s;
 }
 
+.QAndM .message>.icondian {
+    color: brown;
+    font-size: 50px;
+    display: none;
+    /* position: relative; */
+}
+
 .QAndM .message:hover .iconfont,
 .QAndM .cueY:hover .iconfont {
     top: -10px;
     /* margin-top: -10px; */
+}
+
+.QAndM .message>.icondian {
+    color: brown;
+    font-size: 40px;
+    /* position: relative; */
+    top: -13px;
+    right: -11px;
+}
+
+.QAndM .message:hover .icondian {
+    top: -23px;
 }
 
 .QAndM .message .messageNotification {

@@ -13,9 +13,10 @@ import java.util.Map;
 public interface AnswerService {
     /**
      * 添加回答API
-     * @throws
+     *
      * @param map 包含我们需要的参数的map
      * @return 添加返回的id
+     * @throws
      */
     int addAnswer(Map<String, Object> map) throws IOException;
 

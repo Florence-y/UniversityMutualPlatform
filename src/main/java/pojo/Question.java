@@ -24,7 +24,7 @@ public class Question extends IndexObject {
     QuestionContent[] contents;
     @IsValid(valid = true, fieldName = "anonymity")
     boolean anonymity;
-    @IsValid(valid = true,fieldName = "time")
+    @IsValid(valid = true, fieldName = "time")
     Timestamp time;
     boolean isAgree;
     boolean isAttentionAuthor;
@@ -34,10 +34,12 @@ public class Question extends IndexObject {
     Student student;
     Teacher teacher;
     Page<Answer> answer;
+
     /**
      * 计算发表的时间长久
      */
     private String timeUpToNow;
+
     public Timestamp getTime() {
         return time;
     }
@@ -45,6 +47,7 @@ public class Question extends IndexObject {
     public void setTime(Timestamp time) {
         this.time = time;
     }
+
     public String getTimeUpToNow() {
         return timeUpToNow;
     }

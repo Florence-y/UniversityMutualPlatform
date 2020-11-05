@@ -13,7 +13,7 @@ body {
 
 [class^="YitemDetails"] {
     margin-top: 140px;
-    height: 745px;
+    height: 680px;
 }
 
 
@@ -114,7 +114,7 @@ body {
     height: 70px;
     line-height: 70px;
     margin-right: 50px;
-    text-align: right;
+    /* text-align: right; */
     /* box-sizing: border-box; */
     /* background-color: antiquewhite; */
 }

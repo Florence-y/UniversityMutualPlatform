@@ -2,8 +2,8 @@ var isLogon;
 //
 var oAuthor; //文章的作者
 //整篇文章的id
-// var questionId_local = getQueryVariable("id");
-var questionId_local = 'O9lweXUB3qqWTmFg4Gx-';
+var questionId_local = getQueryVariable("id");
+// var questionId_local = 'O9lweXUB3qqWTmFg4Gx-';
 
 //登录者的学号
 
@@ -15,10 +15,9 @@ function sentenceIsLogon() {
         getCookie("userName") != null && getCookie("userName") != undefined &&
         getCookie("face") != undefined && getCookie("face") != null) {
         isLogon = true;
-        displayTipPane("自动登录成功！");
+        answerData["markNumber"] = getCookie("markNumber")[2];
     } else {
         isLogon = false;
-        displayTipPane("自动登录失败！");
     }
 }
 
@@ -52,7 +51,7 @@ function fixed() {
 
 
 }
-$(window).bind("scroll", debounce(fixed, 10, true));
+$(window).bind("scroll", fixed);
 
 // 写回答板块的打开的与关闭
 $('.question_info_main .answer_btn').click(() => {
@@ -73,6 +72,27 @@ $('.note .copyText').click(function() {
     document.execCommand("copy"); // 执行浏览器复制命令
 })
 
+//#region 淑仪添加 复制链接
+
+$(".copyurlY").on({
+    click: function() {
+        // console.log(window.location.href);
+        if (window.location.href.indexOf('?') == -1) {
+            var url = window.location.href.substring(0, window.location.href.length - 10) + $(this).parents(".queY").find("a").attr("href");
+        } else {
+            var url = window.location.href;
+        }
+        // console.log(url);
+        var input = $("<input  value='" + url + "'>");
+        $(this).prepend(input);
+        $(this).find("input").select();
+        document.execCommand("copy");
+        $(this).find('input').remove();
+    }
+})
+
+//#endregion
+
 $('.note .writeAnswer').click(function() {
     if (isLogon == false) {
 
@@ -81,6 +101,7 @@ $('.note .writeAnswer').click(function() {
     }
     scrollUp();
     $('.textAnswer').slideDown();
+    $('.textAnswer').find(".edit-div").eq(0).html($('.note .content textarea').val());
 })
 
 $(".modal_bg_img").on({
@@ -247,9 +268,8 @@ var answerData = {
     //回答者的学号,找cookie
     "answerContents": ""
 }
-if (isLogon) {
-    answerData["markNumber"] = getCookie("markNumber")[2];
-}
+
+
 var answerContents = new Array();
 
 function addAnswerContentItem(order, type, content) {
@@ -269,16 +289,16 @@ function loadAnswerContents() {
     //直到为空
     var order = 1;
     var children = $(".answerTextArea").children(); //返回的是直接子类元素
-    console.log("children=");
+    // console.log("children=");
     // console.log(children);
     var j = 0;
     var text = "";
-    console.log(children)
-    console.log("children.length=" + children.length);
+    // console.log(children)
+    // console.log("children.length=" + children.length);
     for (var i = 0; i < children.length; i++) {
-        console.log("i=" + i);
+        // console.log("i=" + i);
         if (children[i].getAttribute("type") == "text") {
-            console.log(children[i].getAttribute("type"));
+            // console.log(children[i].getAttribute("type"));
             if (children[i].innerHTML == "" || children[i].innerHTML == "<br>" || children[i].innerHTML == null || children[i].innerHTML == undefined || children[i].innerHTML == "null") {
                 // console.log("空格不加");
                 continue; //空格不加
@@ -325,8 +345,8 @@ function sendAnswer() {
         dataType: 'json',
         data: JSON.stringify(answerData),
         success: function(res) {
-            console.log("返回结果:")
-            console.log(res);
+            // console.log("返回结果:")
+            // console.log(res);
             if (res.statusCode == 200) {
                 //清空内容
                 $(".answerArea .answerTextArea").html('<div class="begin" id="begin"></div><div class="textarea edit-div" type="text" contenteditable="true" id="edit-div"></div>');
@@ -516,7 +536,7 @@ function displayAnswers(arr, markNumber) {
             commentCount: arr[i].commentCount,
             userType: type,
             agree: isAgree,
-            time: "2020/10/28",
+            time: "2020/11/1",
             face: src,
             userName: authorObj.userName,
             schoolInfo: school_info
@@ -1081,7 +1101,7 @@ function loadQuestion() {
         dataType: 'json',
         data: data1,
         success: function(res) {
-            // console.log(res);
+            console.log(res);
             setQuestionMain(res);
             setAuthorInfo(res);
         }
@@ -1188,7 +1208,7 @@ function setAuthorInfo(data) {
 $('.copyLink_btn').click(function() {
     let query = window.location.href;
     //window.location.href
-    // alert(query);
+    // displayTipPane(query);
     // displayTipPane("复制成功！");
     var oInput = $("#copyURL");
     // console.log(oInput);
@@ -1211,3 +1231,170 @@ function sendInfo(data) {
         }
     })
 }
+
+//#region 聊天
+
+$("body").on({
+    click: function() {
+        $(".platform_chat").fadeOut(200);
+    }
+})
+
+$('.sendText_btn').on({
+    click: function(e) {
+        // console.log(22);
+        e.stopPropagation();
+        $(".platform_chat").fadeIn(200);
+
+        $(".platform_chat").on({
+            click: function(e) {
+                e.stopPropagation();
+                $(".platform_chat").css("display", "block");
+            }
+        })
+
+        var meObj = {
+            id: getCookie("markNumber")[2],
+            face: 'http://localhost:8080' + getCookie('face')[2].substring(2)
+        };
+        // console.log(getCookie("markNumber")[2]);
+        $(".platform_chat .targetName").text(oAuthor.userName);
+        var targetObj = {
+            id: oAuthor.markNumber,
+            face: 'http://localhost:8080' + oAuthor.face.substring(2),
+            name: oAuthor.userName
+        }
+        // console.log(targetObj);
+        chat(meObj, targetObj);
+    }
+})
+
+
+$('.close_btn').click(function() {
+    $(".platform_chat").fadeOut(200);
+})
+
+
+function chat(meObj, targetObj, callback) {
+    //首先判断是否浏览器支持websocket
+    //点击发送
+    let ws;
+    var ulNode = document.getElementById("ulNode");
+    var screen_inner = document.getElementById("screen_inner");
+    if ('WebSocket' in window) {
+        //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
+        let markNumber = meObj.id;
+        let wantToSendMarkNumber = targetObj.id;
+        ws = new WebSocket("ws://localhost:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
+    } else {
+        // displayTipPane("连接失败");
+        return;
+    }
+    ws.onopen = function() {
+            // displayTipPane("连接成功");
+        }
+        //收到信息
+    ws.onmessage = function(event) {
+        $(".icondian").css("display", "block");
+        //收到消息就将加小红点
+        // $();
+        //进行内容的添加
+        // console.log('收到消息：' + event.data);
+
+        addReceived(event.data);
+        if (callback) {
+            callback();
+        }
+
+    }
+    ws.onerror = function() {
+        displayTipPane("error");
+    }
+    $(".platform_chat .close_btn").click(() => {
+        $(".platform_chat").hide(150);
+        ws.close();
+    })
+
+
+
+
+
+    //单击事件发送数据
+    $(".platform_chat input[type='button']").off("click");
+    $(".platform_chat input[type='button']").on("click", function() {
+        var screen_inner = $(".platform_char .screen .inner");
+        screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
+        let value = $(".platform_chat textarea").val();
+        if (value == undefined || value == null || value == "") {
+            return;
+        }
+        ws.send(value);
+        addSend(value);
+        $(".platform_chat textarea").val("");
+    });
+    //关闭页面的时候就关闭wesocket
+    window.onbeforeunload = function() {
+        ws.close();
+    }
+
+
+    function addReceived(data) {
+        // console.log(data);
+        var liNode = document.createElement("li");
+        liNode.classList.add("target");
+        liNode.innerHTML = '<img class="profile" src="' + targetObj.face + '"><span class="text">' + data + '</span>';
+        ulNode.appendChild(liNode);
+        screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
+    }
+
+    function addSend(data) {
+        // console.log(data);
+        var liNode = document.createElement("li");
+        liNode.classList.add("me");
+        liNode.innerHTML = '<span class="text">' + data + '</span><img class="profile" src="' + meObj.face + '">';
+        ulNode.appendChild(liNode);
+        screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
+    }
+}
+
+//#region  拖动
+// $('.platform_chat').mousedown(function(e) {
+//         // e.pageX
+//         // console.log(e)
+//     var positionDiv = $(this).offset();
+//     console.log($(this).offset());
+//     var distenceX = e.pageX - positionDiv.le ft;
+//     var distenceY = e.pageY - positionDiv.top;
+//     //displayTipPane(distenceX)
+//     // displayTipPane(positionDiv.left);
+//     // console.log('鼠标拖动')
+//     $(document).mousemove(function(e) {
+//         // console.log('鼠标拖动')
+//         var x = e.pageX - distenceX;
+//         var y = e.pageY - distenceY; //鼠标与盒子的左上角x,y距离
+//
+//         if (x < 0) {
+//             x = 0; //防止溢出窗口
+//         } else if (x > $(document).width() - $('.platform_chat').outerWidth(true)) {
+//             x = $(document).width() - $('.platform_chat').outerWidth(true);
+//         }
+//         if (y < 0) {
+//             y = 0; //防止溢出窗口
+//         } else if (y > $(document).height() - $('.platform_chat').outerHeight(true)) {
+//             y = $(document).height() - $('.platform_chat').outerHeight(true);
+//         }
+//
+//         $('.platform_chat').css({
+//             'left': x + 'px',
+//             'top': y + 'px'
+//         });
+//     });
+//     //清除事件
+//     $(document).mouseup(function() {
+//         $(document).off('mousemove');
+//     });
+// });
+//#endregion
+// console.log(Cookie());
+
+//#endregion

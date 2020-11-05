@@ -64,7 +64,8 @@ public enum MySql {
     CREATE_TABLE_ANSWER("CREATE TABLE IF NOT EXISTS t_answer (" +
             "answer_id INT PRIMARY KEY AUTO_INCREMENT," +
             "answer_questionId VARCHAR(50) NOT NULL," +
-            "answer_markNumber VARCHAR(20) NOT NULL " +
+            "answer_markNumber VARCHAR(20) NOT NULL," +
+            "answer_time datetime "+
             ") CHARACTER SET utf8 COLLATE utf8_general_ci"),
     //建立评论表
     CREATE_TABLE_COMMENT("CREATE TABLE IF NOT EXISTS t_comment (" +

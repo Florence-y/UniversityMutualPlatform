@@ -30,10 +30,7 @@ function loadAllItem(parentBox,itemWidth,gap){
 
     isImgLoad(function(){
         // console.log("图片加载完")
-        setTimeout(function(){
-            loadItem(items,itemWidth,gap);
-        },300)
-
+        loadItem(items,itemWidth,gap);
     },".item_containner .item img")
 }
 
@@ -105,6 +102,6 @@ function isImgLoad(callback,img){
         isLoad = true;
         t_img = setTimeout(function(){
             isImgLoad(callback);
-        },100)
+        },10)
     }
 }

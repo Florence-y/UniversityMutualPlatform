@@ -38,7 +38,7 @@ public class AnswerDaoImpl extends BaseDaoImpl<Answer> implements AnswerDao {
     @Override
     public List<Answer> getAnswers(int begin, int pageSize, Map<String, Object> map) throws IOException {
         List<Answer> rowBeginNumAndSizeByCondition = super.getRowBeginNumAndSizeByCondition(new Answer(), begin, pageSize, map);
-        for (Answer answer:rowBeginNumAndSizeByCondition){
+        for (Answer answer : rowBeginNumAndSizeByCondition) {
             String question = ElasticUtil.getDocById("question", answer.getQuestionId());
             Question questionName = WebUtil.jsonToObj(Question.class, question);
             answer.setTitle(questionName.getTitle());

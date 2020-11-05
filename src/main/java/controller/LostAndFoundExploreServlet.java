@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,17 +44,15 @@ public class LostAndFoundExploreServlet extends HttpServlet {
             return;
         }
         String type = (String) map.get("type");
-        String exploreContent= (String) map.get("exploreContent");
-        if (ServletConstantVal.FOUND.equals(type)){
-            Page<Found> page= exploreService.exploreFound(exploreContent);
-            WebUtil.writeObjToResponse(response,page);
-        }
-        else if (ServletConstantVal.LOST.equals(type)){
-            Page<Lost> page= exploreService.exploreLost(exploreContent);
-            WebUtil.writeObjToResponse(response,page);
-        }
-        else {
-            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(Response.OK,"搜索类型没输入或者输入错误"));
+        String exploreContent = (String) map.get("exploreContent");
+        if (ServletConstantVal.FOUND.equals(type)) {
+            Page<Found> page = exploreService.exploreFound(exploreContent);
+            WebUtil.writeObjToResponse(response, page);
+        } else if (ServletConstantVal.LOST.equals(type)) {
+            Page<Lost> page = exploreService.exploreLost(exploreContent);
+            WebUtil.writeObjToResponse(response, page);
+        } else {
+            WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(Response.OK, "搜索类型没输入或者输入错误"));
         }
         System.out.println("get");
     }

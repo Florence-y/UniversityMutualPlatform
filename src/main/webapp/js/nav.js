@@ -1,12 +1,13 @@
 window.onload = function() {
 
-    //#region 清空搜索框内的内容
+    //#region 清空搜索框内的内容 √
 
     $(".search .searchBar").val("");
 
     //#endregion
 
 }
+
 var USERID;
 var USERIMG;
 
@@ -64,7 +65,7 @@ $(function() {
         }
     })
 
-    //#region 点击上面校区互通
+    //#region 点击上面校区互通 √
 
     $('.campus-li').on({
         click: function() {
@@ -76,26 +77,26 @@ $(function() {
 
     //#endregion
 
-    //#region 搜索框  交互
+    //#region 搜索框 √
 
-    //#region  卷去页面 导航栏发生变化
+    //#region  卷去页面 导航栏发生变化 √
 
-    $(window).scroll(function() {
+    // $(window).scroll(function() {
 
-        if ($(document).scrollTop() >= 433) {
-            $(".nav .functionNav").show(200);
-            $(".nav .search").css("left", "61%");
+    //     if ($(document).scrollTop() >= 433) {
+    //         $(".nav .functionNav").show(200);
+    //         $(".nav .search").css("left", "61%");
 
-        } else {
-            $(".nav .functionNav").hide(200);
+    //     } else {
+    //         $(".nav .functionNav").hide(200);
 
-            $(".nav .search").css("left", "50%");
-        }
-    })
+    //         $(".nav .search").css("left", "50%");
+    //     }
+    // })
 
     //#endregion
 
-    //#region 点击 + 得失焦点 + 防抖 
+    //#region 点击 + 得失焦点 + 节流 √ 
 
     $(".search").on({
         click: function(e) {
@@ -176,14 +177,14 @@ $(function() {
     //#region 节流
     $(".nav").find(".searchBar").bind("keyup", debounce(function() {
         //键盘抬起事件 + val() 非空 发送请求 
-        console.log($(this).val());
+        // console.log($(this).val());
         if ($(this).val() != "") {
             $.get('http://localhost:8080/Servlet/MainPageServlet', {
                 requestType: 'get',
                 getType: "explore",
                 exploreContent: $(this).val(),
             }, function(res) {
-                console.log(res);
+                // console.log(res);
                 for (var i = 0; i < res.dataList.length; i++) {
                     //判断是哪个篇 的 然后获取 创建iconfont
                     var icon;
@@ -225,12 +226,12 @@ $(function() {
 
     //#endregion
 
-    //#region  登录 + 获取 消息 关注 问答 收藏 退出登录
+    //#region  登录 + 获取 消息 关注 问答 收藏 + 退出登录
 
     //#region 点击登录button进入登录弹框 √
 
     $('.fadein').click(function() {
-        $("input").val("");
+        // $("input").val("");
         $(".logOn").siblings().fadeOut();
         $(".logOn").fadeIn();
         $(".modal_bg_logon").fadeIn(); //远安修改代码 解决类名冲突
@@ -282,7 +283,7 @@ $(function() {
 
         //账号密码判空 / 正则
         if (pwd === "" || account === "") {
-            alert('用户名/密码不能为空');
+            displayTipPane('用户名/密码不能为空');
         } else {
             $.get('http://localhost:8080/Servlet/UserServlet', {
                 password: pwd,
@@ -291,9 +292,11 @@ $(function() {
                 userType: type
             }, function(res) {
                 if (res.statusCode == 200) {
+
+
                     // console.log(res.messagePojo)
                     // clearCookie(); //清除cookie
-                    setCookie(res.messagePojo, 30); //保存30天
+                    setCookie(res.messagePojo, 10); //保存30天
 
                     //if登录成功 退出登录框 登录+注册 -> 消息+头像
 
@@ -326,11 +329,43 @@ $(function() {
                     // }
 
                     //#endregion
+                    //#region 生成websocket对象
 
-                    sentenceIsLogon(); //问题页面判断是否登录
+                    let ws;
+                    var ulNode = document.getElementById("ulNode");
+                    var screen_inner = document.getElementById("screen_inner");
+                    if ('WebSocket' in window) {
+                        //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
+                        let markNumber = USERID;
+                        let wantToSendMarkNumber = "666";
+                        ws = new WebSocket("ws://localhost:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
+                    } else {
+                        // displayTipPane("连接失败");
+                        return;
+                    }
+                    ws.onopen = function() {
+                        // displayTipPane("连接成功");
+                    }
+
+                    //收到信息
+                    ws.onmessage = function(event) {
+                        $(".icondian").show();
+                        //收到消息就将加小红点
+                        // $();
+                        //进行内容的添加
+                        // console.log('收到消息：' + event.data);
+
+                        addReceived(event.data);
+                        callback();
+                    }
+                    ws.onerror = function() {
+                        displayTipPane("error");
+                    }
+
+                    //#endregion
 
                 } else {
-                    alert('账号或密码有误，登录失败！');
+                    displayTipPane('账号或密码有误，登录失败！');
                 }
             }, 'json')
         }
@@ -343,29 +378,28 @@ $(function() {
     $(".message").on({
         click: function(e) {
             e.stopPropagation();
-            $(".system").html("");
-            $(".private").html("");
 
             // console.log(111);
-
-            //#region 获取消息通知
 
             if (USERID != null) {
                 $('.message').find(".messageNotification").fadeIn();
                 $('.message').find('.messageNotification').css('display', 'block');
 
+                //#region 获取动态通知
+
                 $.get('http://localhost:8080/Servlet/InfServlet', {
                     currentPage: "1",
                     receiverMarkNumber: USERID,
                     order: "sendTime",
-                    direction: "asc",
+                    direction: "desc",
                     requestType: 'get',
                     type: "inf",
                 }, function(res) {
+                    $(".system").html("");
                     // console.log(res);
 
                     //#region 动态创建  消息通知
-                    for (var i = 0; i < res.dataList.length; i++) {
+                    for (var i = res.dataList.length - 1; i > 0; i--) {
 
                         var item = $("<li class='item'></li>");
                         var src = 'http://localhost:8080' + res.dataList[i].senderFace.substring(2);
@@ -375,33 +409,275 @@ $(function() {
                         var information = $("<span class='item_info' title='" + res.dataList[i].content + "'>" + res.dataList[i].content + "</span>");
                         var time = $("<span class='time'>" + res.dataList[i].timeUpToNow + "</span>");
 
-                        $(".message .contentBox_information").find("ul").prepend(item);
-                        $(".message .contentBox_information").find("ul").find(".item").eq(0).append(img);
-                        $(".message .contentBox_information").find("ul").find(".item").eq(0).append(svg);
-                        $(".message .contentBox_information").find("ul").find(".item").eq(0).append(username);
-                        $(".message .contentBox_information").find("ul").find(".item").eq(0).append(information);
-                        $(".message .contentBox_information").find("ul").find(".item").eq(0).append(time);
+                        $(".message .contentBox_information").find(".system").prepend(item);
+                        $(".message .contentBox_information").find(".system").find(".item").eq(0).append(img);
+                        $(".message .contentBox_information").find(".system").find(".item").eq(0).append(svg);
+                        $(".message .contentBox_information").find(".system").find(".item").eq(0).append(username);
+                        $(".message .contentBox_information").find(".system").find(".item").eq(0).append(information);
+                        $(".message .contentBox_information").find(".system").find(".item").eq(0).append(time);
 
                     }
 
 
                     //#endregion
+
                     // console.log(res);
 
                 }, 'json')
-            } else {
-                alert("您还为登录！");
-            }
 
-            //#endregion
+                //#endregion
+
+                //#region 获取私信通知
+                var send = new Array();
+                var pindex;
+                var isRead = true;
+                $.get('http://localhost:8080/Servlet/InfServlet', {
+                    currentPage: "1",
+                    receiverMarkNumber: USERID,
+                    order: "sendTime",
+                    direction: "desc",
+                    requestType: 'get',
+                    type: "chat",
+                }, function(res) {
+                    $(".private").html("");
+                    console.log(res);
+
+                    //#region 动态创建  消息私信
+                    pindex = 0;
+
+                    // for (var total = res.totalPage.length - 1; total > 0; total--) {
+
+                    for (var i = res.dataList.length - 1; i > 0; i--) {
+
+                        var item = $("<li class='item' data-pindex='" + pindex + "'></li>");
+                        var src = 'http://localhost:8080' + res.dataList[i].senderFace.substring(2);
+                        var img = $("<img src='" + src + "'>");
+                        var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
+                        var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
+                        var information = $("<span class='item_info' title='" + res.dataList[i].content + "'>" + res.dataList[i].content + "</span>");
+                        var time = $("<span class='time'>" + res.dataList[i].timeUpToNow + "</span>");
+
+                        $(".message .contentBox_information").find(".private").prepend(item);
+                        $(".message .contentBox_information").find(".private").find(".item").eq(0).append(img);
+                        $(".message .contentBox_information").find(".private").find(".item").eq(0).append(svg);
+                        $(".message .contentBox_information").find(".private").find(".item").eq(0).append(username);
+                        $(".message .contentBox_information").find(".private").find(".item").eq(0).append(information);
+                        $(".message .contentBox_information").find(".private").find(".item").eq(0).append(time);
+
+                        send[pindex] = {
+                            'senderMarkNumber': res.dataList[i].senderMarkNumber,
+                            'senderFace': 'http://localhost:8080' + res.dataList[i].senderFace.substring(2),
+                            'senderName': res.dataList[i].senderName,
+                        }
+
+                        // if (res.dataList[i].isRead == 0) {
+                        //     isRead = false;
+                        // }
+                        pindex++;
+                    }
+
+                    // $(".icondian").css("diaplay", "block");
+                    // }
+                    //#endregion
+
+                    // console.log(send);
+                    $('.private .item').on({
+                        click: function(e) {
+
+                            //#region 显示 聊天框
+                            e.stopPropagation();
+                            $(".platform_chat").fadeIn(200);
+
+                            $(".platform_chat").on({
+                                click: function(e) {
+                                    e.stopPropagation();
+                                    $(".platform_chat").css("display", "block");
+                                }
+                            })
+
+                            //#endregion
+
+                            //#region 获取数据
+                            var index = $(this).attr("data-pindex")
+                            send[index];
+                            // console.log($(this).attr("data-pindex"));
+                            var meObj = {
+                                id: getCookie("markNumber")[2],
+                                face: 'http://localhost:8080' + getCookie('face')[2].substring(2)
+                            };
+
+                            $(".platform_chat .targetName").text(send[index].senderName);
+                            var targetObj = {
+                                id: send[index].senderMarkNumber,
+                                face: send[index].senderFace,
+                                name: send[index].senderName
+                            }
+
+                            // console.log(targetObj);
+                            chat(meObj, targetObj);
+
+                            //#endregion
+                        }
+                    })
+
+
+
+                }, 'json')
+
+                //#endregion
+
+                //#region 聊天
+
+                //#region 点击私信 弹出聊天框
+                $("body").on({
+                    click: function() {
+                        $(".platform_chat").fadeOut(200);
+                    }
+                })
+
+                $('.close_btn').click(function() {
+                    $(".platform_chat").fadeOut(200);
+                })
+
+                //#endregion
+
+                function chat(meObj, targetObj, callback) {
+                    //首先判断是否浏览器支持websocket
+                    //点击发送
+                    let ws;
+                    var ulNode = document.getElementById("ulNode");
+                    var screen_inner = document.getElementById("screen_inner");
+                    if ('WebSocket' in window) {
+                        //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
+                        let markNumber = meObj.id;
+                        let wantToSendMarkNumber = targetObj.id;
+                        ws = new WebSocket("ws://localhost:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
+                    } else {
+                        displayTipPane("连接失败");
+                        return;
+                    }
+                    ws.onopen = function() {
+                        displayTipPane("连接成功");
+                    }
+
+                    //收到信息 
+                    ws.onmessage = function(event) {
+                        $(".icondian").css("display", "block");
+                        //收到消息就将加小红点
+
+                        //进行内容的添加
+                        // console.log('收到消息：' + event.data);
+
+                        addReceived(event.data);
+                        if (callback) {
+                            callback();
+                        }
+
+                    }
+                    ws.onerror = function() {
+                        displayTipPane("error");
+                    }
+
+                    $(".platform_chat .close_btn").click(() => {
+                        // $(".platform_chat").hide(150);
+                        $(".platform_chat").find("li").remove();
+                        ws.close();
+                    })
+
+                    $(".platform_chat input[type='button']").off("click");
+                    //单击事件发送数据
+                    $(".platform_chat input[type='button']").on("click", function() {
+                        var screen_inner = $(".platform_char .screen .inner");
+                        screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
+                        let value = $(".platform_chat textarea").val();
+                        if (value == undefined || value == null || value == "") {
+                            return;
+                        }
+                        ws.send(value);
+                        addSend(value);
+                        $(".platform_chat textarea").val("");
+                    });
+
+                    //关闭页面的时候就关闭wesocket
+                    window.onbeforeunload = function() {
+                        ws.close();
+                    }
+
+
+                    function addReceived(data) {
+                        // console.log(data);
+                        var liNode = document.createElement("li");
+                        liNode.classList.add("target");
+                        liNode.innerHTML = '<img class="profile" src="' + targetObj.face + '"><span class="text">' + data + '</span>';
+                        ulNode.appendChild(liNode);
+                        screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
+                    }
+
+                    function addSend(data) {
+                        // console.log(data);
+                        var liNode = document.createElement("li");
+                        liNode.classList.add("me");
+                        liNode.innerHTML = '<span class="text">' + data + '</span><img class="profile" src="' + meObj.face + '">';
+                        ulNode.appendChild(liNode);
+                        screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
+                    }
+                }
+
+                //#region  拖动 
+                // $('.platform_chat').mousedown(function(e) {
+                //     // e.pageX
+                //     // console.log(e)
+                //     var positionDiv = $(this).offset();
+                //     var distenceX = e.pageX - positionDiv.left;
+                //     var distenceY = e.pageY - positionDiv.top;
+                //     //displayTipPane(distenceX)
+                //     // displayTipPane(positionDiv.left);
+                //     // console.log('鼠标拖动')
+                //     $(document).mousemove(function(e) {
+                //         // console.log('鼠标拖动')
+                //         var x = e.pageX - distenceX;
+                //         var y = e.pageY - distenceY; //鼠标与盒子的左上角x,y距离
+
+                //         if (x < 0) {
+                //             x = 0; //防止溢出窗口
+                //         } else if (x > $(document).width() - $('.platform_chat').outerWidth(true)) {
+                //             x = $(document).width() - $('.platform_chat').outerWidth(true);
+                //         }
+                //         if (y < 0) {
+                //             y = 0; //防止溢出窗口
+                //         } else if (y > $(document).height() - $('.platform_chat').outerHeight(true)) {
+                //             y = $(document).height() - $('.platform_chat').outerHeight(true);
+                //         }
+
+                //         $('.platform_chat').css({
+                //             'left': x + 'px',
+                //             'top': y + 'px'
+                //         });
+                //     });
+                //     //清除事件
+                //     $(document).mouseup(function() {
+                //         $(document).off('mousemove');
+                //     });
+                // });
+                //#endregion
+
+                // console.log(Cookie());
+
+                //#endregion
+
+
+            } else {
+                displayTipPane("您还为登录！");
+            }
         }
     })
+
 
     //#region 效果
     //去右边
     $('.message #hoverBox_fans').on({
         click: function() {
-            console.log("right");
+            // console.log("right");
             $(this).siblings(".activeLine").addClass("toRight");
             $(this).siblings(".activeLine").removeClass("toLeft");
             $(this).css('fontWeight', '700');
@@ -416,7 +692,7 @@ $(function() {
     //去左边
     $('.message #hoverBox_interest').on({
         click: function() {
-            console.log("left");
+            // console.log("left");
             $(this).siblings(".activeLine").addClass("toLeft");
             $(this).siblings(".activeLine").removeClass("toRight");
             $(this).css('fontWeight', '700');
@@ -440,7 +716,7 @@ $(function() {
 
         click: function() {
 
-            //#region 获取我的关注 
+            //#region 获取我的关注 √ 
             if (USERID != null) {
                 //显示二级导航
 
@@ -452,7 +728,7 @@ $(function() {
                     direction: "asc",
                     order: "id",
                 }, function(res) {
-                    $(".attention .contentBox_subscribe").find("ul.myAttention").html("");
+                    $(".myAttention").html("");
                     // console.log(res);
 
                     //#region 动态创建 我的关注
@@ -465,7 +741,7 @@ $(function() {
                         var statusSex = $("<span class='status'>身份</span> <div class='sex'></div>");
                         var on;
                         var schoolinfo = $("<span class='school_info' title='" + res.dataList[i].collage + "'>" + res.dataList[i].collage + "</span>");
-                        var subscribe = $('<div class="subscribe " nextAction="turnOn " title="关注 "><svg class="do_subscribe " height="30 " p-id="3875 " t="1602172191268 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg "><path d="M513.536 239.104S441.856 87.04 280.064 87.04C102.912 87.04 10.24 235.52 10.24 384c0 246.784 503.296 552.96 503.296 552.96S1013.76 633.856 1013.76 384c0-151.552-95.744-296.96-266.752-296.96-170.496 0-233.472 152.064-233.472 152.064z " fill="#bfbfbf " p-id="3876 "></path></svg></div>');
+                        var subscribe = $('<div class="subscribe " nextAction="turnOff" title="取消关注"><svg class="do_subscribe " height="30 " p-id="3875 " t="1602172191268 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg "><path d="M513.536 239.104S441.856 87.04 280.064 87.04C102.912 87.04 10.24 235.52 10.24 384c0 246.784 503.296 552.96 503.296 552.96S1013.76 633.856 1013.76 384c0-151.552-95.744-296.96-266.752-296.96-170.496 0-233.472 152.064-233.472 152.064z " fill="#d6204b" p-id="3876"></path></svg></div>');
                         var sendText = $('<div class="sendText " title="私信 "><svg class="icon " height="30 " p-id="4482 " t="1602172441453 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg "><path d="M935.724138 494.344828c0 204.8-188.910345 370.758621-423.724138 370.75862-67.089655 0-130.648276-14.124138-187.144828-38.841379-35.310345-14.124138-157.131034 60.027586-185.37931 38.841379-28.248276-21.186207 38.841379-141.241379 17.655172-167.724138C112.993103 639.117241 88.275862 568.496552 88.275862 494.344828 88.275862 289.544828 277.186207 123.586207 512 123.586207s423.724138 165.958621 423.724138 370.758621z m-605.572414 5.296551c0 14.124138 7.062069 26.482759 19.42069 33.544828s26.482759 7.062069 38.841379 0c12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379 0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z m155.365517 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379 0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z m153.6 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379 0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z " fill="#bfbfbf " p-id="4483 "></path></svg></div>');
 
                         if (res.dataList[i].sex === '男') {
@@ -490,36 +766,37 @@ $(function() {
 
                     //#endregion
 
+                    //还没关注之前，点击后发送关注请求，并且成功后把状态变成关注，点亮
+                    //如果当前是已关注，title为取消关注
+
+                    // 点击关注按钮，并且是当前状态为turnON ，就发送请求发送关注，如果为turnOff就发送取消关注请求
+
+                    $('.hoverBox .contentBox_subscribe .item .subscribe').click(function() {
+                        if ($(this).attr("nextAction") === 'turnOn') {
+                            //发送关注请求
+                            $(this).find('svg path').css("fill", "#d6204b");
+                            $(this).attr({
+                                "nextAction": "turnOff",
+                                "title": "取消关注"
+                            });
+                        } else {
+                            $(this).find('svg path').css("fill", "#bfbfbf");
+                            $(this).attr({
+                                "nextAction": "turnOn",
+                                "title": "关注"
+                            });
+                        }
+                    })
 
                 }, 'json')
 
-                //还没关注之前，点击后发送关注请求，并且成功后把状态变成关注，点亮
-                //如果当前是已关注，title为取消关注
-
-                // 点击关注按钮，并且是当前状态为turnON ，就发送请求发送关注，如果为turnOff就发送取消关注请求
-                $('.hoverBox .contentBox_subscribe .item .subscribe').click(function() {
-                    if ($(this).attr("nextAction") === 'turnOn') {
-                        //发送关注请求
-                        $(this).find('svg path').css("fill", "#d6204b");
-                        $(this).attr({
-                            "nextAction": "turnOff",
-                            "title": "取消关注"
-                        });
-                    } else {
-                        $(this).find('svg path').css("fill", "#bfbfbf");
-                        $(this).attr({
-                            "nextAction": "turnOn",
-                            "title": "关注"
-                        });
-                    }
-                })
 
             } else {
-                alert("您还未登录！");
+                displayTipPane("您还未登录！");
             }
             //#endregion
 
-            //#region 获取关注我的 头像 用户民
+            //#region 获取关注我的 √ 
 
             if (USERID != null) {
 
@@ -570,7 +847,7 @@ $(function() {
                 }, 'json')
             } else {
 
-                alert("您还未登录！");
+                displayTipPane("您还未登录！");
             }
             //#endregion
 
@@ -601,7 +878,7 @@ $(function() {
 
     //去右边
     $('#hoverBox_fans').click(function() {
-        console.log("right");
+        // console.log("right");
         $(this).siblings(".activeLine").addClass("toRight");
         $(this).siblings(".activeLine").removeClass("toLeft");
         $(this).css('fontWeight', '700');
@@ -614,7 +891,7 @@ $(function() {
 
     //去左边
     $('#hoverBox_interest').click(function() {
-        console.log("left");
+        // console.log("left");
         $(this).siblings(".activeLine").addClass("toLeft");
         $(this).siblings(".activeLine").removeClass("toRight");
         $(this).css('fontWeight', '700');
@@ -686,7 +963,7 @@ $(function() {
                 //     })
                 // }
             } else {
-                alert("您还未登录！");
+                displayTipPane("您还未登录！");
             }
 
         }
@@ -699,7 +976,7 @@ $(function() {
     //#region 切换为我的回答
 
     $('#hoverBox_answer').click(function() { //去右边
-        console.log("right");
+        // console.log("right");
         $(this).siblings(".activeLine").addClass("toRight");
         $(this).siblings(".activeLine").removeClass("toLeft");
         $(this).css('fontWeight', '700');
@@ -711,7 +988,7 @@ $(function() {
     })
 
     $('#hoverBox_request').click(function() { //去左边
-        console.log("left");
+        // console.log("left");
         $(this).siblings(".activeLine").addClass("toLeft");
         $(this).siblings(".activeLine").removeClass("toRight");
         $(this).css('fontWeight', '700');
@@ -739,9 +1016,6 @@ $(function() {
                     authorMarkNumber: USERID,
                 }, function(res) {
                     $(".myCue").html("");
-                    // console.log("我的提问");
-                    // console.log(res);
-                    // next = res.next;
 
                     //#region 动态创建 我的提问
 
@@ -777,7 +1051,6 @@ $(function() {
                     markNumber: USERID,
                     currentPage: "1",
                 }, function(res) {
-                    // console.log(res);
                     $(".myAns").html("");
                     //#region 动态创建 我的回答
 
@@ -806,7 +1079,7 @@ $(function() {
                 //#endregion
 
             } else {
-                alert("您还未登录！");
+                displayTipPane("您还未登录！");
             }
         }
     })
@@ -873,7 +1146,7 @@ $(function() {
 
                 }
             } else {
-                alert("您还未登录");
+                displayTipPane("您还未登录");
             }
 
         }
@@ -889,7 +1162,7 @@ $(function() {
 
     //#endregion 
 
-    //#region 退出登录
+    //#region 退出登录 √
 
     $(".exitLogonY").on({
         click: function() {
@@ -914,8 +1187,8 @@ $(function() {
 
 // #region  远安增加代码，实现加载判断是否最近登录过
 $(window).on("load", function() {    
-    console.log("加载用户信息");
-    if (getCookie("markNumber") != null && getCookie("markNumber") != undefined && getCookie("userName") != null && getCookie("userName") != undefined && getCookie("face") != undefined && getCookie("face") != null) {         // alert("加载用户信息")
+    // console.log("加载用户信息");
+    if (getCookie("markNumber") != null && getCookie("markNumber") != undefined && getCookie("userName") != null && getCookie("userName") != undefined && getCookie("face") != undefined && getCookie("face") != null) {         // displayTipPane("加载用户信息")
                 
         $('.modal_bg').fadeOut();  // 其实就是css 的过渡+ display
                 

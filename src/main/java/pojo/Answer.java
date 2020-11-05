@@ -32,6 +32,7 @@ public class Answer {
 
 
     private String timeUpToNow;
+
     public int getCommentCount() {
         return commentCount;
     }
@@ -105,6 +106,7 @@ public class Answer {
     public void setAgree(boolean agree) {
         isAgree = agree;
     }
+
     public String getTitle() {
         return title;
     }
@@ -112,6 +114,7 @@ public class Answer {
     public void setTitle(String title) {
         this.title = title;
     }
+
     public String getTimeUpToNow() {
         return timeUpToNow;
     }
@@ -127,6 +130,7 @@ public class Answer {
     public void setTime(Timestamp timestamp) {
         this.time = timestamp;
     }
+
     @Override
     public String toString() {
         return "Answer{" +

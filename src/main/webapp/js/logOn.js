@@ -1,7 +1,7 @@
 $(function() {
     //#region //刷新页面 清空表单内容
 
-    $('.modal_bg_logon input').val("");
+    $('.logonBody input').val("");
 
     //#endregion
 
@@ -95,9 +95,9 @@ $(function() {
     $(".forgetPasNext").on("click", function() {
         $('.logonTitle').text("重置密码");
         if ($('.inEmail').val() == "") {
-            alert("邮箱不能为空");
+            displayTipPane("邮箱不能为空");
         } else if ($('.verificationCode input').val() == "") {
-            alert("验证码不能为空");
+            displayTipPane("验证码不能为空");
         } else {
             $(".forgetPas").fadeOut();
             $(".resetPas").fadeIn();
@@ -171,7 +171,7 @@ $(function() {
 
     //     //账号密码判空 / 正则
     //     if (pwd === "" || account === "") {
-    //         alert('用户名/密码不能为空');
+    //         displayTipPane('用户名/密码不能为空');
     //     } else {
     //         $.get('http://192.168.137.141:8080/Servlet/UserServlet', {
     //             password: pwd,
@@ -180,7 +180,7 @@ $(function() {
     //             userType: type
     //         }, function(res) {
     //             if (res.statusCode == 200) {
-    //                 // alert('登录成功');
+    //                 // displayTipPane('登录成功');
     //                 clearCookie(); //清除cookie
     //                 setCookie(res.messagePojo, 30); //保存30天
     //                 // console.log(res)
@@ -198,7 +198,7 @@ $(function() {
     //                 console.log(res);
 
     //             } else {
-    //                 alert('账号或密码有误，登录失败！');
+    //                 displayTipPane('账号或密码有误，登录失败！');
     //             }
     //         }, 'json')
     //     }
@@ -223,7 +223,7 @@ $(function() {
     // $('.sendVerificationCode').on({
     //     click: function() {
     //         if ($('.inEmail').val() == "") {
-    //             alert("邮箱不能为空");
+    //             displayTipPane("邮箱不能为空");
     //         } else {
     //             var emailLogonY = $(".inEmail").val() + "@" + $(".emailSuffix").text();
     //             console.log(emailLogonY);
@@ -232,7 +232,7 @@ $(function() {
     //                 requestType: "get"
     //             }, function(res) {
     //                 if (res.statusCode == 200) {
-    //                     alert("验证码发送成功");
+    //                     displayTipPane("验证码发送成功");
     //                     console.log(res);
     //                 } else {
     //                     console.log('错误');

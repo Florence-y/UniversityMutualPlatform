@@ -2,7 +2,10 @@ package service.impl;
 
 import dao.TagDao;
 import dao.impl.TagDaoImpl;
-import org.elasticsearch.index.query.*;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import pojo.*;
 import service.ExploreService;
 import util.ElasticUtil;
@@ -38,7 +41,7 @@ public class ExploreServiceImpl implements ExploreService {
         Page<Question> questionPage = ElasticUtil.scrollSearchFirst("question", ElasticUtil.getTermBuilder("authorMarkNumber",
                 authorMarkNumber),
                 new Question(), false);
-        for (Question question:questionPage.getDataList()){
+        for (Question question : questionPage.getDataList()) {
             question.setTimeUpToNow(TimeUtil.getTimeGapToSpecialStr(question.getTime()));
         }
         return questionPage;
@@ -69,29 +72,49 @@ public class ExploreServiceImpl implements ExploreService {
     @Override
     public Page<Found> exploreFound(String exploreContent) throws IOException {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        setCommonFieldExplore(boolQueryBuilder,exploreContent);
+        setCommonFieldExplore(boolQueryBuilder, exploreContent);
+        //地点
         QueryBuilder foundLocation = ElasticUtil.getMatchBuilder("foundLocation", exploreContent);
+        //物品名称
         QueryBuilder foundObjectName = ElasticUtil.getMatchBuilder("foundObjectName", exploreContent);
+        //物品描述
+        QueryBuilder foundDescribe = ElasticUtil.getMatchBuilder("foundDescribe", exploreContent);
+        boolQueryBuilder.should(foundDescribe);
         boolQueryBuilder.should(foundLocation);
         boolQueryBuilder.should(foundObjectName);
-        return ElasticUtil.scrollSearchFirst("found",boolQueryBuilder,new Found(),true,"foundLocation","foundObjectName");
+        return ElasticUtil.scrollSearchFirst("found", boolQueryBuilder, new Found(), true,
+                "foundLocation",
+                "foundObjectName",
+                "foundDescribe",
+                "objectType",
+                "objectDetailType");
     }
-
 
 
     @Override
     public Page<Lost> exploreLost(String exploreContent) throws IOException {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        setCommonFieldExplore(boolQueryBuilder,exploreContent);
+        setCommonFieldExplore(boolQueryBuilder, exploreContent);
+        //地点
         QueryBuilder lostLocation = ElasticUtil.getMatchBuilder("lostLocation", exploreContent);
+        //物品名称
         QueryBuilder lostObjectName = ElasticUtil.getMatchBuilder("lostObjectName", exploreContent);
+        //物品描述
+        QueryBuilder lostDescribe = ElasticUtil.getMatchBuilder("lostDescribe", exploreContent);
         boolQueryBuilder.should(lostLocation);
         boolQueryBuilder.should(lostObjectName);
-        return ElasticUtil.scrollSearchFirst("lost",boolQueryBuilder,new Lost(),true,"lostLocation","lostObjectName");
+        boolQueryBuilder.should(lostDescribe);
+        return ElasticUtil.scrollSearchFirst("lost", boolQueryBuilder, new Lost(), true,
+                "lostLocation",
+                "lostObjectName",
+                "objectType",
+                "objectDetailType",
+                "lostDescribe");
     }
 
 
     private void setCommonFieldExplore(BoolQueryBuilder boolQueryBuilder, String exploreContent) {
-        boolQueryBuilder.should(ElasticUtil.getTermBuilder("objectType",exploreContent));
+        boolQueryBuilder.should(ElasticUtil.getTermBuilder("objectType", exploreContent));
+        boolQueryBuilder.should(ElasticUtil.getTermBuilder("objectDetailType", exploreContent));
     }
 }

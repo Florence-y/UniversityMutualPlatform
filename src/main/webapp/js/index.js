@@ -1,14 +1,12 @@
 window.onload = function() {
 
-    // $(".loadingY").siblings().hide();
-
-    //#region 渲染主页
+    //#region 渲染主页 √
 
     $.get('http://localhost:8080/Servlet/MainPageServlet', {
         requestType: 'get',
         getType: "init",
     }, function(res) {
-        console.log(res);
+        // console.log(res);
         for (var i = 0; i < res.length; i++) {
             //记住每个分类的 scrollid 
             mainScrollid[i] = res[i].scrollId;
@@ -37,18 +35,18 @@ window.onload = function() {
 
     //#endregion
 
-    //#region 清空搜索框内的内容
+    //#region 清空搜索框内的内容 √
 
     $(".search .searchBar").val("");
 
     //#endregion
 
-    //#region 左边导航栏.quizLeftSidar 和 右边 .attentionAndCollection
+    //#region 确定.quizLeftSidar位置 √
 
     // ownheight ：左边栏 滑到 跟右边内容一底部一样高时  的scrollTop 值 
     var ownheight = $(".indexQuizList").offset().top + $(".indexQuizList").outerHeight(true) - 180 - $(".quizLeftSidar").outerHeight(true);
-    console.log($(document).scrollTop());
-    console.log(ownheight);
+    // console.log($(document).scrollTop());
+    // console.log(ownheight);
     if ($(document).scrollTop() >= 594 && $(document).scrollTop() < ownheight) {
 
         // top:页面被卷去的距离- 父级到document顶部的距离 + 120
@@ -77,9 +75,7 @@ window.onload = function() {
 var mainScrollid = new Array(); //存每一篇的scrollId 用来加载下一页
 var LoadNextPage = new Array(); //存每一篇的next 用来判断是否有下一页
 
-// console.log(mainScrollid);
-
-//初始化 主要内容
+//初始化 主要内容 √
 var inmaincontent = function(res, quizlist, i) {
 
     var contenturl;
@@ -107,66 +103,22 @@ var inmaincontent = function(res, quizlist, i) {
         var queImgYP = $("<p>" + data.contents[0].contentMain + "</p>");
         $(quizlist).find(".queY").eq(0).find(".queImgY").append(queImgYP);
 
+
         //创建添加 .queImgY > img
         for (var imgi = 1; imgi < data.contents.length; imgi++) {
-            var src = 'http://localhost:8080/' + data.contents[imgi].contentMain.substring(2);
-            var img = $("<img src='" + src + "'>");
-            $(quizlist).find(".queY").eq(0).find(".queImgY").prepend(img);
+            if (data.contents[imgi].contentMain != null) {
+                var src = 'http://localhost:8080/' + data.contents[imgi].contentMain.substring(2);
+                var img = $("<img src='" + src + "'>");
+                $(quizlist).find(".queY").eq(0).find(".queImgY").prepend(img);
+            }
+
         }
+
+
         var open = "window.open('" + contenturl + "')";
-        $(quizlist).find(".queY").eq(0).append($('<div class="queControlY"><span onclick="' + open + '"><i class="iconfont iconchakan"></i>查看回答</span><span><i class="iconfont iconshoucang "></i>收藏</span><span><i class="iconfont copyurl"></i>复制链接</span></div>'));
+        $(quizlist).find(".queY").eq(0).append($('<div class="queControlY"><span onclick="' + open + '"><i class="iconfont iconchakan"></i>查看回答</span><span><i class="iconfont iconshoucang "></i>收藏</span><span class="copyurlY"><i class="iconfont"></i>复制链接</span></div>'));
 
-        $(quizlist).find(".queY").eq(0).append($(' <span class="active_line"></span>'));
-
-
-    }
-
-    //#region 主要内容 的高度
-
-    var height = $('.indexQuizList').outerHeight(true) + 40;
-    // console.log(height);
-    $('.maincontent').css('height', height);
-
-    //#endregion
-}
-
-//加载更多
-var inmaincontent2 = function(res, quizlist) {
-    // console.log(res);
-    //遍历 添加 div.queY 初始化 主要内容
-    for (var j = 0; j < res.dataList.length; j++) {
-
-        var data = res.dataList[j];
-
-        //创建添加 div.queY > h3
-        var contenturl = 'questionPage.html?id=' + data.id;
-        var div = $("<div class='queY'><h3><a target='_blank' href='" + contenturl + "'>" + data.title + "</a></h3></div>");
-        $(quizlist).find("h4").before(div);
-
-        //创建添加 h3>span
-        for (var tagi = 0; tagi < data.tag.length; tagi++) {
-            var span = $("<span>#" + data.tag[tagi] + "</span>");
-            $(quizlist).find(".queY").eq($(".queY").length - 1).find("h3").append(span);
-        }
-
-        //创建添加 div.queY > div.queImgY
-        $(quizlist).find(".queY").eq($(".queY").length - 1).append($("<div class='queImgY'></div>"));
-
-        //c创建 添加 .queImgY > p
-        // console.log(data.contents[0].contentMain);
-        var queImgYP = $("<p>" + data.contents[0].contentMain + "</p>");
-        $(quizlist).find(".queY").eq($(".queY").length - 1).find(".queImgY").append(queImgYP);
-
-        //创建添加 .queImgY > img
-        for (var imgi = 1; imgi < data.contents.length; imgi++) {
-            var src = 'http://localhost:8080/' + data.contents[imgi].contentMain.substring(2);
-            var img = $("<img src='" + src + "'>");
-            $(quizlist).find(".queY").eq($(".queY").length - 1).find(".queImgY").prepend(img);
-        }
-
-        $(quizlist).find(".queY").eq($(".queY").length - 1).append($('<div class="queControlY"><span><i class="iconfont icondianzan"></i>点赞</span><span><i class="iconfont iconchakan "></i>查看回答</span><span><i class="iconfont iconshoucang "></i>收藏</span><span><i class="iconfont copyurl"></i>复制链接</span></div>'));
-
-        $(quizlist).find(".queY").eq($(".queY").length - 1).append($(' <span class="active_line"></span>'));
+        $(quizlist).find(".queY").eq(0).append($('<span class="active_line"></span>'));
 
 
     }
@@ -178,14 +130,15 @@ var inmaincontent2 = function(res, quizlist) {
     $('.maincontent').css('height', height);
 
     //#endregion
+
+
 }
 
 $(function() {
 
+    //#region 校区互通+失物招领+学校通知 功能 √
 
-    //#region 校区互通+失物招领+提问 功能 
-
-    //#region 3d效果
+    //#region 3d效果 √
     var rotateDivs = document.querySelectorAll('.rotate-div');
     for (var i = 0; i < rotateDivs.length; i++) {
         rotateDivs[i].parentNode.addEventListener("mouseenter", function(e) {
@@ -220,7 +173,7 @@ $(function() {
     }
     //#endregion
 
-    //#region 点击互通 页面滑动到
+    //#region 点击互通 页面滑动到 √
     $('.quiz-div').on({
         click: function() {
             $("body, html").stop().animate({
@@ -231,7 +184,7 @@ $(function() {
 
     //#endregion
 
-    //#region 学校新闻 页面滑动到
+    //#region 学校新闻 页面滑动到 √
     $('.campus-div').on({
         click: function() {
             var height = $(".schoolNews").offset().top - 130;
@@ -246,7 +199,7 @@ $(function() {
 
     //#endregion
 
-    //#region 卷去页面 导航栏发生变化 + 问题分类左边固定的框固定 + 返回顶部 √
+    //#region 卷去页面 .quizLeftSidar固定 + 返回顶部 √
 
     $(window).scroll(function() {
 
@@ -299,9 +252,9 @@ $(function() {
 
     //#endregion
 
-    //#region 主要内容   
+    //#region 主要内容 √  
 
-    //#region 点击 左侧边栏 跳转到页内相应分类 part √
+    //#region 点击 .quizLeftSidar 跳转相应part √
 
     $('.quizLeftSidar li').eq(0).find(".iconfont").css("color", "#02a7f0");
     $('.quizLeftSidar li').eq(0).find("span").css("color", "#02a7f0");
@@ -325,6 +278,27 @@ $(function() {
 
     //#endregion
 
+    //#region 复制链接 √
+
+    $(".copyurlY").on({
+        click: function() {
+            // console.log(window.location.href);
+            if (window.location.href.indexOf('?') == -1) {
+                var url = window.location.href.substring(0, window.location.href.length - 10) + $(this).parents(".queY").find("a").attr("href");
+            } else {
+                var url = window.location.href;
+            }
+            console.log(url);
+            var input = $("<input  value='" + url + "'>");
+            $(this).parent().prepend(input);
+            $(this).parent().find("input").select();
+            document.execCommand("copy");
+            $(this).parent().find('input').remove();
+
+        }
+    })
+
+    //#endregion
 
     //#region 加载更多 √
 
@@ -369,7 +343,7 @@ $(function() {
                         console.log($(quizlist).find(".queY").eq(index));
 
                         for (var tagi = 0; tagi < res.dataList[j].tag.length; tagi++) {
-                            // alert('tag');
+                            // displayTipPane('tag');
                             var span = $("<span>#" + res.dataList[j].tag[tagi] + "</span>");
                             $(quizlist).find(".queY").eq(index).find("h3").append(span);
                         }
@@ -387,7 +361,7 @@ $(function() {
                         }
                         var open = "window.open('" + contenturl + "')";
                         // console.log(open);
-                        $(quizlist).find(".queY").eq(index).append($('<div class="queControlY"><span onclick="' + open + '"><i class="iconfont iconchakan"></i>查看回答</span><span><i class="iconfont iconshoucang "></i>收藏</span><span><i class="iconfont copyurl"></i>复制链接</span></div>'));
+                        $(quizlist).find(".queY").eq(index).append($('<div class="queControlY"><span onclick="' + open + '"><i class="iconfont iconchakan"></i>查看回答</span><span><i class="iconfont iconshoucang "></i>收藏</span><span class="copyurl"><i class="iconfont"></i>复制链接</span></div>'));
 
                         $(quizlist).find(".queY").eq(index).append($(' <span class="active_line"></span>'));
                     }
@@ -401,7 +375,7 @@ $(function() {
                     //#endregion
 
                 } else {
-                    alert("没有更多了哦！");
+                    displayTipPane("没有更多了哦！");
                 }
 
                 mainScrollid[i] = res.scrollId;
@@ -412,18 +386,9 @@ $(function() {
 
     //#endregion
 
-
-    //#region 复制链接
-
-    $(".queY .copyurlY").on({
-        click: function(e) {}
-    })
-
     //#endregion
 
-    //#endregion
-
-    //#region 学校新闻
+    //#region 学校新闻 √
 
     //#region 点击换一批 新闻页面 换一批
 
@@ -464,5 +429,11 @@ $(function() {
     //#endregion
 
     //#endregion
+
+    // 点击失物招领图片页面跳转
+    $(".lostAndFound-div").on("click", function() {
+        location.assign("lost&found_index.html");
+    })
+
 
 })

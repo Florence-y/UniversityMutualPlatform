@@ -2,10 +2,12 @@ package controller;
 
 import commom.constantval.ServletConstantVal;
 import commom.factory.ResponseFactory;
+import org.elasticsearch.client.security.user.User;
 import service.UserService;
 import service.impl.UserServiceImpl;
 import util.WebUtil;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +43,7 @@ public class IsExistInfoServlet extends HttpServlet {
             return;
         }
         int code = service.isExistOneInf(map.get("userType"), map);
-        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
+            WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("get");
     }
 

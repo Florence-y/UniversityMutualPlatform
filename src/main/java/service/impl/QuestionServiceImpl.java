@@ -62,7 +62,7 @@ public class QuestionServiceImpl implements QuestionService {
         String viewerMarkNumber = (String) map.get("ViewerMarkNumber");
         String userType = markNumberTypeDao.getUserType(authorMarkNumber);
         int agreeCount = agreeService.getAgreeCountQuestionOrAnswer("question", id);
-        if (viewerMarkNumber!=null) {
+        if (viewerMarkNumber != null) {
             boolean isAgree = agreeService.isAgree("question", id, viewerMarkNumber);
             boolean isAttention = attentionDao.isAttention(viewerMarkNumber, authorMarkNumber);
             question.setAttentionAuthor(isAttention);

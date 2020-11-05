@@ -59,11 +59,11 @@ $(function(){
             var calendar = getCalendar(year,month);//日历数据
             var date_now = new Date();//用来判断是不是当前月
             var calendars = $(".calendar");
-           // console.log(calendars.length);
+           console.log(calendars.length);
             for(var k=0; k<calendars.length; k++){
 
                 var row = $(calendars[k]).find(".day");
-                // console.log(row);
+                console.log(row);
                 var table = [];
                 for(var i=0; i<row.length; i++){
                     table[i] = $(row[i]).children();
@@ -212,10 +212,10 @@ $(function(){
     
             //月历的显示与隐藏
             $(".calendar_entrance").on("mouseenter",function(){
-                $(".calendar").stop().fadeIn();
+                $(".calendar").fadeIn();
             })
             $(".calendar_entrance").on("mouseleave",function(){
-                $(".calendar").stop().fadeOut();
+                $(".calendar").fadeOut();
             })
     
             // $(".platform").on("change",function(){
@@ -269,10 +269,10 @@ $(function(){
                 $(".select_box .areaPane").fadeOut();
             });
             $(".select_box .areaBox .area").on("mouseenter",function(){
-                $(".select_box .areaPane").stop().fadeIn();
+                $(".select_box .areaPane").fadeIn();
             })
             $(".select_box .areaBox .area").on("mouseleave",function(){
-                $(".select_box .areaPane").stop().fadeOut();
+                $(".select_box .areaPane").fadeOut();
             })
         //根据这个id进行加载下一页
         var display_modal = "found";
@@ -301,7 +301,7 @@ $(function(){
             lostLocation = null;
             foundLocation = null;
             $.ajax({
-                url : "http://localhost:8080//Servlet/LostAndFoundServlet",
+                url : "http://192.168.137.101:8080//Servlet/LostAndFoundServlet",
                 type : "get",
                 dataType : "json",
                 data : {
@@ -364,15 +364,15 @@ $(function(){
         //无论是第一加载还是后续的加载更多都是用这个函数，
         //因为我们在开头的时候已经初始化过列数组
         function displayGoods_first(arr){
-            // console.log(arr);
+            console.log(arr);
             var items = [];//是dom对象, width 320
             for(var i=0; i<arr.length; i++){
                 var oItem = $(template("templateGoodsItem",arr[i]));
                 if(arr[i]["imgs"]!=null && arr[i]["imgs"].length!=0){
                     //有图片就添加第一张图片
-                    // var reg = /(..\/)/
+                    var reg = /(..\/)/
                     var src= arr[i]["imgs"][0];
-                    // src = src.replace(reg.exec(src)[0],"http:localhost:8080//");
+                    src = src.replace(reg.exec(src)[0],"http:192.168.137.101:8080//");
                     oItem.find(".imgBox").append(' <img src="'+src+'">');
                 }
                 //先添加到容器中
@@ -383,30 +383,26 @@ $(function(){
             loadAllItem($(".item_containner"),320,30);  
         }
         function displayGoods(arr){
-            // console.log(arr);
+            console.log(arr);
             var items = [];//是dom对象, width 320
             for(var i=0; i<arr.length; i++){
                 var oItem = $(template("templateGoodsItem",arr[i]));
                 if(arr[i]["imgs"]!=null && arr[i]["imgs"].length!=0){
                     //有图片就添加第一张图片
-                    // var reg = /(..\/)/
-                    var src= arr[i]["imgs"][0];
-                    // src = src.replace(reg.exec(src)[0],"http:localhost:8080//");
+                    var reg = /(..\/)/
+                    var src= arr[i][0];
+                    src = src.replace(reg.exec(src)[0],"http:192.168.137.101:8080//");
                     oItem.find(".imgBox").append(' <img src="'+src+'">');
                     
                 }
-                oItem.css("display","none");
                 //先添加到容器中
                 //然后再保存到items中
                 $(".item_containner").append(oItem);
                 items[i] = oItem;       
             }
             isImgLoad(function(){
-                // console.log("图片加载完");
-                setTimeout(function(){
-                    loadItem(items,320,30);
-                },300);
-
+                console.log("图片加载完");
+                loadItem(items,320,30);
             },".item_containner .item img")
         }
         //把时间戳转换成具体时间
@@ -414,7 +410,7 @@ $(function(){
             for(var i=0; i<arr.length; i++){
                 if(arr[i][timeType]!=null && arr[i][timeType]!=undefined){
                     var date = new Date(arr[i][timeType]);
-                    arr[i]["time"] = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()//都统一为time
+                    arr[i]["time"] = date.getFullYear()+"年"+(date.getMonth()+1)+"月"+date.getDate()+"日"//都统一为time
                 }else{
                     arr[i]["time"] = "未填写"
                 }
@@ -441,7 +437,7 @@ $(function(){
             loadGoods("lost");
         });
         // 滚动加载更多
-        $(window).on("scroll", function() {
+        $(window).on("scroll", debounce(function() {
             //滚动条到顶部的高度
             var scrollTop = Math.ceil($(this).scrollTop());
             //窗口高度
@@ -449,9 +445,9 @@ $(function(){
             //整个文档高度
             var totalHeight = $(document).height();
             //滚动条到底
-            if (scrollTop + curHeight >= (totalHeight-80)) {
+            if (scrollTop + curHeight >= totalHeight) {
                 if(haveMore){
-                    // console.log("加载更多")
+                    console.log("加载更多")
                     if(canLoading){
                         loadMoreGoods();
                     }
@@ -459,7 +455,7 @@ $(function(){
                     displayTipPane("没有跟多物品了哦~")
                 }
             }
-        });
+        }, 10, true));
 
         function loadMoreGoods(){
             canLoading = false;
@@ -487,7 +483,7 @@ $(function(){
                 }
             
                 $.ajax({
-                    url :"http://localhost:8080//Servlet/LostAndFoundServlet",
+                    url :"http://192.168.137.101:8080//Servlet/LostAndFoundServlet",
                     type : "get",
                     dataType : "json",
                     data : data,
@@ -535,7 +531,7 @@ $(function(){
                     data["scrollId"] = scrollId;
                 }
                 $.ajax({
-                    url :"http://localhost:8080//Servlet/LostAndFoundServlet",
+                    url :"http://192.168.137.101:8080//Servlet/LostAndFoundServlet",
                     type : "get",
                     dataType : "json",
                     data : data,
@@ -577,7 +573,7 @@ $(function(){
 
      //时间筛选 ，在calendar中调用
     function selectTime(){
-        // console.log("筛选时间");
+        console.log("筛选时间");
         //nowMonth已经加1
         var month = nowMonth.length>1 ? nowMonth : "0"+nowMonth;
         var day = $(this).html().length>1 ? $(this).html() : "0"+$(this).html();
@@ -627,7 +623,7 @@ $(function(){
                 }
             
                 $.ajax({
-                    url :"http://localhost:8080//Servlet/LostAndFoundServlet",
+                    url :"http://192.168.137.101:8080//Servlet/LostAndFoundServlet",
                     type : "get",
                     dataType : "json",
                     data : data,
@@ -671,7 +667,7 @@ $(function(){
                     data["foundLocation"] = foundLocation;
                 }
                 $.ajax({
-                    url :"http://localhost:8080//Servlet/LostAndFoundServlet",
+                    url :"http://192.168.137.101:8080//Servlet/LostAndFoundServlet",
                     type : "get",
                     dataType : "json",
                     data : data,

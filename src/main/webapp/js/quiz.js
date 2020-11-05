@@ -170,7 +170,7 @@ $(function() {
 
         if (text != '' && text != null && text != undefined) {
             // if (label_count >= 5) {
-            //     alert("最多添加5条标签");
+            //     displayTipPane("最多添加5条标签");
             //     return;
             // }
 
@@ -211,7 +211,7 @@ $(function() {
     $(".insertP").on({
         change: function(e) {
             if (sendingImg) {
-                alert("有图片还在上传中...");
+                displayTipPane("有图片还在上传中...");
                 return;
             }
             //创建 div>i  img
@@ -273,12 +273,12 @@ $(function() {
             error: function() {
                 imgObj.remove();
                 sendingImg = false;
-                alert("上传失败！已自动删除原图片！");
+                displayTipPane("上传失败！已自动删除原图片！");
             },
             timeout: function() {
                 imgObj.remove();
                 sendingImg = false;
-                alert("上传超时！已自动删除原图片！");
+                displayTipPane("上传超时！已自动删除原图片！");
             }
 
         })
@@ -294,7 +294,7 @@ $(function() {
     //发送提问
     function sendQuestion() {
         if (sendingImg) {
-            alert("有图片正在上传中！");
+            displayTipPane("有图片正在上传中！");
             return;
         }
         var title = $(".quizModal_bg_askQuestion .mainQuestion textarea").val();
@@ -302,12 +302,12 @@ $(function() {
         var type = $(".quizModal_bg_askQuestion .questionType .cur_val").attr("value");
         //判空
         if (title == "" || title == null || title == undefined) {
-            alert("问题标题不能为空!");
+            displayTipPane("问题标题不能为空!");
             return;
         }
         var textContent = $(".quizModal_bg_askQuestion .questionNote textarea").val();
         if (textContent == "" || textContent == null || textContent == undefined) {
-            alert("问题不能备注为空!");
+            displayTipPane("问题不能备注为空!");
             return;
         }
         var contents = [];
@@ -329,7 +329,7 @@ $(function() {
         var labels = [];
         var oLabels = $(".quizModal_bg_askQuestion .nodeBoard").children();
         if (oLabels.length == 0) {
-            alert("请至少选择一个标签");
+            displayTipPane("请至少选择一个标签");
             return;
         }
         for (var i = 0; i < oLabels.length; i++) {
@@ -337,7 +337,7 @@ $(function() {
         }
 
         if (type == "null") {
-            alert("请选择文章类型！");
+            displayTipPane("请选择文章类型！");
             return;
         }
         var anonymity = $(".quizModal_bg_askQuestion .anonymity").attr("anonymity") == "true" ? true : false;
@@ -352,7 +352,7 @@ $(function() {
             type: "post",
             success: function(res) {
                 if (res.statusCode == 500) {
-                    alert("内容" + res.message + "请修改后再发送！");
+                    displayTipPane("内容" + res.message + "请修改后再发送！");
                 } else {
                     contents[0].contentMain = res[0];
                     send();
@@ -378,7 +378,7 @@ $(function() {
                     "anonymity": anonymity
                 }),
                 success: function(res) {
-                    alert("发布成功！");
+                    displayTipPane("发布成功！");
                     $(".quizModal_bg_askQuestion").fadeOut();
                     //清空title,detail
 
@@ -409,6 +409,43 @@ $(function() {
 
                     //     console.log("结果：")
                     console.log(res);
+
+                    //#region 渲染主页 √
+                    $(".queY").remove();
+                    window.onload();
+                    // $.get('http://localhost:8080/Servlet/MainPageServlet', {
+                    //     requestType: 'get',
+                    //     getType: "init",
+                    // }, function(res) {
+                    //     console.log(res);
+                    //     for (var i = 0; i < res.length; i++) {
+                    //         //记住每个分类的 scrollid 
+                    //         mainScrollid[i] = res[i].scrollId;
+                    //         LoadNextPage[i] = res[i].next;
+
+                    //         // var quizlist;
+                    //         if (res.additionContent === "学习篇" || i == 0) {
+                    //             inmaincontent(res, ".studyPartY", i);
+                    //         } else if (res.additionContent === "期末篇" || i == 1) {
+                    //             inmaincontent(res, ".endOfTermPartY", i);
+                    //         } else if (res.additionContent === "宿舍篇" || i == 2) {
+                    //             inmaincontent(res, ".dormitoryPartY", i);
+                    //         } else if (res.additionContent === "食堂篇" || i == 3) {
+                    //             inmaincontent(res, ".canteenPartY", i);
+                    //         } else if (res.additionContent === "考证篇" || i == 4) {
+                    //             inmaincontent(res, ".textualResearchPartY", i);
+                    //         } else {
+                    //             inmaincontent(res, '.otherY', i);
+                    //         }
+                    //     }
+
+
+                    // }, 'json')
+
+                    // console.log(mainScrollid);
+
+                    //#endregion
+
                 }
             })
 

@@ -11,6 +11,8 @@ import java.util.Date;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Found extends IndexObject {
+    @IsValid(valid = true, fieldName = "objectDetailType")
+    String objectDetailType;
     @IsValid(valid = true, fieldName = "contact")
     private String contact;
     @IsValid(valid = true, fieldName = "imgs")
@@ -119,6 +121,14 @@ public class Found extends IndexObject {
         this.userType = userType;
     }
 
+    public String getObjectDetailType() {
+        return objectDetailType;
+    }
+
+    public void setObjectDetailType(String objectDetailType) {
+        this.objectDetailType = objectDetailType;
+    }
+
     @Override
     public String toString() {
         return "Found{" +
@@ -130,6 +140,7 @@ public class Found extends IndexObject {
                 ", foundTime=" + foundTime +
                 ", objectType='" + objectType + '\'' +
                 ", authorMarkNumber='" + authorMarkNumber + '\'' +
+                ", objectDetailType='" + objectDetailType + '\'' +
                 ", student=" + student +
                 ", teacher=" + teacher +
                 ", userType='" + userType + '\'' +

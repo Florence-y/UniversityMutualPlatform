@@ -195,6 +195,7 @@ body {
     width: 230px;
     /* line-height: 25px; */
     font-size: 22px;
+    height: 35px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -588,11 +589,11 @@ body {
 .hoverBox .contentBox_information .item .time {
     position: absolute;
     display: block;
-    width: 100px;
+    width: 105px;
     right: 10px;
     text-indent: 1em;
     text-align: right;
-    bottom: 5px;
+    bottom: 12px;
     color: #999;
     font-size: 20px;
     overflow: hidden;

@@ -1,0 +1,213 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* #region 聊天 */
+
+.platform_chat .title {
+    width: 100%;
+    text-align: center;
+    background-color: #fff;
+    color: #666;
+    font-size: 26px;
+    line-height: 45px;
+}
+
+.platform_chat {
+    display: none;
+    overflow: hidden;
+    position: fixed;
+    top: 5%;
+    right: 10%;
+    margin: 40px auto;
+    width: 650px;
+    background-color: rgb(244, 245, 247);
+    border-radius: 14px;
+    box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.platform_chat .me {
+    text-align: right;
+    transform-origin: center right;
+}
+
+.platform_chat .target {
+    transform-origin: center left;
+}
+
+.platform_chat li .text {
+    display: inline-block;
+    position: relative;
+    top: 0;
+    max-width: 350px;
+    border-radius: 16px;
+    line-height: 50px;
+    padding: 5px 10px;
+}
+
+.platform_chat .me .text {
+    background-color: rgb(128, 185, 242);
+    left: -15px;
+    letter-spacing: 3px;
+    text-align: left;
+    color: #fff;
+    border-top-right-radius: 0px;
+}
+
+.platform_chat .target .text {
+    background-color: #fff;
+    left: 15px;
+    border-top-left-radius: 0px;
+}
+
+.platform_chat .screen {
+    margin: 5px;
+    width: 98.5%;
+    height: 540px;
+    border-radius: 4px;
+}
+
+.platform_chat .screen .inner {
+    width: 100%;
+    margin: 2.5px 0 2.5px;
+    height: 515px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+.platform_chat .screen .inner:hover {
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.platform_chat .screen .inner::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.platform_chat .screen .inner::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: transparent;
+}
+
+.platform_chat .screen .inner:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.platform_chat .screen .inner::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: transparent;
+}
+
+.platform_chat .screen li {
+    padding: 10px 20px;
+    width: 100%;
+    margin: 5px 0 0;
+    list-style: none;
+    font-size: 22px;
+    min-height: 45px;
+    box-sizing: border-box;
+    animation: flash 0.1s ease-out 0s forwards;
+    position: relative;
+}
+
+.platform_chat .screen li .profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.platform_chat .textArea {
+    position: relative;
+    display: block;
+    padding: 0;
+    border-top: 1px solid #ccc;
+}
+
+.platform_chat .chat_toolBar {
+    height: 50px;
+    width: 100%;
+    position: relative;
+}
+
+.platform_chat .chat_toolBar svg {
+    display: block;
+    float: left;
+    position: relative;
+}
+
+.platform_chat .chat_toolBar .face {
+    left: 15px;
+    top: 5px;
+}
+
+.platform_chat .chat_toolBar .picture {
+    left: 25px;
+}
+
+.platform_chat textarea {
+    height: 180px;
+    margin: 5px;
+    width: 98%;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    background-color: rgb(244, 245, 247);
+    color: #666;
+    font-size: 20px;
+    letter-spacing: 5px;
+    outline: none;
+    resize: none;
+    border: none;
+}
+
+.platform_chat .textArea input {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    width: 130px;
+    background-color: #fff;
+    line-height: 40px;
+    color: #666;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.platform_chat .close_btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #ccc;
+    display: block;
+    width: 45px;
+    text-align: center;
+    font-size: 50px;
+    line-height: 45px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.platform_chat .close_btn:hover {
+    background-color: rgb(244, 245, 247);
+}
+
+@keyframes flash {
+    from {
+        opacity: 0.5;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* #endregion */

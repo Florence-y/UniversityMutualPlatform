@@ -1,4 +1,5 @@
 package dao.impl;
+
 import commom.strategy.JdbcGetPojoStrategy;
 import commom.strategy.impl.AnswerContentJdbcStrategy;
 import dao.AnswerContentDao;
@@ -6,11 +7,10 @@ import pojo.AnswerContent;
 import util.JdbcUtil;
 import util.ReflectUtil;
 import util.WebUtil;
+
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
-
-
 
 
 /**

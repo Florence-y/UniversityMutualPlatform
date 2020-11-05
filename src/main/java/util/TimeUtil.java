@@ -1,8 +1,11 @@
 package util;
+
 import lombok.extern.slf4j.Slf4j;
+
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -38,7 +41,7 @@ public class TimeUtil {
      */
     public static Date getNotDetailDateObj(String date) {
         try {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd ");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             return formatter.parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -161,5 +164,20 @@ public class TimeUtil {
         } else {
             return day + "天前";
         }
+    }
+
+    /**
+     * 在原日期的基础上增加天数
+     *
+     * @param date 原本的日期
+     * @param i    正数为加多少天，负数为减多少天
+     * @return 返回新的日期
+     */
+    public static Date addOrSubDayOfDate(Date date, int i) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, i);
+        Date newDate = c.getTime();
+        return newDate;
     }
 }

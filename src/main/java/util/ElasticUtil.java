@@ -56,7 +56,7 @@ public class ElasticUtil {
 
     public static RestHighLevelClient getRestHighLevelClient() {
         return new RestHighLevelClient(
-                RestClient.builder(new HttpHost("127.0.0.1", 9200, "http")));
+                RestClient.builder(new HttpHost("localhost", 9200, "http")));
     }
 
     /**
@@ -187,7 +187,7 @@ public class ElasticUtil {
     public static <T extends IndexObject> Page<T> scrollSearch(String scrollId, T pojo) throws IOException {
         Page<T> page = new Page<>();
         SearchScrollRequest scrollRequest = new SearchScrollRequest(scrollId);
-        scrollRequest.scroll(TimeValue.timeValueMinutes(20));
+        scrollRequest.scroll(TimeValue.timeValueMinutes(60));
         SearchResponse searchScrollResponse = client.scroll(scrollRequest, RequestOptions.DEFAULT);
         setScrollPage(searchScrollResponse, page, pojo, true);
         return page;
@@ -200,7 +200,7 @@ public class ElasticUtil {
         searchSourceBuilder.query(queryBuilder);
         searchSourceBuilder.size(Page.PAGE_SIZE);
         searchRequest.source(searchSourceBuilder);
-        searchRequest.scroll(TimeValue.timeValueMinutes(10));
+        searchRequest.scroll(TimeValue.timeValueMinutes(1));
         if (isHighlight) {
             HighlightBuilder highlightBuilder = new HighlightBuilder();
             for (String val : values) {
@@ -248,15 +248,26 @@ public class ElasticUtil {
      * @param length 查询的数量
      * @return 返回得到的结果
      */
-    public static List<String> searchByDate(String index, Date from, Date to, int length) {
+    public static List<String> searchByDate(String index, String fieldName, Date from, Date to, int length) {
         // 生成builder
         RangeQueryBuilder rangeQueryBuilder =
-                QueryBuilders.rangeQuery("date").from(from).to(to);
+                QueryBuilders.rangeQuery(fieldName).from(from).to(to);
         /// boolQueryBuilder生效
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(rangeQueryBuilder);
         searchSourceBuilder.size(length);
         return listSearchResult(index, searchSourceBuilder);
+    }
+
+    /**
+     * 获取时间范围对象
+     *
+     * @param from
+     * @param to
+     * @return
+     */
+    public static QueryBuilder getDataRangeBuilder(String fieldName, Date from, Date to) {
+        return QueryBuilders.rangeQuery(fieldName).from(from).to(to);
     }
 
     /**
@@ -304,7 +315,7 @@ public class ElasticUtil {
         AnalyzeResponse response = client.indices().analyze(request, RequestOptions.DEFAULT);
         for (AnalyzeResponse.AnalyzeToken token : response.getTokens()) {
             String word = token.getTerm();
-            if (word.length() < 2 || word.contains("的") || word.contains("了") || word.contains("你") || word.contains("我") || word.contains("是")||word.length()>8) {
+            if (word.length() < 2 || word.contains("的") || word.contains("了") || word.contains("你") || word.contains("我") || word.contains("是") || word.length() > 8) {
                 continue;
             }
             list.add(token.getTerm());
@@ -402,7 +413,7 @@ public class ElasticUtil {
             //添加map数据
             IndexRequest indexRequest = new IndexRequest(indexName).source(json, XContentType.JSON);
             //索引
-            indexResponse = client. index(indexRequest, RequestOptions.DEFAULT);
+            indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
         } catch (IOException e) {
             e.printStackTrace();
             log.error("添加文档出现异常 {}", e.getMessage());
@@ -541,7 +552,7 @@ public class ElasticUtil {
         request.indices(indexName);
         GetMappingsResponse getMappingResponse = client.indices().getMapping(request, RequestOptions.DEFAULT);
         Map<String, MappingMetadata> mappings = getMappingResponse.mappings();
-        MappingMetadata mappingMetadata = mappings.get("test");
+        MappingMetadata mappingMetadata = mappings.get(indexName);
         System.out.println(mappingMetadata.getSourceAsMap());
         return mappingMetadata.getSourceAsMap();
     }
