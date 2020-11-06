@@ -138,7 +138,7 @@ $(function() {
     function getKeyword() {
         console.log("获取关键字")
         $.ajax({
-            url: "http://localhost:8080/Servlet/AnalyzeKeyWordServlet",
+            url: "../Servlet/AnalyzeKeyWordServlet",
             type: 'get',
             data: {
                 requestType: "get",
@@ -260,7 +260,7 @@ $(function() {
     function sendImage(formdata, imgObj) { //imgObj是jq对象
         sendingImg = true;
         $.ajax({
-            url: 'http://localhost:8080/Servlet/ReceiveFileServlet',
+            url: '../Servlet/ReceiveFileServlet',
             type: 'post',
             data: formdata,
             dataType: 'json',
@@ -343,7 +343,7 @@ $(function() {
         var anonymity = $(".quizModal_bg_askQuestion .anonymity").attr("anonymity") == "true" ? true : false;
         //判断敏感词
         $.ajax({
-            url: "http://localhost:8080//Servlet/SensitiveWordServlet",
+            url: "..//Servlet/SensitiveWordServlet",
             data: JSON.stringify({
                 "textArr": [
                     textContent
@@ -365,7 +365,7 @@ $(function() {
             //发送内容
             console.log(anonymity);
             $.ajax({
-                url: "http://localhost:8080//Servlet/QuestionServlet",
+                url: "..//Servlet/QuestionServlet",
                 type: "post",
                 dataType: "json",
                 data: JSON.stringify({
@@ -413,7 +413,7 @@ $(function() {
                     //#region 渲染主页 √
                     $(".queY").remove();
                     window.onload();
-                    // $.get('http://localhost:8080/Servlet/MainPageServlet', {
+                    // $.get('../Servlet/MainPageServlet', {
                     //     requestType: 'get',
                     //     getType: "init",
                     // }, function(res) {

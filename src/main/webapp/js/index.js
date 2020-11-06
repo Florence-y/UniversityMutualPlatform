@@ -2,7 +2,7 @@ window.onload = function() {
 
     //#region 渲染主页 √
 
-    $.get('http://localhost:8080/Servlet/MainPageServlet', {
+    $.get('../Servlet/MainPageServlet', {
         requestType: 'get',
         getType: "init",
     }, function(res) {
@@ -107,7 +107,7 @@ var inmaincontent = function(res, quizlist, i) {
         //创建添加 .queImgY > img
         for (var imgi = 1; imgi < data.contents.length; imgi++) {
             if (data.contents[imgi].contentMain != null) {
-                var src = 'http://localhost:8080/' + data.contents[imgi].contentMain.substring(2);
+                var src = '../' + data.contents[imgi].contentMain.substring(2);
                 var img = $("<img src='" + src + "'>");
                 $(quizlist).find(".queY").eq(0).find(".queImgY").prepend(img);
             }
@@ -308,7 +308,7 @@ $(function() {
             var i = $(this).parent().attr("data-part-index");
             // console.log(i);
 
-            $.get('http://localhost:8080/Servlet/ScrollSearchServlet', {
+            $.get('../Servlet/ScrollSearchServlet', {
                 scrollId: mainScrollid[i],
                 requestType: "get",
                 pojoType: "question",
@@ -355,7 +355,7 @@ $(function() {
 
                         //创建添加 .queImgY > img
                         for (var imgi = 1; imgi < res.dataList[j].contents.length; imgi++) {
-                            var src = 'http://localhost:8080/' + res.dataList[j].contents[imgi].contentMain.substring(2);
+                            var src = '../' + res.dataList[j].contents[imgi].contentMain.substring(2);
                             var img = $("<img src='" + src + "'>");
                             $(quizlist).find(".queY").eq(index).find(".queImgY").prepend(img);
                         }

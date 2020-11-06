@@ -236,7 +236,7 @@ function readFile() {
 function sendImage(formdata, imgObj) { //imgObj是jq对象
     sendingImg = true;
     $.ajax({
-        url: 'http://localhost:8080/Servlet/ReceiveFileServlet',
+        url: '../Servlet/ReceiveFileServlet',
         type: 'post',
         data: formdata,
         dataType: 'json',
@@ -340,7 +340,7 @@ function sendAnswer() {
     answerData["answerContents"] = answerContents;
     // console.log(answerData);
     $.ajax({
-        url: "http://localhost:8080/Servlet/AnswerServlet",
+        url: "../Servlet/AnswerServlet",
         type: "post",
         dataType: 'json',
         data: JSON.stringify(answerData),
@@ -398,7 +398,7 @@ function loadMyNewAnswer(answerContents, answerId) {
     var framObj = $("<div class='answerItem'></div>");
     var reg = /(..\/)/;
     var src = getCookie("face")[2];
-    src = src.replace(reg.exec(src)[0], "http://localhost:8080//");
+    src = src.replace(reg.exec(src)[0], "..//");
     var date = new Date();
 
     var framData = {
@@ -492,7 +492,7 @@ function getAnswer(curPage) {
     }
 
     $.ajax({
-        url: "http://localhost:8080/Servlet/AnswerServlet",
+        url: "../Servlet/AnswerServlet",
         dataType: "json",
         type: "get",
         data: data1,
@@ -529,7 +529,7 @@ function displayAnswers(arr, markNumber) {
         var src = authorObj.face;
         // console.log(authorObj);
         // console.log("图片地址:"+src);
-        src = src.replace(reg.exec(src)[0], "http://localhost:8080//");
+        src = src.replace(reg.exec(src)[0], "..//");
 
         var contentObj = {
             agreeCount: arr[i].agreeCount,
@@ -627,7 +627,7 @@ function addAnswerContentText(contentArr) {
             // console.log( arr[i].contents[j]);
             var reg = /(..\/)/;
             var src = contentArr[j]["contentMain"];
-            src = src.replace(reg.exec(src)[0], "http://localhost:8080//");
+            src = src.replace(reg.exec(src)[0], "..//");
             // console.log(src);
             contentText += "<img class='' src='" + src + "'/>";
         }
@@ -647,7 +647,7 @@ function seeComment(nextPage) {
     if ($(this).attr("loadingAbility") == "true") { //请求第一页代表初始化
         // console.log("初始化评论条")
         $.ajax({
-            url: "http://localhost:8080/Servlet/CommentServlet",
+            url: "../Servlet/CommentServlet",
             data: {
                 requestType: "get",
                 getType: "answer",
@@ -682,7 +682,7 @@ function displayComment(dataList) {
         var item = dataList[i];
         data = item.student != null ? item.student : item.teacher;
         var reg = /(..\/)/;
-        data.face = data.face.replace(reg.exec(data.face)[0], "http://localhost:8080//");
+        data.face = data.face.replace(reg.exec(data.face)[0], "..//");
         // console.log(data.face);
         data.content = item.content;
         var commentItem = template("template_commentItem", data);
@@ -702,7 +702,7 @@ function loadMoreComment() {
     commentList.attr("nextPage", nextPage);
     // console.log(nextPage);
     $.ajax({
-        url: "http://localhost:8080/Servlet/CommentServlet",
+        url: "../Servlet/CommentServlet",
         data: {
             requestType: "get",
             getType: "answer",
@@ -763,7 +763,7 @@ function sendComment() {
     //判断敏感词
 
     $.ajax({
-        url: "http://localhost:8080//Servlet/SensitiveWordServlet",
+        url: "..//Servlet/SensitiveWordServlet",
         data: JSON.stringify({
             "textArr": [
                 text
@@ -783,7 +783,7 @@ function sendComment() {
     // 发送评论
     function send() {
         $.ajax({
-            url: "http://localhost:8080/Servlet/CommentServlet",
+            url: "../Servlet/CommentServlet",
             type: "post",
             data: JSON.stringify(data_1),
             dataType: "json",
@@ -830,7 +830,7 @@ function sendComment() {
     function loadMyNewComment(text) {
         var src = getCookie("face")[2];
         var reg = /(..\/)/;
-        src = src.replace(reg.exec(src)[0], "http://localhost:8080//");
+        src = src.replace(reg.exec(src)[0], "..//");
         var data = {
             content: text,
             face: src,
@@ -858,7 +858,7 @@ $('.question_info_main .like_btn .icon').click(function() {
         var obj = $(this);
         if (status == "agree") { //再次点击为取消点赞
             $.ajax({
-                url: "http://localhost:8080/Servlet/AgreeServlet",
+                url: "../Servlet/AgreeServlet",
                 type: "get",
                 dataType: "json",
                 data: {
@@ -880,7 +880,7 @@ $('.question_info_main .like_btn .icon').click(function() {
             })
         } else if (status == "no_agree") {
             $.ajax({
-                url: "http://localhost:8080/Servlet/AgreeServlet",
+                url: "../Servlet/AgreeServlet",
                 type: "post",
                 dataType: "json",
                 data: JSON.stringify({
@@ -935,7 +935,7 @@ function agreeAnswer(markNumber_2) {
     // console.log($(this));
     if (status == "agree") { //再次点击为取消点赞
         $.ajax({
-            url: "http://localhost:8080/Servlet/AgreeServlet",
+            url: "../Servlet/AgreeServlet",
             type: "get",
             dataType: "json",
             data: {
@@ -957,7 +957,7 @@ function agreeAnswer(markNumber_2) {
     } else if (status == "no_agree") {
         //点赞
         $.ajax({
-            url: "http://localhost:8080/Servlet/AgreeServlet",
+            url: "../Servlet/AgreeServlet",
             type: "post",
             dataType: "json",
             data: JSON.stringify({
@@ -997,7 +997,7 @@ function agreeAnswer(markNumber_2) {
 //关注作者
 function subscribeAuthor() {
     $.ajax({
-        url: "http://localhost:8080/Servlet/AttentionServlet",
+        url: "../Servlet/AttentionServlet",
         type: "post",
         dataType: 'json',
         data: JSON.stringify({
@@ -1031,7 +1031,7 @@ function subscribeAuthor() {
 function cancelSubscribeAuthor() {
 
     $.ajax({
-        url: "http://localhost:8080/Servlet/AttentionServlet",
+        url: "../Servlet/AttentionServlet",
         type: "get",
         dataType: "json",
         data: {
@@ -1096,7 +1096,7 @@ function loadQuestion() {
         data1["viewerMarkNumber"] = getCookie("markNumber")[2];
     }
     $.ajax({
-        url: "http://localhost:8080//Servlet/QuestionServlet",
+        url: "..//Servlet/QuestionServlet",
         type: 'get',
         dataType: 'json',
         data: data1,
@@ -1124,7 +1124,7 @@ function setQuestionMain(data) {
         var src = data.contents[i]['contentMain'];
         // console.log(authorObj);
         // console.log("图片地址:"+src);
-        src = src.replace(reg.exec(src)[0], "http://localhost:8080//");
+        src = src.replace(reg.exec(src)[0], "..//");
         $('.question_info_main .questionImage').append('<img title="点击放大" class="fadein fadein_img" src="' + src + '">');
 
         //点击图片放大
@@ -1183,7 +1183,7 @@ function setAuthorInfo(data) {
         $(".author_info_box .userName").html(oAuthor.userName);
     }
     var reg = /(..\/)/;
-    src = src.replace(reg.exec(src)[0], "http://localhost:8080//");
+    src = src.replace(reg.exec(src)[0], "..//");
     $('.author_info_box .profile img').attr("src", src);
 
     //关注和私信禁用
@@ -1223,7 +1223,7 @@ $('.copyLink_btn').click(function() {
 function sendInfo(data) {
     // console.log("发送了通知！")
     $.ajax({
-        url: "http://localhost:8080/Servlet/InfServlet",
+        url: "../Servlet/InfServlet",
         type: "post",
         data: JSON.stringify(data),
         success: function(res) {
@@ -1255,13 +1255,13 @@ $('.sendText_btn').on({
 
         var meObj = {
             id: getCookie("markNumber")[2],
-            face: 'http://localhost:8080' + getCookie('face')[2].substring(2)
+            face: '../' + getCookie('face')[2].substring(2)
         };
         // console.log(getCookie("markNumber")[2]);
         $(".platform_chat .targetName").text(oAuthor.userName);
         var targetObj = {
             id: oAuthor.markNumber,
-            face: 'http://localhost:8080' + oAuthor.face.substring(2),
+            face: '../' + oAuthor.face.substring(2),
             name: oAuthor.userName
         }
         // console.log(targetObj);

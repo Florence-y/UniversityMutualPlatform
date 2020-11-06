@@ -129,7 +129,7 @@ $(function() {
         //     //键盘抬起事件 + val() 非空 发送请求 
         //     console.log($(this).val());
         //     if ($(this).val() != "") {
-        //         $.get('http://localhost:8080/Servlet/MainPageServlet', {
+        //         $.get('../Servlet/MainPageServlet', {
         //             requestType: 'get',
         //             getType: "explore",
         //             exploreContent: $(this).val(),
@@ -179,7 +179,7 @@ $(function() {
         //键盘抬起事件 + val() 非空 发送请求 
         // console.log($(this).val());
         if ($(this).val() != "") {
-            $.get('http://localhost:8080/Servlet/MainPageServlet', {
+            $.get('../Servlet/MainPageServlet', {
                 requestType: 'get',
                 getType: "explore",
                 exploreContent: $(this).val(),
@@ -285,7 +285,7 @@ $(function() {
         if (pwd === "" || account === "") {
             displayTipPane('用户名/密码不能为空');
         } else {
-            $.get('http://localhost:8080/Servlet/UserServlet', {
+            $.get('../Servlet/UserServlet', {
                 password: pwd,
                 loginValue: account,
                 requestType: 'get',
@@ -319,7 +319,7 @@ $(function() {
                     $('.ResMessagePojoMajor').text(res.messagePojo.major);
                     $('.ResMessagePojoMajor').prop("title", res.messagePojo.major);
                     // if (res.messagePojo.face != null) {
-                    let ResMessageFaceScr = 'http://localhost:8080' + res.messagePojo.face.substring(2);
+                    let ResMessageFaceScr = '../' + res.messagePojo.face.substring(2);
                     $('.ResMessageFace').prop("src", ResMessageFaceScr);
                     $('.navHPY').prop('src', ResMessageFaceScr);
                     // } else {
@@ -387,7 +387,7 @@ $(function() {
 
                 //#region 获取动态通知
 
-                $.get('http://localhost:8080/Servlet/InfServlet', {
+                $.get('../Servlet/InfServlet', {
                     currentPage: "1",
                     receiverMarkNumber: USERID,
                     order: "sendTime",
@@ -402,7 +402,7 @@ $(function() {
                     for (var i = res.dataList.length - 1; i > 0; i--) {
 
                         var item = $("<li class='item'></li>");
-                        var src = 'http://localhost:8080' + res.dataList[i].senderFace.substring(2);
+                        var src = '../' + res.dataList[i].senderFace.substring(2);
                         var img = $("<img src='" + src + "'>");
                         var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                         var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -431,7 +431,7 @@ $(function() {
                 var send = new Array();
                 var pindex;
                 var isRead = true;
-                $.get('http://localhost:8080/Servlet/InfServlet', {
+                $.get('../Servlet/InfServlet', {
                     currentPage: "1",
                     receiverMarkNumber: USERID,
                     order: "sendTime",
@@ -450,7 +450,7 @@ $(function() {
                     for (var i = res.dataList.length - 1; i > 0; i--) {
 
                         var item = $("<li class='item' data-pindex='" + pindex + "'></li>");
-                        var src = 'http://localhost:8080' + res.dataList[i].senderFace.substring(2);
+                        var src = '../' + res.dataList[i].senderFace.substring(2);
                         var img = $("<img src='" + src + "'>");
                         var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                         var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -466,7 +466,7 @@ $(function() {
 
                         send[pindex] = {
                             'senderMarkNumber': res.dataList[i].senderMarkNumber,
-                            'senderFace': 'http://localhost:8080' + res.dataList[i].senderFace.substring(2),
+                            'senderFace': '../' + res.dataList[i].senderFace.substring(2),
                             'senderName': res.dataList[i].senderName,
                         }
 
@@ -503,7 +503,7 @@ $(function() {
                             // console.log($(this).attr("data-pindex"));
                             var meObj = {
                                 id: getCookie("markNumber")[2],
-                                face: 'http://localhost:8080' + getCookie('face')[2].substring(2)
+                                face: '../' + getCookie('face')[2].substring(2)
                             };
 
                             $(".platform_chat .targetName").text(send[index].senderName);
@@ -720,7 +720,7 @@ $(function() {
             if (USERID != null) {
                 //显示二级导航
 
-                $.get('http://localhost:8080/Servlet/AttentionServlet', {
+                $.get('../Servlet/AttentionServlet', {
                     requestType: 'get',
                     majorMarkNumber: USERID,
                     attentionType: "major",
@@ -735,7 +735,7 @@ $(function() {
                     for (var i = 0; i < res.dataList.length; i++) {
 
                         var item = $("<li class='item'></li>");
-                        var src = 'http://localhost:8080' + res.dataList[i].userFace.substring(2);
+                        var src = '../' + res.dataList[i].userFace.substring(2);
                         var aimg = $("<a class='img_link' href='#' title='进入主页'><img src='" + src + "'></a>");
                         var username = $("<span class='userName' title='" + res.dataList[i].userName + "'>" + res.dataList[i].userName + "</span>");
                         var statusSex = $("<span class='status'>身份</span> <div class='sex'></div>");
@@ -800,7 +800,7 @@ $(function() {
 
             if (USERID != null) {
 
-                $.get('http://localhost:8080/Servlet/AttentionServlet', {
+                $.get('../Servlet/AttentionServlet', {
                     requestType: 'get',
                     attentionType: "pass",
                     passMarkNumber: USERID,
@@ -816,7 +816,7 @@ $(function() {
                     for (var i = 0; i < res.dataList.length; i++) {
 
                         var item = $("<li class='item'></li>");
-                        var src = 'http://localhost:8080' + res.dataList[i].userFace.substring(2);
+                        var src = '../' + res.dataList[i].userFace.substring(2);
                         var aimg = $("<a class='img_link' href='#' title='进入主页'><img src='" + src + "'></a>");
                         var username = $("<span class='userName' title='" + res.dataList[i].userName + "'>" + res.dataList[i].userName + "</span>");
                         var statusSex = $("<span class='status'>身份</span> <div class='sex'></div>");
@@ -1010,7 +1010,7 @@ $(function() {
                 // var next = true;
                 // while (next) {
 
-                $.get('http://localhost:8080/Servlet/MainPageServlet', {
+                $.get('../Servlet/MainPageServlet', {
                     requestType: 'get',
                     getType: "special",
                     authorMarkNumber: USERID,
@@ -1045,7 +1045,7 @@ $(function() {
 
                 //#region 获取我的问题 √
 
-                $.get('http://localhost:8080/Servlet/AnswerServlet', {
+                $.get('../Servlet/AnswerServlet', {
                     requestType: 'get',
                     getAnswerType: "individual",
                     markNumber: USERID,
@@ -1207,7 +1207,7 @@ $(window).on("load", function() {    
         $('.ResMessagePojoMajor').text(getCookie("major")[2]);
         $('.ResMessagePojoMajor').prop("title", getCookie("major")[2]);         // if (res.messagePojo.face != null) {
                 
-        let ResMessageFaceScr = 'http://localhost:8080' + getCookie("face")[2].substring(2);
+        let ResMessageFaceScr = '../' + getCookie("face")[2].substring(2);
         $('.ResMessageFace').prop("src", ResMessageFaceScr);
         $('.navHPY').prop('src', ResMessageFaceScr);
     } else {

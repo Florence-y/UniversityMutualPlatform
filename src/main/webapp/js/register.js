@@ -131,7 +131,7 @@ function dataIsExiste(field, value, errorMessage) {
    
     var result = false;
     $.ajax({
-        url : 'http://localhost:8080/Servlet/IsExistInfoServle',
+        url : '../Servlet/IsExistInfoServle',
        data : {
         field: field,
         value: value,
@@ -172,7 +172,7 @@ $('.send_btn').click(function () {
         if (!dataIsExiste('email', requestData.email, "该邮箱已被注册！")) {
         //    console.log(requestData.email);
             // console.log('发送验证码');
-            $.get("http://localhost:8080/Servlet/VerifyCodeServlet",{
+            $.get("../Servlet/VerifyCodeServlet",{
                 email : requestData.email,
                 requestType : "get"
             },function(res){
@@ -607,7 +607,7 @@ $('.submit_btn').click(() => {
         "graduatedUniversity": $('#graduatedUniversity input').val(),
         "degree": $('#degree .value').attr('data')
     }
-    $.post('http://localhost:8080/Servlet/UserServlet', JSON.stringify(formData), function (res) {
+    $.post('../Servlet/UserServlet', JSON.stringify(formData), function (res) {
 
         set_displayMessage('注册成功！正跳转到首页...');
         //跳转。。。
