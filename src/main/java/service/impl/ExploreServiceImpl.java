@@ -60,7 +60,7 @@ public class ExploreServiceImpl implements ExploreService {
 //        boolQueryBuilder.should(queryBuilderContents);
         boolQueryBuilder.should(queryBuilderTitle);
         //查询
-        return ElasticUtil.scrollSearchFirst("question", boolQueryBuilder,
+        return ElasticUtil.searchByQueryBuilder("question", boolQueryBuilder,
                 new Question(), true, "title");
     }
 
@@ -82,7 +82,7 @@ public class ExploreServiceImpl implements ExploreService {
         boolQueryBuilder.should(foundDescribe);
         boolQueryBuilder.should(foundLocation);
         boolQueryBuilder.should(foundObjectName);
-        return ElasticUtil.scrollSearchFirst("found", boolQueryBuilder, new Found(), true,
+        return ElasticUtil.searchByQueryBuilder("found", boolQueryBuilder, new Found(), true,
                 "foundLocation",
                 "foundObjectName",
                 "foundDescribe",
@@ -104,7 +104,7 @@ public class ExploreServiceImpl implements ExploreService {
         boolQueryBuilder.should(lostLocation);
         boolQueryBuilder.should(lostObjectName);
         boolQueryBuilder.should(lostDescribe);
-        return ElasticUtil.scrollSearchFirst("lost", boolQueryBuilder, new Lost(), true,
+        return ElasticUtil.searchByQueryBuilder("lost", boolQueryBuilder, new Lost(), true,
                 "lostLocation",
                 "lostObjectName",
                 "objectType",

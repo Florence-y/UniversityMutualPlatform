@@ -144,7 +144,7 @@ $('.modal_bg_lost .objName .value').on("input",debounce(function(){
 // 根据物品名称进行拾品展示
 function searchFound(content){
     $.ajax({
-        url : "..//Servlet/LostAndFoundExploreServlet",
+        url : "../Servlet/LostAndFoundExploreServlet",
         type : "get",
         dataType : "json",
         data : {
@@ -194,7 +194,7 @@ function displayFound(dataList){
         }
         if(dataList[i].imgs.length!=0){
             var url = dataList[i].imgs[0];
-            url = url.replace(reg.exec(url)[0],"..//");
+            url = url.replace(reg.exec(url)[0],"../");
             data["img"] = url;
         }
         var item = template("templateFoundItem",data);
@@ -246,7 +246,7 @@ function submite_lost(){
         }
         // console.log(data);
         $.ajax({
-            url : "..//Servlet/LostAndFoundServlet",
+            url : "../Servlet/LostAndFoundServlet",
             type : "post",
             dataType : "json",
             data : JSON.stringify(data),

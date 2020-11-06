@@ -301,7 +301,7 @@ $(function(){
             lostLocation = null;
             foundLocation = null;
             $.ajax({
-                url : "http://localhost:8080//Servlet/LostAndFoundServlet",
+                url : "../Servlet/LostAndFoundServlet",
                 type : "get",
                 dataType : "json",
                 data : {
@@ -487,7 +487,7 @@ $(function(){
                 }
             
                 $.ajax({
-                    url :"http://localhost:8080//Servlet/LostAndFoundServlet",
+                    url :"../Servlet/LostAndFoundServlet",
                     type : "get",
                     dataType : "json",
                     data : data,
@@ -535,7 +535,7 @@ $(function(){
                     data["scrollId"] = scrollId;
                 }
                 $.ajax({
-                    url :"http://localhost:8080//Servlet/LostAndFoundServlet",
+                    url :"../Servlet/LostAndFoundServlet",
                     type : "get",
                     dataType : "json",
                     data : data,
@@ -627,7 +627,7 @@ $(function(){
                 }
             
                 $.ajax({
-                    url :"http://localhost:8080//Servlet/LostAndFoundServlet",
+                    url :"../Servlet/LostAndFoundServlet",
                     type : "get",
                     dataType : "json",
                     data : data,
@@ -671,7 +671,7 @@ $(function(){
                     data["foundLocation"] = foundLocation;
                 }
                 $.ajax({
-                    url :"http://localhost:8080//Servlet/LostAndFoundServlet",
+                    url :"../Servlet/LostAndFoundServlet",
                     type : "get",
                     dataType : "json",
                     data : data,

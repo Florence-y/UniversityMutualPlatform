@@ -35,7 +35,7 @@ $(function() {
 
     if (window.location.href.indexOf('lostAndFound-lost') != -1) {
 
-        $.get('..//Servlet/LostAndFoundServlet', {
+        $.get('../Servlet/LostAndFoundServlet', {
             type: "lost",
             getInfWay: "term",
             requestType: 'get',
@@ -92,7 +92,7 @@ $(function() {
 
     } else if (window.location.href.indexOf('lostAndFound-found') != -1) {
 
-        $.get('..//Servlet/LostAndFoundServlet', {
+        $.get('../Servlet/LostAndFoundServlet', {
             type: "found",
             getInfWay: "term",
             requestType: 'get',
@@ -124,7 +124,7 @@ $(function() {
                 $(".YuserIdentity").find("em").eq(1).text("老师");
                 $(".Ymajor").find("em").eq(0).text("学院");
             }
-            $(".YuserPhotos").attr("src", "http://localhost:8080" + identity.face.substring(2));
+            $(".YuserPhotos").attr("src", identity.face);
             $(".YuserName").find("em").eq(1).text(identity.userName);
             $(".YuserName").find("em").eq(1).attr("title", identity.userName);
 
@@ -137,7 +137,7 @@ $(function() {
 
             for (var imgi = 0; imgi < res.imgs.length; imgi++) {
                 if (res.imgs[imgi] != null) {
-                    $(".YitemPictureFound").find("img").eq(imgi).attr("src", "../" + res.imgs[imgi].substring(2))
+                    $(".YitemPictureFound").find("img").eq(imgi).attr("src", "../" + res.imgs[imgi])
                 }
             }
 

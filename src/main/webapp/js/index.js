@@ -8,7 +8,7 @@ window.onload = function() {
     }, function(res) {
         // console.log(res);
         for (var i = 0; i < res.length; i++) {
-            //记住每个分类的 scrollid 
+            //记住每个分类的 scrollid
             mainScrollid[i] = res[i].scrollId;
             LoadNextPage[i] = res[i].next;
 
@@ -43,7 +43,7 @@ window.onload = function() {
 
     //#region 确定.quizLeftSidar位置 √
 
-    // ownheight ：左边栏 滑到 跟右边内容一底部一样高时  的scrollTop 值 
+    // ownheight ：左边栏 滑到 跟右边内容一底部一样高时  的scrollTop 值
     var ownheight = $(".indexQuizList").offset().top + $(".indexQuizList").outerHeight(true) - 180 - $(".quizLeftSidar").outerHeight(true);
     // console.log($(document).scrollTop());
     // console.log(ownheight);
@@ -107,7 +107,7 @@ var inmaincontent = function(res, quizlist, i) {
         //创建添加 .queImgY > img
         for (var imgi = 1; imgi < data.contents.length; imgi++) {
             if (data.contents[imgi].contentMain != null) {
-                var src = '../' + data.contents[imgi].contentMain.substring(2);
+                var src = data.contents[imgi].contentMain;
                 var img = $("<img src='" + src + "'>");
                 $(quizlist).find(".queY").eq(0).find(".queImgY").prepend(img);
             }
@@ -207,7 +207,7 @@ $(function() {
 
         //#region 左边导航栏.quizLeftSidar 和 右边 .attentionAndCollection
 
-        // ownheight ：左边栏 滑到 跟右边内容一底部一样高时  的scrollTop 值 
+        // ownheight ：左边栏 滑到 跟右边内容一底部一样高时  的scrollTop 值
         var ownheight = $(".indexQuizList").offset().top + $(".indexQuizList").outerHeight(true) - 180 - $(".quizLeftSidar").outerHeight(true);
 
         if ($(document).scrollTop() >= 594 && $(document).scrollTop() < ownheight) {
@@ -252,7 +252,7 @@ $(function() {
 
     //#endregion
 
-    //#region 主要内容 √  
+    //#region 主要内容 √
 
     //#region 点击 .quizLeftSidar 跳转相应part √
 
@@ -355,7 +355,8 @@ $(function() {
 
                         //创建添加 .queImgY > img
                         for (var imgi = 1; imgi < res.dataList[j].contents.length; imgi++) {
-                            var src = '../' + res.dataList[j].contents[imgi].contentMain.substring(2);
+                            // var src = ' ../' + res.dataList[j].contents[imgi].contentMain.substring(2);
+                            var src = res.dataList[j].contents[imgi].contentMain;
                             var img = $("<img src='" + src + "'>");
                             $(quizlist).find(".queY").eq(index).find(".queImgY").prepend(img);
                         }

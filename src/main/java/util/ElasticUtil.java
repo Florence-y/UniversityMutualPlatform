@@ -56,7 +56,7 @@ public class ElasticUtil {
 
     public static RestHighLevelClient getRestHighLevelClient() {
         return new RestHighLevelClient(
-                RestClient.builder(new HttpHost("localhost", 9200, "http")));
+                RestClient.builder(new HttpHost("127.0.0.1", 9200, "http")));
     }
 
     /**
@@ -192,6 +192,36 @@ public class ElasticUtil {
         setScrollPage(searchScrollResponse, page, pojo, true);
         return page;
     }
+
+    public static <T extends IndexObject> Page<T> searchByQueryBuilder(String index,QueryBuilder queryBuilder,T pojo,boolean isHighlight,String... values) throws IOException {
+        Page<T> page = new Page<>();
+        SearchRequest searchRequest = new SearchRequest(index);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(queryBuilder);
+        searchSourceBuilder.size(Page.PAGE_SIZE);
+        searchRequest.source(searchSourceBuilder);
+        if (isHighlight) {
+            HighlightBuilder highlightBuilder = new HighlightBuilder();
+            for (String val : values) {
+                HighlightBuilder.Field highlightTitle = new HighlightBuilder.Field(val);
+                highlightBuilder.field(highlightTitle);
+            }
+            highlightBuilder.preTags("<em style='color:#000; font-size:23px'>");
+            highlightBuilder.postTags("</em>");
+            searchSourceBuilder.highlighter(highlightBuilder);
+        }
+        SearchResponse searchResponse =client.search(searchRequest,RequestOptions.DEFAULT);
+        setCommonPage(searchResponse,page,pojo,isHighlight);
+        return page;
+    }
+
+    private static <T extends IndexObject> void setCommonPage(SearchResponse searchResponse, Page<T> page, T pojo, boolean isHighlight) throws IOException {
+        SearchHits hits = searchResponse.getHits();
+        List<T> pojoFromHits = getPojoFromHits(hits, pojo, isHighlight);
+        page.setDataList(pojoFromHits);
+        page.setNext(hasNext(hits.getHits().length));
+    }
+
 
     public static <T extends IndexObject> Page<T> scrollSearchFirst(String index, QueryBuilder queryBuilder, T pojo, boolean isHighlight, String... values) throws IOException {
         Page<T> page = new Page<>();

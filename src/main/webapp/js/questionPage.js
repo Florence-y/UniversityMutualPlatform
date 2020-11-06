@@ -398,7 +398,7 @@ function loadMyNewAnswer(answerContents, answerId) {
     var framObj = $("<div class='answerItem'></div>");
     var reg = /(..\/)/;
     var src = getCookie("face")[2];
-    src = src.replace(reg.exec(src)[0], "..//");
+    src = src.replace(reg.exec(src)[0], "../");
     var date = new Date();
 
     var framData = {
@@ -763,7 +763,7 @@ function sendComment() {
     //判断敏感词
 
     $.ajax({
-        url: "..//Servlet/SensitiveWordServlet",
+        url: "../Servlet/SensitiveWordServlet",
         data: JSON.stringify({
             "textArr": [
                 text
@@ -830,7 +830,7 @@ function sendComment() {
     function loadMyNewComment(text) {
         var src = getCookie("face")[2];
         var reg = /(..\/)/;
-        src = src.replace(reg.exec(src)[0], "..//");
+        src = src.replace(reg.exec(src)[0], "../");
         var data = {
             content: text,
             face: src,
@@ -1096,7 +1096,7 @@ function loadQuestion() {
         data1["viewerMarkNumber"] = getCookie("markNumber")[2];
     }
     $.ajax({
-        url: "..//Servlet/QuestionServlet",
+        url: "../Servlet/QuestionServlet",
         type: 'get',
         dataType: 'json',
         data: data1,
@@ -1255,13 +1255,13 @@ $('.sendText_btn').on({
 
         var meObj = {
             id: getCookie("markNumber")[2],
-            face: '../' + getCookie('face')[2].substring(2)
+            face: getCookie('face')[2]
         };
         // console.log(getCookie("markNumber")[2]);
         $(".platform_chat .targetName").text(oAuthor.userName);
         var targetObj = {
             id: oAuthor.markNumber,
-            face: '../' + oAuthor.face.substring(2),
+            face: oAuthor.face,
             name: oAuthor.userName
         }
         // console.log(targetObj);

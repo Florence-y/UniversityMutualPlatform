@@ -319,7 +319,7 @@ $(function() {
                     $('.ResMessagePojoMajor').text(res.messagePojo.major);
                     $('.ResMessagePojoMajor').prop("title", res.messagePojo.major);
                     // if (res.messagePojo.face != null) {
-                    let ResMessageFaceScr = '../' + res.messagePojo.face.substring(2);
+                    let ResMessageFaceScr = res.messagePojo.face;
                     $('.ResMessageFace').prop("src", ResMessageFaceScr);
                     $('.navHPY').prop('src', ResMessageFaceScr);
                     // } else {
@@ -402,7 +402,7 @@ $(function() {
                     for (var i = res.dataList.length - 1; i > 0; i--) {
 
                         var item = $("<li class='item'></li>");
-                        var src = '../' + res.dataList[i].senderFace.substring(2);
+                        var src =res.dataList[i].senderFace;
                         var img = $("<img src='" + src + "'>");
                         var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                         var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -450,7 +450,7 @@ $(function() {
                     for (var i = res.dataList.length - 1; i > 0; i--) {
 
                         var item = $("<li class='item' data-pindex='" + pindex + "'></li>");
-                        var src = '../' + res.dataList[i].senderFace.substring(2);
+                        var src =res.dataList[i].senderFace;
                         var img = $("<img src='" + src + "'>");
                         var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                         var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -466,7 +466,7 @@ $(function() {
 
                         send[pindex] = {
                             'senderMarkNumber': res.dataList[i].senderMarkNumber,
-                            'senderFace': '../' + res.dataList[i].senderFace.substring(2),
+                            'senderFace': res.dataList[i].senderFace,
                             'senderName': res.dataList[i].senderName,
                         }
 
@@ -503,7 +503,7 @@ $(function() {
                             // console.log($(this).attr("data-pindex"));
                             var meObj = {
                                 id: getCookie("markNumber")[2],
-                                face: '../' + getCookie('face')[2].substring(2)
+                                face: getCookie('face')[2]
                             };
 
                             $(".platform_chat .targetName").text(send[index].senderName);
@@ -735,7 +735,7 @@ $(function() {
                     for (var i = 0; i < res.dataList.length; i++) {
 
                         var item = $("<li class='item'></li>");
-                        var src = '../' + res.dataList[i].userFace.substring(2);
+                        var src = res.dataList[i].userFace;
                         var aimg = $("<a class='img_link' href='#' title='进入主页'><img src='" + src + "'></a>");
                         var username = $("<span class='userName' title='" + res.dataList[i].userName + "'>" + res.dataList[i].userName + "</span>");
                         var statusSex = $("<span class='status'>身份</span> <div class='sex'></div>");
@@ -816,7 +816,7 @@ $(function() {
                     for (var i = 0; i < res.dataList.length; i++) {
 
                         var item = $("<li class='item'></li>");
-                        var src = '../' + res.dataList[i].userFace.substring(2);
+                        var src = res.dataList[i].userFace;
                         var aimg = $("<a class='img_link' href='#' title='进入主页'><img src='" + src + "'></a>");
                         var username = $("<span class='userName' title='" + res.dataList[i].userName + "'>" + res.dataList[i].userName + "</span>");
                         var statusSex = $("<span class='status'>身份</span> <div class='sex'></div>");
@@ -1207,7 +1207,7 @@ $(window).on("load", function() {    
         $('.ResMessagePojoMajor').text(getCookie("major")[2]);
         $('.ResMessagePojoMajor').prop("title", getCookie("major")[2]);         // if (res.messagePojo.face != null) {
                 
-        let ResMessageFaceScr = '../' + getCookie("face")[2].substring(2);
+        let ResMessageFaceScr = getCookie("face")[2];
         $('.ResMessageFace').prop("src", ResMessageFaceScr);
         $('.navHPY').prop('src', ResMessageFaceScr);
     } else {

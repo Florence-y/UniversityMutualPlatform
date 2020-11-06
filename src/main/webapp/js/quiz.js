@@ -365,7 +365,7 @@ $(function() {
             //发送内容
             console.log(anonymity);
             $.ajax({
-                url: "..//Servlet/QuestionServlet",
+                url: "../Servlet/QuestionServlet",
                 type: "post",
                 dataType: "json",
                 data: JSON.stringify({
