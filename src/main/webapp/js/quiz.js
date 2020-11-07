@@ -343,7 +343,7 @@ $(function() {
         var anonymity = $(".quizModal_bg_askQuestion .anonymity").attr("anonymity") == "true" ? true : false;
         //判断敏感词
         $.ajax({
-            url: "..//Servlet/SensitiveWordServlet",
+            url: "../Servlet/SensitiveWordServlet",
             data: JSON.stringify({
                 "textArr": [
                     textContent

@@ -28,7 +28,7 @@ function chat(meOBj, targetObj, callback) {
         //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
         let markNumber = meOBj.id;
         let wantToSendMarkNumber = targetObj.id;
-        ws = new WebSocket("ws://localhost:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
+        ws = new WebSocket("ws://47.115.184.133/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
     } else {
         displayTipPane("连接失败");
         return;

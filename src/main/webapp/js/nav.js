@@ -338,7 +338,7 @@ $(function() {
                         //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
                         let markNumber = USERID;
                         let wantToSendMarkNumber = "666";
-                        ws = new WebSocket("ws://localhost:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
+                        ws = new WebSocket("ws://47.115.184.133/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
                     } else {
                         // displayTipPane("连接失败");
                         return;
