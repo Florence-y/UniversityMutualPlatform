@@ -296,7 +296,7 @@ $(function() {
 
                     // console.log(res.messagePojo)
                     // clearCookie(); //清除cookie
-                    setCookie(res.messagePojo, 10); //保存30天
+                    setCookie(res.messagePojo, 0); //保存30天
 
                     //if登录成功 退出登录框 登录+注册 -> 消息+头像
 
