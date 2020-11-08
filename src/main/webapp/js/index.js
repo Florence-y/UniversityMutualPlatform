@@ -85,7 +85,7 @@ var inmaincontent = function(res, quizlist, i) {
         var data = res[i].dataList[j];
 
         //创建添加 div.queY > h3
-        contenturl = 'questionPage.html?id=' + data.id;
+        contenturl = './html/questionPage.html?id=' + data.id;
         var div = $("<div class='queY' data-list-index='" + j + "'><h3><a target='_blank' href='" + contenturl + "'>" + res[i].dataList[j].title + "</a></h3></div>");
         $(quizlist).find("h2").after(div);
 
@@ -433,7 +433,7 @@ $(function() {
 
     // 点击失物招领图片页面跳转
     $(".lostAndFound-div").on("click", function() {
-        location.assign("lost&found_index.html");
+        location.assign("./html/lost&found_index.html");
     })
 
 

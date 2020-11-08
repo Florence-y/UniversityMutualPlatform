@@ -202,7 +202,7 @@ $(function() {
                         icon = "iconqita";
                     }
 
-                    var url = 'questionPage.html?id=' + res.dataList[i].id;
+                    var url = '/html/questionPage.html?id=' + res.dataList[i].id;
                     $('.searchContent').find("li").eq(i).find('i').addClass(icon);
                     $('.searchContent').find("li").eq(i).find('a').attr("href", url);
                     $('.searchContent').find("li").eq(i).find('a').html(res.dataList[i].title);
@@ -551,7 +551,7 @@ $(function() {
                         //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
                         let markNumber = meObj.id;
                         let wantToSendMarkNumber = targetObj.id;
-                        ws = new WebSocket("ws://localhost:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
+                        ws = new WebSocket("ws://47.115.184.133/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
                     } else {
                         displayTipPane("连接失败");
                         return;
