@@ -19,7 +19,7 @@ public class EmailUtil {
     /**
      * 发件人密码
      */
-    private static final String EMAIL_PASS_WORD = "Qq123456YZ";
+    private static final String EMAIL_PASS_WORD = "qcKJnvsCpqvDQBhx";
     /**
      * 发送邮箱服务器
      */
