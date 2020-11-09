@@ -43,7 +43,7 @@ public class IsExistInfoServlet extends HttpServlet {
             return;
         }
         int code = service.isExistOneInf(map.get("userType"), map);
-            WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
+        WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("get");
     }
 

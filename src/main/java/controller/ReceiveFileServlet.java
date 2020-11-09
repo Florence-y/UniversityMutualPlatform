@@ -120,11 +120,12 @@ public class ReceiveFileServlet extends HttpServlet {
                     return;
                 }
                 //防止出现意外，正确获取名字
-                filename = filename.substring(filename.lastIndexOf("\\") + 1);
+                filename = filename.substring(filename.lastIndexOf("/") + 1);
                 //获取item中的上传文件的输入流
                 InputStream in = item.getInputStream();
+
                 //创建一个文件输出流
-                FileOutputStream out = new FileOutputStream(savePath + "\\" + filename);
+                FileOutputStream out = new FileOutputStream(savePath + "/" + filename);
                 //存储文件名
                 map.put("face", "../ReceiveFile/" + filename);
                 //创建一个缓冲区
