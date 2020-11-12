@@ -10,10 +10,12 @@ import dao.impl.MarkNumberTypeDaoImpl;
 import dao.impl.StudentDaoImpl;
 import dao.impl.TeacherDaoImpl;
 import pojo.Inf;
+import pojo.Message;
 import pojo.Student;
 import pojo.Teacher;
 import util.TimeUtil;
-
+import util.WebUtil;
+import commom.constantval.*;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
@@ -22,19 +24,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static commom.constantval.ServletConstantVal.STUDENT;
+import static commom.constantval.ServletConstantVal.TEACHER;
+
 /**
  * @author DELL
  */
-@ServerEndpoint("/WebSocket/{markNumber}/{wantToSendMarkNumber}")
+@ServerEndpoint("/WebSocket/{markNumber}")
 public class ChatServer {
     private static final Map<String, ChatServer> CLIENTS = new ConcurrentHashMap<>();
     private static InfDao infDao = new InfDaoImpl();
     MarkNumberTypeDao markNumberTypeDao = new MarkNumberTypeDaoImpl();
     StudentDao studentDao = new StudentDaoImpl();
     TeacherDao teacherDao = new TeacherDaoImpl();
-    Student student;
-    Teacher teacher;
-    String userType;
     String name;
     /**
      * 与某个客户端的连接会话，需要通过它来给客户端发送数据
@@ -76,7 +78,9 @@ public class ChatServer {
      * @param session 可选的参数
      */
     @OnMessage
-    public void onMessage(@PathParam(value = "markNumber") String markNumber, @PathParam(value = "wantToSendMarkNumber") String wantToSendMarkNumber, String message, Session session) {
+    public void onMessage(@PathParam(value = "markNumber") String markNumber, String message, Session session) throws IOException {
+        Message messagePojo = WebUtil.jsonToObj(Message.class, message);
+        String wantToSendMarkNumber = messagePojo.getReceiverMarkNumber();
         System.out.println("来自客户端" + markNumber + "发送给" + wantToSendMarkNumber + "的消息:" + message);
         Map<String, Object> map = new HashMap<>(10);
         String name= getUserName(markNumber);
@@ -86,15 +90,14 @@ public class ChatServer {
         fillMapInf(map, markNumber, wantToSendMarkNumber, message);
         infDao.insertRowByKeyAndValue(new Inf(), map);
         for (Map.Entry<String, ChatServer> entry : CLIENTS.entrySet()) {
-            //没找到合适的
-            if (!entry.getKey().equals(wantToSendMarkNumber)) {
-                continue;
-            }
-            ChatServer item = entry.getValue();
-            try {
-                item.sendMessage(message);
-            } catch (IOException e) {
-                e.printStackTrace();
+            //找到合适的
+            if (entry.getKey().equals(wantToSendMarkNumber)) {
+                ChatServer item = entry.getValue();
+                try {
+                    item.sendMessage(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -103,11 +106,11 @@ public class ChatServer {
         String type=markNumberTypeDao.getUserType(markNumber);
         Teacher teacher;
         Student student;
-        if ("teacher".equals(type)){
+        if (TEACHER.equals(type)){
             teacher = teacherDao.getTeacherByCondition(ServletConstantVal.TEACHER_MARK_NUMBER_COL,markNumber);
             return teacher.getFace();
         }
-        else if ("student".equals(type)){
+        else if (STUDENT.equals(type)){
             student = studentDao.getStudentByCondition(ServletConstantVal.STUDENT_MARK_NUMBER_COL,markNumber);
             return student.getFace();
         }
@@ -118,11 +121,11 @@ public class ChatServer {
         String type=markNumberTypeDao.getUserType(markNumber);
         Teacher teacher;
         Student student;
-        if ("teacher".equals(type)){
+        if (TEACHER.equals(type)){
              teacher = teacherDao.getTeacherByCondition(ServletConstantVal.TEACHER_MARK_NUMBER_COL,markNumber);
              return teacher.getUserName();
         }
-        else if ("student".equals(type)){
+        else if (STUDENT.equals(type)){
             student = studentDao.getStudentByCondition(ServletConstantVal.STUDENT_MARK_NUMBER_COL,markNumber);
             return student.getUserName();
         }
