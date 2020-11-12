@@ -43,6 +43,7 @@ public class TagDaoImpl extends BaseDaoImpl implements TagDao {
         while (resultSet.next()) {
             list.add(resultSet.getString("tag_name"));
         }
+        C3P0Util.close(connection,resultSet);
         return list;
     }
 }

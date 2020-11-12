@@ -6,12 +6,15 @@
         <property name="jdbcUrl">jdbc:mysql://localhost:3306/University_Mutual_Platform?useSSL=false&amp;serverTimezone=GMT%2B8&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true</property>
         <property name="user">root</property>
         <property name="password">qq123456</property>
-        <property name="initialPoolSize">15</property>
+        <property name="initialPoolSize">20</property>
         <property name="maxPoolSize">50</property>
-        <property name="minPoolSize">5</property>
-        <property name="maxStatements">100</property>
-        <property name="maxIdleTime">0</property>
-        <property name="idleConnectionTestPeriod">600</property>
+        <property name="acquireIncrement">5</property>
+        <property name="minPoolSize">10</property>
+        <property name="maxStatements">300</property>
+        <property name="maxIdleTime">30</property>
+        <property name="acquireRetryAttempts">300</property>
+        <property name="checkoutTimeout">20000</property>
+        <property name="idleConnectionTestPeriod">60</property>
     </default-config>
     <!--备用语句，首先执行备用语句来判断数据库的初始化是否成功-->
     <named-config name="initDatabase">
@@ -22,8 +25,9 @@
         <property name="initialPoolSize">5</property>
         <property name="maxPoolSize">5</property>
         <property name="minPoolSize">5</property>
-        <property name="maxStatements">100</property>
-        <property name="maxIdleTime">0</property>
+        <property name="maxStatements">1000</property>
+        <property name="maxIdleTime">30</property>
+        <property name="breakAfterAcquireFailure">false</property>
         <property name="idleConnectionTestPeriod">60</property>
     </named-config>
 </c3p0-config>

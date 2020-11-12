@@ -104,6 +104,9 @@ public class JdbcUtil {
                 C3P0Util.close(connection, preparedStatement, resultSet);
                 return pojo;
             }
+            else {
+                C3P0Util.close(connection,preparedStatement,resultSet);
+            }
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
