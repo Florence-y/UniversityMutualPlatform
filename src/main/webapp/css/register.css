@@ -32,6 +32,7 @@ table {
     font-size: 50px;
     font-weight: 700;
     color: #333;
+    font-family: "幼圆";
 }
 
 td {
@@ -245,13 +246,21 @@ input {
 /*下一步按钮*/
 
 .next_out {
+    position: relative;
     height: 50px;
+}
+.next_out svg{
+    position: absolute;
+    top:50%;
+    transform: translate(0,-50%);
+    right:150px;
 }
 
 .next_btn {
     display: block;
     margin: 0 auto;
     padding: 3px;
+    
     height: 55px;
     width: 510px;
     color: #fff;
@@ -400,8 +409,8 @@ input.error {
 
 .slideDown .list li {
     padding-left: 10px;
-    line-height: 40px;
-    font-size: 22px;
+    line-height: 30px;
+    font-size: 16px;
     cursor: pointer;
 }
 
@@ -487,6 +496,7 @@ input.error {
 #graduatedUniversity input {
     width: 380px;
     height: 30px;
+    font-family: "Gungsuh";
     line-height: 30px;
     box-sizing: border-box;
     padding: 2px 5px;
@@ -634,4 +644,123 @@ input.error {
     font-size: 25px;
     color: #333;
     text-align: center;
+}
+/* 70% */
+@media(max-width:1960px){
+    /* 注册下一步 */
+    .form{
+        height: 520px;
+        width:500px;
+    }
+    .form .row{
+        width:480px;
+    }
+
+
+
+    .form .row .tip{
+        font-size:17px;
+        left: 22px;
+    }
+    .form .row{
+        font-size:16px;
+        height: 40px;
+        line-height: 40px;
+        margin:10px auto;
+    }
+    .form .row .value{
+        width:310px;
+        left:142px;
+    }
+    .password > input{
+        font-size:16px;
+    }
+    .campus .item svg, .sex .item svg{
+        height: 26px;
+    }
+    .submit_btn{
+        margin-top:20px;
+        width:200px;
+        font-size:20px;
+        height: 35px;
+    }
+    .markNumber input, .userName input, #graduatedUniversity input{
+        font-size:18px;
+    }
+    .row .value:hover .active_line {
+        width: 310px;
+    }
+    .password svg{
+        height: 26px;
+    }
+    .campus .switch, .sex .switch{
+        height: 20px;
+    }
+
+}
+/* 80% */
+@media(max-width:1789px){
+   #form1{
+       width:540px;
+       height: 420px;
+   }
+   .head_title{
+       font-size:35px;
+       height: 55px;
+       line-height: 55px;
+   }
+   .status,.email,.confirm{
+       width:396px;
+       height: 40px;
+       font-size:20px;
+   }
+   .status header span{
+       line-height: 40px;
+   }
+   .status header .alter{
+       font-size:20px;
+   }
+   .status .content{
+       width:100%;
+       height: 100%;
+   }
+   .status .individual{
+       font-size:20px;
+       line-height: 40px;
+       width:163px;
+       height: 40px;
+   }
+   .email_input,.confirm_input{
+       width:200px;
+       height: 36px;
+       line-height: 36px;
+       font-size:16px;
+   }
+   .email span,.send_btn{
+        height: 36px;
+        line-height: 36px;
+        font-size:18px;
+   }
+   .next_btn{
+       width:396px;
+       height: 35px;
+       font-size:20px;
+   }
+   .individual_inner svg{
+       height: 28px;
+   }
+   table{
+       border-radius: 12px;
+   }
+   .next_out svg{
+       height: 28px;
+       right:80px;
+   }
+}
+/* 90% */
+@media(max-width:1549px){
+    
+}
+/* 100% */
+@media(max-width:1280px){
 }

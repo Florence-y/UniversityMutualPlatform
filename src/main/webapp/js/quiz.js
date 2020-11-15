@@ -19,12 +19,17 @@ $(function() {
     $('.cueY').click(function() {
         // $(".quizModal").siblings().fadeOut();
         // $(".quizModal").fadeIn();
-        $('.quizModal_bg').fadeIn();
-        $('.fadeinQuiz').find(".iconfont").css("top", "-10px");
-        // $('.modal').fadeIn();
-        $('.quizModal').css({
-            transform: 'translate(-50%,-50%) scale(1)'
-        })
+        if(isHaveCookie()){
+            $('.quizModal_bg').fadeIn();
+            $('.fadeinQuiz').find(".iconfont").css("top", "-10px");
+            // $('.modal').fadeIn();
+            $('.quizModal').css({
+                transform: 'translate(-50%,-50%) scale(1)'
+            })
+        }else{
+            displayTipPane("你还没登录噢~");
+        }
+        
     })
     $('.fadeout').click(function() {
         $('.quizModal_bg').fadeOut(); // 其实就是css 的过渡+ display
@@ -43,7 +48,7 @@ $(function() {
         if (nowNum > maxNum) {
             $(this).css("title", "字数不能超过" + maxNum + "个");
             $(this).siblings("span").find(".nowNum").text(maxNum);
-            console.log(nowNum);
+            // console.log(nowNum);
             $(this).val($(this).val().substring(0, maxNum));
             $(this).css("readonly", "readonly");
         }
@@ -136,9 +141,9 @@ $(function() {
 
     //发送请求获取关键词，拿到关键词后把他们添加到标签栏上
     function getKeyword() {
-        console.log("获取关键字")
+        // console.log("获取关键字")
         $.ajax({
-            url: "../Servlet/AnalyzeKeyWordServlet",
+            url: "http://192.168.137.122:8080/Servlet/AnalyzeKeyWordServlet",
             type: 'get',
             data: {
                 requestType: "get",
@@ -260,7 +265,7 @@ $(function() {
     function sendImage(formdata, imgObj) { //imgObj是jq对象
         sendingImg = true;
         $.ajax({
-            url: '../Servlet/ReceiveFileServlet',
+            url: 'http://192.168.137.122:8080/Servlet/ReceiveFileServlet',
             type: 'post',
             data: formdata,
             dataType: 'json',
@@ -373,7 +378,7 @@ $(function() {
                     "title": title,
                     "tag": labels,
                     "questionType": type,
-                    "authorMarkNumber": getCookie("markNumber")[2],
+                    "authorMarkNumber": $.cookie("markNumber"),
                     "contents": contents,
                     "anonymity": anonymity
                 }),
@@ -413,7 +418,7 @@ $(function() {
                     //#region 渲染主页 √
                     $(".queY").remove();
                     window.onload();
-                    // $.get('../Servlet/MainPageServlet', {
+                    // $.get('http://192.168.137.122:8080/Servlet/MainPageServlet', {
                     //     requestType: 'get',
                     //     getType: "init",
                     // }, function(res) {

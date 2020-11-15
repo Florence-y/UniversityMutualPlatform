@@ -8,7 +8,7 @@ window.onload = function() {
     }, function(res) {
         // console.log(res);
         for (var i = 0; i < res.length; i++) {
-            //记住每个分类的 scrollid
+            //记住每个分类的 scrollid 
             mainScrollid[i] = res[i].scrollId;
             LoadNextPage[i] = res[i].next;
 
@@ -43,14 +43,14 @@ window.onload = function() {
 
     //#region 确定.quizLeftSidar位置 √
 
-    // ownheight ：左边栏 滑到 跟右边内容一底部一样高时  的scrollTop 值
-    var ownheight = $(".indexQuizList").offset().top + $(".indexQuizList").outerHeight(true) - 180 - $(".quizLeftSidar").outerHeight(true);
+    // ownheight ：左边栏 滑到 跟右边内容一底部一样高时  的scrollTop 值 
+    var ownheight = $(".indexQuizList").offset().top + $(".indexQuizList").outerHeight(true) - 140 - $(".quizLeftSidar").outerHeight(true);
     // console.log($(document).scrollTop());
     // console.log(ownheight);
     if ($(document).scrollTop() >= 594 && $(document).scrollTop() < ownheight) {
 
         // top:页面被卷去的距离- 父级到document顶部的距离 + 120
-        var topvalue = $(document).scrollTop() - $(".maincontent").offset().top + 180;
+        var topvalue = $(document).scrollTop() - $(".maincontent").offset().top + 140;
         // console.log(topvalue);
         $(".quizLeftSidar").css({
             top: topvalue,
@@ -85,7 +85,7 @@ var inmaincontent = function(res, quizlist, i) {
         var data = res[i].dataList[j];
 
         //创建添加 div.queY > h3
-        contenturl = './html/questionPage.html?id=' + data.id;
+        contenturl = 'questionPage.html?id=' + data.id;
         var div = $("<div class='queY' data-list-index='" + j + "'><h3><a target='_blank' href='" + contenturl + "'>" + res[i].dataList[j].title + "</a></h3></div>");
         $(quizlist).find("h2").after(div);
 
@@ -94,7 +94,6 @@ var inmaincontent = function(res, quizlist, i) {
             var span = $("<span>#" + data.tag[tagi] + "</span>");
             $(quizlist).find(".queY").eq(0).find("h3").append(span);
         }
-
         //创建添加 div.queY > div.queImgY
         $(quizlist).find(".queY").eq(0).append($("<div class='queImgY'></div>"));
 
@@ -107,7 +106,7 @@ var inmaincontent = function(res, quizlist, i) {
         //创建添加 .queImgY > img
         for (var imgi = 1; imgi < data.contents.length; imgi++) {
             if (data.contents[imgi].contentMain != null) {
-                var src = data.contents[imgi].contentMain;
+                var src = '..' + data.contents[imgi].contentMain.substring(2);
                 var img = $("<img src='" + src + "'>");
                 $(quizlist).find(".queY").eq(0).find(".queImgY").prepend(img);
             }
@@ -207,13 +206,13 @@ $(function() {
 
         //#region 左边导航栏.quizLeftSidar 和 右边 .attentionAndCollection
 
-        // ownheight ：左边栏 滑到 跟右边内容一底部一样高时  的scrollTop 值
-        var ownheight = $(".indexQuizList").offset().top + $(".indexQuizList").outerHeight(true) - 180 - $(".quizLeftSidar").outerHeight(true);
+        // ownheight ：左边栏 滑到 跟右边内容一底部一样高时  的scrollTop 值 
+        var ownheight = $(".indexQuizList").offset().top + $(".indexQuizList").outerHeight(true) - 140 - $(".quizLeftSidar").outerHeight(true);
 
         if ($(document).scrollTop() >= 594 && $(document).scrollTop() < ownheight) {
 
             // top:页面被卷去的距离- 父级到document顶部的距离 + 120
-            var topvalue = $(document).scrollTop() - $(".maincontent").offset().top + 180;
+            var topvalue = $(document).scrollTop() - $(".maincontent").offset().top + 140;
 
             $(".quizLeftSidar").css({
                 top: topvalue,
@@ -252,13 +251,13 @@ $(function() {
 
     //#endregion
 
-    //#region 主要内容 √
+    //#region 主要内容 √  
 
     //#region 点击 .quizLeftSidar 跳转相应part √
 
-    $('.quizLeftSidar li').eq(0).find(".iconfont").css("color", "#02a7f0");
-    $('.quizLeftSidar li').eq(0).find("span").css("color", "#02a7f0");
-    $('.quizLeftSidar li').eq(0).css("boxShadow", "0 0 17px 8px rgba(43, 51, 59, 0.08)");
+    $('.quizLeftSidar li').eq(0).find(".iconfont").css("color", "#028e9b");
+    $('.quizLeftSidar li').eq(0).find("span").css("color", "#028e9b");
+    $('.quizLeftSidar li').eq(0).css("boxShadow", "0 0 4px 2px rgba(43, 51, 59, 0.08)");
     $('.quizLeftSidar li').on({
         click: function() {
             var listIndex = $(this).attr('data-index');
@@ -267,10 +266,10 @@ $(function() {
                 scrollTop: $('.indexQuizList h2').eq(listIndex).offset().top - 180,
             }, 500);
             $(this).siblings().find(".iconfont").css("color", "#777");
-            $(this).find(".iconfont").css("color", "#02a7f0");
+            $(this).find(".iconfont").css("color", "#028e9b");
             $(this).siblings().find("span").css("color", "#777");
-            $(this).find("span").css("color", "#02a7f0");
-            $(this).css("boxShadow", "0 0 17px 8px rgba(43, 51, 59, 0.08)");
+            $(this).find("span").css("color", "#028e9b");
+            $(this).css("boxShadow", "0 0 4px 2px rgba(43, 51, 59, 0.08)");
             $(this).siblings().css("boxShadow", 'none');
 
         }
@@ -308,12 +307,12 @@ $(function() {
             var i = $(this).parent().attr("data-part-index");
             // console.log(i);
 
-            $.get('../Servlet/ScrollSearchServlet', {
+            $.get('..Servlet/ScrollSearchServlet', {
                 scrollId: mainScrollid[i],
                 requestType: "get",
                 pojoType: "question",
             }, function(res) {
-                console.log(res);
+                // console.log(res);
                 if (LoadNextPage[i]) {
 
                     var quizlist;
@@ -355,8 +354,7 @@ $(function() {
 
                         //创建添加 .queImgY > img
                         for (var imgi = 1; imgi < res.dataList[j].contents.length; imgi++) {
-                            // var src = ' ../' + res.dataList[j].contents[imgi].contentMain.substring(2);
-                            var src = res.dataList[j].contents[imgi].contentMain;
+                            var src = '..' + res.dataList[j].contents[imgi].contentMain.substring(2);
                             var img = $("<img src='" + src + "'>");
                             $(quizlist).find(".queY").eq(index).find(".queImgY").prepend(img);
                         }
@@ -433,7 +431,7 @@ $(function() {
 
     // 点击失物招领图片页面跳转
     $(".lostAndFound-div").on("click", function() {
-        location.assign("./html/lost&found_index.html");
+        location.assign("lost&found_index.html");
     })
 
 

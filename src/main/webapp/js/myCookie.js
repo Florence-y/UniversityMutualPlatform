@@ -1,8 +1,8 @@
  // json数据，保存时间
  function setCookie(json, day) {
-     // var date = new Date(new Date().getTime() + day * 24 * 60 * 60 * 1000).toUTCString(); //转毫秒
+     var date = new Date(new Date().getTime() + day * 24 * 60 * 60 * 1000).toUTCString(); //转毫秒
      for (var key in json) {
-         document.cookie = key + "=" + json[key] ;
+         document.cookie = key + "=" + json[key] + ";expires=" + date;
      }
  }
 

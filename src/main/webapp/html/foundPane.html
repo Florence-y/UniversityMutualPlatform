@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发起失物招领</title>
+    <link href="../css/foundPane.css" type="text/css" rel="stylesheet">
+    <!-- 不加 -->
+    <script src="../js/jquery-3.5.1.js"></script>
+    <script src="../js/myCookie.js"></script>
+    <script src='../js/debounce.js'></script>
+    <script src="../js/lost&found.js"></script>
+</head>
+<body>
+    <!-- 发起失物招领 -->
+    <div class="modal_bg_found ">
+        <div class="modal_found">
+            <button class="fadeout_foundModal">&times;</button>
+            <div class="modal_content_found">
+                <div class="leftBox">
+                    <div class="objName row">
+                        <span class="tip">物品名称：</span>
+                        <input class="value" type="text">
+                    </div>
+                    <div class="objClass row">
+                        <span class="tip">物品类别：</span>
+                        <div class="value">
+                            <span class="text"></span>
+                            <div class="objClass_entrance">
+                                <svg t="1604046414398" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6093" width="26" height="26"><path d="M315.1 0H157.5C70.9 0 0 70.9 0 157.5V315c0 86.6 70.9 157.5 157.5 157.5H315c86.6 0 157.5-70.9 157.5-157.5V157.5C472.6 70.9 401.7 0 315.1 0z m551.4 0H708.9c-86.6 0-157.5 70.9-157.5 157.5V315c0 86.6 70.9 157.5 157.5 157.5h157.5c86.6 0 157.5-70.9 157.5-157.5V157.5C1024 70.9 953.1 0 866.5 0zM315.1 551.4H157.5C70.9 551.4 0 622.3 0 708.9v157.5C0 953.1 70.9 1024 157.5 1024H315c86.6 0 157.5-70.9 157.5-157.5V708.9c0.1-86.6-70.8-157.5-157.4-157.5z m551.4 0H708.9c-86.6 0-157.5 70.9-157.5 157.5v157.5c0 86.6 70.9 157.5 157.5 157.5h157.5c86.6 0 157.5-70.9 157.5-157.5V708.9c0.1-86.6-70.8-157.5-157.4-157.5z" fill="#999999" p-id="6094"></path></svg>
+                                <div class="objClassPane area_objClassPane">
+                                    <div class="row_objClass row_area_classPane">
+                                        <div class="title_row">证件</div>
+                                        <div class="itemBox">
+                                            <span class="item">身份证</span>
+                                            <span class="item">校园卡</span>
+                                            <span class="item">学生证</span>
+                                            <span class="item">银行卡</span>
+                                        </div>
+                                    </div>
+                                    <div class="row_objClass row_area_classPane">
+                                        <div class="title_row">饰品</div>
+                                        <div class="itemBox">
+                                            <span class="item">手表</span>
+                                            <span class="item">项链</span>
+                                            <span class="item">手环</span>
+                                            <span class="item">耳环</span>
+                                        </div>
+                                    </div>
+                                    <div class="row_objClass row_area_classPane">
+                                        <div class="title_row">数码</div>
+                                        <div class="itemBox">
+                                            <span class="item">手表</span>
+                                            <span class="item">U盘</span>
+                                            <span class="item">耳机</span>
+                                            <span class="item">平板电脑</span>
+                                            <span class="item">笔记本电脑</span>
+                                            <span class="item">手机</span>
+                                            <span class="item">充电宝</span>
+                                            <span class="item">数据线</span>
+                                        </div>
+                                    </div>
+                                    <div class="row_objClass row_area_classPane">
+                                        <div class="title_row">用品</div>
+                                        <div class="itemBox">
+                                            <span class="item">教材</span>
+                                            <span class="item">书本</span>
+                                            <span class="item">文件</span>
+                                            <span class="item">雨伞</span>
+                                            <span class="item">水杯</span>
+                                            <span class="item">眼镜</span>
+                                            <span class="item">帽子</span>
+                                            <span class="item">钱包</span>
+                                        </div>
+                                    </div>
+                                    <div class="row_objClass row_area_classPane">
+                                        <div class="title_row">其他</div>
+                                        <div class="itemBox">
+                                            <span class="item">其他</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="foundTime row">
+                        <span class="tip">拾得时间：</span>
+                        <div class="value timeBox">
+                            <div class="calendar_entrance">
+                                <svg t="1603790426545" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5658" width="32" height="32"><path d="M831.97 64.09H704.03V32.045a32.045 32.045 0 0 0-64.09 0V64.09H384.06V32.045a32.045 32.045 0 0 0-64.09 0V64.09H191.312A191.312 191.312 0 0 0 0 250.14v586.851a191.312 191.312 0 0 0 191.312 186.051H831.97a191.312 191.312 0 0 0 191.313-191.312v-575.85A191.312 191.312 0 0 0 831.97 64.09z m127.94 767.88a128.18 128.18 0 0 1-127.94 127.94H191.312a127.94 127.94 0 0 1-127.94-127.94V415.865H959.91z m0-479.955H64.09v-95.656A127.94 127.94 0 0 1 191.312 127.94h127.94v63.372a32.045 32.045 0 0 0 64.09 0V127.94h255.88v63.372a32.045 32.045 0 0 0 64.09 0V127.94h127.94a128.18 128.18 0 0 1 127.94 127.94z" fill="#8a8a8a" p-id="5659"></path><path d="M296.295 621.766H186.53a36.589 36.589 0 0 1 0-73.177h109.765a36.589 36.589 0 1 1 0 73.177z m292.47 0H442.41a36.589 36.589 0 0 1 0-73.177h146.354a36.589 36.589 0 0 1 0 73.177z m255.88 0H735.118a36.589 36.589 0 1 1 0-73.177h109.527a36.589 36.589 0 1 1 0 73.177z m-548.35 219.291H186.53a36.589 36.589 0 1 1 0-73.177h109.765a36.589 36.589 0 0 1 0 73.177z m292.47 0H442.41a36.589 36.589 0 0 1 0-73.177h146.354a36.589 36.589 0 0 1 0 73.177z m255.88 0H735.118a36.589 36.589 0 1 1 0-73.177h109.527a36.589 36.589 0 1 1 0 73.177z" fill="#999999" p-id="5660"></path></svg>
+                                <table class="calendar">
+                                    <tr>
+                                        <th colspan="7">
+                                            <span class="year"></span> 年
+                                            <span class="month"></span> 月
+                                            <div class="switch_btn_calendar">
+                                                <svg t="1603789866897" class="up" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4709" width="33" height="33"><path d="M544 235.008l0 631.296a32 32 0 1 1-64 0L480 235.008 289.59999999 425.344a32 32 0 0 1-45.248-45.248l244.99200001-244.992a32 32 0 0 1 45.312 0l244.99200001 244.992a32 32 0 1 1-45.248 45.248L544 235.008z" p-id="4710" fill="#ffffff"></path></svg>
+                                                <svg t="1603789747858" class="down" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4477" width="33" height="33"><path d="M511.99 141.211c10.234 0 18.955 3.61 26.212 10.818 7.253 7.208 10.867 15.968 10.867 26.266v577.892l196.162-196.44c7.1-7.005 15.904-10.614 26.34-10.614 10.62 0 19.435 3.505 26.515 10.51 7.045 7.105 10.545 15.97 10.545 26.574 0 10.407-3.545 19.162-10.694 26.375L538.38 872.075c-7.148 7.213-15.934 10.714-26.37 10.714-10.456 0-19.242-3.5-26.37-10.714L226.086 612.592c-7.139-7.213-10.718-15.968-10.718-26.375 0-10.61 3.525-19.469 10.57-26.573 7.055-7.006 15.89-10.516 26.509-10.516 10.422 0 19.217 3.61 26.366 10.615l196.112 196.439V178.295c0-10.303 3.61-19.058 10.886-26.266 7.243-7.214 15.989-10.818 26.218-10.818h-0.04z" p-id="4478" fill="#ffffff"></path></svg>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>SUN</td>
+                                        <td>MON</td>
+                                        <td>TUE</td>
+                                        <td>WED</td>
+                                        <td>TUS</td>
+                                        <td>FRI</td>
+                                        <td>SAT</td>
+                                    </tr>
+                                    <tr class="day">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="day">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="day">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="day">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="day">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="day">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="time_display">
+                                <span class="yearNum num"></span>
+                                <sapn class="text">年</sapn>
+                                <span class="monthNum num"> </span>
+                                <sapn class="text">月</sapn>
+                                <span class="dayNum num"> </span>
+                                <sapn class="text">日</sapn>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="foundArea row">
+                        <span class="tip">拾得地点：</span>
+                        <div class="value">
+                            <span class="text"></span>
+                            <input class="areaDetail" size="14" placeholder="可输入详细地点">
+                            <div class="area">
+                                <svg t="1603850571231" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="16514" width="32" height="32"><path d="M515.2 243.104a80.96 80.96 0 1 0-0.064 161.92 80.96 80.96 0 0 0 0.064-161.92zM515.2 0C336.192 0 191.104 145.088 191.104 324.096c0 135.488 270.208 540.544 324.096 540.192 52.992 0.352 324.096-406.496 324.096-540.192C839.328 145.088 694.176 0 515.2 0z m0 459.2a135.104 135.104 0 1 1 0-270.24 135.104 135.104 0 0 1 0 270.24z" fill="#999999" p-id="16515"></path><path d="M640.064 794.592c-3.2 7.68-6.464 15.168-10.368 22.144 111.904 10.528 190.752 35.616 190.752 64.928 0 38.816-138.048 70.24-308.448 70.24-170.304 0-308.384-31.424-308.384-70.24 0-29.856 81.696-55.232 196.8-65.44a204.064 204.064 0 0 1-10.24-22.048C166.336 806.656 0 852.544 0 907.36 0 971.808 229.248 1024 512 1024c282.784 0 512-52.192 512-116.64 0-54.4-163.264-99.84-383.936-112.768z" fill="#999999" p-id="16516"></path></svg>
+                                <div class="areaPane area_objClassPane">
+                                    <div class="row_area row_area_classPane">
+                                        <div class="title_row">教学区</div>
+                                        <div class="itemBox">
+                                            <span class="item">北教</span>
+                                            <span class="item">1-7号教学楼</span>
+                                            <span class="item">实验教学楼</span>
+                                        </div>
+                                    </div>
+                                    <div class="row_area row_area_classPane">
+                                        <div class="title_row">办公区</div>
+                                        <div class="itemBox">
+                                            <span class="item">白宫</span>
+                                            <span class="item">南苑专家楼</span>
+                                            <span class="item">系办</span>
+                                            <span class="item">招就处</span>
+                                        </div>
+                                    </div>
+                                    <div class="row_area row_area_classPane">
+                                        <div class="title_row">文娱区</div>
+                                        <div class="itemBox">
+                                            <span class="item">青年文化广场</span>
+                                            <span class="item">北教广场</span>
+                                            <span class="item">货币博物馆</span>
+                                            <span class="item">大礼堂</span>
+                                            <span class="item">融创空间</span>
+                                            <span class="item">学贤阁</span>
+                                            <span class="item">青年文化广场</span>
+                                        </div>
+                                    </div>
+                                    <div class="row_area row_area_classPane">
+                                        <div class="title_row">体育区</div>
+                                        <div class="itemBox">
+                                            <span class="item">北苑操场</span>
+                                            <span class="item">南苑操场</span>
+                                            <span class="item">系办运动场</span>
+                                            <span class="item">南苑乒乓球室</span>
+                                            <span class="item">游泳池</span>
+                                        </div>
+                                    </div>
+                                    <div class="row_area row_area_classPane">
+                                        <div class="title_row">图书馆</div>
+                                        <div class="itemBox">
+                                            <span class="item">自科图书馆</span>
+                                            <span class="item">人文图书馆</span>
+                                            <span class="item">南苑自习室</span>
+                                        </div>
+                                    </div>
+                                    <div class="row_area row_area_classPane">
+                                        <div class="title_row">食堂</div>
+                                        <div class="itemBox">
+                                            <span class="item">北苑饭堂</span>
+                                            <span class="item">南苑饭堂</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rightBox">
+                    <div class="objDetail">
+                        <span class="tip">物品描述：</span>
+                        <textarea maxlength="110" class="value_box" placeholder="对物品描述越详细，更容易让失主看见噢~"></textarea>
+                    </div>
+                    <div class="pictureBox">
+                        <span class="tip">添加图片：</span>
+                        <div class="addPic">
+                            <div class="imgBox">
+
+                            </div>
+                            <div class="addBtn">
+                                <svg t="1604049288861" class="icon" viewBox="0 0 1027 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11289" width="64" height="64"><path d="M 927.878 467.618 h -377.118 v -365.861 c 0 -16.8859 -16.8859 -39.4004 -39.4004 -39.4004 c -22.5145 0 -39.4004 22.5145 -39.4004 45.029 v 365.861 H 106.097 c -22.5145 -5.62863 -45.029 16.8859 -45.029 39.4004 s 22.5145 39.4004 39.4004 39.4004 h 365.861 v 365.861 c 5.62863 22.5145 22.5145 45.029 45.029 45.029 s 39.4004 -22.5145 39.4004 -39.4004 v -371.49 h 371.49 c 22.5145 0 39.4004 -22.5145 39.4004 -39.4004 s -11.2573 -45.029 -33.7718 -45.029 Z" fill="#999999" p-id="11290"></path></svg>
+                            </div>
+                            <input type="file" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="contact row">
+                        <span class="tip">联系方式：</span>
+                        <input class="value" type="text" placeholder="微信: XXX 电话: XXX">
+                    </div>
+                </div>
+                <div class="sendBox">
+                    <button class="sendBtn">一键发布</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/html" id="templateAddImage">
+        <div class="imgItem">
+            <img src="{{base64}}" alt="{{name}}" type="img">
+        </div>
+    </script>
+    <script src="../js/foundPane.js"></script>
+    <script src="../js/lostPane.js"></script>
+</body>
+</html>

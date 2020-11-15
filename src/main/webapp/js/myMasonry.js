@@ -74,14 +74,9 @@ function loadItem(itemArr,itemWidth,gap){
                 columHeight[minHeight_colum] +=item.outerHeight()+gap;
             // },100)
         }
-        // console.log("高度：")
-        // console.log(item);
-        // console.log(itemArr[i].clientHeight)
         
         totalNum++;
     }
-    
-    // console.log(columHeight)
 }
 
 

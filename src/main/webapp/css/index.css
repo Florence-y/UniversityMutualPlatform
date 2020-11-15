@@ -5,11 +5,28 @@
 }
 
 body {
-    background-color: #efefef;
+    background-color: #f6f6f6;
+    min-width: 1158px;
     font-family: "微软雅黑", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", PingHei, STHeiti;
     /* font-family: 'Microsoft YaHei', 'iconfont'!important; */
 }
+html{
+    scrollbar-width: thin;
+    scrollbar-color:  rgba(0,0,0,0.2) transparent;
+}
 
+body::-webkit-scrollbar{
+    width:10px;
+    height: 10px;
+}
+body::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.2);
+}
+body::-webkit-scrollbar-track{
+    border-radius: 0;
+    background-color:#fff;
+}
 b,
 i,
 em,
@@ -42,8 +59,9 @@ input {
 }
 
 .w {
-    max-width: 1790px;
-    min-width: 1790px;
+    width: 1790px;
+    height:100%;
+    position: relative;
     margin: 0 auto;
 }
 
@@ -62,23 +80,23 @@ input {
 .otherPage {
     width: 100%;
     height: 350px;
-    padding-top: 200px;
-    padding-bottom: 60px;
-    min-width: 1790px;
+    margin-top: 200px;
+    margin-bottom:60px;
 }
 
 .otherPage .w {
-    height: 350px;
+
+    display: flex;
+    justify-content: space-between;
 }
 
 
 /* 3d转换的3个父盒子 */
 
 .otherPage .w>div {
-    float: left;
+
     width: 500px;
-    height: 350px;
-    margin: 0 68px;
+    height: 100%;
     cursor: pointer;
     perspective: 1000px;
     transform-style: preserve-3d;
@@ -116,10 +134,12 @@ input {
     height: 100%;
     position: relative;
 }
-
+.otherPage .w>div .rotate-div .imgShadow {
+    height:100%;
+}
 .otherPage .w>div .rotate-div .imgShadow img {
-    width: 500px;
-    height: 350px;
+    width: 100%;
+    height: 100%;
     position: relative;
     border-radius: 20px;
 }
@@ -155,15 +175,16 @@ input {
     /* min-height: 2000px; */
     /* height: auto; */
     margin-top: 50px;
+   height: 100%;
+}
+.maincontent .w{
+    overflow: hidden;
 }
 
-.maincontent .w {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
+
 
 .maincontent h1 {
+    height: 50px;
     font-size: 40px;
     font-weight: 700;
     margin-bottom: 20px;
@@ -175,7 +196,7 @@ input {
 .quizLeftSidar {
     position: absolute;
     width: 280px;
-    height: 470px;
+   
     /* background-color: #e1f5fe; */
     background-color: #fff;
     border-radius: 30px;
@@ -201,7 +222,7 @@ input {
 }
 
 .quizLeftSidar ul li:hover {
-    box-shadow: 0 0 17px 8px rgba(43, 51, 59, 0.08);
+    box-shadow: 0 0 4px 3px rgba(43, 51, 59, 0.08);
 }
 
 .quizLeftSidar ul li:nth-of-type(1) {
@@ -228,26 +249,26 @@ input {
 
 .quizLeftSidar ul li .iconxuexi {
     font-size: 40px;
-    line-height: 70px;
+   
 }
 
 .quizLeftSidar ul li .iconkaoshi3 {
     font-size: 38px;
-    line-height: 61px;
+   
 }
 
 .quizLeftSidar ul li .iconsushe {
-    line-height: 63px;
+   
     font-size: 44px;
 }
 
 .quizLeftSidar ul li .iconshitang {
-    line-height: 63px;
+   
     font-size: 44px;
 }
 
 .quizLeftSidar ul li .iconziyuan {
-    line-height: 61px;
+    
     font-size: 35px;
     margin-left: 2px;
 }
@@ -283,11 +304,11 @@ input {
 
 .quizLeftSidar ul li:hover span {
     /* color: #fff; */
-    color: #02a7f0;
+    color: #028e9b;
 }
 
 .quizLeftSidar ul li:hover .iconfont {
-    color: #02a7f0;
+    color: #028e9b;
 }
 
 
@@ -318,7 +339,7 @@ input {
 .maincontent .indexQuizList>div {
     height: auto;
     margin-bottom: 180px;
-    /* border: #02a7f0 dashed 2px; */
+    /* border: #028e9b dashed 2px; */
     padding: 30px;
     border-radius: 30px;
     background-color: #fff;
@@ -332,13 +353,13 @@ input {
 .maincontent .indexQuizList h2 {
     font-size: 28px;
     letter-spacing: 1px;
-    color: #02a7f0;
+    color: #028e9b;
     /* line-height: 2em; */
 }
 
 .maincontent .indexQuizList h2 .iconfont {
     font-size: 38px;
-    color: #02a7f0;
+    color: #028e9b;
 }
 
 
@@ -361,8 +382,8 @@ input {
 
 .maincontent .indexQuizList .queY .active_line {
     transition: width, ease-in 0.4s;
-    height: 3px;
-    bottom: -2px;
+    height: 1px;
+    bottom: 0px;
 }
 
 .maincontent .indexQuizList .queY:hover .active_line {
@@ -407,7 +428,7 @@ input {
     margin: 0 10px 0 5px;
     /* color: #777; */
     /* background-color: #b3e5fc; */
-    color: #02a7f0;
+    color: #028e9b;
     border: 1px solid #ccc;
     /* background-color: #b3e5fc; */
     border-radius: 16px;
@@ -418,7 +439,7 @@ input {
 
 /* .maincontent .indexQuizList .queY>h3>span:hover {
     color: #fff;
-    background-color: #02a7f0;
+    background-color: #028e9b;
 } */
 
 
@@ -511,13 +532,11 @@ input {
 .maincontent h4 {
     text-align: right;
     font-size: 20px;
-    color: #333;
+    color: #999;
     cursor: pointer;
 }
 
-.maincontent h4:hover {
-    color: #0d47a1;
-}
+
 
 
 /* #endregion */
@@ -531,12 +550,11 @@ input {
 .schoolNews {
     /* display: none; */
     position: relative;
-    min-width: 1790px;
+    width:100%;
     height: 763px;
     margin-top: 150px;
     /* background: url(../img/footerbg3.png) no-repeat; */
     /* background-size: 100%; */
-    overflow: hidden;
 }
 
 .schoolNews::before {
@@ -550,10 +568,7 @@ input {
     content: "";
 }
 
-.schoolNews .w {
-    height: 100%;
-    /* background: url(../img/footerbg3.png) no-repeat; */
-}
+
 
 .schoolNews .w>h1 {
     /* 学校通知 */
@@ -563,14 +578,17 @@ input {
 
 
 /* #region 通知框 */
-
-.schoolNews .w>div {
+.schoolNews .newsContainner{
+    width:100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.schoolNews .newsContainner>div {
     margin-top: 30px;
     width: 23%;
     height: 646px;
     box-sizing: border-box;
-    margin-right: 47px;
-    float: left;
 }
 
 .schoolNews .w>div:nth-last-of-type(1) {
@@ -580,9 +598,9 @@ input {
 .schoolNews .w>div h2 {
     font-size: 25px;
     font-weight: 700;
-    color: #02a7f0;
+    color: #028e9b;
     padding: 10px 0 10px 0;
-    border-bottom: #02a7f0 2px solid;
+    border-bottom: #028e9b 2px solid;
 }
 
 
@@ -646,7 +664,7 @@ input {
     display: block;
     float: left;
     height: 80px;
-    width: 263px;
+    width: 270px;
     line-height: 1.6em;
     font-size: 24px;
     color: #000;
@@ -708,7 +726,7 @@ input {
 }
 
 .schoolNews .changeTheBatchNews:hover {
-    color: #02a7f0;
+    color: #028e9b;
 }
 
 
@@ -727,12 +745,13 @@ input {
     /* display: none; */
     position: relative;
     width: 100%;
-    min-width: 1790px;
+    /* min-width: 1790px; */
     height: 630px;
-    background: url(../img/footerbg3.png) no-repeat;
+    
+    background: url("../img/footerbg3.png")no-repeat bottom center;
     background-size: cover;
     /* background-size: 100%; */
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .beforeFooter::before {
@@ -745,24 +764,30 @@ input {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+
 .beforeFooter .w {
-    height: 100%;
+    width:2129px;
     /* background-size: cover; */
 }
 
 
 /* #region 图片 */
-
-.beforeFooter .footerImg {
-    width: 520px;
-    height: 330px;
+.beforeFooter .imgBox{
+    width:1550px;
+    display: flex;
     float: left;
+    margin-left:60px ;
+    justify-content: space-between;
+}
+.beforeFooter .footerImg {
+    width: 463px;
+    height: 330px;
     /* margin-right: 50px; */
     margin-top: 80px;
-    margin-left: 80px;
     overflow: hidden;
     border-radius: 20px;
     position: relative;
+    box-shadow: 0px 0px 23px 3px #ccc;
 }
 
 
@@ -857,12 +882,16 @@ input {
 
 
 /* #region 右边 自定义标签 */
-
-.beforeFooter dl {
+.beforeFooter .tipBox{
+    width:360px;
     float: right;
-    width: 250px;
-    height: 350px;
     margin-right: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+.beforeFooter dl {
+    width: 169px;
+   
     /* margin-top: 30px; */
     /* overflow: hidden; */
     position: relative;
@@ -880,7 +909,7 @@ input {
 .beforeFooter dl dt {
     /* height: px; */
     margin-bottom: 30px;
-    font-size: 40px;
+    font-size: 37px;
     color: #fff;
     font-weight: 600;
     /* overflow: hidden; */
@@ -894,7 +923,7 @@ input {
     width: 100%;
     height: 60px;
     line-height: 40px;
-    font-size: 25px;
+    font-size: 21px;
     color: #fff;
 }
 
@@ -1058,21 +1087,24 @@ input {
     width: 80px;
     height: 80px;
     position: relative;
-    background-color: #b3e5fc;
+    background-color: #028e9b;
     border-radius: 16px;
     cursor: pointer;
 }
 
 .bottomRightSidebar li:hover {
-    background-color: #e1f5fe;
+    background-color: #35c0cd;
 }
 
 .bottomRightSidebar li .iconfont {
-    position: absolute;
-    line-height: 80px;
-    left: 20px;
     font-size: 43px;
-    color: #304ffe;
+    display: inline-block;
+    position: absolute;
+
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    color: #fff;
 }
 
 .bottomRightSidebar li.returnTop {
@@ -1081,3 +1113,327 @@ input {
 
 
 /* #endregion */
+
+
+/* 多媒体查询 */
+/* 70% */
+@media(max-width:1960px){
+    .otherPage{
+        height: 330px;
+    }
+    .w{
+        width:1618px;
+    }
+    .otherPage .w > div{
+        width:460px;
+    }
+/* 讨论分区 */
+    .maincontent .indexQuizList{
+        width:1280px;
+    }
+    .beforeFooter .w{
+        width:2580px;
+    }
+    .schoolNews .w>div ul li a{
+        width:260px;
+    }
+    .beforeFooter .w{
+        width:1800px;
+    }
+    .beforeFooter .imgBox{
+        width:1300px;
+    }
+    .beforeFooter .footerImg{
+        width:380px;
+        height: 266px;
+    }
+    .beforeFooter .footerImg span{
+        font-size:28px;
+    }
+}
+/* 80% */
+@media(max-width:1789px){
+     .w{
+        width:1470px;
+    }
+    .otherPage .w > div{
+        width:430px;
+    }
+    .otherPage{
+        height: 310px;
+    }
+    .maincontent .indexQuizList{
+        width:1118px;
+    }
+    .maincontent h1{
+        font-size:38px;
+    }
+    .quizLeftSidar ul li span{
+        font-size:20px;
+    }
+    .maincontent .indexQuizList h2{
+        font-size:23px;
+    }
+    .schoolNews .w > div ul li span{
+        width:80px;
+        height: 80px;
+    }
+    .schoolNews .w > div ul li span em{
+        font-size:22px;
+    }
+    .schoolNews .w > div ul li span em.data{
+        font-size:20px;
+    }
+    .schoolNews .w > div ul li a {
+        width:228px;
+        font-size:22px;
+        height: 76px;
+    }
+    .bottomRightSidebar li{
+        width:70px;
+        height: 70px;
+    }
+    .bottomRightSidebar li .iconfont{
+        font-size:36px;
+    }
+    .bottomRightSidebar{
+        bottom:40px;
+        right:20px;
+    }
+    .beforeFooter .w{
+        width:1470px;
+    }
+    .beforeFooter .imgBox{
+        width:100%;
+        margin:0 auto;
+    }
+    .beforeFooter dl{
+       
+        width:210px;
+    }
+    .beforeFooter .tipBox{
+        width:550px;
+    }
+    .footer{
+        height:40px;
+    }
+    .footer > .w > p{
+        font-size:20px;
+    }
+    .beforeFooter dl dt{
+        font-size:31px;
+    }
+    .beforeFooter dl dd > a{
+        height: 42px;
+        line-height: 42px;
+    }
+
+
+    .maincontent .indexQuizList .queY>h3>a{
+        font-size:20px;
+    }
+    .maincontent .indexQuizList .queY>h3>span{
+        font-size:12px;
+        margin:0 3px 0 5px;
+    }
+    .maincontent .indexQuizList .queY .queImgY p {
+        font-size:16px;
+    }
+    .maincontent .indexQuizList .queY .queImgY img{
+        width:125px;
+        height: 125px;
+    }
+    .maincontent .indexQuizList .queY .queControlY span{
+        font-size:14px;
+        width:108px;
+    }
+    .maincontent .indexQuizList .queY .queControlY span .iconfont{
+        font-size:21px;
+    }
+    .maincontent .indexQuizList .queY .queControlY{
+        width:340px;
+    }
+    .maincontent .indexQuizList .queY .queImgY{
+        margin:0;
+    }
+    .maincontent .indexQuizList .queY .active_line{
+        height: 1px;
+        bottom:0;
+    }
+    .maincontent .indexQuizList .queY{
+        height: 250px;
+    }
+    .maincontent .indexQuizList h2 .iconfont{
+        font-size:30px;
+    }
+    .maincontent h4 {
+        font-size:14px;
+    }
+  
+
+}
+/* 90% */
+@media(max-width:1549px){
+    .w{
+        width:1290px;
+    }
+    .otherPage .w > div{
+        width:370px;
+    }
+    .otherPage{
+        height: 280px;
+    }
+    .quizLeftSidar{
+        width:258px;
+    }
+    .maincontent .indexQuizList{
+        width:974px;
+    }
+    .schoolNews .w > div ul{
+        height: 460px;
+
+    }
+    .schoolNews .w > div ul li {
+        padding:10px 0;
+    }
+    .schoolNews .w > div ul li a {
+        width:195px;
+        font-size:16px;
+        -webkit-line-clamp:3;
+    }
+    .bottomRightSidebar li{
+        width:60px;
+        height: 60px;
+    }
+    .bottomRightSidebar li .iconfont{
+        font-size:31px;
+    }
+    .bottomRightSidebar{
+        bottom:30px;
+        right:15px;
+    }
+    .beforeFooter .w{
+       
+            width:1290px;
+        
+    }
+    .quizLeftSidar ul li span{
+        font-size:18px;
+    }
+    .beforeFooter dl dt{
+        font-size:28px;
+    }
+    .beforeFooter dl dd > a{
+        font-size:18px;
+        height: 38px;
+        line-height: 38px;
+    }
+    .footer{
+        height: 33px;
+    }
+    .footer > .w > p{
+        font-size: 17px;
+    }
+    .footer .w > p > a{
+        font-size:17px;
+    } 
+    .mainContent h4{
+        font-size:15px;
+    }
+}
+/* 100% */
+@media(max-width:1280px){
+    .w{
+        width:1158px;
+    }
+    .otherPage .w > div{
+        width:320px;
+    }
+    .otherPage{
+        height: 240px;
+    }
+    .maincontent h1{
+        font-size:28px;
+    }
+    .quizLeftSidar{
+        width:200px;
+    }
+    .maincontent .indexQuizList{
+        width:870px;
+    }
+    .maincontent .indexQuizList h2{
+        font-size:20px;
+    }
+    .maincontent h4{
+        font-size:14px;
+    }
+    .schoolNews .w > div ul li span{
+        width:75px;
+        height: 75px;
+        margin-right:12px;
+    }
+    .schoolNews .w > div ul li a{
+        width:174px;
+    }
+    .beforeFooter .w{
+        width:1158px;
+    }
+    .quizLeftSidar ul li span{
+        font-size:16px;
+    }
+    .beforeFooter .footerImg {
+        width: 321px;
+        height: 233px;
+    }
+    .beforeFooter .footerImg span {
+        font-size: 18px;
+    }
+    .footer {
+        height: 19px;
+        padding-top: 45px;
+    }
+    .footer > .w > p{
+        font-size: 14px;
+    }
+    .footer .w > p > a{
+        font-size:14px;
+    }
+    /* 左边列表图标 */
+    .quizLeftSidar ul li .iconxuexi{
+        font-size:30px;
+    }
+    .quizLeftSidar ul li .iconkaoshi3{
+        font-size:31px;
+    }
+    .quizLeftSidar ul li .iconsushe{
+        font-size:32px;
+        top:3px;
+    }
+    .quizLeftSidar ul li .iconshitang{
+        font-size:33px;
+    }
+    .quizLeftSidar ul li .iconziyuan{
+        font-size:28px;
+    }
+    .quizLeftSidar ul li .iconqita{
+        font-size:29px;
+    }
+    .quizLeftSidar ul li span{
+        line-height: 50px;
+    }
+    .quizLeftSidar ul li{
+        line-height: 50px;
+        height: 50px;
+    }
+    .quizLeftSidar ul li span{
+        padding-left:20px;
+    }
+    .quizLeftSidar ul li .iconfont{
+        left:40px
+    }
+    .quizLeftSidar ul li .iconxuexi{
+        line-height: 50px;
+    }
+
+   
+}
