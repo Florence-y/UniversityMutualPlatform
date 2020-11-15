@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>广金互助主页</title>
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/indexNew.css">
+
+    <script src="js/jquery-3.5.1.js"></script>
+    <script src="js/indexNew.js"></script>
+
+</head>
+
+<body>
+
+    <div class="indexNavY">
+        <ul></ul>
+        <ul class="turnOtherPageY">
+            <li onclick="window.location = 'html/index.html'">校区互通</li>
+            <li onclick="window.location = 'html/lost&found_index.html'">失物招领</li>
+            <li class="schoolA">学校通知</li>
+        </ul>
+        <ul></ul>
+        <div class="showNavY">
+            <i class="iconfont icongengduo3 navmore"></i>
+        </div>
+    </div>
+
+    <div class="rotationChartY part0">
+        <button class="rc-back" style="display: none;"><i class="iconfont iconhoutui"></i></button>
+        <button class="rc-next" style="display: none;"><i class="iconfont iconqianjin"></i></button>
+        <ul class="rc-picturesY">
+
+            <li data-index='0' class="anim">
+            </li>
+            <li data-index='1' class="anim">
+            </li>
+            <li data-index='2' class="anim">
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- 功能介绍part -->
+
+    <div class="functionPartY">
+        <ul class="fp-pictureY">
+            <!-- 校区互通 -->
+            <li class="campusInterworkY part1">
+                <div class="mask">
+                    <div class="left ci-h3">
+                        <h3>校区互通</h3>
+                    </div>
+                    <div class="right">
+                        <div class="ci-p">
+                            <p><img src="img/北教-动漫.jpg" alt=""></p>
+                            <p>作为本部的同学，曾经在校区生活过的，想偶尔知道知道校区的近况，没有在校区生活过的，也或多或少会有想了解的校区的心，而校区的同学，或早或晚要回到本部生活，或迟或早会想了解本部的信息，所以这个功能，提供给各个校区的同学，作为联系校区之间的枢纽....</p>
+                        </div>
+                        <div class="ci-btn">
+                            <input type="button" value='点 击 进 入' class="inxqht" onclick="window.location = 'html/index.html'">
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <!-- 失物招领 -->
+            <li class="lostFoundY part2">
+                <!-- <img src="../img/gduf3.jpg" alt=""> -->
+                <div class="mask">
+                    <div class="lf-h2">
+                        <h2>失 物 招 领</h2>
+                    </div>
+                    <div class="bottom">
+                        <div class="lf-img">
+                            <img src="img/footerGDUF.jpg" alt="">
+                        </div>
+
+                        <input type="button" value='点 击 进 入' class="inlaf" onclick="window.location = 'html/lost&found_index.html'">
+                        <p class="lf-p">只要有人的地方，失物招领就存在的意义……学校作为人员聚集地之一，那失物招领便必须搬上台面……</p>
+
+
+                    </div>
+
+                </div>
+            </li>
+
+            <!-- 校内新闻 -->
+            <li class="inschoolNewsY part3">
+                <!-- <img src="../img/gduf5.jpg" alt=""> -->
+
+                <!-- 校内新闻part 这个的位置根据maincontent的高度定 现1000px-->
+                <div class="mask">
+                    <div class="sn-h4">
+                        <h4>校 内 新 闻</h4>
+                    </div>
+                    <div class="schoolNews">
+
+                        <!-- 教务处 -->
+                        <div class="deansOffice ">
+                            <h2>教务处</h2>
+                            <b class="changeTheBatchNews ">换一批</b>
+                            <ul class="news deansOfficeNews ">
+                                <div class="NewsDiv displayNewsDiv " data-part="0 ">
+                                    <li>
+                                        <span>
+                                            <em class="month ">九月</em>
+                                            <em class="data ">30</em>
+                                        </span>
+                                        <a href=" ">关于开展2021届毕业论文工作的通知</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">30</em>
+                                    </span>
+                                        <a href=" ">关于开展2021届毕业论文工作的通知</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">28</em>
+                                    </span>
+                                        <a href=" ">关于北教学楼封闭考场的通知</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">16</em>
+                                    </span>
+                                        <a href=" ">关于教学楼本周五、六封闭考场的通知</a>
+                                    </li>
+                                </div>
+                                <div class="NewsDiv " data-part="1 ">
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">14</em>
+                                    </span>
+                                        <a href=" ">关于2020-2021学年第一学期2017、2018、2019级选修课程第四轮退补选通知</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">10</em>
+                                    </span>
+                                        <a href=" ">关于国庆中秋节放假期间教学安排的通知</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">09</em>
+                                    </span>
+                                        <a href=" ">关于启动2020年辅修学位、辅修专业招生工作的通知</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">3</em>
+                                    </span>
+                                        <a href=" ">关于2020-2021第一学期教材发放的通知</a>
+                                    </li>
+                                </div>
+                            </ul>
+
+                        </div>
+
+                        <!-- 团委 -->
+                        <div class="youthLeagueCommittee ">
+                            <h2>团委</h2>
+                            <b class="changeTheBatchNews ">换一批</b>
+                            <ul class="news youthLeagueCommitteeNews ">
+                                <div class="NewsDiv displayNewsDiv " data-part="0 ">
+                                    <li>
+                                        <span>
+                                        <em class="month ">十月</em>
+                                        <em class="data ">09</em>
+                                    </span>
+                                        <a href=" ">广东金融学院2020 年新时代爱国卫生运动 （学生宿舍卫生整治专项行动）结果通报</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">21</em>
+                                    </span>
+                                        <a href=" ">关于举办广东省第三届高校防范非法金融活动微视频和海报设计大赛的通知</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">17</em>
+                                    </span>
+                                        <a href=" ">关于推报 “全国优秀单位”“全国优秀团队”“全国优秀个人”“全省优秀团队”“全省优秀个人”名单的公示(1)</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">八月</em>
+                                        <em class="data ">31</em>
+                                    </span>
+                                        <a href=" ">广东金融学院关于开展2020年新时代爱国卫生运动</a>
+                                    </li>
+                                </div>
+                                <div class="NewsDiv " data-part="1 ">
+                                    <li>
+                                        <span>
+                                        <em class="month ">八月</em>
+                                        <em class="data ">22</em>
+                                    </span>
+                                        <a href=" ">致全校同学倡议书——节约粮食，杜绝浪费</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">八月</em>
+                                        <em class="data ">15</em>
+                                    </span>
+                                        <a href=" ">广州市地方金融监督管理局关于举办2020岭南金融文化大使选拔大赛的通知</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">七月</em>
+                                        <em class="data ">10</em>
+                                    </span>
+                                        <a href=" ">关于开展 2020 年广东大中专学生志愿者暑期文化科技卫生“三下乡”社会实践活动的通知</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">六月</em>
+                                        <em class="data ">05</em>
+                                    </span>
+                                        <a href=" ">关于举办第七届“创青春”广东青年创新创业大赛暨第三届粤港澳大湾区青年创新创业大赛的通知</a>
+                                    </li>
+                                </div>
+
+                            </ul>
+
+                        </div>
+
+                        <!-- 学生工作处 -->
+                        <div class="studentAffairsOffice ">
+                            <h2>学生工作处</h2>
+                            <b class="changeTheBatchNews ">换一批</b>
+                            <ul class="news studentAffairsOfficeNews ">
+                                <div class="NewsDiv displayNewsDiv " data-part="0 ">
+                                    <li>
+                                        <span>
+                                        <em class="month ">十月</em>
+                                        <em class="data ">16</em>
+                                    </span>
+                                        <a href=" ">广东金融学院学生工作处关于曾维涛等40位同学违纪的通报（2020）24号</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">30</em>
+                                    </span>
+                                        <a href=" ">广东金融学院学生工作处关于蔡东雷等70位同学违纪的通报（2020）23号</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">30</em>
+                                    </span>
+                                        <a href=" ">关于更改2019-2020学年国家励志奖学金拟推荐人选的公示</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">26</em>
+                                    </span>
+                                        <a href=" ">关于做好2020年国庆长假期间学生安全教育与出入校园管理工作的通知</a>
+                                    </li>
+                                </div>
+                                <div class="NewsDiv " data-part="1 ">
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">25</em>
+                                    </span>
+                                        <a href=" ">广东金融学院学生工作处关于岑正阳等36位同学违纪的通报（2020）22号</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">24</em>
+                                    </span>
+                                        <a href=" ">关于2019-2020学年国家奖学金和励志奖学金获奖学生初审名单的公示</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">18</em>
+                                    </span>
+                                        <a href=" ">广东金融学院学生工作处关于徐佳颖等5位同学违纪的通报（2020）21号</a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">七月</em>
+                                        <em class="data ">13</em>
+                                    </span>
+                                        <a href=" ">广东金融学院学生工作处关于给予黄烨翔等12位同学违纪处分的决定（2020）20号 </a>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+
+                        <!-- 其他 -->
+                        <div class="other ">
+                            <h2>其他</h2>
+                            <b class="changeTheBatchNews ">换一批</b>
+                            <ul class="news otherNews ">
+                                <div class="NewsDiv displayNewsDiv " data-part="0 ">
+                                    <li>
+                                        <span>
+                                        <em class="month ">十月</em>
+                                        <em class="data ">13</em>
+                                    </span>
+                                        <a href=" ">关于组织参加及收看校庆庆典活动的通知</a>
+                                        <!-- <i>校长办公室</i> -->
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">十月</em>
+                                        <em class="data ">01</em>
+                                    </span>
+                                        <a href=" ">【温馨提示】教育技术与网络管理中心国庆中秋假期值班安排</a>
+                                        <!-- <i>教育技术与网络管理中心</i> -->
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">16</em>
+                                    </span>
+                                        <a href=" ">大学英语等级考试(CET)听力考前试音通知（校本部</a>
+                                        <!-- <i>教育技术与网络管理中心</i> -->
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">08</em>
+                                    </span>
+                                        <a href=" ">请同学们注意：四、六级听力考试耳机维修通知！！重要！！(校本部)</a>
+                                        <!-- <i>教育技术与网络管理中心</i> -->
+                                    </li>
+                                </div>
+                                <div class="NewsDiv " data-part="1 ">
+                                    <li>
+                                        <span>
+                                        <em class="month ">八月</em>
+                                        <em class="data ">29</em>
+                                    </span>
+                                        <a href=" ">关于校园卡的温馨提示</a>
+                                        <!-- <i>教育技术与网络管理中心</i> -->
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">八月</em>
+                                        <em class="data ">04</em>
+                                    </span>
+                                        <a href=" ">关于开展“爱国心•报国情•强国志”征文活动的通知</a>
+                                        <!-- <i>党委宣传部_党委统战部</i> -->
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">九月</em>
+                                        <em class="data ">09</em>
+                                    </span>
+                                        <a href=" ">16关于组织开展“广东扶贫济困日”活动短视频大赛作品征集的通知</a>
+                                        <!-- <i>党委宣传部_党委统战部</i> -->
+                                    </li>
+                                    <li>
+                                        <span>
+                                        <em class="month ">六月</em>
+                                        <em class="data ">15</em>
+                                    </span>
+                                        <a href=" ">关于开展2019-2020学年第二学期学生评课的通知</a>
+                                        <!-- <i>教学质量监控与评估中心</i> -->
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 页脚前面的那part -->
+
+    <div class="beforeFooter">
+
+        <!-- <div class="footerPicture"> -->
+        <a href="https://zs.gduf.edu.cn/index.htm " class="footerImg " target="_blank ">
+            <img src="img/footerGDUF2.jpg " alt=" ">
+            <span>本科招生网</span>
+        </a>
+        <a href="https://www.gduf.edu.cn/ " class="footerImg " target="_blank ">
+            <img src="img/footerGDUF.jpg " alt=" ">
+            <span>GDUF官方网站</span>
+        </a>
+        <a href="https://hbg.gduf.edu.cn/ " class="footerImg " target="_blank ">
+            <img src="img/footerHBBWG.jpg " alt=" ">
+            <span>广州货币金融博物馆</span>
+        </a>
+        <!-- </div> -->
+
+        <!-- <div class="footerDl"> -->
+        <dl class="footer-follow footerDl">
+            <dt>关注我们</dt>
+            <dd class="wechat"><b></b>
+                <div class="ewm">
+                    <b class="triangle "></b>
+                    <img src="../img/gzwx.png " alt=" ">
+                </div>
+            </dd>
+            <dd><b></b>
+            </dd>
+        </dl>
+        <dl class="service footerDl">
+            <dt>开发人员</dt>
+            <dd><a href="javascript:; ">产品：</a><a href="javascript:; ">黄小四</a></dd>
+            <dd><a href="javascript:; ">前端开发：</a><a href="javascript:; ">安总 & 小黑</a></dd>
+            <dd><a href="javascript:; ">后端开发: </a><a href="javascript:; ">彦臻</a></dd>
+        </dl>
+        <!-- </div> -->
+    </div>
+
+    <!-- 页脚 -->
+
+    <div class="footer">
+        <p><a href="javascript:; ">粤B2-20090191-26</a> | 京ICP备12020869号-2 | <a href="javascript:; ">京公网安备44010602000207</a></p>
+        <p>&copy;2014-2020 icourse163.org</p>
+    </div>
+
+
+</body>
+
+</html>
