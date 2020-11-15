@@ -3,7 +3,7 @@
     padding:0;
 }
 header{
-    background-color: #02A7F0;
+    background-color: #028e9b;
     width:100%;
     height: 110px;
     border:1px solid #000;
@@ -13,6 +13,24 @@ header .head{
     height: 100%;
     width:1790px;
     margin:0 auto;
+}
+
+html{
+    scrollbar-width: thin;
+    scrollbar-color:  rgba(0,0,0,0.2) transparent;
+}
+
+body::-webkit-scrollbar{
+    width:10px;
+    height: 10px;
+}
+body::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.2);
+}
+body::-webkit-scrollbar-track{
+    border-radius: 0;
+    background-color:#fff;
 }
 body{
     background-color: #f6f6f6;
@@ -30,13 +48,14 @@ body{
 
 .select_box{
     /* overflow: hidden; */
+    /* position: fixed;
+    top:150px; */
     position: relative;
     padding:15px;
     float: left;
     /* border: 1px solid #000; */
-    width:360px;
-    height: 700px;
-
+    width:302px;
+    height: 416px;
     /* background-color: #; */
     /* color:#eee; */
     background-color: #333;
@@ -50,7 +69,7 @@ body{
 
 
 .select_box .title{
-    font-size:32px;
+    font-size:20px;
     font-weight: 700;
     color:#fff;
 }
@@ -58,8 +77,8 @@ body{
     margin-top:20px;
     float: left;
     height:85%;
-    width:120px;
-    font-size:26px;
+    width:100px;
+    font-size:17px;
     font-weight: 600;
     color:#999;
     border-right:1px solid #777;
@@ -68,6 +87,7 @@ body{
     position:absolute;
     top:50%;
     left:4px;
+    height: 20px;
     transform: translate(0,-50%);
 }
 /* .select_box .column1 .icon{
@@ -75,15 +95,15 @@ body{
 } */
 .select_box .column1 li{
     position: relative;
-    line-height: 70px;
+    line-height: 35px;
     text-indent:40px; 
 }
 .select_box .column1 li .text{
     color:#999;
-    font-size:26px;
+    font-size:18px;
 }
 .select_box .column1 li:nth-child(1){
-    line-height: 50px;
+    line-height: 30px;
 }
 .select_box .column1 li:hover .text{
     color:#fff;
@@ -96,8 +116,6 @@ body{
     color:#fff;
 }
 
-
-
 .select_box .column2{
     /* display: none; */
     margin-top:20px;
@@ -108,12 +126,10 @@ body{
     max-height: 80%;
 }
 
-
-
 .select_box .column2 li{
     text-align: center;
-    line-height:50px;
-    font-size:22px;
+    line-height:35px;
+    font-size:16px;
     color:#999;
 }
 
@@ -127,14 +143,17 @@ body{
     position: relative;
     margin-top:20px;
     float: left;
-    height:69%;
-    width:83px;
+    height:100%;
+    width:68px;
     color:#999;
+}
+.select_box .column3 svg{
+    height: 20px;
 }
 .select_box .column3 .title{
     width:100%;
     display: block;
-    font-size:22px;
+    font-size:18px;
     font-weight: 600;
     color:#fff;
     text-align: center;
@@ -142,7 +161,7 @@ body{
 .select_box .column3 .timeBox{
     /* border:1px solid #666; */
     height:250px;
-    width:80px;
+    width:68px;
     position: absolute;
     top:15px;
     left:50%;
@@ -150,7 +169,7 @@ body{
 }
 .select_box .column3 .calendar_entrance{
     position: relative;
-    height: 65px;
+    height: 30px;
     /* border:1px solid #000; */
     top:20px;
     display: flex;
@@ -175,8 +194,8 @@ body{
 /* 日期选择后展示 */
 .select_box .column3 .time_display{
     position: absolute;
-    width:80px;
-    top:100px;
+    width:68px;
+    top:78px;
     /* border:1px solid #000; */
     height:149px;
     display: flex;
@@ -187,14 +206,14 @@ body{
 }
 .select_box .column3 .time_display .text{
     color:#999;
-    font-size:18px;
+    font-size:16px;
 }
 .select_box .column3 .time_display .num{
-    font-size:24px;
+    font-size:16px;
     font-weight: 700;
     color:#ccc;
     display: block;
-    height:35px;
+    height:30px;
 }
 
 /* 日期悬浮框 */
@@ -277,7 +296,7 @@ body{
 /* 地点选择 */
 .select_box .column3 .areaBox{
     position: absolute;
-    width:80px;
+    width:68px;
     height: 130px;
     bottom:0;
     left:50%;
@@ -290,7 +309,7 @@ body{
     /* border:1px solid #666; */
     position: absolute;
     cursor: pointer;
-    top:50px;
+    top:35px;
     display: flex;
     justify-content: center;
     left:50%;
@@ -301,15 +320,15 @@ body{
 }
 .select_box .column3 .areaBox .areaText{
     position: absolute;
-    top:105px;
+    top:70px;
     left:50%;
     transform: translate(-50%,0);
     writing-mode: vertical-lr;
     /* width:40px; */
     color:#ccc;
-    font-size:22px;
+    font-size:16px;
     font-weight: 600;
-    height: 200px;
+    height: 112px;
     letter-spacing: 4px;
 }
 
@@ -361,7 +380,7 @@ body{
     /* border:1px solid #000; */
 }
 .select_box .column3 .areaBox .itemBox .item:hover{
-    background-color:#02A7F0;
+    background-color:#028e9b;
     color:#fff;
 }
 
@@ -373,8 +392,8 @@ body{
     top:60%;
     transform:translate(0,-50%);
     right:0px;
-    width:35px;
-    height:100px;
+    width:25px;
+    height:60px;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     /* border-top-right-radius: 8px;
@@ -386,6 +405,7 @@ body{
     position: absolute;
     top:50%;
     left:50%;
+    height: 20px;
     transform:translate(-50%,-50%);
 }
 

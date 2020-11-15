@@ -1,4 +1,4 @@
-.modal_bg_lost{
+.modal_bg_found{
     width:100%;
     height: 100%;
     position: fixed;
@@ -10,19 +10,19 @@
     z-index: 1000;
     background-color: rgba(0,0,0,0.6);
 }
-.modal_lost{
+.modal_found{
     position: absolute;
     top:50%;
     left:50%;
     padding:20px;
     transform: translate(-50%,-50%);
-    height: 750px;
+    height: 630px;
     border-radius: 14px;
     width:1300px;
     z-index:1000;
-    background-color: rgb(247, 247, 247);
+    background-color: rgba(247,247,247);
 }
-.modal_bg_lost .fadeout_lostModal{
+.modal_bg_found .fadeout_foundModal{
     position: absolute;
     display: block;
     top:0px;
@@ -34,33 +34,39 @@
     cursor: pointer;
     outline: none;
 }
-.modal_bg_lost .fadeout_lostModal:hover{
+.modal_bg_found .fadeout_foundModal:hover{
     color:tomato;
 }
-.modal_bg_lost .modal_content_lost{
+.modal_bg_found .modal_content_found{
     display: flex;
     justify-content: space-between;
 }
-.modal_bg_lost .modal_content_lost input,.modal_bg_lost .modal_content_lost textarea{
+.modal_bg_found .modal_content_found input,.modal_bg_found .modal_content_found textarea{
     border:none;
     outline: none;
 }
-.modal_bg_lost .leftBox{
+.modal_bg_found .leftBox{
     width:45%;
     height: 750px;
 }
-.modal_bg_lost  .row{
+.modal_bg_found  .row{
     height: 100px;
     margin-top:10px;
     display: flex;
     align-items: center;
 }
-.modal_bg_lost  .tip{
+.modal_bg_found .leftBox .row{
+    margin-top:42px;
+}
+.modal_bg_found .leftBox .row:first-of-type{
+    margin-top:0px;
+}
+.modal_bg_found  .tip{
     font-size:26px;
     color:#666;
     font-weight: 700;
 }
-.modal_bg_lost  .row .value{
+.modal_bg_found  .row .value{
     display: inline-block;
     font-size:24px;
     width:430px;
@@ -70,46 +76,47 @@
     background-color: transparent;
     border-bottom:1px solid #666;
 }
-.modal_bg_lost  .value_box{
+.modal_bg_found  .value_box{
     width:90%;
-    height:180px;
+    height:97px;
     margin-top:20px;
     border-radius: 14px;
     resize: none;
     padding:15px;
-    font-size:22px;
+    font-size:23px;
     letter-spacing: 3px;
+    background-color: #fff;
     color:#666;
-    background-color:#fff;
 }
-.modal_bg_lost .objClass{
+.modal_bg_found .objClass{
     position: relative;
 }
-.modal_bg_lost .objClass .value .text{
+.modal_bg_found .objClass .value .text{
     position: relative;
     top:16px;
     font-size:26px;
     left:5px;
 }
-.modal_bg_lost .objClass_entrance svg{
+.modal_bg_found .objClass_entrance svg{
     cursor: pointer;
 }
-.modal_bg_lost .objClass_entrance{
+.modal_bg_found .objClass_entrance:hover svg path{
+    fill:#02A7F0
+}
+
+.modal_bg_found .objClass_entrance{
     position: absolute;
     top:35px;
     right:38px;
 }
-.modal_bg_lost .objClass_entrance:hover svg path{
-    fill:#028e9b
-}
-.modal_bg_lost .objClass_entrance .objClassPane{
+.modal_bg_found .objClass_entrance .objClassPane{
     overflow: visible;
-    top:-70px;
+    top:-170px;
     position: absolute;
     left:50px;
     height:580px;
 }
-.modal_bg_lost .objClass_entrance .objClassPane::after{
+.modal_bg_found .objClass_entrance .objClassPane::after{
     display: block;
     content: "";
     width:100px;
@@ -117,36 +124,37 @@
     top:0;
     left:-50px;
     position: absolute;
-    /* background-color: #000; */
     background-color: transparent;
 }
 
-.modal_bg_lost .objClassPane .row_objClass .item{
+.modal_bg_found .objClassPane .row_objClass .item{
     cursor: pointer;
 }
 
-.modal_bg_lost .objDetail{
+.modal_bg_found .objDetail{
     margin-top:20px;
 }
-.modal_bg_lost .pictureBox{
+.modal_bg_found .pictureBox{
     width:100%;
+    margin-top:15px;
     height: 200px;
 }
-.modal_bg_lost .award{
+
+.modal_bg_found .award{
     margin-top:40px;
 }
 
-.modal_bg_lost .rightBox{
+.modal_bg_found .rightBox{
     width:45%;
     height: 750px;
 }
 
 /* 日期悬浮框 */
 
-.modal_bg_lost .lostTime {
+.modal_bg_found .foundTime {
     position: relative;
 }
-.modal_bg_lost .lostTime .time_display{
+.modal_bg_found .foundTime .time_display{
     position: relative;
     display: none;
     left:5px;
@@ -154,7 +162,7 @@
     max-width: 65%;
 }
 
-.lostTime .time_display .num{
+.foundTime .time_display .num{
     font-size:26px;
     font-weight: 700;
     color:#666;
@@ -163,7 +171,7 @@
     display: inline-block;
 }
 
-.modal_bg_lost .calendar_entrance{
+.modal_bg_found .calendar_entrance{
     position: absolute;
     height: 65px;
     /* border:1px solid #000; */
@@ -172,18 +180,19 @@
     display: flex;
     justify-content: center;
 }
-.modal_bg_lost .calendar_entrance svg{
+.modal_bg_found .calendar_entrance svg{
     cursor: pointer;
 }
-.modal_bg_lost .calendar_entrance:hover svg path{
-    fill:#028e9b;
+.modal_bg_found .calendar_entrance:hover svg path{
+    fill:#02A7F0;
 }
 
-.modal_bg_lost .calendar{
+.modal_bg_found .calendar{
     display: none;
     position: absolute;
-    top:-30px;
-    left:40px;
+    top:50%;
+    left:50px;
+    transform: translate(0,-50%);
     z-index:100;
     width:630px;
     color:#fff;
@@ -191,7 +200,7 @@
     background-color: rgba(30,117,179);
     box-shadow: 10px 10px 35px 1px rgba(0, 0, 0, 0.5);
 }
-.modal_bg_lost .calendar::before{
+.modal_bg_found .calendar::before{
     content: "";
     display: block;
     height:60px;
@@ -202,24 +211,24 @@
     top:0;
     left:-40px;
 }
-.modal_bg_lost .calendar tr{
+.modal_bg_found .calendar tr{
     width: 100%;
 }
 
-.modal_bg_lost .calendar td{
+.modal_bg_found .calendar td{
     font-size:20px;
     width:90px;
     height: 40px;
     cursor: default;
     text-align: center;
 }
-.modal_bg_lost .calendar th{
+.modal_bg_found .calendar th{
     font-size:26px;
     line-height: 45px;
     position: relative;
 
 }
-.modal_bg_lost .calendar .day td{
+.modal_bg_found .calendar .day td{
     font-size:22px;
     font-weight: 550;
     cursor: pointer;
@@ -227,13 +236,13 @@
 /* .calendar .day .fill{
     background-color: rgba(255, 255, 255, 0.657);
 } */
-.modal_bg_lost .calendar .day .today{
+.modal_bg_found .calendar .day .today{
     background-color: rgb(80, 149, 206);
 }
-.modal_bg_lost .calendar .day .fill:hover{
+.modal_bg_found .calendar .day .fill:hover{
     background-color: rgb(105,175,229);
 }
-.modal_bg_lost .calendar .switch_btn_calendar{
+.modal_bg_found .calendar .switch_btn_calendar{
     position: absolute;
     width: 100px;
     display: flex;
@@ -243,39 +252,20 @@
     justify-content: space-between;
     align-items: center;
 }
-.modal_bg_lost .calendar .switch_btn_calendar svg{
+.modal_bg_found .calendar .switch_btn_calendar svg{
     cursor: pointer;
 }
- .modal_bg_lost .sendBox{
-    margin-top:50px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-}
+ 
 
-.modal_bg_lost .sendBox .sendBtn{
-    color:#fff;
-    background-color:skyblue;
-    height: 60px;
-    width:300px;
-    font-size:24px;
-    border:none;
-    cursor: pointer;
-    border-radius: 8px;
-}
-.modal_bg_lost .sendBox .sendBtn:hover{
-    background-color: #028e9b;
-}
-
-.modal_bg_lost .lostArea{
+.modal_bg_found .foundArea{
     position: relative;
 }
-.modal_bg_lost .lostArea .value .text{
+.modal_bg_found .foundArea .value .text{
     position: relative;
     top:18px;
     left:5px;
 }
-.modal_bg_lost .lostArea .value .areaDetail{
+.modal_bg_found .foundArea .value .areaDetail{
     display: none;
     font-size:24px;
     color:#666;
@@ -285,7 +275,7 @@
     background-color: transparent;
 }
 /* 地点 */
-.modal_bg_lost .area{
+.modal_bg_found .area{
     width:70px;
     height:40px;
     position: absolute;
@@ -296,10 +286,15 @@
     justify-content: center;
 }
 
-.modal_bg_lost .area:hover .icon path{
-    fill:#028e9b;
+.modal_bg_found .area:hover .icon path{
+    fill:#02A7F0;
 }
-.modal_bg_lost .area_objClassPane{
+.modal_bg_found .area .areaPane{
+    bottom:-100px;
+}
+
+
+.modal_bg_found .area_objClassPane{
     display: none;
     border-radius: 14px;
     position: absolute;
@@ -314,27 +309,28 @@
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #ccc;
+   z-index: 100;
 }
 
-.modal_bg_lost .area_objClassPane .row_area_classPane:nth-child(1){
+.modal_bg_found .area_objClassPane .row_area_classPane:nth-child(1){
     margin-top: 0px;
 }
-.modal_bg_lost .area_objClassPane .row_area_classPane{
+.modal_bg_found .area_objClassPane .row_area_classPane{
     margin-top:20px;
 }
-.modal_bg_lost .area_objClassPane .title_row{
+.modal_bg_found .area_objClassPane .title_row{
     font-size:24px;
     color:#555;
     font-weight:600;
     width: 100%;
 }
 
-.modal_bg_lost .area_objClassPane .itemBox{
+.modal_bg_found .area_objClassPane .itemBox{
     margin-top:10px;
     display: flex;
     flex-wrap: wrap;
 }
-.modal_bg_lost .area_objClassPane .itemBox .item{
+.modal_bg_found .area_objClassPane .itemBox .item{
     display:inline-block;
     line-height: 30px;
     padding:3px 9px;
@@ -344,8 +340,8 @@
     font-size:20px;
     /* border:1px solid #000; */
 }
-.modal_bg_lost .area_objClassPane .itemBox .item:hover{
-    background-color:#028e9b;
+.modal_bg_found .area_objClassPane .itemBox .item:hover{
+    background-color:#02A7F0;
     color:#fff;
 }
 
@@ -353,15 +349,14 @@
 
 /* 添加图片 */
 
-.modal_bg_lost .addPic .imgBox{
-    
+.modal_bg_found .addPic .imgBox{
     float: left;
     height: 130px;
     display: flex;
     justify-content: space-between;
     max-width: 300px;
 }
-.modal_bg_lost .addPic .imgBox .imgItem{
+.modal_bg_found .addPic .imgBox .imgItem{
     margin-right:20px;
     float: left;
     width:130px;
@@ -373,13 +368,13 @@
     justify-content: center;
     align-items: center;
 }
-.modal_bg_lost .addPic .imgBox .imgItem img{
+.modal_bg_found .addPic .imgBox .imgItem img{
     width: auto;
     height: auto;
     max-width: 100%;
     max-height: 100%;
 }
-.modal_bg_lost .addPic .addBtn{
+.modal_bg_found .addPic .addBtn{
     border:1px solid #999;
     margin-top:20px;
     border-radius: 14px;
@@ -390,252 +385,177 @@
     justify-content: center;
     align-items: center;
 }
-.modal_bg_lost .addPic .addBtn:hover{
-    border-color:#028e9b;
+.modal_bg_found .addPic .addBtn:hover{
+    border-color:#02A7F0;
 }
-.modal_bg_lost .addPic .addBtn:hover path{
-    fill:#028e9b
+.modal_bg_found .addPic .addBtn:hover path{
+    fill:#02A7F0;
 }
 
-.modal_bg_lost .search_display{
+/* 发表按钮 */
+.modal_bg_found .sendBox{
     position: absolute;
-    display: none;
-    top:100px;
-    left:600px;
-    padding:0px 15px 15px 15px;
-    width:580px;
-    height:635px;
-    border-radius:14px;
-    background-color:#fff;
-    box-shadow: 10px 10px 35px 1px rgba(0, 0, 0, 0.5);
-    z-index:1000;
-}
-.modal_bg_lost .search_display .title{
+    bottom:20px;
+    left:50%;
+    transform: translate(-50%,0);
     height: 60px;
-    font-size:28px;
-    color:#666;
-    text-align: center;
-    font-weight: 700;
-    line-height: 60px;
-    border-bottom: 1px solid #999;
+    display: flex;
+    justify-content: center;
 }
-.modal_bg_lost .search_display ul{
-    list-style: none;
-    overflow-y: auto;
-    height: 570px;
-    scrollbar-width:thin;
-    scrollbar-color: #ccc ;
+.modal_bg_found .sendBox .sendBtn{
+    color:#fff;
+    background-color:skyblue;
+    height: 60px;
+    width:500px;
+    font-size:24px;
+    border:none;
+    cursor: pointer;
+    border-radius: 8px;
 }
-.modal_bg_lost .search_display ul::-webkit-scrollbar{
-    width:5px;
-    height: 5px;
-}
-.modal_bg_lost .search_display ul::-webkit-scrollbar-thumb{
-    border-radius: 5px;
-    background-color: #ccc;
-}
-.modal_bg_lost .search_display ul::-webkit-scrollbar-track{
-    border-radius: 0;
-    background-color:transparent;
+.modal_bg_found .sendBox .sendBtn:hover{
+    background-color: #02A7F0;
 }
 
-.modal_bg_lost .search_display ul li{
-    margin-top:10px;
-    position: relative;
-    height:130px;
-}
-.modal_bg_lost .search_display ul li img{
-    position: absolute;
-    top:5px;
-    border-radius: 8px;
-    width:120px;
-    height: 120px;
-}
-.modal_bg_lost .search_display ul li .name{
-    font-size:26px;
-    color:#555;
-    position: absolute;
-    top:5px;
-    left:140px;
-    line-height: 30px;
-    font-weight: 700;
-    max-width:300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.modal_bg_lost .search_display ul li .type{
-    background-color: skyblue;
-    color:#fff;
-    font-size: 20px;
-    line-height: 28px;
-    padding:0 20px;
-    display: inline-block;
-    border-radius: 14px;
-    position: absolute;
-    top:6px;
-    right:10px;
-}
-.modal_bg_lost .search_display ul li a{
-    text-decoration: none;
-    color:#666;
-    display: block;
-}
-.modal_bg_lost .search_display ul li .detail{
-    font-size:22px;
-    color:#666;
-    position: absolute;
-    top:60px;
-    left:140px;
-    display: -webkit-box;   
-    -webkit-box-orient: vertical;   
-    -webkit-line-clamp: 2;   
-    overflow: hidden;
-}
+
 /* 70% */
 @media(max-width:1960px){
     
 }
 /* 80% */
 @media(max-width:1789px){
-    .modal_bg_lost .row{
+    .modal_bg_found .row{
         height: 56px;
         justify-content: space-between;
     }
-    .modal_bg_lost .leftBox .row{
-        margin-top:16px;
+    .modal_bg_found .leftBox .row{
+        margin-top:36px;
     }
-    .modal_bg_lost .leftBox .row:first-of-type{
-        margin-top: 0;
-    }
-    .modal_bg_lost .tip{
+    .modal_bg_found .tip{
         font-size:16px;
         width:24%;
     }
-    .modal_bg_lost .row .value{
+    .modal_bg_found .row .value{
         font-size:14px;
         height: 34px;
         width:74%;
     }
-    .modal_bg_lost .fadeout_lostModal{
+    .modal_bg_found .fadeout_foundModal{
         font-size:30px;
         top:0px;
         right:10px;
     }
-    .modal_bg_lost .objClass .value .text{
+    .modal_bg_found .objClass .value .text{
         font-size:14px;
         top:9px;
     }
-    .lostTime .time_display .num{
+    .foundTime .time_display .num{
         font-size:16px;
     }
-    .modal_bg_lost .value_box{
+    .modal_bg_found .value_box{
         font-size:14px;
         margin-top:10px;
     }
-    .modal_bg_lost .leftBox .row svg{
+    .modal_bg_found .leftBox .row svg{
         height: 20px;
     }
-    .modal_bg_lost .addPic .addBtn svg{
+    .modal_bg_found .addPic .addBtn svg{
         height: 34px;
     }
-    .modal_bg_lost .addPic .addBtn{
+    .modal_bg_found .addPic .addBtn{
         width:80px;
         height: 80px;
     }
-    .modal_lost{
+    
+    .modal_found{
         width:835px;
         height: 410px;
     }
-    .modal_bg_lost .sendBox{
-        margin-top:26px;
-    }
    
-    .modal_bg_lost .value_box{
+    .modal_bg_found .value_box{
         height:48px;
     }
-    .modal_bg_lost .pictureBox{
+    .modal_bg_found .pictureBox{
         height: 120px;
     }
-    .modal_bg_lost .sendBox .sendBtn{
+    .modal_bg_found .sendBox .sendBtn{
         height: 35px;
-        width:222px;
+        width:325px;
         font-size:18px;
     }
-    .modal_bg_lost .addPic .imgBox{
+    .modal_bg_found .addPic .imgBox{
         height:80px;
     }
-    .modal_bg_lost .addPic .imgBox .imgItem{
+    .modal_bg_found .addPic .imgBox .imgItem{
         width:80px;
         height: 80px;
     }
-    .modal_bg_lost .objClass_entrance{
+    .modal_bg_found .objClass_entrance{
         top:20px;
         right:0;
     }
-    .modal_bg_lost .calendar_entrance{
+    .modal_bg_found .calendar_entrance{
         top:20px;
         right:-3px;
     }
-    .modal_bg_lost .area{
+    .modal_bg_found .area{
         top:20px;
         right:-22px;
     }
-    .modal_bg_lost .sendBox{
+    .modal_bg_found .sendBox{
         bottom:0;
     }
-    .modal_bg_lost .lostTime .time_display{
+    .modal_bg_found .foundTime .time_display{
         max-width: 72%;
         top:9px;
     }
-    .modal_bg_lost .lostArea .value .text{
+    .modal_bg_found .foundArea .value .text{
         top:9px;
     }
-    .modal_bg_lost .lostArea .value .areaDetail{
+    .modal_bg_found .foundArea .value .areaDetail{
         font-size:16px;
         top:9px;
     }
-    .modal_bg_lost .area_objClassPane .title_row{
+    .modal_bg_found .area_objClassPane .title_row{
         font-size:16px;
     }
-    .modal_bg_lost .area_objClassPane .itemBox .item{
+    .modal_bg_found .area_objClassPane .itemBox .item{
         font-size:14px;
         line-height: 24px;
         border-radius: 12px;
         margin:2.5px 5px;
     }
-    .modal_bg_lost .objClass_entrance .objClassPane{
+    .modal_bg_found .objClass_entrance .objClassPane{
         width: 410px;
         height: 380px;
         left:37px;
-        top:-95px;
+        top:-115px;
         overflow-y: auto;
     }
-    .modal_bg_lost .area .areaPane{
+    .modal_bg_found .area .areaPane{
         width: 410px;
         height: 380px;
         left:60px;
-       bottom:-138px;
+       bottom:-80px;
         overflow-y: auto;
     }
-    .modal_bg_lost .calendar th{
+    .modal_bg_found .calendar th{
         font-size:18px;
     }
     .calendar th span{
         font-size:20px;
     }
-    .modal_bg_lost .calendar .day td{
+    .modal_bg_found .calendar .day td{
         font-size:16px;
     }
-    .modal_bg_lost .calendar td{
+    .modal_bg_found .calendar td{
         font-size:16px;
         width:60px;
         height: 30px;
     }
-    .modal_bg_lost .calendar{
+    .modal_bg_found .calendar{
         width: 430px;
     }
-    .modal_bg_lost .calendar .switch_btn_calendar{
+    .modal_bg_found .calendar .switch_btn_calendar{
         width: 70px;
     }
 }
@@ -648,6 +568,3 @@
 @media(max-width:1280px){
     
 }
-
-
-

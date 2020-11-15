@@ -1,7 +1,7 @@
 $(function() {
     //#region //刷新页面 清空表单内容
 
-    $('.logonBody input').val("");
+    // $('.logonBody input').val("");
 
     //#endregion
 
@@ -10,8 +10,8 @@ $(function() {
     // 点击表单 表单本身的提示语句span.tip 缩小上移
     $(".confirm input").on("focus", function() {
         $(this).siblings('.tip').animate({
-            fontSize: "28px",
-            top: "-22px",
+
+            bottom: "90%"
         }, 100)
         $(this).siblings(".tip").css("color", "#000");
     })
@@ -20,8 +20,8 @@ $(function() {
     $(".confirm input").on("blur", function() {
         if ($(this).val() == '') {
             $(this).siblings(".tip").animate({
-                fontSize: "35px",
-                top: "11px",
+                
+                bottom: "5%"
             }, 100)
         } else {
             var value = $(this).val();
@@ -34,10 +34,11 @@ $(function() {
     $(".fadein").on({
         click: function() {
             $(".tip").css({
-                fontSize: "35px",
-                top: "11px",
+               bottom:"5%"
             })
             $(".tip").css("color", "#555");
+            $('.logonBody input').val("");
+            $(".logonBody .modal_head b").html("用户登录")
         }
     })
 

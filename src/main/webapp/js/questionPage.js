@@ -7,30 +7,31 @@ var questionId_local = getQueryVariable("id");
 
 //登录者的学号
 
-
-
-
 function sentenceIsLogon() {
-    if (navigator.onLine && getCookie("markNumber") != null && getCookie("markNumber") != undefined &&
-        getCookie("userName") != null && getCookie("userName") != undefined &&
-        getCookie("face") != undefined && getCookie("face") != null) {
+    if (navigator.onLine && $.cookie("markNumber") != null && $.cookie("markNumber") != undefined &&
+        $.cookie("userName") != null && $.cookie("userName") != undefined &&
+        $.cookie("face") != undefined && $.cookie("face") != null) {
         isLogon = true;
-        answerData["markNumber"] = getCookie("markNumber")[2];
+        answerData["markNumber"] = $.cookie("markNumber");
     } else {
         isLogon = false;
     }
 }
 
-// console.log(getCookie("markNumber"));
+
+
+// console.log($.cookie("markNumber"));
 $(window).on("load", () => {
     sentenceIsLogon(); //判断是否登录
     loadQuestion();
     getAnswer(1);
 })
 
+
 function fixed() {
-    // console.log("头部固定");
-    if ($(this).scrollTop() > 500) {
+  //侧边栏的固定
+    
+    if ($(this).scrollTop() > 500 ) {
         // $('.head_search_outside').addClass("head_search_outside_fixed");
         $('.sideBox_fixed').addClass("sideBox_fixed_on");
         $('.sideBox_fixed').css("right", "");
@@ -39,7 +40,10 @@ function fixed() {
         // console.log($('.question_info_main').width());
         // console.log($('.sideBox_fixed').width());
         $('.sideBox_fixed').css("left", $('.question_info_main').get(0).offsetLeft + $('.question_info_main').width() - $('.sideBox_fixed').width() + "px");
-        $('.sideBox_fixed .author_info_box').slideDown();
+        
+        if($(this).height()>900){
+            $('.sideBox_fixed .author_info_box').slideDown();
+        }
 
     } else {
         // $('.head_search_outside').removeClass("head_search_outside_fixed");
@@ -123,11 +127,7 @@ $(".modal").on({
 //#endregion
 
 // 窗口缩放
-$(window).bind("resize", () => {
-    if ($(this).scrollTop() > 500) {
-        $('.sideBox_fixed').css("left", $('.question_info_main').get(0).offsetLeft + $('.question_info_main').width() - $('.sideBox_fixed').width() + "px");
-    }
-})
+$(window).bind("resize", fixed);
 
 //设置背景高度
 $('#fadeinLogon').click(function() {
@@ -236,7 +236,7 @@ function readFile() {
 function sendImage(formdata, imgObj) { //imgObj是jq对象
     sendingImg = true;
     $.ajax({
-        url: '../Servlet/ReceiveFileServlet',
+        url: 'http://192.168.137.122:8080/Servlet/ReceiveFileServlet',
         type: 'post',
         data: formdata,
         dataType: 'json',
@@ -340,7 +340,7 @@ function sendAnswer() {
     answerData["answerContents"] = answerContents;
     // console.log(answerData);
     $.ajax({
-        url: "../Servlet/AnswerServlet",
+        url: "http://192.168.137.122:8080/Servlet/AnswerServlet",
         type: "post",
         dataType: 'json',
         data: JSON.stringify(answerData),
@@ -362,14 +362,14 @@ function sendAnswer() {
                 loadMyNewAnswer(answerContents, res.id);
                 //发送通知
                 var data = {
-                    "senderMarkNumber": getCookie("markNumber")[2],
+                    "senderMarkNumber": $.cookie("markNumber"),
                     "receiverMarkNumber": oAuthor.markNumber,
                     "content": '回答了你的问题"' + $(".question_info_box .questionTitle").html() + '。"',
                     "additionContent": "额外内容 可以为空",
                     "type": "inf",
-                    "senderName": getCookie("userName")[2],
+                    "senderName": $.cookie("userName"),
                     "isRead": false,
-                    "senderFace": getCookie("face")[2],
+                    "senderFace": $.cookie("face"),
                     "requestType": "post"
                 }
                 sendInfo(data);
@@ -393,11 +393,11 @@ $("#sendAnswerBtn").click(function() {
     })
     //把用户刚发布的回答显示出来，这个其实是要后端再发相应的
 function loadMyNewAnswer(answerContents, answerId) {
-    var type = getCookie("level") != null ? "学生" : "教师";
-    var school_info = type == "学生" ? getCookie("major")[2] : getCookie("college")[2];
+    var type = $.cookie("level") != null ? "学生" : "教师";
+    var school_info = type == "学生" ? $.cookie("major") : $.cookie("college");
     var framObj = $("<div class='answerItem'></div>");
     var reg = /(..\/)/;
-    var src = getCookie("face")[2];
+    var src = $.cookie("face");
     src = src.replace(reg.exec(src)[0], "../");
     var date = new Date();
 
@@ -408,7 +408,7 @@ function loadMyNewAnswer(answerContents, answerId) {
             agree: "no_agree",
             time: date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate(),
             face: src,
-            userName: getCookie("userName")[2],
+            userName: $.cookie("userName"),
             schoolInfo: school_info
         }
         // console.log()
@@ -456,7 +456,7 @@ function loadMyNewAnswer(answerContents, answerId) {
             displayTipPane("请先完成登录！");
             return;
         }
-        agreeAnswer.call($(this), getCookie("markNumber")[2]);
+        agreeAnswer.call($(this), $.cookie("markNumber"));
     });
     framObj.find(".like_btn").attr("status", "no_agree");
 
@@ -484,15 +484,15 @@ function getAnswer(curPage) {
         requestType: "get",
         getAnswerType: "question",
         questionId: questionId_local, // 进入该页面后应该会有questionId
-        // markNumber: getCookie("markNumber")[2], // 用户者的学号
+        // markNumber: $.cookie("markNumber"), // 用户者的学号
         currentPage: curPage //当前页面
     }
     if (isLogon) {
-        data1["viewerMarkNumber"] = getCookie("markNumber")[2];
+        data1["viewerMarkNumber"] = $.cookie("markNumber");
     }
 
     $.ajax({
-        url: "../Servlet/AnswerServlet",
+        url: "http://192.168.137.122:8080/Servlet/AnswerServlet",
         dataType: "json",
         type: "get",
         data: data1,
@@ -529,7 +529,7 @@ function displayAnswers(arr, markNumber) {
         var src = authorObj.face;
         // console.log(authorObj);
         // console.log("图片地址:"+src);
-        src = src.replace(reg.exec(src)[0], "..//");
+        src = src.replace(reg.exec(src)[0], "../");
 
         var contentObj = {
             agreeCount: arr[i].agreeCount,
@@ -627,7 +627,7 @@ function addAnswerContentText(contentArr) {
             // console.log( arr[i].contents[j]);
             var reg = /(..\/)/;
             var src = contentArr[j]["contentMain"];
-            src = src.replace(reg.exec(src)[0], "..//");
+            src = src.replace(reg.exec(src)[0], "../");
             // console.log(src);
             contentText += "<img class='' src='" + src + "'/>";
         }
@@ -647,7 +647,7 @@ function seeComment(nextPage) {
     if ($(this).attr("loadingAbility") == "true") { //请求第一页代表初始化
         // console.log("初始化评论条")
         $.ajax({
-            url: "../Servlet/CommentServlet",
+            url: "http://192.168.137.122:8080/Servlet/CommentServlet",
             data: {
                 requestType: "get",
                 getType: "answer",
@@ -682,7 +682,7 @@ function displayComment(dataList) {
         var item = dataList[i];
         data = item.student != null ? item.student : item.teacher;
         var reg = /(..\/)/;
-        data.face = data.face.replace(reg.exec(data.face)[0], "..//");
+        data.face = data.face.replace(reg.exec(data.face)[0], "../");
         // console.log(data.face);
         data.content = item.content;
         var commentItem = template("template_commentItem", data);
@@ -702,7 +702,7 @@ function loadMoreComment() {
     commentList.attr("nextPage", nextPage);
     // console.log(nextPage);
     $.ajax({
-        url: "../Servlet/CommentServlet",
+        url: "http://192.168.137.122:8080/Servlet/CommentServlet",
         data: {
             requestType: "get",
             getType: "answer",
@@ -756,7 +756,7 @@ function sendComment() {
     var data_1 = {
         requestType: "post",
         answerId: answerItem.attr("answerid"),
-        markNumber: getCookie("markNumber")[2],
+        markNumber: $.cookie("markNumber"),
         content: text
     };
     var obj = $(this); //this指发表评论的按钮
@@ -783,7 +783,7 @@ function sendComment() {
     // 发送评论
     function send() {
         $.ajax({
-            url: "../Servlet/CommentServlet",
+            url: "http://192.168.137.122:8080/Servlet/CommentServlet",
             type: "post",
             data: JSON.stringify(data_1),
             dataType: "json",
@@ -808,14 +808,14 @@ function sendComment() {
                         oAgreeCount.html(parseInt(oAgreeCount.html()) + 1);
                         obj.attr("changing", "false");
                         var data = {
-                            "senderMarkNumber": getCookie("markNumber")[2],
+                            "senderMarkNumber": $.cookie("markNumber"),
                             "receiverMarkNumber": obj.parents(".answerItem").attr("answerId"),
                             "content": '评论了你对"' + $(".question_info_box .questionTitle").html() + '"的回答',
                             "additionContent": "额外内容 可以为空",
                             "type": "inf",
-                            "senderName": getCookie("userName")[2],
+                            "senderName": $.cookie("userName"),
                             "isRead": false,
-                            "senderFace": getCookie("face")[2],
+                            "senderFace": $.cookie("face"),
                             "requestType": "post"
                         }
                         sendInfo(data);
@@ -828,13 +828,13 @@ function sendComment() {
     }
 
     function loadMyNewComment(text) {
-        var src = getCookie("face")[2];
+        var src = $.cookie("face");
         var reg = /(..\/)/;
         src = src.replace(reg.exec(src)[0], "../");
         var data = {
             content: text,
             face: src,
-            userName: getCookie("userName")[2]
+            userName: $.cookie("userName")
         }
         var comment = template("template_commentItem", data);
         $(this).parents(".answerItem").find(".commentList .contentBox").prepend(comment);
@@ -858,13 +858,13 @@ $('.question_info_main .like_btn .icon').click(function() {
         var obj = $(this);
         if (status == "agree") { //再次点击为取消点赞
             $.ajax({
-                url: "../Servlet/AgreeServlet",
+                url: "http://192.168.137.122:8080/Servlet/AgreeServlet",
                 type: "get",
                 dataType: "json",
                 data: {
                     requestType: "delete",
                     agreeType: "question",
-                    markNumber: getCookie("markNumber")[2],
+                    markNumber: $.cookie("markNumber"),
                     questionId: questionId_local //先写这个
                 },
                 success: function(res) {
@@ -880,13 +880,13 @@ $('.question_info_main .like_btn .icon').click(function() {
             })
         } else if (status == "no_agree") {
             $.ajax({
-                url: "../Servlet/AgreeServlet",
+                url: "http://192.168.137.122:8080/Servlet/AgreeServlet",
                 type: "post",
                 dataType: "json",
                 data: JSON.stringify({
                     requestType: "post",
                     agreeType: "question",
-                    markNumber: getCookie("markNumber")[2],
+                    markNumber: $.cookie("markNumber"),
                     questionId: questionId_local //先写这个
                 }),
                 success: function(res) {
@@ -898,14 +898,14 @@ $('.question_info_main .like_btn .icon').click(function() {
                         oAgreeCount.html(parseInt(oAgreeCount.html()) + 1);
                         obj.attr("changing", "false");
                         var data = {
-                            "senderMarkNumber": getCookie("markNumber")[2],
+                            "senderMarkNumber": $.cookie("markNumber"),
                             "receiverMarkNumber": oAuthor.markNumber,
                             "content": '点赞了你的问题"' + $(".question_info_box .questionTitle").html() + '"',
                             "additionContent": "额外内容 可以为空",
                             "type": "inf",
-                            "senderName": getCookie("userName")[2],
+                            "senderName": $.cookie("userName"),
                             "isRead": false,
-                            "senderFace": getCookie("face")[2],
+                            "senderFace": $.cookie("face"),
                             "requestType": "post"
                         }
                         sendInfo(data);
@@ -935,13 +935,13 @@ function agreeAnswer(markNumber_2) {
     // console.log($(this));
     if (status == "agree") { //再次点击为取消点赞
         $.ajax({
-            url: "../Servlet/AgreeServlet",
+            url: "http://192.168.137.122:8080/Servlet/AgreeServlet",
             type: "get",
             dataType: "json",
             data: {
                 requestType: "delete",
                 agreeType: "answer",
-                markNumber: getCookie("markNumber")[2],
+                markNumber: $.cookie("markNumber"),
                 answerId: $(this).parents(".answerItem").attr("answerId")
             },
             success: function(res) {
@@ -957,13 +957,13 @@ function agreeAnswer(markNumber_2) {
     } else if (status == "no_agree") {
         //点赞
         $.ajax({
-            url: "../Servlet/AgreeServlet",
+            url: "http://192.168.137.122:8080/Servlet/AgreeServlet",
             type: "post",
             dataType: "json",
             data: JSON.stringify({
                 requestType: "post",
                 agreeType: "answer",
-                markNumber: getCookie("markNumber")[2],
+                markNumber: $.cookie("markNumber"),
                 answerId: $(this).parents(".answerItem").attr("answerId") //先写这个
             }),
             success: function(res) {
@@ -976,14 +976,14 @@ function agreeAnswer(markNumber_2) {
                     oAgreeCount.html(parseInt(oAgreeCount.html()) + 1);
                     obj.attr("changing", "false");
                     var data = {
-                        "senderMarkNumber": getCookie("markNumber")[2],
+                        "senderMarkNumber": $.cookie("markNumber"),
                         "receiverMarkNumber": markNumber_2,
                         "content": '点赞了你对"' + $(".question_info_box .questionTitle").html() + '"的回答',
                         "additionContent": "额外内容 可以为空",
                         "type": "inf",
-                        "senderName": getCookie("userName")[2],
+                        "senderName": $.cookie("userName"),
                         "isRead": false,
-                        "senderFace": getCookie("face")[2],
+                        "senderFace": $.cookie("face"),
                         "requestType": "post"
                     }
                     sendInfo(data);
@@ -997,11 +997,11 @@ function agreeAnswer(markNumber_2) {
 //关注作者
 function subscribeAuthor() {
     $.ajax({
-        url: "../Servlet/AttentionServlet",
+        url: "http://192.168.137.122:8080/Servlet/AttentionServlet",
         type: "post",
         dataType: 'json',
         data: JSON.stringify({
-            "majorMarkNumber": getCookie("markNumber")[2],
+            "majorMarkNumber": $.cookie("markNumber"),
             "passMarkNumber": oAuthor.markNumber,
             "requestType": "post"
         }),
@@ -1012,14 +1012,14 @@ function subscribeAuthor() {
                 $(".author_info_box .subscribe_btn").attr("status", "subscribe");
                 $(".author_info_box .subscribe_btn").html("已关注");
                 var data = {
-                    "senderMarkNumber": getCookie("markNumber")[2],
+                    "senderMarkNumber": $.cookie("markNumber"),
                     "receiverMarkNumber": oAuthor.markNumber,
                     "content": "关注了你",
                     "additionContent": "额外内容 可以为空",
                     "type": "inf",
-                    "senderName": getCookie("userName")[2],
+                    "senderName": $.cookie("userName"),
                     "isRead": false,
-                    "senderFace": getCookie("face")[2],
+                    "senderFace": $.cookie("face"),
                     "requestType": "post"
                 };
                 sendInfo(data);
@@ -1031,12 +1031,12 @@ function subscribeAuthor() {
 function cancelSubscribeAuthor() {
 
     $.ajax({
-        url: "../Servlet/AttentionServlet",
+        url: "http://192.168.137.122:8080/Servlet/AttentionServlet",
         type: "get",
         dataType: "json",
         data: {
             requestType: "delete",
-            majorMarkNumber: getCookie("markNumber")[2],
+            majorMarkNumber: $.cookie("markNumber"),
             passMarkNumber: oAuthor.markNumber
         },
         success: function(res) {
@@ -1046,14 +1046,14 @@ function cancelSubscribeAuthor() {
                 $(".author_info_box .subscribe_btn").attr("status", "no_subscribe");
                 $(".author_info_box .subscribe_btn").html("关注");
                 var data = {
-                    "senderMarkNumber": getCookie("markNumber")[2],
+                    "senderMarkNumber": $.cookie("markNumber"),
                     "receiverMarkNumber": oAuthor.markNumber,
                     "content": "取消对你的关注。",
                     "additionContent": "额外内容 可以为空",
                     "type": "inf",
-                    "senderName": getCookie("userName")[2],
+                    "senderName": $.cookie("userName"),
                     "isRead": false,
-                    "senderFace": getCookie("face")[2],
+                    "senderFace": $.cookie("face"),
                     "requestType": "post"
                 };
                 sendInfo(data);
@@ -1093,7 +1093,7 @@ function loadQuestion() {
         questionId: questionId_local, //需要jsp来获取请求
     }
     if (isLogon) {
-        data1["viewerMarkNumber"] = getCookie("markNumber")[2];
+        data1["viewerMarkNumber"] = $.cookie("markNumber");
     }
     $.ajax({
         url: "../Servlet/QuestionServlet",
@@ -1124,7 +1124,7 @@ function setQuestionMain(data) {
         var src = data.contents[i]['contentMain'];
         // console.log(authorObj);
         // console.log("图片地址:"+src);
-        src = src.replace(reg.exec(src)[0], "..//");
+        src = src.replace(reg.exec(src)[0], "../");
         $('.question_info_main .questionImage').append('<img title="点击放大" class="fadein fadein_img" src="' + src + '">');
 
         //点击图片放大
@@ -1183,7 +1183,7 @@ function setAuthorInfo(data) {
         $(".author_info_box .userName").html(oAuthor.userName);
     }
     var reg = /(..\/)/;
-    src = src.replace(reg.exec(src)[0], "..//");
+    src = src.replace(reg.exec(src)[0], "../");
     $('.author_info_box .profile img').attr("src", src);
 
     //关注和私信禁用
@@ -1223,7 +1223,7 @@ $('.copyLink_btn').click(function() {
 function sendInfo(data) {
     // console.log("发送了通知！")
     $.ajax({
-        url: "../Servlet/InfServlet",
+        url: "http://192.168.137.122:8080/Servlet/InfServlet",
         type: "post",
         data: JSON.stringify(data),
         success: function(res) {
@@ -1254,14 +1254,14 @@ $('.sendText_btn').on({
         })
 
         var meObj = {
-            id: getCookie("markNumber")[2],
-            face: getCookie('face')[2]
+            id: $.cookie("markNumber"),
+            face: 'http://192.168.137.122:8080' + $.cookie('face').substring(2)
         };
-        // console.log(getCookie("markNumber")[2]);
+        // console.log($.cookie("markNumber"));
         $(".platform_chat .targetName").text(oAuthor.userName);
         var targetObj = {
             id: oAuthor.markNumber,
-            face: oAuthor.face,
+            face: 'http://192.168.137.122:8080' + oAuthor.face.substring(2),
             name: oAuthor.userName
         }
         // console.log(targetObj);
@@ -1285,7 +1285,7 @@ function chat(meObj, targetObj, callback) {
         //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
         let markNumber = meObj.id;
         let wantToSendMarkNumber = targetObj.id;
-        ws = new WebSocket("ws://localhost:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
+        ws = new WebSocket("ws://192.168.137.122:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
     } else {
         // displayTipPane("连接失败");
         return;

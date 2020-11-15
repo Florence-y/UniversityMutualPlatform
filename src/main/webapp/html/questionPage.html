@@ -13,8 +13,9 @@
     <link href="../css/question&answer_Page.css" type="text/css" rel="stylesheet">
     <link href="../css/tipPane.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="../css/chat.css">
-
+   
     <script src="../js/jquery-3.5.1.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
     <script src="../js/logOn.js"></script>
     <script src="../js/quiz.js"></script>
     <script src="../js/nav.js"></script>
@@ -235,7 +236,7 @@
             <!-- 首页+校区互通+失物招领+提问 功能页面 -->
             <div class="functionNav">
                 <ul>
-                    <li title="首页" class="index-li" onclick="window.open('../index.html')">首页</li>
+                    <li title="首页" class="index-li" onclick="window.open('index.html')">首页</li>
                     <!-- <li title="校区互通" class="campus-li">校区互通</li> -->
                     <li title="失物招领" class="lostAndFound-li" onclick="window.open('lost&found_index.html')">失物招领</li>
                     <!-- <li title="提问" class="quiz-li">提问</li> -->
@@ -286,409 +287,203 @@
                     <em class="toRegister"  onclick="window.open('register.html')">注册</em>
                 </button>
             </div>
-
-            <!--         头像            -->
+               <!--         头像            -->
             <div class="logonHeadPortrait">
 
                 <!-- 头像 -->
-                <span class="headPortrait">
+                <div class="headPortrait">
 
                     <!-- 导航栏上的头像 -->
-                    <img  class="navHPY" src="../img/InitialPortrait.jpg" alt=" " title="个人中心 ">
+                    <img class="navHPY" src="../img/InitialPortrait.jpg" alt=" " title="个人中心 ">
 
-                    <!-- 头像的二级导航 -->
                     <div class="hpSecond">
-
-                        <!-- 小三角 -->
-                        <b class="triangle"></b>
-
-                        <!-- 个人属性part -->
-                        <!-- 用户头像 用户名 -->
-                        <div class="hpPersonalAttributes">
-                            <img class="ResMessageFace" src="../img/InitialPortrait.jpg " alt=" ">
-                            <em> <b class="ResUserName"></b></em>
-                            <em> <b class="ResMarkNumber"></b></em>
-                            <em> <b class="ResMessagePojoMajor"></b> </em>
-                            
+                        <!-- 头像的二级导航 -->
+                        <div class="hpSecond_general">
+                    
+                            <!-- 小三角 -->
+                            <b class="triangle"></b>
+                            <!-- 个人属性part -->
+                            <!-- 用户头像 用户名 -->
+                            <div class="hpPersonalAttributes">
+                                <img class="ResMessageFace" src="../img/InitialPortrait.jpg " alt=" ">
+                                <em> <b class="ResUserName"></b></em>
+                                <em> <b class="ResMarkNumber"></b></em>
+                                <em> <b class="ResMessagePojoMajor"></b> </em>
+                    
+                            </div>
+                            <!-- 进入个人中心 -->
+                            <div><i class="iconfont iconjinru2"></i><em>进入个人中心</em> </div>
+                            <!-- 我的关注 -->
+                            <div class="attention secondPane_entrance" target="concernsY">
+                                <i class="iconfont iconwodeguanzhu"></i>
+                                <em>我的关注</em>
+                    
+                            </div>
+                            <!-- 我的问答 -->
+                            <div class="myQAY secondPane_entrance" target="QandAY">
+                                <i class="iconfont iconV "></i>
+                                <em>我的问答</em>
+                            </div>
+                    
+                            <!-- 我的收藏 -->
+                            <div class="myCollY secondPane_entrance" target="collectionY">
+                                <i class="iconfont iconwodeshoucang "></i><em>我的收藏</em>
+                            </div>
+                    
+                            <!-- 退出登录 -->
+                            <div class="exitLogonY"><i class="iconfont icontuichudenglu "></i><em>退出登录</em></div>
                         </div>
+                    
+                        <!-- 我的关注打开面板 -->
+                        <div class="hpSecondSecond concernsY">
+                            <div class="hoverBox">
+                                <div class="title">我的关注</div>
+                                <div class="mode_selection">
+                                    <span class="mode active" id="hoverBox_interest">我关注的人</span>
+                                    <span class="mode" id="hoverBox_fans">关注我的人</span>
+                                    <span class="activeLine toLeft"></span>
+                                </div>
+                    
+                    
+                                <!-- 内容框 -->
+                                <div class="contentBox_subscribe">
+                                    <div class="itemList_box">
+                                        <ul class="itemList myAttention" style="display: block;">
+                                        </ul>
+                                        <ul class="itemList attentionMe"></ul>
+                                    </div>
+                                </div>
+                    
+                            </div>
+                           
+                        </div>
+                        <!-- 我的回答打开面板 -->
+                        <div class="hpSecondSecond QandAY">
+                            <div class="hoverBox">
+                                <div class="title">我的问答</div>
+                                <div class="mode_selection">
+                                    <span class="mode active" id="hoverBox_request">我的提问</span>
+                                    <span class="mode" id="hoverBox_answer">我的回答</span>
+                                    <span class="activeLine toLeft"></span>
+                                </div>
+                                <!-- 内容框 -->
+                                <div class="contentBox_request ">
+                                    <div class="itemList_box ">
+                                        <ul class="itemList myCue" style="display: block;">
+                                            <!-- 我的提问和我的回答框架一样 -->
+                                        </ul>
+                                        <ul class="itemList myAns"></ul>
+                                    </div>
+                                </div>
+                    
+                            </div>
+                        </div>
+                        <!-- 我的收藏打开面板 -->
+                        <div class="hpSecondSecond collectionY ">
+                            <div class="hoverBox ">
+                                <div class="title ">我的收藏</div>
+                                <!-- 内容框 -->
+                                <div class="contentBox_collection ">
+                                    <div class="itemList_box ">
+                                        <ul class="itemList mycollection">
+                                            <li class="item ">
+                                                <a href="# ">
+                                                    <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
+                                                    <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
+                                                    <div class="problem_lable_box ">
+                                                        <div class="lable ">
+                                                            标签一标签一标签一
+                                                        </div>
+                                                        <div class="lable ">
+                                                            标签二标签二标签二
+                                                        </div>
+                                                    </div>
+                                                    <div class="time_box ">
+                                                        <span class="time ">2小时前</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                    
+                                            <li class="item ">
+                                                <a href="# ">
+                                                    <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
+                                                    <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
+                                                    <div class="problem_lable_box ">
+                                                        <div class="lable ">
+                                                            标签一标签一标签一
+                                                        </div>
+                                                        <div class="lable ">
+                                                            标签二标签二标签二
+                                                        </div>
+                                                    </div>
+                                                    <div class="time_box ">
+                                                        <span class="time ">2小时前</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 提问 + 消息通知 -->
+            <div class="QAndM">
 
-                        <!-- 进入个人中心 -->
-                        <div><i class="iconfont iconjinru2"></i><em>进入个人中心</em> </div>
+                <!-- 提问 -->
+                <span class="cueY" title="提问">
+                    <i class="iconfont iconwenhao- fadeinQuiz"></i>
+                </span>
 
-                        <!-- 我的关注 -->
-                        <div class="attention">
-                            <i class="iconfont iconwodeguanzhu"></i>
-                            <em>我的关注</em>
-                            <div class="hpSecondSecond concernsY">
+                <!-- 消息 -->
+                <span class="message">
+                            <i class="iconfont iconxiaoxitongzhitixinglingshenglingdang-xianxing "></i>
+
+                            <i class="iconfont icondian" ></i>
+
+                            <div class="messageNotification">
                                 <div class="hoverBox">
-                                    <div class="title">我的关注</div>
+                                    <div class="title">消息通知</div>
                                     <div class="mode_selection">
-                                        <span class="mode active" id="hoverBox_interest">我关注的人</span>
-                <span class="mode" id="hoverBox_fans">关注我的人</span>
+                                        <span class="mode active" id="hoverBox_interest">动态通知</span>
+                <span class="mode" id="hoverBox_fans">私信通知</span>
                 <span class="activeLine toLeft"></span>
             </div>
-
-
             <!-- 内容框 -->
-            <div class="contentBox_subscribe">
+            <div class="contentBox_information">
                 <div class="itemList_box">
-                    <ul class="itemList myAttention" style="display: block;">
-                        <!-- <li class="item">
-                            <a class="img_link" href="#" title="进入主页">
-                                <img src="../img/use1 (1).jpg ">
-                            </a>
-                            <span class="userName">用户名</span>
-                            <span class="status">身份</span>
-                            <div class="sex">
+                    <ul class="itemList system" style="display: block;">
 
-                                <svg class="male" height="30" p-id="3642" t="1602171820438 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
-                                                            <path
-                                                                d="M262.144 419.84C194.56 270.336 286.72 106.496 407.552 18.432c-2.048 16.384-8.192 49.152-10.24 67.584 32.768-20.48 65.536-40.96 100.352-63.488 18.432 4.096 38.912 6.144 57.344 10.24
-                    63.488 65.536 180.224 69.632 215.04 165.888 34.816 114.688-26.624 225.28-61.44 333.824-20.48 69.632-67.584 135.168-137.216 161.792-65.536 26.624-143.36 4.096-192.512-45.056-63.488-65.536-67.584-159.744-116.736-229.376zM358.4 307.2c-79.872
-                    118.784-36.864 309.248 100.352 364.544 124.928 43.008 233.472-81.92 241.664-198.656 16.384-61.44-26.624-114.688-51.2-167.936-94.208 40.96-196.608 28.672-290.816 2.048z "
-                                                                fill="#17abe3 " p-id="3643 "></path>
-                                                            <path
-                                                                d="M133.12 788.48c61.44-59.392 147.456-81.92 227.328-102.4-4.096 118.784 20.48 245.76 114.688 325.632 12.288-88.064 20.48-178.176 18.432-268.288 12.288 0 38.912 0 51.2 2.048 0 88.064
-                    12.288 174.08 30.72 258.048 71.68-88.064 110.592-200.704 88.064-313.344 71.68 26.624 151.552 43.008 212.992 90.112 47.104 45.056 51.2 116.736 63.488 176.128V1024H81.92v-96.256c8.192-49.152 14.336-102.4 51.2-139.264z "
-                                                                fill="#17abe3 " p-id="3644 "></path>
-                                                        </svg>
-                                <svg class="female on" height="30 " p-id="3272 " t="1602171713920 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
-                                                            <path d="M373.793 306.073a373.53 373.53 0 0 0 283.884-6.724 373.53 373.53 0 0 1 41.089 185.272c-8.965 128.495-118.783 228.601-233.83 188.26s-158.378-259.978-91.143-366.808zM695.03 701.27a705.227
-                    705.227 0 0 0 144.183 46.318c86.66 20.918 153.895 173.318 149.413 275.666H32.386s0-224.119 113.553-261.472a1114.617 1114.617 0 0 0 185.272-64.994s-11.206 241.3 114.3 233.83c40.342 0 67.983-93.383 67.983-93.383s50.053 93.383 91.889 93.383c79.935
-                    0 88.9-198.718 89.647-229.348zM196.74 530.192a84.418 84.418 0 0 0 19.423 100.106C258 669.145 379.77 656.445 379.77 656.445a149.412 149.412 0 0 1-48.56 40.342l182.284 117.288L692.79 699.028c-50.8-27.64-28.388-44.077-28.388-44.077a313.02
-                    313.02 0 0 0 134.47-4.482c74.707-25.4 34.366-127.748 34.366-127.748 49.306-5.23 24.653-61.259-11.953-104.589S763.013 196.255 704.742 86.437C656.93 7.995 530.677 0.524 504.53 0.524a194.236 194.236 0 0 0-158.377 63.5C281.906 132.007 251.276
-                    299.35 243.06 350.15S168.35 481.633 168.35 499.562s28.39 30.63 28.39 30.63z " fill="#e8989a "
-                                                                p-id="3273 "></path>
-                                                        </svg>
-                            </div>
-
-                            <span class="school_info " title="互联网金融与信息工程学院 ">互联网金融与信息工程学院</span> 是否关注
-                            <div class="subscribe " nextAction="turnOn " title="关注 ">
-                                红 #d6204b
-                                <svg class="do_subscribe " height="30 " p-id="3875 " t="1602172191268 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
-                                                            <path d="M513.536 239.104S441.856 87.04 280.064 87.04C102.912 87.04 10.24 235.52 10.24 384c0 246.784 503.296 552.96 503.296 552.96S1013.76 633.856 1013.76 384c0-151.552-95.744-296.96-266.752-296.96-170.496
-                    0-233.472 152.064-233.472 152.064z " fill="#bfbfbf " p-id="3876 "></path>
-                                                        </svg>
-                            </div>
-                            私信
-                            <div class="sendText " title="私信 ">
-                                #17abe3
-                        <svg class="icon " height="30 " p-id="4482 " t="1602172441453 " version="1.1 " viewBox="0 0 1024 1024 " width="30 " xmlns="http://www.w3.org/2000/svg ">
-                                                            <path d="M935.724138 494.344828c0 204.8-188.910345 370.758621-423.724138 370.75862-67.089655 0-130.648276-14.124138-187.144828-38.841379-35.310345-14.124138-157.131034 60.027586-185.37931 38.841379-28.248276-21.186207
-                    38.841379-141.241379 17.655172-167.724138C112.993103 639.117241 88.275862 568.496552 88.275862 494.344828 88.275862 289.544828 277.186207 123.586207 512 123.586207s423.724138 165.958621 423.724138 370.758621z m-605.572414 5.296551c0 14.124138
-                    7.062069 26.482759 19.42069 33.544828s26.482759 7.062069 38.841379 0c12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379 0-12.358621
-                    7.062069-19.42069 19.42069-19.42069 33.544827z m155.365517 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
-                    0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z m153.6 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
-                    0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z " fill="#bfbfbf " p-id="4483 "></path>
-                                                        </svg>
-                </div>
-                </li> -->
+                    
                     </ul>
-                    <ul class="itemList attentionMe"></ul>
+                    <ul class="itemList private"></ul>
                 </div>
             </div>
 
-        </div>
-        <script id="item_template " type="text/html ">
-            <li class="item">
-                <a class="img_link " href="# " title="进入主页 ">
-                    <img src="{{}} ">
-                </a>
-                <span class="userName ">{{userName}}</span>
-                <span class="status ">{{status}}</span>
-                <div class="sex ">
-                    {{sex}}
-                    <!-- 参数为一个标签 -->
-                    <!-- <svg class="male " t="1602171820438 " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3642 " width="23 " height="23 "><path d="M262.144 419.84C194.56 270.336 286.72 106.496 407.552 18.432c-2.048
-                    16.384-8.192 49.152-10.24 67.584 32.768-20.48 65.536-40.96 100.352-63.488 18.432 4.096 38.912 6.144 57.344 10.24 63.488 65.536 180.224 69.632 215.04 165.888 34.816 114.688-26.624 225.28-61.44 333.824-20.48 69.632-67.584 135.168-137.216
-                    161.792-65.536 26.624-143.36 4.096-192.512-45.056-63.488-65.536-67.584-159.744-116.736-229.376zM358.4 307.2c-79.872 118.784-36.864 309.248 100.352 364.544 124.928 43.008 233.472-81.92 241.664-198.656 16.384-61.44-26.624-114.688-51.2-167.936-94.208
-                    40.96-196.608 28.672-290.816 2.048z " p-id="3643 " fill="#17abe3 "></path><path d="M133.12 788.48c61.44-59.392 147.456-81.92 227.328-102.4-4.096 118.784 20.48 245.76 114.688 325.632 12.288-88.064 20.48-178.176 18.432-268.288 12.288 0 38.912
-                    0 51.2 2.048 0 88.064 12.288 174.08 30.72 258.048 71.68-88.064 110.592-200.704 88.064-313.344 71.68 26.624 151.552 43.008 212.992 90.112 47.104 45.056 51.2 116.736 63.488 176.128V1024H81.92v-96.256c8.192-49.152 14.336-102.4 51.2-139.264z
-                    " p-id="3644 " fill="#17abe3 "></path></svg>
-                                        <svg class="female on " t="1602171713920 "  viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3272 " width="23 " height="23 "><path d="M373.793 306.073a373.53 373.53 0 0 0 283.884-6.724
-                    373.53 373.53 0 0 1 41.089 185.272c-8.965 128.495-118.783 228.601-233.83 188.26s-158.378-259.978-91.143-366.808zM695.03 701.27a705.227 705.227 0 0 0 144.183 46.318c86.66 20.918 153.895 173.318 149.413 275.666H32.386s0-224.119 113.553-261.472a1114.617
-                    1114.617 0 0 0 185.272-64.994s-11.206 241.3 114.3 233.83c40.342 0 67.983-93.383 67.983-93.383s50.053 93.383 91.889 93.383c79.935 0 88.9-198.718 89.647-229.348zM196.74 530.192a84.418 84.418 0 0 0 19.423 100.106C258 669.145 379.77 656.445
-                    379.77 656.445a149.412 149.412 0 0 1-48.56 40.342l182.284 117.288L692.79 699.028c-50.8-27.64-28.388-44.077-28.388-44.077a313.02 313.02 0 0 0 134.47-4.482c74.707-25.4 34.366-127.748 34.366-127.748 49.306-5.23 24.653-61.259-11.953-104.589S763.013
-                    196.255 704.742 86.437C656.93 7.995 530.677 0.524 504.53 0.524a194.236 194.236 0 0 0-158.377 63.5C281.906 132.007 251.276 299.35 243.06 350.15S168.35 481.633 168.35 499.562s28.39 30.63 28.39 30.63z " p-id="3273 " fill="#e8989a "></path></svg> -->
-                </div>
 
-                <span class="school_info ">{{school_info}}</span>
-                <!-- 是否关注 -->
-                <div class="subscribe " nextAction="{{action}} " title="关注 ">
-                    <!--红 #d6204b -->
-                    <svg t="1602172191268 " class="do_subscribe " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3875 " width="23 " height="23 ">
-                                            <path d="M513.536 239.104S441.856 87.04 280.064 87.04C102.912 87.04 10.24 235.52 10.24 384c0 246.784 503.296 552.96 503.296 552.96S1013.76 633.856 1013.76 384c0-151.552-95.744-296.96-266.752-296.96-170.496
-                    0-233.472 152.064-233.472 152.064z "
-                                                  p-id="3876 " fill="#bfbfbf "></path>
-                                        </svg>
-                </div>
-                <!-- 私信 -->
-                <div class="sendText " title="私信 ">
-                    <!-- #17abe3 -->
-                    <svg t="1602172441453 " class="icon " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="4482 " width="23 " height="23 ">
-                                            <path d="M935.724138 494.344828c0 204.8-188.910345 370.758621-423.724138 370.75862-67.089655 0-130.648276-14.124138-187.144828-38.841379-35.310345-14.124138-157.131034 60.027586-185.37931 38.841379-28.248276-21.186207
-                    38.841379-141.241379 17.655172-167.724138C112.993103 639.117241 88.275862 568.496552 88.275862 494.344828 88.275862 289.544828 277.186207 123.586207 512 123.586207s423.724138 165.958621 423.724138 370.758621z m-605.572414 5.296551c0 14.124138
-                    7.062069 26.482759 19.42069 33.544828s26.482759 7.062069 38.841379 0c12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379 0-12.358621
-                    7.062069-19.42069 19.42069-19.42069 33.544827z m155.365517 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
-                    0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z m153.6 0c0 14.124138 7.062069 26.482759 19.42069 33.544828 12.358621 7.062069 26.482759 7.062069 38.841379 0 12.358621-7.062069 19.42069-19.42069 19.42069-33.544828 0-14.124138-7.062069-26.482759-19.42069-33.544827-12.358621-7.062069-26.482759-7.062069-38.841379
-                    0-12.358621 7.062069-19.42069 19.42069-19.42069 33.544827z "
-                                                  fill="#bfbfbf " p-id="4483 "></path>
-                                        </svg>
-                </div>
-            </li>
-        </script>
-    </div>
-    </div>
+            <div class="foot">
+                <div class="clearAllPoint">
+                    <svg  height="25" title="一键已读" viewBox="0 0 1024 1024" width="25">
+                        <path
+                            d="M965.12 286.293333H657.493333V108.8C657.493333 48.64 605.013333 0 540.586667 0H482.56C418.56 0.426667 366.506667 49.066667 366.506667 108.8V285.866667H58.453333C26.026667 285.866667 0 310.613333 0 341.333333v176.213334c0 30.293333 26.453333 55.466667 58.453333 55.466666v253.866667c-0.426667 46.933333-6.826667 93.44-18.346666 135.253333l-0.853334 6.4c0 30.72 26.453333 55.466667 58.453334 55.466667H926.293333c30.293333 0 57.6-22.613333 59.733334-49.493333l-0.853334-7.253334c-12.8-46.933333-19.2-96-19.626666-145.066666v-248.32l19.2-3.84c22.613333-7.68 38.4-28.16 38.4-52.053334V341.76c0.426667-30.72-26.026667-55.466667-58.026667-55.466667z m-210.773333 650.24V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813334c-19.2 0-34.56 14.933333-34.56 33.28v202.666666h-113.92V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666H359.253333V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666l-146.346667 2.56c8.96-34.986667 13.226667-70.826667 13.226667-107.093333v-259.413333h729.173333V836.266667c0 33.706667 3.84 67.84 11.52 99.84h-133.546666zM931.84 486.4H91.733333V372.906667H456.96v-251.733334c0-27.733333 33.28-30.72 47.786667-30.72h16.213333c14.506667 0 47.786667 2.986667 47.786667 30.72v253.866667h363.093333V486.4z"
+                            fill="#bfbfbf" p-id="12613"></path>
+                    </svg>
+                    一键已读
+                </div>  
+            </div>
+            </div>
+            </div>
 
-    <!-- 我的问答 -->
-    <div class="myQAY">
-        <i class="iconfont iconV "></i>
-        <em>我的问答</em>
-
-        <div class="hpSecondSecond QandAY">
-            <div class="hoverBox">
-                <div class="title">我的问答</div>
-                <div class="mode_selection">
-                    <span class="mode active" id="hoverBox_request">我的提问</span>
-                    <span class="mode" id="hoverBox_answer">我的回答</span>
-                    <span class="activeLine toLeft"></span>
-                </div>
-                <!-- 内容框 -->
-                <div class="contentBox_request ">
-                    <div class="itemList_box ">
-                        <ul class="itemList myCue" style="display: block;">
-                            <!-- 我的提问和我的回答框架一样 -->
-                            <!-- <li class="item ">
-                                <a href="# ">
-                                    <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
-                                    <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
-
-                                    <div class="time_box ">
-                                        <span class="time ">2小时前</span>
-                                    </div>
-                                </a>
-                            </li> -->
-                            <!-- <li class="item ">
-                                <a href="# ">
-                                    <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
-                                    <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
-                                    <div class="problem_lable_box ">
-                                        <div class="lable ">
-                                            标签一标签一标签一
-                                        </div>
-                                        <div class="lable ">
-                                            标签二标签二标签二
-                                        </div>
-                                    </div>
-                                    <div class="time_box ">
-                                        <span class="time ">2小时前</span>
-                                    </div>
-                                </a>
-                            </li> -->
-
-                            <!-- <li class="item ">
-                                <a href="# ">
-                                    <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
-                                    <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
-                                    <div class="problem_lable_box ">
-                                        <div class="lable ">
-                                            标签一标签一标签一
-                                        </div>
-                                        <div class="lable ">
-                                            标签二标签二标签二
-                                        </div>
-                                    </div>
-                                    <div class="time_box ">
-                                        <span class="time ">2小时前</span>
-                                    </div>
-                                </a>
-                            </li> -->
-                        </ul>
-                        <ul class="itemList myAns"></ul>
-                    </div>
-                </div>
-
+                </span>
             </div>
         </div>
     </div>
 
-    <!-- 我的收藏 -->
-    <div class="myCollY"><i class="iconfont iconwodeshoucang "></i><em>我的收藏</em>
-        <div class="hpSecondSecond collectionY ">
-            <div class="hoverBox ">
-                <div class="title ">我的收藏</div>
-                <!-- 内容框 -->
-                <div class="contentBox_collection ">
-                    <div class="itemList_box ">
-                        <ul class="itemList mycollection">
-                            <li class="item ">
-                                <a href="# ">
-                                    <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
-                                    <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
-                                    <div class="problem_lable_box ">
-                                        <div class="lable ">
-                                            标签一标签一标签一
-                                        </div>
-                                        <div class="lable ">
-                                            标签二标签二标签二
-                                        </div>
-                                    </div>
-                                    <div class="time_box ">
-                                        <span class="time ">2小时前</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li class="item ">
-                                <a href="# ">
-                                    <div class="problem_title ">问题标题问题标题问题标题问题标题</div>
-                                    <div class="problem_remark_answer ">问题标注问题标注问题标注问题标注问题标注</div>
-                                    <div class="problem_lable_box ">
-                                        <div class="lable ">
-                                            标签一标签一标签一
-                                        </div>
-                                        <div class="lable ">
-                                            标签二标签二标签二
-                                        </div>
-                                    </div>
-                                    <div class="time_box ">
-                                        <span class="time ">2小时前</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- <div class="foot ">
-                    <input type="text " placeholder="请输入... ">
-                    <div class="search_btn "><svg t="1602165226427 " class="icon " viewBox="0 0 1024 1024 " version="1.1 " xmlns="http://www.w3.org/2000/svg " p-id="3356 " width="23 " height="23 ">
-                        <path d="M222.6944 222.7968A323.1488 323.1488 0 0 0 133.6832 512c19.2512-87.3728 64.512-172.7488 135.0144-243.3024C339.2512 198.1184 424.6272 152.8832 512 133.632c-101.632-19.1488-210.688 10.5216-289.3056 89.1648z " fill="#ffffff
-                    " p-id="3357 "></path><path d="M989.44 822.1184l-121.7024-121.7024a118.016 118.016 0 0 0-92.8-34.1248c114.4576-165.5552 97.92-394.3936-49.4848-541.824-165.9392-165.9904-435.0464-165.9904-601.0368 0-165.9392 165.9904-165.9392 435.1232 0 601.1136
-                    147.4048 147.4304 376.064 163.84 541.7216 49.3824-2.56 33.28 8.8576 67.5328 34.1248 92.8l121.7024 121.728c46.08 45.9776 121.3696 45.9776 167.3472 0 46.208-45.9776 46.208-121.2928 0.128-167.3728zM676.096 676.096c-138.6752 138.6752-363.392
-                    138.6752-502.016 0-138.6752-138.6752-138.6752-363.4432 0-502.1184 138.624-138.6752 363.3408-138.6752 502.016 0 138.6496 138.5728 138.6496 363.4432 0 502.1184z " fill="#ffffff " p-id="3358 "></path></svg>
-                    </div>
-                </div> -->
-            </div>
-
-        </div>
-    </div>
-
-    <!-- 退出登录 -->
-    <div class="exitLogonY"><i class="iconfont icontuichudenglu "></i><em>退出登录</em></div>
-    </div>
-    </span>
-    </div>
-
-    <!-- 提问 + 消息通知 -->
-    <div class="QAndM">
-
-        <!-- 提问 -->
-        <span class="cueY" title="提问">
-            <i class="iconfont iconwenhao- fadeinQuiz"></i>
-    </span>
-
-        <!-- 消息 -->
-        <span class="message">
-                    <i class="iconfont iconxiaoxitongzhitixinglingshenglingdang-xianxing "></i>
-
-                    <i class="iconfont icondian" ></i>
-
-                    <div class="messageNotification">
-                        <div class="hoverBox">
-                            <div class="title">消息通知</div>
-                            <div class="mode_selection">
-                                <span class="mode active" id="hoverBox_interest">动态通知</span>
-        <span class="mode" id="hoverBox_fans">私信通知</span>
-        <span class="activeLine toLeft"></span>
-    </div>
-    <!-- 内容框 -->
-    <div class="contentBox_information">
-        <div class="itemList_box">
-            <ul class="itemList system" style="display: block;">
-
-                <!-- <li class="item">
-                    <img src="../img/use1 (1).jpg">
-                    <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
-                                                    fill="#E6A23C" p-id="12381"></path>
-                                            </svg>
-                    <span class="userName itemTitle">用户名</span>
-                    <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
-                    <span class="time">21:53</span>
-                </li>
-                <li class="item">
-                    <img src="../img/use1 (1).jpg">
-                    <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
-                                                    fill="#E6A23C" p-id="12381"></path>
-                                            </svg>
-                    <span class="userName itemTitle">用户名</span>
-                    <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
-                    <span class="time">21:53</span>
-                </li>
-                <li class="item">
-                    <img src="../img/use1 (1).jpg">
-                    <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
-                                                    fill="#E6A23C" p-id="12381"></path>
-                                            </svg>
-                    <span class="userName itemTitle">用户名</span>
-                    <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
-                    <span class="time">21:53</span>
-                </li>
-                <li class="item">
-                    <img src="../img/use1 (1).jpg">
-                    <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
-                                                    fill="#E6A23C" p-id="12381"></path>
-                                            </svg>
-                    <span class="userName itemTitle">用户名</span>
-                    <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
-                    <span class="time">21:53</span>
-                </li>
-                <li class="item">
-                    <img src="../img/use1 (1).jpg">
-                    <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
-                                                    fill="#E6A23C" p-id="12381"></path>
-                                            </svg>
-                    <span class="userName itemTitle">用户名</span>
-                    <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
-                    <span class="time">21:53</span>
-                </li>
-                <li class="item">
-                    <img src="../img/use1 (1).jpg">
-                    <svg class="info_point" class="icon" height="10" p-id="12380" t="1602330426902" version="1.1" viewBox="0 0 1024 1024" width="10" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z"
-                                                    fill="#E6A23C" p-id="12381"></path>
-                                            </svg>
-                    <span class="userName itemTitle">用户名</span>
-                    <span class="item_info">为了提供更好的创作体验，知乎创作中心进行了多方面的升级。</span>
-                    <span class="time">21:53</span>
-                </li> -->
-
-            </ul>
-            <ul class="itemList private"></ul>
-        </div>
-    </div>
-
-
-    <div class="foot">
-        <svg class="clearAllPoint" height="25" title="一键已读" viewBox="0 0 1024 1024" width="25">
-                                    <path
-                                        d="M965.12 286.293333H657.493333V108.8C657.493333 48.64 605.013333 0 540.586667 0H482.56C418.56 0.426667 366.506667 49.066667 366.506667 108.8V285.866667H58.453333C26.026667 285.866667 0 310.613333 0 341.333333v176.213334c0 30.293333 26.453333 55.466667 58.453333 55.466666v253.866667c-0.426667 46.933333-6.826667 93.44-18.346666 135.253333l-0.853334 6.4c0 30.72 26.453333 55.466667 58.453334 55.466667H926.293333c30.293333 0 57.6-22.613333 59.733334-49.493333l-0.853334-7.253334c-12.8-46.933333-19.2-96-19.626666-145.066666v-248.32l19.2-3.84c22.613333-7.68 38.4-28.16 38.4-52.053334V341.76c0.426667-30.72-26.026667-55.466667-58.026667-55.466667z m-210.773333 650.24V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813334c-19.2 0-34.56 14.933333-34.56 33.28v202.666666h-113.92V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666H359.253333V733.866667c0-18.346667-15.786667-33.28-34.56-33.28h-9.813333c-19.2 0-34.56 14.933333-34.56 33.28v202.666666l-146.346667 2.56c8.96-34.986667 13.226667-70.826667 13.226667-107.093333v-259.413333h729.173333V836.266667c0 33.706667 3.84 67.84 11.52 99.84h-133.546666zM931.84 486.4H91.733333V372.906667H456.96v-251.733334c0-27.733333 33.28-30.72 47.786667-30.72h16.213333c14.506667 0 47.786667 2.986667 47.786667 30.72v253.866667h363.093333V486.4z"
-                                        fill="#bfbfbf" p-id="12613"></path>
-                                </svg>
-    </div>
-    </div>
-    </div>
-
-    </span>
-    </div>
-
-    </div>
-
-    </div>
+    
 
 
     <!-- 聊天 -->
@@ -827,26 +622,7 @@
             </div> -->
             <!-- 随手记，便签 -->
             <div class="note">
-                <svg class="nail" t="1602552765678" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2280" width="48" height="48">
-                    <path
-                        d="M656.81546879 680.95138072c-9.0509668 9.0509668-24.13591194 9.0509668-31.6783838 1.50849353L441.10076054 498.4235498c-9.0509668-9.0509668-7.54247186-22.627417 1.50849353-31.6783838L599.49267882 309.86174125c9.0509668-9.0509668 24.13591194-9.0509668 31.67838451-1.50849423l184.03632444 184.03632444c9.0509668 9.0509668 7.54247186 22.627417-1.50849423 31.67838451l-156.88342475 156.88342475z"
-                        fill="#1296db" p-id="2281"></path>
-                    <path
-                        d="M809.17341014 528.59343937c-18.1019336 18.1019336-49.7803174 19.61042854-67.8822517 1.50849423l-149.34095219-149.34095219c-18.1019336-18.1019336-18.1019336-48.27182246 1.50849494-67.88225099L659.83245796 183.14820606c18.1019336-18.1019336 49.7803174-19.61042854 67.88225028-1.50849423l211.18922555 211.18922555c18.1019336 18.1019336 18.1019336 48.27182246-1.50849423 67.88225029l-128.22202942 67.8822517zM444.11774901 462.2196826c18.1019336-18.1019336 49.7803174-19.61042854 67.88225099-1.50849493l149.34095219 149.34095218c18.1019336 18.1019336 18.1019336 48.27182246-1.50849423 67.8822517l-36.20386791 159.90041322c-18.1019336 18.1019336-49.7803174 19.61042854-67.88225028 1.50849423L282.70884156 566.3058008c-18.1019336-18.1019336-18.1019336-48.27182246 1.50849352-67.882251l159.90041393-36.2038672z"
-                        fill="#1296db" p-id="2282"></path>
-                    <path
-                        d="M748.83363101 495.40656063L524.06795597 270.64088559 579.88225099 142.41885617c7.54247257-16.59343937 22.627417-28.66139534 40.7293506-31.6783838S656.81546879 113.75746084 670.39191899 127.33391103l224.76567574 224.76567575c13.5764502 13.5764502 19.61042854 31.6783838 16.59343867 49.7803174-3.01698846 18.1019336-15.08494443 33.18687803-31.6783838 40.7293506l-131.23901859 52.79730585z m-167.44288508-236.83363101l179.51084105 179.51084105 99.56063479-42.23784412c4.5254834-1.50849494 4.5254834-4.5254834 4.5254834-4.5254834 1.50849423-1.50849423 1.50849494-4.5254834-1.50849423-7.54247257l-226.27416998-226.27416998c-3.01698917-3.01698917-6.03397763-3.01698917-7.54247257-1.50849423s-4.5254834 1.50849494-4.5254834 4.5254834l-43.74633906 98.05213985zM512 795.59695924L223.87755736 507.4745166c-15.08494443-15.08494443-19.61042783-37.71236143-13.57645019-58.83128419 7.54247257-19.61042783 25.64440617-34.69537297 46.76332822-37.71236143l147.83245725-15.08494514 218.73169812 218.73169812-15.08494514 147.83245725c-3.01698917 21.11892277-16.59343866 40.7293506-37.71236143 46.76332823-21.11892277 6.03397763-43.74633977 1.50849423-58.83128419-13.5764502zM386.79495904 447.13473817L261.58991879 460.71118837c-4.5254834 1.50849494-6.03397763 3.01698917-6.03397763 6.03397763-1.50849423 1.50849423-1.50849494 4.5254834 1.50849423 7.54247257l288.12244264 288.12244264c3.01698917 3.01698917 6.03397763 3.01698917 7.54247257 1.50849423s4.5254834-1.50849494 6.03397763-6.03397763L572.33977843 632.67955756 386.79495904 447.13473817z"
-                        fill="#1296db" p-id="2283"></path>
-                    <path
-                        d="M599.49267953 656.81546879L362.65904781 419.98183707 552.7293506 229.91153429l235.32513678 235.32513678-190.07030279 190.07030278z m-168.95138072-235.32513678l167.44288578 167.44288578 123.69654602-123.69654602L554.23784483 297.79378599l-123.69654602 123.69654602z"
-                        fill="#1296db" p-id="2284"></path>
-                    <path
-                        d="M162.029284 858.95372754c-1.50849494-22.627417 7.54247257-43.74633977 22.62741629-61.84827337l168.95138072-196.10428112 67.882251 67.882251-196.10428112 168.95138072c-19.61042854 13.5764502-42.23784483 21.11892277-63.35676689 21.11892277z"
-                        fill="#1296db" p-id="2285"></path>
-                    <path
-                        d="M510.49150506 697.54481938L323.43819145 510.49150577c-9.0509668-9.0509668-9.0509668-24.13591194 0-33.18687874s24.13591194-9.0509668 33.18687873 0l187.05331362 187.05331362c9.0509668 9.0509668 9.0509668 24.13591194 0 33.18687873s-25.64440617 7.54247257-33.18687874 0zM341.54012505 492.38957217l-1.50849423 1.50849423 187.05331361 187.05331362s1.50849423 1.50849423 3.01698917 7e-7L341.54012505 492.38957217z"
-                        fill="#1296db" p-id="2286"></path>
-                </svg>
+                
                 <div class="title">
                     便利签
                 </div>

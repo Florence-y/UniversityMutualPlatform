@@ -67,7 +67,7 @@ $(function() {
                 $(".YuserIdentity").find("em").eq(1).text("老师");
                 $(".Ymajor").find("em").eq(0).text("学院");
             }
-            $(".YuserPhotos").attr("src", "../" + identity.face.substring(2));
+            $(".YuserPhotos").attr("src", "http://192.168.137.122:8080/" + identity.face.substring(2));
             $(".YuserName").find("em").eq(1).text(identity.userName);
             $(".YuserName").find("em").eq(1).attr("title", identity.userName);
 
@@ -80,7 +80,7 @@ $(function() {
 
             for (var imgi = 0; imgi < res.imgs.length; imgi++) {
                 if (res.imgs[imgi] != null) {
-                    $(".YitemPictureLost").find("img").eq(imgi).attr("src", "../" + res.imgs[imgi].substring(1))
+                    $(".YitemPictureLost").find("img").eq(imgi).attr("src", "http://192.168.137.122:8080/" + res.imgs[imgi].substring(1))
                 }
             }
 
@@ -124,7 +124,7 @@ $(function() {
                 $(".YuserIdentity").find("em").eq(1).text("老师");
                 $(".Ymajor").find("em").eq(0).text("学院");
             }
-            $(".YuserPhotos").attr("src", identity.face);
+            $(".YuserPhotos").attr("src", "http://192.168.137.122:8080" + identity.face.substring(2));
             $(".YuserName").find("em").eq(1).text(identity.userName);
             $(".YuserName").find("em").eq(1).attr("title", identity.userName);
 
@@ -137,7 +137,7 @@ $(function() {
 
             for (var imgi = 0; imgi < res.imgs.length; imgi++) {
                 if (res.imgs[imgi] != null) {
-                    $(".YitemPictureFound").find("img").eq(imgi).attr("src", "../" + res.imgs[imgi])
+                    $(".YitemPictureFound").find("img").eq(imgi).attr("src", "http://192.168.137.122:8080/" + res.imgs[imgi].substring(2))
                 }
             }
 

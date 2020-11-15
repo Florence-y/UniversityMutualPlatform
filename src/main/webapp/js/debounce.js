@@ -6,7 +6,6 @@ function debounce(func, wait, immediate) {
         let arg = arguments; //参数的实参对象
         clearTimeout(timeout);
         if (immediate) {//首次进入之后立即执行
-
             let callNow = !timeout;
             timeout = setTimeout(() => {
                 timeout = null;
@@ -19,6 +18,5 @@ function debounce(func, wait, immediate) {
                 func.apply(context, arg);
             }, wait);
         }
-
     }
 }

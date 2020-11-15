@@ -44,12 +44,12 @@ button {
 }
 
 .quizModal_bg_askQuestion .quizModal {
-    background-color: rgba(255, 255, 255, .99);
+    background-color: rgba(247,247,247);
     border-radius: 30px;
     width: 750px;
     height: 840px;
     position: absolute;
-    /* border: 2px solid #02A7F0; */
+    /* border: 2px solid #028e9b; */
     top: 50%;
     left: 50%;
     opacity: 1;
@@ -104,15 +104,14 @@ button {
     height: 100%;
     background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 20px;
+    color:#777;
+    border-radius: 10px;
     padding: 20px;
     box-sizing: border-box;
     font-size: 23px;
 }
 
-.quizModal_bg_askQuestion .quizModal_content div:nth-of-type(1) textarea {
-    font-weight: 700;
-}
+
 
 .quizModal_bg_askQuestion .quizModal_content div:nth-of-type(1) textarea::-webkit-input-placeholder,
 .quizModal_bg_askQuestion .quizModal_content div:nth-of-type(3) textarea::-webkit-input-placeholder {
@@ -136,16 +135,13 @@ button {
 .quizModal_bg_askQuestion .quizModal_content .mainQuestion>span b,
 .quizModal_bg_askQuestion .quizModal_content .questionNote>span b {
     font-size: 16px;
-    color: #333;
+    color: #aaa;
 }
 
 .quizModal_bg_askQuestion .quizModal_content .questionNote {
     height: 200px;
 }
-
-
 /* #endregion */
-
 
 /* #region 插入图片 */
 
@@ -229,9 +225,9 @@ button {
 }
 
 .quizModal_bg_askQuestion .quizModal_content .insertPicture .file:hover {
-    color: #02A7F0;
+    color: #028e9b;
     font-weight: 400;
-    border-color: #02A7F0;
+    border-color: #028e9b;
 }
 
 .quizModal_bg_askQuestion .quizModal_content .insertPicture .iconjiahao1::before {
@@ -292,7 +288,7 @@ button {
     border-radius: 8px;
     text-align: center;
     line-height: 40px;
-    border: 1px solid #02A7F0;
+    border: 1px solid #028e9b;
     cursor: default;
     /* background-color: rgba(0, 0, 0, 0.5); */
 }
@@ -346,10 +342,11 @@ button {
     width: 100px;
     font-size: 20px;
     text-align: center;
-    color: #fff;
-    background-color: #02A7F0;
+    color: #028e9b;
+    background-color: #fff;
+    border:1px solid #028e9b;
     border-radius: 8px;
-    border: none;
+   
 }
 
 .quizModal_bg_askQuestion .quizModal_content .label .addLabel .iconfont {
@@ -357,7 +354,7 @@ button {
     left: 0px;
     top: 6px;
     font-size: 33px;
-    color: #02A7F0
+    color: #028e9b
 }
 
 .quizModal_bg_askQuestion .quizModal_content .rowBox {
@@ -416,7 +413,7 @@ button {
 }
 
 .quizModal_bg_askQuestion .quizModal_content .questionType .list li:hover {
-    color: #02A7F0
+    color: #028e9b
 }
 
 .quizModal_bg_askQuestion .quizModal_content .invite {
@@ -450,7 +447,7 @@ button {
     transform: translate(-50%, 0);
     width: 300px;
     height: 45px;
-    background-color: #02A7F0;
+    background-color: #028e9b;
     text-align: center;
     line-height: 45px;
     color: #fff;
@@ -498,3 +495,155 @@ button {
 
 
 /* #endregion */
+
+/* 70% */
+@media(max-width:1960px){
+    
+
+}
+/* 80% */
+@media(max-width:1789px){
+   .quizModal_bg_askQuestion .quizModal_content div:nth-of-type(1) textarea, .quizModal_bg_askQuestion .quizModal_content div:nth-of-type(3) textarea{
+       font-size:16px;
+       padding:5px;
+       line-height: 30px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .label .labelFont{
+       font-size:18px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .mainQuestion > span b, .quizModal_bg_askQuestion .quizModal_content .questionNote > span b{
+       font-size:16px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .questionType .cur_val{
+       font-size:16px;
+       margin-left: 5px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .label .addLabel input{
+       font-size:16px;
+       width:150px;
+      
+       height: 30px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .questionType{
+       line-height: 30px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .label .addLabel .add_btn{
+       font-size:16px;
+       width: 150px;
+       height: 26px;
+       right:0;
+
+   }
+   .quizModal_bg_askQuestion .quizModal_content .invite{
+       font-size:16px;
+       height: 30px;
+       width:150px;
+       line-height: 30px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content > div{
+       height: 68px;
+     
+   }
+   .quizModal_bg_askQuestion .quizModal_content .rowBox{
+       margin-top:-10px;
+       height: 30px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .insertPicture .file{
+       width: 80px;
+       height: 80px;
+       line-height: 80px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .questionNote{
+       height: 140px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .label .nodeBoard .text{
+       font-size:16px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .label .nodeBoard span{
+       height: 30px;
+       line-height: 30px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .questionType .list li{
+       font-size:14px;
+       line-height: 26px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .label .nodeBoard span i{
+       font-size:20px;
+       right:2px;
+   }
+   .quizModal_bg_askQuestion .quizModal .quizModal_content > .insertPicture{
+       height: 80px;
+       margin:0;
+   }
+   .quizModal_bg_askQuestion .quizModal{
+       width:670px;
+       height: 530px;
+       border-radius: 16px;
+   }
+   .quizModal_bg_askQuestion .quizModal_head button{
+       font-size:20px;
+       height: 26px;
+       width:26px;
+   }
+   .quizModal_bg_askQuestion .quizModal_head{
+       height: 15px;
+       z-index: 3;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .label .addLabel{
+       margin-top:0px;
+       width:30%;
+       height: 65px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .label .addLabel .iconfont{
+       top:0;
+       font-size:27PX;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .publish{
+       height: 30px;
+       line-height: 30px;
+       width:200px;
+       font-size:16px;
+       border-radius: 8px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .label .nodeBoard{
+       height: 67px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .questionType{
+       height: 30px;
+       width:150px;
+       font-size:16px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .anonymity{
+       height: 30px;
+       line-height: 30px;
+       font-size:16px;
+       text-indent:47px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .anonymity .btn{
+       height: 24px;
+       width:24px;
+       left:17px;
+   }
+   .quizModal_bg_askQuestion .quizModal_content .anonymity .btn svg{
+       height: 24px;
+       margin-left:-5px;
+   }
+   .quizModal_bg_askQuestion .quizModal .quizModal_content > .insertPicture .picture{
+       max-width: 100px;
+       height: 100px;
+   }
+   .quizModal_bg_askQuestion .quizModal .quizModal_content > .insertPicture .removePicture{
+       font-size:20px;
+       top:-4px;
+   }
+  
+}
+/* 90% */
+@media(max-width:1549px){
+    
+    
+}
+/* 100% */
+@media(max-width:1280px){
+    
+}

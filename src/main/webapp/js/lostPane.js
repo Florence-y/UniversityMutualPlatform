@@ -12,15 +12,15 @@
  }
 
  $(".modal_bg_lost .objClass_entrance").on("mouseenter",function(){
-    $(this).find(".objClassPane").stop().show(200);
+    $(this).find(".objClassPane").stop().fadeIn(200);
 })
 $(".modal_bg_lost .objClass_entrance").on("mouseleave",function(){
-    $(this).find(".objClassPane").stop().hide(200);
+    $(this).find(".objClassPane").stop().fadeOut(200);
 })
 $(".modal_bg_lost .objClass .item").on("click",function(){
     // $(".areaBox .areaText").html($(this).html());
     // console.log("点击")
-    $(this).parents(".objClassPane").stop().hide(200);
+    $(this).parents(".objClassPane").stop().fadeOut(200);
     $(this).parents(".value").find(".text").html($(this).html())
     // 物品分类
     objectDetailType = $(this).html();
@@ -29,10 +29,10 @@ $(".modal_bg_lost .objClass .item").on("click",function(){
 
  //月历的显示与隐藏
  $(".modal_bg_lost .calendar_entrance").on("mouseenter",function(){
-    $(this).find(".calendar").stop().show(200);
+    $(this).find(".calendar").stop().fadeIn();
 })
 $(".modal_bg_lost .calendar_entrance").on("mouseleave",function(){
-    $(this).find(".calendar").stop().hide(200);
+    $(this).find(".calendar").stop().fadeOut();
 })
 
 //时间的填充
@@ -57,15 +57,15 @@ function getImgs(){
 $(".modal_bg_lost .areaPane .item").on("click",function(){
     $(this).parents(".value").find(".text").html($(this).html());
     // console.log("点击")
-    $(this).parents(".areaPane").hide(200);
+    $(this).parents(".areaPane").fadeOut(200);
     $(this).parents(".value").find(".areaDetail").val("");
     $(this).parents(".value").find(".areaDetail").css("display","inline-block");
 });
 $(".modal_bg_lost .area").on("mouseenter",function(){
-    $(this).find(".areaPane").stop().show(200);
+    $(this).find(".areaPane").stop().fadeIn(200);
 });
 $(".modal_bg_lost .area").on("mouseleave",function(){
-    $(this).find(".areaPane").stop().hide(200);
+    $(this).find(".areaPane").stop().fadeOut(200);
 });
 
 //读取图片文件 
@@ -111,7 +111,7 @@ reader.onload = function (e) {
 function sendImage(formdata, imgObj) { //imgObj是jq对象
     sendingImg = true;
     $.ajax({
-        url: '../Servlet/ReceiveFileServlet',
+        url: 'http://192.168.137.122:8080/Servlet/ReceiveFileServlet',
         type: 'post',
         data: formdata,
         dataType: 'json',
@@ -182,10 +182,8 @@ $('.modal_bg_lost .objName .value').on("click",function(e){
 // 加载更多没写
 function displayFound(dataList){
     // 现在是先全部有图片
-
     var reg = /(..\/)/
     for(var i=0; i<dataList.length; i++){
-
         var data = {
             "id" : dataList[i].id,
             "foundObjectName" : dataList[i].foundObjectName,
@@ -201,7 +199,6 @@ function displayFound(dataList){
         $(".modal_bg_lost .search_display ul").append(item); 
     }
 }
-
 
 function valueIsEmpty(value,tip){
     if(value=="" || value==null || value==undefined){
@@ -225,7 +222,7 @@ function submite_lost(){
             "requestType": "post",
             "type": "lost",
             "contact": $(".modal_bg_lost .contact .value").val(),
-            "authorMarkNumber": getCookie("markNumber")[2],
+            "authorMarkNumber": $.cookie("markNumber"),
             "objectDetailType":objectDetailType,
             "objectType": objectType,
             "lostDescribe": $('.modal_bg_lost .objDetail .value_box').val(),
@@ -254,7 +251,7 @@ function submite_lost(){
                 displayTipPane("发布成功！");
 
                 $(".modal_bg_lost").fadeOut();
-                clearModalFound();
+                clearModalLost();
             },
             timeout : function(res){
                 displayTipPane("发布超时！");
@@ -266,10 +263,9 @@ function submite_lost(){
     }
 }
 
-function clearModalFound(){
+function clearModalLost(){
     //物品名称
     $('.modal_bg_lost .objName .value').val("");
-
     //类型
     $('.modal_bg_lost .objClass .value .text').html("");
     objectType = "";

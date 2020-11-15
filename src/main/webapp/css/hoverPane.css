@@ -27,7 +27,7 @@ body {
 /* 标题 */
 .hoverBox .title {
     width: 100%;
-    color: #02A7F0;
+    color: #028e9b;
     font-size: 24px;
     font-weight: 700;
     text-align: center;
@@ -75,7 +75,7 @@ body {
     width: 85px;
     height: 5px;
     border-radius: 8px;
-    background-color: rgba(2, 167, 240, 1);
+    background-color: #028e9b;
 }
 
 .hoverBox .mode_selection .toLeft {
@@ -121,7 +121,7 @@ body {
 }
 
 .hoverBox .itemList .item:hover {
-    border-bottom-color: #02A7F0;
+    border-bottom-color: #028e9b;
     background-color: #f6f6f6;
 
 }
@@ -233,7 +233,7 @@ body {
     color:#fff;
    display: none;
     line-height: 28px;
-    background-color: #02A7F0;
+    background-color: #028e9b;
     border-radius: 4px;
 }
 .foot .search_btn svg{
