@@ -59,12 +59,13 @@ public class QuestionServiceImpl implements QuestionService {
         //获取文章的基本内容
         Question question = WebUtil.jsonToObj(Question.class, jsonQuestion);
         String authorMarkNumber = question.getAuthorMarkNumber();
-        String viewerMarkNumber = (String) map.get("ViewerMarkNumber");
+        String viewerMarkNumber = (String) map.get("viewerMarkNumber");
         String userType = markNumberTypeDao.getUserType(authorMarkNumber);
         int agreeCount = agreeService.getAgreeCountQuestionOrAnswer("question", id);
         if (viewerMarkNumber != null) {
             boolean isAgree = agreeService.isAgree("question", id, viewerMarkNumber);
             boolean isAttention = attentionDao.isAttention(viewerMarkNumber, authorMarkNumber);
+            System.out.println("是否点赞该篇文章"+isAgree);
             question.setAttentionAuthor(isAttention);
             question.setAgree(isAgree);
         }
