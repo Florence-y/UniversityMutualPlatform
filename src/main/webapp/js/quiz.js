@@ -143,7 +143,7 @@ $(function() {
     function getKeyword() {
         // console.log("获取关键字")
         $.ajax({
-            url: "http://192.168.137.122:8080/Servlet/AnalyzeKeyWordServlet",
+            url: "../Servlet/AnalyzeKeyWordServlet",
             type: 'get',
             data: {
                 requestType: "get",
@@ -265,7 +265,7 @@ $(function() {
     function sendImage(formdata, imgObj) { //imgObj是jq对象
         sendingImg = true;
         $.ajax({
-            url: 'http://192.168.137.122:8080/Servlet/ReceiveFileServlet',
+            url: '../Servlet/ReceiveFileServlet',
             type: 'post',
             data: formdata,
             dataType: 'json',
@@ -418,7 +418,7 @@ $(function() {
                     //#region 渲染主页 √
                     $(".queY").remove();
                     window.onload();
-                    // $.get('http://192.168.137.122:8080/Servlet/MainPageServlet', {
+                    // $.get('../Servlet/MainPageServlet', {
                     //     requestType: 'get',
                     //     getType: "init",
                     // }, function(res) {

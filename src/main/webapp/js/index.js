@@ -307,7 +307,7 @@ $(function() {
             var i = $(this).parent().attr("data-part-index");
             // console.log(i);
 
-            $.get('..Servlet/ScrollSearchServlet', {
+            $.get('../Servlet/ScrollSearchServlet', {
                 scrollId: mainScrollid[i],
                 requestType: "get",
                 pojoType: "question",
@@ -354,7 +354,7 @@ $(function() {
 
                         //创建添加 .queImgY > img
                         for (var imgi = 1; imgi < res.dataList[j].contents.length; imgi++) {
-                            var src = '..' + res.dataList[j].contents[imgi].contentMain.substring(2);
+                            var src = res.dataList[j].contents[imgi].contentMain;
                             var img = $("<img src='" + src + "'>");
                             $(quizlist).find(".queY").eq(index).find(".queImgY").prepend(img);
                         }

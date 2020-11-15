@@ -159,7 +159,7 @@ $(function() {
         //键盘抬起事件 + val() 非空 发送请求 
         // console.log($(this).val());
         if ($(this).val() != "") {
-            $.get('http://192.168.137.122:8080/Servlet/MainPageServlet', {
+            $.get('../Servlet/MainPageServlet', {
                 requestType: 'get',
                 getType: "explore",
                 exploreContent: $(this).val(),
@@ -265,7 +265,7 @@ $(function() {
         if (pwd === "" || account === "") {
             displayTipPane('用户名/密码不能为空');
         } else {
-            $.get('http://192.168.137.122:8080/Servlet/UserServlet', {
+            $.get('../Servlet/UserServlet', {
                 password: pwd,
                 loginValue: account,
                 requestType: 'get',
@@ -298,7 +298,7 @@ $(function() {
                     $('.ResMessagePojoMajor').text(res.messagePojo.major);
                     $('.ResMessagePojoMajor').prop("title", res.messagePojo.major);
                     // if (res.messagePojo.face != null) {
-                    let ResMessageFaceScr = 'http://192.168.137.122:8080/' + res.messagePojo.face.substring(2);
+                    let ResMessageFaceScr =res.messagePojo.face;
                     $('.ResMessageFace').prop("src", ResMessageFaceScr);
                     $('.navHPY').prop('src', ResMessageFaceScr);
                     // } else {
@@ -373,7 +373,7 @@ $(function() {
 
                 if(message_openFirst){
                     message_openFirst=false;
-                     $.get('http://192.168.137.122:8080/Servlet/InfServlet', {
+                     $.get('../Servlet/InfServlet', {
                     currentPage: "1",
                     receiverMarkNumber: USERID,
                     order: "sendTime",
@@ -388,7 +388,7 @@ $(function() {
                     for (var i = res.dataList.length - 1; i > 0; i--) {
 
                         var item = $("<li class='item'></li>");
-                        var src = 'http://192.168.137.122:8080' + res.dataList[i].senderFace.substring(2);
+                        var src = res.dataList[i].senderFace;
                         var img = $("<img src='" + src + "'>");
                         var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                         var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -536,7 +536,7 @@ $(function() {
              var send = new Array();
              var pindex;
              var isRead = true;
-             $.get('http://192.168.137.122:8080/Servlet/InfServlet', {
+             $.get('../Servlet/InfServlet', {
                  currentPage: "1",
                  receiverMarkNumber: USERID,
                  order: "sendTime",
@@ -555,7 +555,7 @@ $(function() {
                  for (var i = res.dataList.length - 1; i > 0; i--) {
 
                      var item = $("<li class='item' data-pindex='" + pindex + "'></li>");
-                     var src = 'http://192.168.137.122:8080' + res.dataList[i].senderFace.substring(2);
+                     var src =  res.dataList[i].senderFace;
                      var img = $("<img src='" + src + "'>");
                      var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                      var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -570,7 +570,7 @@ $(function() {
 
                      send[pindex] = {
                          'senderMarkNumber': res.dataList[i].senderMarkNumber,
-                         'senderFace': 'http://192.168.137.122:8080' + res.dataList[i].senderFace.substring(2),
+                         'senderFace':  res.dataList[i].senderFace,
                          'senderName': res.dataList[i].senderName,
                      }
 
@@ -607,7 +607,7 @@ $(function() {
                          // console.log($(this).attr("data-pindex"));
                          var meObj = {
                              id: $.cookie("markNumber"),
-                             face: 'http://192.168.137.122:8080' + $.cookie('face').substring(2)
+                             face:$.cookie('face')
                          };
 
                          $(".platform_chat .targetName").text(send[index].senderName);
@@ -641,7 +641,7 @@ $(function() {
             $(".private").fadeOut();
             $(".system").fadeIn();
             // $('.hoverBox .title').html($(this).html())
-            $.get('http://192.168.137.122:8080/Servlet/InfServlet', {
+            $.get('../Servlet/InfServlet', {
                 currentPage: "1",
                 receiverMarkNumber: USERID,
                 order: "sendTime",
@@ -656,7 +656,7 @@ $(function() {
                 for (var i = res.dataList.length - 1; i > 0; i--) {
 
                     var item = $("<li class='item'></li>");
-                    var src = 'http://192.168.137.122:8080' + res.dataList[i].senderFace.substring(2);
+                    var src =  res.dataList[i].senderFace;
                     var img = $("<img src='" + src + "'>");
                     var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                     var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -687,7 +687,7 @@ $(function() {
             if (USERID != null) {
                 //显示二级导航
 
-                $.get('http://192.168.137.122:8080/Servlet/AttentionServlet', {
+                $.get('../Servlet/AttentionServlet', {
                     requestType: 'get',
                     majorMarkNumber: USERID,
                     attentionType: "major",
@@ -752,7 +752,7 @@ $(function() {
 
             if (USERID != null) {
 
-                $.get('http://192.168.137.122:8080/Servlet/AttentionServlet', {
+                $.get('../Servlet/AttentionServlet', {
                     requestType: 'get',
                     attentionType: "pass",
                     passMarkNumber: USERID,
@@ -932,7 +932,7 @@ $(function() {
                 // var next = true;
                 // while (next) {
 
-                $.get('http://192.168.137.122:8080/Servlet/MainPageServlet', {
+                $.get('../Servlet/MainPageServlet', {
                     requestType: 'get',
                     getType: "special",
                     authorMarkNumber: USERID,
@@ -967,7 +967,7 @@ $(function() {
 
                 //#region 获取我的问题 √
 
-                $.get('http://192.168.137.122:8080/Servlet/AnswerServlet', {
+                $.get('../Servlet/AnswerServlet', {
                     requestType: 'get',
                     getAnswerType: "individual",
                     markNumber: USERID,
@@ -1132,7 +1132,7 @@ $(window).on("load", function() {    
         $('.ResMessagePojoMajor').text($.cookie("major"));
         $('.ResMessagePojoMajor').prop("title", $.cookie("major"));         // if (res.messagePojo.face != null) {
                 
-        let ResMessageFaceScr = 'http://192.168.137.122:8080' + $.cookie("face").substring(2);
+        let ResMessageFaceScr =  $.cookie("face");
         $('.ResMessageFace').prop("src", ResMessageFaceScr);
         $('.navHPY').prop('src', ResMessageFaceScr);
     } else {

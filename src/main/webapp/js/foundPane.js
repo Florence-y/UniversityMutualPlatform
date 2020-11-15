@@ -111,7 +111,7 @@ function readFile_found() {
 function sendImage_found(formdata, imgObj) { //imgObj是jq对象
     sendingImg = true;
     $.ajax({
-        url: 'http://192.168.137.122:8080/Servlet/ReceiveFileServlet',
+        url: '../Servlet/ReceiveFileServlet',
         type: 'post',
         data: formdata,
         dataType: 'json',
