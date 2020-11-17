@@ -16,7 +16,7 @@ public interface ExploreService {
      * @return 初始化的6个页面对象
      * @throws IOException 输入异常
      */
-    List<Page> initPage() throws IOException, SQLException;
+    Page<Question> initPage() throws IOException, SQLException;
 
     /**
      * 查询具体的问题类型

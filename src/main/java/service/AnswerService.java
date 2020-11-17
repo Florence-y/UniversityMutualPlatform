@@ -37,4 +37,12 @@ public interface AnswerService {
      * @return 返回一个包含一页回答的页面对象
      */
     public Page<Answer> getAnswers(String getAnswerType, Map<String, Object> map) throws IOException;
+
+    /**
+     * 根据问题的id获取回答数目
+     * @param id 问题的id
+     * @return 返回一个回答的数目
+     */
+    int getQuestionAnswerCount(String id);
+
 }

@@ -19,6 +19,7 @@ import java.util.Map;
 
 /**
  * @author Florence
+ * 失物招领控制类
  */
 @WebServlet("/Servlet/LostAndFoundServlet")
 public class LostAndFoundServlet extends HttpServlet {
@@ -42,9 +43,12 @@ public class LostAndFoundServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
+        //添加的失物招领与寻物启事的文章的类型
         String type = (String) map.get("type");
+        //寻物启事
         if (FOUND.equals(type)) {
             code = service.addFound(ReflectUtil.getFieldAndValueFromTheMixMap(map, new Found()));
+        //失物招领
         } else if (LOST.equals(type)) {
             code = service.addLost(ReflectUtil.getFieldAndValueFromTheMixMap(map, new Lost()));
         }
@@ -59,9 +63,14 @@ public class LostAndFoundServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
+        //失物招领寻物启事多样式筛选
+        //获取类型
         String type = (String) map.get("type");
+        //获取的方式
         String getInfWay = (String) map.get("getInfWay");
+        //分页id
         String scrollId = (String) map.get("scrollId");
+        //精准
         if (TERM.equals(getInfWay)) {
             String id = (String) map.get("id");
             if (LOST.equals(type)) {
@@ -71,6 +80,7 @@ public class LostAndFoundServlet extends HttpServlet {
                 found = service.getFoundByTerm(id);
                 WebUtil.writeObjToResponse(response, found);
             }
+        //模糊
         } else if (EXPLORE.equals(getInfWay)) {
             if (LOST.equals(type)) {
                 lostPage = service.getLostByExplore(scrollId, map);
@@ -79,6 +89,7 @@ public class LostAndFoundServlet extends HttpServlet {
                 foundPage = service.getFoundByExplore(scrollId, map);
                 WebUtil.writeObjToResponse(response, foundPage);
             }
+        //任意
         } else if (ALL.equals(getInfWay)) {
             if (LOST.equals(type)) {
                 lostPage = service.getLostAll(scrollId);

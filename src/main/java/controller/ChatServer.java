@@ -23,7 +23,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author DELL
+ * @author Florecne
+ * Websocket聊天服务类
  */
 @ServerEndpoint("/WebSocket/{markNumber}/{wantToSendMarkNumber}")
 public class ChatServer {
@@ -99,6 +100,11 @@ public class ChatServer {
         }
     }
 
+    /**
+     * 获取用户头像
+     * @param markNumber
+     * @return
+     */
     private String getUserFace(String markNumber) {
         String type=markNumberTypeDao.getUserType(markNumber);
         Teacher teacher;
@@ -114,6 +120,11 @@ public class ChatServer {
         return "505.fail";
     }
 
+    /**
+     *    获取用户名
+     * @param markNumber
+     * @return
+     */
     private String getUserName(String markNumber) {
         String type=markNumberTypeDao.getUserType(markNumber);
         Teacher teacher;
@@ -129,6 +140,13 @@ public class ChatServer {
         return "505.fail";
     }
 
+    /**
+     * 增加一些系统信息 （比如说时间）
+     * @param map
+     * @param markNumber
+     * @param wantToSendMarkNumber
+     * @param message
+     */
     private void fillMapInf(Map<String, Object> map, String markNumber, String wantToSendMarkNumber, String message) {
         map.put("senderMarkNumber", markNumber);
         map.put("receiverMarkNumber", wantToSendMarkNumber);

@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * @author Florence
- * 用户控制器
+ * 用户控制类
  */
 @WebServlet("/Servlet/UserServlet")
 public class UserServlet extends HttpServlet {
@@ -35,9 +35,6 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    /**
-     * 添加用户
-     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
         if (ServletConstantVal.PUT.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
@@ -52,9 +49,6 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    /**
-     * 登录
-     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.formToMap(request);
         if (ServletConstantVal.DELETE.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
@@ -70,9 +64,6 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    /**
-     * 更新用户信息
-     */
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int code = service.updateUser((String) map.get("userType"), map, String.valueOf(map.get("condition")));
         //写回
@@ -81,9 +72,6 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    /**
-     * 删除用户
-     */
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int code = service.deleteUser((String) map.get("userType"), map);
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));

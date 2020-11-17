@@ -35,6 +35,8 @@ public class Question extends IndexObject {
     Teacher teacher;
     Page<Answer> answer;
 
+
+    int answerCount;
     /**
      * 计算发表的时间长久
      */
@@ -168,6 +170,14 @@ public class Question extends IndexObject {
 
     public void setAnonymity(boolean anonymity) {
         this.anonymity = anonymity;
+    }
+
+    public int getAnswerCount() {
+        return answerCount;
+    }
+
+    public void setAnswerCount(int answerCount) {
+        this.answerCount = answerCount;
     }
 
     @Override

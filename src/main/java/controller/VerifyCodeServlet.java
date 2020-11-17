@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * @author Florence
+ * 验证码控制类
  */
 
 @WebServlet("/Servlet/VerifyCodeServlet")
@@ -31,7 +32,9 @@ public class VerifyCodeServlet extends HttpServlet {
         }
         EmailUtil emailUtil = new EmailUtil();
         try {
-            WebUtil.writeObjToResponse(response, ResponseFactory.getMessage(emailUtil.sendEmail((String) map.get("email"))));
+            WebUtil.writeObjToResponse(response,
+                    //发送验证码
+                    ResponseFactory.getMessage(emailUtil.sendEmail((String) map.get("email"))));
         } catch (Exception e) {
             e.printStackTrace();
             log.error("发送邮件错误 {}", e.getMessage());
@@ -49,7 +52,8 @@ public class VerifyCodeServlet extends HttpServlet {
         }
         EmailUtil emailUtil = new EmailUtil();
         try {
-            WebUtil.writeObjToResponse(response, ResponseFactory.getMessage(emailUtil.sendEmail((String) map.get("email"))));
+            WebUtil.writeObjToResponse(response,
+                    ResponseFactory.getMessage(emailUtil.sendEmail((String) map.get("email"))));
         } catch (Exception e) {
             log.error("发送邮件错误 {}", e.getMessage());
             WebUtil.writeObjToResponse(response, ResponseFactory.getMessage("格式错误"));

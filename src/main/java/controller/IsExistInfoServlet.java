@@ -16,9 +16,10 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * 用户某项信息是否存在
+ *
  *
  * @author Florence
+ *  用户某项信息验证控制类
  */
 @WebServlet("/Servlet/IsExistInfoServlet")
 public class IsExistInfoServlet extends HttpServlet {
@@ -42,6 +43,7 @@ public class IsExistInfoServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
+        //查看某项信息是否存在
         int code = service.isExistOneInf(map.get("userType"), map);
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("get");

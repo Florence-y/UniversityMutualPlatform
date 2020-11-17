@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * @author Florence
+ * 问题关系dao实现类
  */
 public class AnswerDaoImpl extends BaseDaoImpl<Answer> implements AnswerDao {
     private static final String INDIVIDUAL = "individual";
@@ -37,7 +38,9 @@ public class AnswerDaoImpl extends BaseDaoImpl<Answer> implements AnswerDao {
 
     @Override
     public List<Answer> getAnswers(int begin, int pageSize, Map<String, Object> map) throws IOException {
+        //分页获取回答
         List<Answer> rowBeginNumAndSizeByCondition = super.getRowBeginNumAndSizeByCondition(new Answer(), begin, pageSize, map);
+        //问题添加包装内容
         for (Answer answer : rowBeginNumAndSizeByCondition) {
             String question = ElasticUtil.getDocById("question", answer.getQuestionId());
             Question questionName = WebUtil.jsonToObj(Question.class, question);

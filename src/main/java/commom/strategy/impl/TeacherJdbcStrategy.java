@@ -17,6 +17,7 @@ public class TeacherJdbcStrategy implements JdbcGetPojoStrategy<Teacher> {
     public Teacher strategy(ResultSet resultSet) throws SQLException {
         Teacher teacher = new Teacher();
         Map<String, String> pojoField = ReflectUtil.getPojoField(teacher);
+        //各种信息的设置，如set方法名所罗列
         teacher.setArea(resultSet.getString(pojoField.get("area")));
         teacher.setId(resultSet.getInt(pojoField.get("id")));
         teacher.setCollege(resultSet.getString(pojoField.get("college")));

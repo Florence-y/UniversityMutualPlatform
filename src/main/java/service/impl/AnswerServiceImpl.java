@@ -11,10 +11,7 @@ import pojo.Comment;
 import pojo.Page;
 import service.AgreeService;
 import service.AnswerService;
-import util.ArrayUtil;
-import util.ReflectUtil;
-import util.TimeUtil;
-import util.WebUtil;
+import util.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -88,6 +85,13 @@ public class AnswerServiceImpl implements AnswerService {
         //设置回答的列表
         page.setDataList(answers);
         return page;
+    }
+
+    @Override
+    public int getQuestionAnswerCount(String id) {
+        Map<String,Object> map = new HashMap<>(2);
+        map.put("questionId",id);
+        return answerDao.getCountByCondition(new Answer(),map);
     }
 
     public void setAnswerInf(Answer answer, Map<String, Object> map) {

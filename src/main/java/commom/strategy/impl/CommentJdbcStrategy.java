@@ -35,6 +35,7 @@ public class CommentJdbcStrategy implements JdbcGetPojoStrategy<Comment> {
         comment.setMarkNumber(commentMarkNumber);
         //根据学号得到类型
         String type = markNumberTypeDao.getUserType(commentMarkNumber);
+        //设置用户信息
         if (ServletConstantVal.STUDENT.equals(type)) {
             Student student = studentDao.getStudentByCondition(ServletConstantVal.STUDENT_MARK_NUMBER_COL, commentMarkNumber);
             comment.setStudent(student);

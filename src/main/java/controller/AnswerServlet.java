@@ -18,6 +18,7 @@ import java.util.Map;
 
 /**
  * @author Florence
+ * 回答控制类
  */
 @WebServlet("/Servlet/AnswerServlet")
 public class AnswerServlet extends HttpServlet {
@@ -31,7 +32,9 @@ public class AnswerServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
+        //进行回答
         int id = service.addAnswer(map);
+        //是否成功
         int codeAdd = id > 0 ? Response.OK : Response.ERROR;
         WebUtil.writeObjToResponse(response, ResponseFactory.getId(id, codeAdd));
         System.out.println("post");
@@ -44,6 +47,7 @@ public class AnswerServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
+        //获取回答
         Page<Answer> answerPage = service.getAnswers((String) map.get("getAnswerType"), map);
         WebUtil.writeObjToResponse(response, answerPage);
         System.out.println("get");

@@ -32,6 +32,7 @@ public class AnswerJdbcStrategy implements JdbcGetPojoStrategy<Answer> {
         answer.setMarkNumber(answerMarkNumber);
         answer.setQuestionId(resultSet.getString("answer_questionId"));
         String type = markNumberTypeDao.getUserType(answerMarkNumber);
+        //设置用户类型
         if (ServletConstantVal.STUDENT.equals(type)) {
             Student student = studentDao.getStudentByCondition(ServletConstantVal.STUDENT_MARK_NUMBER_COL, answerMarkNumber);
             answer.setStudent(student);

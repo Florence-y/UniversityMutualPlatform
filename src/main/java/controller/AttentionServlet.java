@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * @author Florence
- * 关注服务
+ * 关注控制类
  */
 @WebServlet("/Servlet/AttentionServlet")
 public class AttentionServlet extends HttpServlet {

@@ -113,7 +113,7 @@ public class AttentionDaoImpl extends BaseDaoImpl<Attention> implements Attentio
 
     @Override
     public int deleteAttention(Object[] value, Map<String, Object> map) {
-        //用来发射的对象
+        //用来反射的对象
         Attention attention = new Attention();
         String deleteSql = "DELETE FROM " + getTableName() + " WHERE " +
                 //获取and语句

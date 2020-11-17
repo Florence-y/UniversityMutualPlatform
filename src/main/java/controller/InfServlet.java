@@ -19,6 +19,7 @@ import java.util.Map;
 
 /**
  * @author Florence
+ * 信息控制类
  */
 @Slf4j
 @WebServlet("/Servlet/InfServlet")
@@ -63,6 +64,7 @@ public class InfServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //修改是否已读
         int code = service.changeIsRead(map);
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("put");
@@ -70,6 +72,7 @@ public class InfServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //删除信息
         int code = service.deleteInfById(map);
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("delete");

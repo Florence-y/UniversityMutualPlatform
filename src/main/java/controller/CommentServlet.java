@@ -18,6 +18,7 @@ import java.util.Map;
 
 /**
  * @author Florence
+ * 评论控制类
  */
 @WebServlet("/Servlet/CommentServlet")
 public class CommentServlet extends HttpServlet {
@@ -31,6 +32,7 @@ public class CommentServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
+        //添加评论
         int code = service.addComment(map);
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("post");
@@ -43,6 +45,7 @@ public class CommentServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
+        //获取评论
         Page<Comment> page = service.getComments((String) map.get("getType"), map);
         WebUtil.writeObjToResponse(response, page);
         System.out.println("get");

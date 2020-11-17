@@ -17,6 +17,7 @@ public class StudentJdbcStrategy implements JdbcGetPojoStrategy<Student> {
     @Override
     public Student strategy(ResultSet resultSet) throws SQLException {
         Student student = new Student();
+        //各种信息的设置，如set方法名所罗列
         Map<String, String> pojoField = ReflectUtil.getPojoField(student);
         student.setArea(resultSet.getString(pojoField.get("area")));
         student.setId(resultSet.getInt(pojoField.get("id")));

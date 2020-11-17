@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * @author Florence
+ * 点赞控制类
  */
 @WebServlet("/Servlet/AgreeServlet")
 public class AgreeServlet extends HttpServlet {
@@ -28,6 +29,7 @@ public class AgreeServlet extends HttpServlet {
             doPut(request, response);
             return;
         }
+        //进行点赞
         int code = service.agree((String) map.get("agreeType"), map);
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("post");
@@ -52,6 +54,7 @@ public class AgreeServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int code = service.unAgree((String) map.get("agreeType"), map);
+        //取消点赞
         WebUtil.writeObjToResponse(response, ResponseFactory.getStatus(code));
         System.out.println("delete");
     }

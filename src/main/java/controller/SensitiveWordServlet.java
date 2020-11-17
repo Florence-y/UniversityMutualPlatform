@@ -17,6 +17,7 @@ import java.util.Map;
 
 /**
  * @author Florence
+ * 敏感词控制类
  */
 @WebServlet("/Servlet/SensitiveWordServlet")
 public class SensitiveWordServlet extends HttpServlet {
@@ -25,11 +26,13 @@ public class SensitiveWordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         map = WebUtil.jsonToMap(WebUtil.getJsonString(request));
+        //获取敏感词并处理
         List<String> list = SensitiveWordFilterUtil.filterArr((ArrayList<String>) map.get("textArr"));
         if (ServletConstantVal.PUT.equals(map.get(ServletConstantVal.REQUEST_TYPE))) {
             doPut(request, response);
             return;
         }
+        //包含敏感词汇
         if (list == null) {
             WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(Response.ERROR, "包含黄色敏感词"));
             return;

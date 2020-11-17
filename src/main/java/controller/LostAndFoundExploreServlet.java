@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * @author Florence
- * 搜索
+ * 失物招领搜索控制类
  */
 @WebServlet("/Servlet/LostAndFoundExploreServlet")
 public class LostAndFoundExploreServlet extends HttpServlet {
@@ -43,14 +43,18 @@ public class LostAndFoundExploreServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
+        //搜索的类型
         String type = (String) map.get("type");
         String exploreContent = (String) map.get("exploreContent");
+        //寻物启事搜索
         if (ServletConstantVal.FOUND.equals(type)) {
             Page<Found> page = exploreService.exploreFound(exploreContent);
             WebUtil.writeObjToResponse(response, page);
+        //失物招领搜索
         } else if (ServletConstantVal.LOST.equals(type)) {
             Page<Lost> page = exploreService.exploreLost(exploreContent);
             WebUtil.writeObjToResponse(response, page);
+        //未知搜索类型
         } else {
             WebUtil.writeObjToResponse(response, ResponseFactory.getMessageAndStatusCode(Response.OK, "搜索类型没输入或者输入错误"));
         }

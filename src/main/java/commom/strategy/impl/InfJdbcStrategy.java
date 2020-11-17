@@ -15,6 +15,7 @@ public class InfJdbcStrategy implements JdbcGetPojoStrategy<Inf> {
     @Override
     public Inf strategy(ResultSet resultSet) throws SQLException {
         Inf inf = new Inf();
+        //各种信息的设置，如set方法名所罗列
         inf.setId(resultSet.getInt("inf_id"));
         inf.setSenderMarkNumber(resultSet.getString("inf_senderMarkNumber"));
         inf.setReceiverMarkNumber(resultSet.getString("inf_receiverMarkNumber"));

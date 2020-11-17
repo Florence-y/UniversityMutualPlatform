@@ -19,6 +19,7 @@ import java.util.Map;
 
 /**
  * @author Florence
+ * 问题控制类
  */
 @WebServlet("/Servlet/QuestionServlet")
 @Slf4j
@@ -48,6 +49,7 @@ public class QuestionServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
+        //获取一个问题的详细内容
         Question question = service.getDetailQuestion((String) map.get("questionId"), map);
         WebUtil.writeObjToResponse(response, question);
         System.out.println("get");

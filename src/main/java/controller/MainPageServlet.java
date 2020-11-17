@@ -18,6 +18,7 @@ import java.util.Map;
 
 /**
  * @author DELL
+ * 主页控制类
  */
 @WebServlet("/Servlet/MainPageServlet")
 public class MainPageServlet extends HttpServlet {
@@ -44,15 +45,18 @@ public class MainPageServlet extends HttpServlet {
             doDelete(request, response);
             return;
         }
-
+        //主页获取信息的类型
         String getType = (String) map.get("getType");
         try {
+            //初始化
             if (INIT.equals(getType)) {
-                List<Page> pages = service.initPage();
+                Page<Question> pages = service.initPage();
                 WebUtil.writeObjToResponse(response, pages);
+            //特别的某一类
             } else if (SPECIAL.equals(getType)) {
                 Page<Question> page = service.getSpecialType((String) map.get("authorMarkNumber"));
                 WebUtil.writeObjToResponse(response, page);
+            //搜索
             } else if (EXPLORE.equals(getType)) {
                 Page<Question> page = service.exploreQuestion((String) map.get("exploreContent"));
                 WebUtil.writeObjToResponse(response, page);

@@ -1,7 +1,5 @@
 package service.impl;
 
-import dao.TagDao;
-import dao.impl.TagDaoImpl;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -13,27 +11,18 @@ import util.TimeUtil;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author Florence
  */
 public class ExploreServiceImpl implements ExploreService {
-    TagDao tagDao = new TagDaoImpl();
 
     @Override
-    public List<Page> initPage() throws IOException, SQLException {
-        List<Page> list = new LinkedList<>();
-        List<String> questionTypes = tagDao.getAllQuestionType();
-        for (String tag : questionTypes) {
-            Page<Question> questionPage = ElasticUtil.scrollSearchFirst("question",
-                    ElasticUtil.getTermBuilder("questionType", tag),
-                    new Question(), false);
-            questionPage.setAdditionContent(tag);
-            list.add(questionPage);
-        }
-        return list;
+    public Page<Question> initPage() throws IOException, SQLException {
+        Page<Question> questionPage = ElasticUtil.scrollSearchFirst("question",
+                QueryBuilders.matchAllQuery(),
+                new Question(), false);
+        return questionPage;
     }
 
     @Override

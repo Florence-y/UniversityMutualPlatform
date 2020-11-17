@@ -19,7 +19,7 @@ import static commom.constantval.ServletConstantVal.POJO_QUESTION;
 
 /**
  * @author Florence
- * 分页查询search
+ * 分页查询search控制类
  */
 @WebServlet("/Servlet/ScrollSearchServlet")
 public class ScrollSearchServlet extends HttpServlet {
@@ -49,6 +49,7 @@ public class ScrollSearchServlet extends HttpServlet {
         String type = (String) map.get("pojoType");
         if (POJO_QUESTION.equals(type)) {
             WebUtil.writeObjToResponse(response, ElasticUtil.scrollSearch(id, new Question()));
+        //待扩展
         } else if (1 == 2) {
 
         } else {

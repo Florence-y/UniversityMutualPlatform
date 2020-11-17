@@ -1,6 +1,5 @@
 package service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import commom.constantval.ServletConstantVal;
 import dao.AttentionDao;
 import dao.MarkNumberTypeDao;
@@ -10,67 +9,57 @@ import dao.impl.AttentionDaoImpl;
 import dao.impl.MarkNumberTypeDaoImpl;
 import dao.impl.StudentDaoImpl;
 import dao.impl.TeacherDaoImpl;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import pojo.*;
 import service.AgreeService;
 import service.AnswerService;
-import service.QuestionService;
+import service.DynamicCircleService;
 import util.ElasticUtil;
-import util.TimeUtil;
-import util.WebUtil;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author Florence
- * 问题服务类
  */
-public class QuestionServiceImpl implements QuestionService {
-    public static final String INDEX = "question";
+public class DynamicCircleServiceImpl implements DynamicCircleService {
     StudentDao studentDao = new StudentDaoImpl();
     TeacherDao teacherDao = new TeacherDaoImpl();
-    AttentionDao attentionDao = new AttentionDaoImpl();
     MarkNumberTypeDao markNumberTypeDao = new MarkNumberTypeDaoImpl();
-    AnswerService answerService = new AnswerServiceImpl();
+    AttentionDao attentionDao = new AttentionDaoImpl();
     AgreeService agreeService = new AgreeServiceImpl();
-
-
+    AnswerService answerService = new AnswerServiceImpl();
     @Override
-    public String addQuestion(Map<String, Object> fieldAndValueMapDoc) throws JsonProcessingException {
-        fieldAndValueMapDoc.put("time", TimeUtil.getSystemTimeStamp());
-        System.out.println(WebUtil.mapToJson(fieldAndValueMapDoc));
-        return ElasticUtil.addDoc(WebUtil.mapToJson(fieldAndValueMapDoc), INDEX);
-    }
-
-    @Override
-    public Question updateQuestion(Map<String, Object> wantToUpdateFieldKey, String id) throws IOException {
-        int code = ElasticUtil.updateDocById(INDEX, id, wantToUpdateFieldKey);
-        if (code == Response.ERROR) {
-            return null;
+    public Page<Question> getAll(String viewerMarkNumber) throws IOException {
+        Page<Question> dynamicPage = ElasticUtil.scrollSearchFirst("question",
+                ElasticUtil.getTermBuilder("questionType","Dynamic"),
+                new Question(), false);
+        for (Question question:dynamicPage.getDataList()){
+            setQuestionMessage(question,viewerMarkNumber);
         }
-        String jsonQuestion = ElasticUtil.getDocById(INDEX, id);
-        System.out.println(jsonQuestion);
-        return WebUtil.jsonToObj(Question.class, jsonQuestion);
+        return dynamicPage;
     }
 
-    @Override
-    public Question getDetailQuestion(String id, Map<String, Object> map) throws IOException {
-        String jsonQuestion = ElasticUtil.getDocById(INDEX, id);
-        //获取文章的基本内容
-        Question question = WebUtil.jsonToObj(Question.class, jsonQuestion);
+    private void setQuestionMessage(Question question,String viewerMarkNumber) {
+        String id =question.getId();
+        //作者学号
         String authorMarkNumber = question.getAuthorMarkNumber();
-        String viewerMarkNumber = (String) map.get("ViewerMarkNumber");
+        //用户类型
         String userType = markNumberTypeDao.getUserType(authorMarkNumber);
+        //点赞数
         int agreeCount = agreeService.getAgreeCountQuestionOrAnswer("question", id);
+        //回答数
+        int answerCount= answerService.getQuestionAnswerCount(id);
+        //是否被关注和点赞
         if (viewerMarkNumber != null) {
             boolean isAgree = agreeService.isAgree("question", id, viewerMarkNumber);
             boolean isAttention = attentionDao.isAttention(viewerMarkNumber, authorMarkNumber);
             question.setAttentionAuthor(isAttention);
             question.setAgree(isAgree);
         }
-        //设置初始化为第一页
-        map.put("currentPage", "1");
-        Page<Answer> answerList = answerService.getAnswers("question", map);
         //设置用户信息
         if (ServletConstantVal.STUDENT.equals(userType)) {
             Student student = studentDao.getStudentByCondition(ServletConstantVal.STUDENT_MARK_NUMBER_COL, authorMarkNumber);
@@ -79,11 +68,13 @@ public class QuestionServiceImpl implements QuestionService {
             Teacher teacher = teacherDao.getTeacherByCondition(ServletConstantVal.TEACHER_MARK_NUMBER_COL, authorMarkNumber);
             question.setTeacher(teacher);
         }
-
-        question.setAnswer(answerList);
         question.setUserType(userType);
         question.setAgreeCount(agreeCount);
+        question.setAnswerCount(answerCount);
+    }
 
-        return question;
+    @Override
+    public Page<Question> getDynamicShowByExplore(Object exploreContent) {
+        return null;
     }
 }

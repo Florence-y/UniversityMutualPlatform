@@ -21,6 +21,7 @@ import java.util.Map;
 
 /**
  * @author Florence
+ * 接受文件控制类
  */
 @WebServlet("/Servlet/ReceiveFileServlet")
 public class ReceiveFileServlet extends HttpServlet {
@@ -124,7 +125,7 @@ public class ReceiveFileServlet extends HttpServlet {
                 //获取item中的上传文件的输入流
                 InputStream in = item.getInputStream();
 
-                //创建一个文件输出流
+                //创建一个文件输出流（这里注意路径是正斜杆，本来是反的，上线服务器后出错了 因为linux是反斜杠的）
                 FileOutputStream out = new FileOutputStream(savePath + "/" + filename);
                 //存储文件名
                 map.put("face", "../ReceiveFile/" + filename);
