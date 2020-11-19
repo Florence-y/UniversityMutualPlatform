@@ -48,7 +48,6 @@ public class LostAndFoundServiceImpl implements LostAndFoundService {
     public int addFound(Map<String, Object> map) {
         String found = ElasticUtil.addDoc(map, "found");
         return found != null ? Response.OK : Response.ERROR;
-
     }
 
     @Override

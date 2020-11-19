@@ -29,6 +29,8 @@ public class Lost extends IndexObject {
     private String objectType;
     @IsValid(valid = true, fieldName = "authorMarkNumber")
     private String authorMarkNumber;
+    @IsValid(valid = true, fieldName = "imgHeight")
+    private long imgHeight;
     private Student student;
     private Teacher teacher;
     private String userType;
@@ -127,6 +129,15 @@ public class Lost extends IndexObject {
 
     public void setObjectDetailType(String objectDetailType) {
         this.objectDetailType = objectDetailType;
+    }
+
+
+    public long getImgHeight() {
+        return imgHeight;
+    }
+
+    public void setImgHeight(long imgHeight) {
+        this.imgHeight = imgHeight;
     }
 
     @Override
