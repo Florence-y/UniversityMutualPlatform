@@ -19,8 +19,11 @@ public class ExploreServiceImpl implements ExploreService {
 
     @Override
     public Page<Question> initPage() throws IOException, SQLException {
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        boolQueryBuilder.must(QueryBuilders.matchAllQuery());
+        boolQueryBuilder.mustNot(ElasticUtil.getTermBuilder("questionType","Dynamic"));
         Page<Question> questionPage = ElasticUtil.scrollSearchFirst("question",
-                QueryBuilders.matchAllQuery(),
+               boolQueryBuilder,
                 new Question(), false);
         return questionPage;
     }
