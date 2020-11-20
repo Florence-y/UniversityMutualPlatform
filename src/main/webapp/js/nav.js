@@ -1038,7 +1038,7 @@ $(window).on("load", function() {    
 
 var myMarkNumber = "191543214";//要获取cookie
 var wantToSendMarkNumber = "123456789";//随便写一个，目的是与服务进行连接
-var url = "ws://192.168.137.105:8080/WebSocket";
+var url = "ws://localhost:8080/WebSocket";
 var wsUrl //点击某一个私信后重新修改
 var ws;
 var tt;
@@ -1288,7 +1288,7 @@ function addSend(data) {
 
   } else if (data.contentType == "img") {//图片，大小有限制，但是比表情大一点
 
-    data.content = "http://192.168.137.105:8080" + data.content.substring(2);
+    // data.content = "http://192.168.137.105:8080" + data.content.substring(2);
     liNode.innerHTML = '<span class="text"><img  src="' + data.content + '" style="max-width:130px; border-radius:4px; margin:5px;cursor:zoom-in;cursor:zoom-in;cursor:-webkit-zoom-in" class="fadein_img"></span><img class="profile" src="' + data.senderFace + '">';
     ulNode.appendChild(liNode);
     //添加事件
