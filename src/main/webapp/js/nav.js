@@ -9,23 +9,26 @@ window.onload = function() {
 
 
 
-
-
-
 function setCookie(json, time) {
     for (var key in json) {
-        // console.log(key);
-        // console.log(json[key]);
+        console.log(key);
+        console.log(json[key]);
         $.cookie(key, json[key], { expires: time });
-        // console.log($.cookie(key));
-
+        console.log($.cookie(key));
     }
 }
-
+// function setCookie(json, day) {
+//     var date = new Date(new Date().getTime() + day * 24 * 60 * 60 * 1000).toUTCString(); //转毫秒
+//     for (var key in json) {
+//         document.cookie = key + "=" + json[key] + ";expires=" + date;
+//         console.log($.cookie("key"));
+//     }
+// }
 
 function isHaveCookie() {
     console.log($.cookie("userName"));
-    if (navigator.onLine && $.cookie("markNumber") != null && $.cookie("markNumber") != undefined &&
+
+    if ($.cookie("markNumber") != null && $.cookie("markNumber") != undefined &&
         $.cookie("userName") != null && $.cookie("userName") != undefined &&
         $.cookie("face") != undefined && $.cookie("face") != null) {
         return true;
@@ -60,23 +63,65 @@ $(function() {
             //#region 搜索框：searchContent不显示+ 清空里面的内容 +清空搜索框内容 
 
             $(this).parent().siblings(".searchContent").hide(200);
-            $(".searchContent").find('li').remove();
-            // $(".searchContent").find("li i").attr("class", "iconfont");
-            // $(".searchContent").find("li a").attr("href", "");
-            // $(".searchContent").find("li a").text("");
+            $(".searchContent").find("li i").attr("class", "iconfont");
+            $(".searchContent").find("li a").attr("href", "");
+            $(".searchContent").find("li a").text("");
             $(".search").find(".searchBar").val("");
 
             //#endregion
 
+            //#region 消息通知：不显示
 
+            // $(".message").find(".messageNotification").fadeOut(100);
+
+            //#endregion
+
+            //#region 头像那边的二级导航: 二级导航+二二级4导航:淡出 字体颜色: #666
+
+            // $('.hpSecond').fadeOut(100);
+
+            // $(".hpSecond_general").css("borderRadius", "22px");
+
+
+            // $(".hpSecondSecond").fadeOut(50);
+            // $(".hpSecondSecond").animate({
+            //     right: 0
+            // })
+
+            //#endregion
         }
     })
 
+    //#region 点击上面校区互通 √
 
+    $('.campus-li').on({
+        click: function() {
+            $("body, html").stop().animate({
+                scrollTop: "600px",
+            });
+        }
+    })
+
+    //#endregion
 
     //#region 搜索框 √
 
+    //#region  卷去页面 导航栏发生变化 √
 
+    // $(window).scroll(function() {
+
+    //     if ($(document).scrollTop() >= 433) {
+    //         $(".nav .functionNav").show(200);
+    //         $(".nav .search").css("left", "61%");
+
+    //     } else {
+    //         $(".nav .functionNav").hide(200);
+
+    //         $(".nav .search").css("left", "50%");
+    //     }
+    // })
+
+    //#endregion
 
     //#region 点击 + 得失焦点 + 节流 √ 
 
@@ -90,10 +135,10 @@ $(function() {
 
         focus: function() {
             //搜索框获得焦点 bar/btn 的边框圆角 变化 + bar 的背景 变白 + 联想内容 显示
-            $(".searchBar").css("borderRadius", "16px 0 0 0");
-            $(".searchBtn").css("borderRadius", "0 16px 0 0");
-            $(this).css("backgroundColor", "#fff");
-            $(this).parent().siblings(".searchContent").show(200);
+            // $(".searchBar").css("borderRadius", "40px 0 0 0");
+            // $(".searchBtn").css("borderRadius", "0 40px 0 0");
+            // $(this).css("backgroundColor", "#fff");
+            // $(this).parent().siblings(".searchContent").show(200);
         },
         blur: function() {
             //搜索框失去焦点 bar/btn 的边框圆角 变会 + bar 的背景 变回半透明 + 联想内容 隐藏
@@ -114,20 +159,28 @@ $(function() {
     $(".nav").find(".searchBar").bind("keyup", debounce(function() {
         //键盘抬起事件 + val() 非空 发送请求 
         // console.log($(this).val());
+        if ($(this).val() != null || $(this).val() != "") {
+            //搜索框获得焦点 bar/btn 的边框圆角 变化 + bar 的背景 变白 + 联想内容 显示
+            $(".searchBar").css("borderRadius", "16px 0 0 0");
+            $(".searchBtn").css("borderRadius", "0 16px 0 0");
+            $(this).css("backgroundColor", "#fff");
+            $(this).parent().siblings(".searchContent").show(200);
+        } else {
+            $(".searchBar").css("borderRadius", "40px 0 0 40px");
+            $(".searchBtn").css("borderRadius", "0 40px 40px 0");
+            $(this).css("backgroundColor", "rgba(255, 255, 255, 0.5)");
+            $(this).parent().siblings(".searchContent").hide(200);
+        }
         if ($(this).val() != "") {
             $.get('../Servlet/MainPageServlet', {
                 requestType: 'get',
                 getType: "explore",
                 exploreContent: $(this).val(),
             }, function(res) {
-                // console.log(res);  
-                $('.search .searchContent li').remove();
-                var indexli = 0;
-                var url;
-                var icon;
-                for (var i = 0; i < res.dataList.length && i < 5; i++) {
+                // console.log(res);
+                for (var i = 0; i < res.dataList.length; i++) {
                     //判断是哪个篇 的 然后获取 创建iconfont
-
+                    var icon;
                     if (res.dataList[i].questionType === "学习篇") {
                         icon = "iconxuexi";
                     } else if (res.dataList[i].questionType === "期末篇") {
@@ -142,28 +195,20 @@ $(function() {
                         icon = "iconqita";
                     }
 
-                    url = 'questionPage.html?id=' + res.dataList[i].id;
-                    // $('.searchContent').find("li").eq(i).find('i').addClass(icon);
-                    // $('.searchContent').find("li").eq(i).find('a').attr("href", url);
-                    // $('.searchContent').find("li").eq(i).find('a').html(res.dataList[i].title);
-
-                    if (indexli < 5) {
-                        var li = $('<li><span><i class="iconfont ' + icon + ' "></i></span><a target="_blank" href=" ' + url + ' ">' + res.dataList[i].title + '</a></li>');
-                        $(".search .searchContent").prepend(li);
-                        $(".search .searchContent").find("li").eq(i).html(res.dataList[i].title);
-                        indexli++;
-                        // return;
-                    }
+                    var url = 'questionPage.html?id=' + res.dataList[i].id;
+                    $('.searchContent').find("li").eq(i).find('i').addClass(icon);
+                    $('.searchContent').find("li").eq(i).find('a').attr("href", url);
+                    $('.searchContent').find("li").eq(i).find('a').html(res.dataList[i].title);
+                    // var li = $('<li><span><i class="iconfont ' + icon + ' "></i></span><a href=" ' + url + ' ">' + res.dataList[i].title + '</a></li>');
+                    // $(".search .searchContent").prepend(li);
+                    // $(".search .searchContent").find("li").eq(i).html(res.dataList[i].title);
                 }
-
 
             }, 'json')
         } else {
-            $(".searchContent").find('li').remove();
-            // $(".searchContent").find("li i").attr("class", "iconfont");
-            // $(".searchContent").find("li a").attr("href", "");
-            // $(".searchContent").find("li a").text("");
-            $(".search").find(".searchBar").val("");
+            $(".searchContent").find("li i").attr("class", "iconfont");
+            $(".searchContent").find("li a").attr("href", "");
+            $(".searchContent").find("li a").text("");
         }
 
     }, 250, true))
@@ -178,7 +223,7 @@ $(function() {
 
     //#region 点击登录button进入登录弹框 √
 
-    $('.fadein').click(function() {
+    $('.personal .fadein').click(function() {
         // $("input").val("");
         $(".logOn").siblings().fadeOut();
         $(".logOn").fadeIn();
@@ -189,12 +234,13 @@ $(function() {
         })
     })
 
-    $('.fadeout').click(function() {
+
+    // 登录面板
+    $('.modal_bg_logon .fadeout').click(function() {
         $('.modal_bg_logon').fadeOut(); // 其实就是css 的过渡+ display
         $('.logonBody .logonYmadal').css({
             transform: 'translate(-50%,-50%) scale(0.7)'
         })
-
     })
 
     //#endregion
@@ -351,7 +397,6 @@ $(function() {
                         }, function(res) {
                             $(".system").html("");
                             // console.log(res);
-
                             //#region 动态创建  消息通知
                             for (var i = res.dataList.length - 1; i > 0; i--) {
 
@@ -385,13 +430,12 @@ $(function() {
         }
     })
     $(".message").on({
-        mouseleave: function(e) {
-            e.stopPropagation();
-            $('.message').find(".messageNotification").stop().fadeOut();
-        }
-    })
-
-    //#region 效果
+            mouseleave: function(e) {
+                e.stopPropagation();
+                $('.message').find(".messageNotification").stop().fadeOut();
+            }
+        })
+        //#region 效果
 
     // 消息同学
     //去右边，私信
@@ -880,7 +924,24 @@ $(function() {
 
     //#endregion
 
+    //#endregion
 
+    //#region 鼠标悬停 | 点击 头像 出现二级导航  点击 二级导航的 li 再出现二级导航
+
+    // $(".headPortrait").on({
+    //     click: function(e) {
+    //         count = 1;
+    //         e.stopPropagation();
+    //         //出现二级导航 二二级导航消失
+    //         $(".hpSecond").css("borderRadius", "22px");
+    //         $(".hpSecondSecond").fadeOut(50);
+    //         $(".hpSecondSecond").animate({
+    //             right: 0
+    //         })
+    //         $(this).find(".hpSecond").css("display", "block");
+
+    //     }
+    // })
 
     // 二级面板的位置动态给变
     $(window).on("resize", function() {
@@ -897,6 +958,8 @@ $(function() {
             $(this).siblings().find("em").css('color', '#666');
             $(this).find('em').css('color', '#028e9b');
             //根据target自定义属性名再通过类名来获取对应的二级面板
+
+
             var secondPane = $("." + $(this).attr("target"));
             if (secondPane == null || secondPane == undefined) {
                 return;
@@ -905,18 +968,37 @@ $(function() {
             // $(".hpSecond").css("borderRadius", "0 22px 22px 0");
             //打开二级面板的左边圆角
             //每次打开之前恢复原来状态
-            $(".hpSecondSecond").fadeOut();
+            $(".hpSecondSecond").fadeOut(); //全部的二级面板
             $(".hpSecondSecond").animate({
                 right: "0"
             }, 100);
+
             secondPane.css("borderRadius", "22px");
             generalPane.css("borderRadius", "22px");
+            generalPane.css("border-left-color", "#5ec4cd")
 
+            if (generalPane.attr("nowSecondPane") == "null") {
+                generalPane.attr("nowSecondPane", $(this).attr("target"));
+            }
+            if (generalPane.attr("status") == "open") {
+                //初始化
+                //点击原来按钮
+                if (generalPane.attr("nowSecondPane") == $(this).attr("target")) {
+                    generalPane.attr("status", "close");
+                    // console.log("收起")
+                    return;
+                } else { //点击别的按钮
+                    generalPane.attr("nowSecondPane", $(this).attr("target"));
+                }
+
+            }
+            generalPane.attr("status", "open");
             if (USERID != null) {
                 //count是实现点击一次按钮打开二级面板，再次点击就关闭
                 // 原面板的右边圆角
                 secondPane.css("borderRadius", "22px 0 0 22px");
                 generalPane.css("borderRadius", "0 22px 22px 0");
+                generalPane.css("border-left-color", "#fff");
                 // 所有的二级面板消失
                 // $(this).siblings().find(".hpSecondSecond").css("display", "none");
                 secondPane.css("display", "block");
