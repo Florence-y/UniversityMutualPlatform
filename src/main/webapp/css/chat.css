@@ -6,6 +6,20 @@
 
 /* #region 聊天 */
 
+
+.platform_chat {
+    
+    overflow: hidden;
+    position: fixed;
+    display: none;
+    top: 5%;
+    right: 10%;
+    width: 650px;
+    background-color: rgb(244, 245, 247);
+    border-radius: 14px;
+    box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
 .platform_chat .title {
     width: 100%;
     text-align: center;
@@ -13,20 +27,6 @@
     color: #666;
     font-size: 26px;
     line-height: 45px;
-}
-
-.platform_chat {
-    
-    overflow: hidden;
-    position: fixed;
-    top: 5%;
-    right: 10%;
-    margin: 40px auto;
-    width: 650px;
-    background-color: rgb(244, 245, 247);
-    border-radius: 14px;
-    box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
 }
 
 .platform_chat .me {
@@ -175,9 +175,13 @@
     font-weight: 500;
     text-align: center;
     border-radius: 4px;
-    border: none;
+    border: 1px solid transparent;
     cursor: pointer;
     outline: none;
+}
+.platform_chat .textArea input:hover{
+    color:#35c0cd;
+    border:1px solid #35c0cd;
 }
 
 .platform_chat .close_btn {
@@ -192,6 +196,9 @@
     line-height: 45px;
     height: 45px;
     cursor: pointer;
+}
+.platform_chat .close_btn:hover{
+    color:orange
 }
 
 .platform_chat .close_btn:hover {
@@ -208,6 +215,60 @@
         transform: scale(1);
     }
 }
+/* 70% */
+@media(max-width:1960px){
+    .platform_chat{
+        width:400px;
+    }
+    .platform_chat .close_btn{
+        width:40px;
+        height: 40px;
+        line-height: 40px;
+        font-size:37px;
+    }
+    .platform_chat .screen{
+        height: 372px;
+    }
+    .platform_chat .screen .inner{
+        height: 360px;
+    }
+    .platform_chat textarea{
+        height: 80px;
+        font-size:16px;
+        letter-spacing: 1px;
+    }
+    .platform_chat .chat_toolBar{
+        height: 35px;
+    }
+    .platform_chat .chat_toolBar .face{
+        height: 24px;
+    }
+    .platform_chat .chat_toolBar .picture{
+        height:32px;
+        top:2px;
+    }
+    .platform_chat .textArea input{
+        font-size:16px;
+        width:90px;
+        height: 30px;
+        line-height: 30px;
+    }
+}
+/* 80% */
+@media(max-width:1789px){
+   
+}
+/* 90% */
+@media(max-width:1549px){
+    
+    
+}
+/* 100% */
+@media(max-width:1280px){
+    
+}
+
+
 
 
 /* #endregion */
