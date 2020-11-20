@@ -11,10 +11,10 @@ window.onload = function() {
 
 function setCookie(json, time) {
     for (var key in json) {
-        console.log(key);
-        console.log(json[key]);
+        // console.log(key);
+        // console.log(json[key]);
         $.cookie(key, json[key], { expires: time });
-        console.log($.cookie(key));
+        // console.log($.cookie(key));
     }
 }
 // function setCookie(json, day) {
@@ -323,37 +323,8 @@ $(function() {
 
                     //#endregion
                     //#region 生成websocket对象
-
-                    let ws;
-                    var ulNode = document.getElementById("ulNode");
-                    var screen_inner = document.getElementById("screen_inner");
-                    if ('WebSocket' in window) {
-                        //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
-                        let markNumber = USERID;
-                        let wantToSendMarkNumber = "666";
-                        ws = new WebSocket("ws://192.168.137.105:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
-                    } else {
-                        // displayTipPane("连接失败");
-                        return;
-                    }
-                    ws.onopen = function() {
-                        // displayTipPane("连接成功");
-                    }
-
-                    //收到信息
-                    ws.onmessage = function(event) {
-                        $(".icondian").show();
-                        //收到消息就将加小红点
-                        // $();
-                        //进行内容的添加
-                        // console.log('收到消息：' + event.data);
-
-                        addReceived(event.data);
-                        callback();
-                    }
-                    ws.onerror = function() {
-                        displayTipPane("error");
-                    }
+                    initialWebSocket();
+                   
 
                     //#endregion
 
@@ -501,44 +472,27 @@ $(function() {
                 //#endregion
 
                 // console.log(send);
-                $('.private .chatBtn').on({
-                    click: function(e) {
 
-                        //#region 显示 聊天框
-                        e.stopPropagation();
-                        $(".platform_chat").fadeIn(200);
 
-                        $(".platform_chat").on({
-                            click: function(e) {
-                                e.stopPropagation();
-                                $(".platform_chat").css("display", "block");
-                            }
-                        })
-
-                        //#endregion
-
-                        //#region 获取数据
-                        var index = $(this).attr("data-pindex")
-                        send[index];
-                        // console.log($(this).attr("data-pindex"));
-                        var meObj = {
-                            id: $.cookie("markNumber"),
-                            face: $.cookie('face')
-                        };
-
-                        $(".platform_chat .targetName").text(send[index].senderName);
-                        var targetObj = {
-                            id: send[index].senderMarkNumber,
-                            face: send[index].senderFace,
-                            name: send[index].senderName
-                        }
-
-                        // console.log(targetObj);
-                        chat(meObj, targetObj);
-
-                        //#endregion
+                //加载完item后绑定点击打开聊天面板事件
+                $(".chatBtn").off("click");
+                $(".chatBtn").on("click", function () {
+                    wantToSendMarkNumber = $(this).attr("target");
+                    wsUrl = url + '/' + myMarkNumber + '/' + wantToSendMarkNumber;
+                    //重新连接WebSocket
+                  
+                    //用户名
+                    $(".platform_chat .targetName").text($(this).attr("targetName"));
+                    if (lastTarget != null && lastTarget != $(this).attr("target")) {
+                      ulNode.innerHTML = "";
                     }
-                })
+                    lastTarget = $(this).attr("targetName");
+                  
+                    $(".platform_chat").fadeIn();
+                  
+                    //这次的webSocket是有发送目标的
+                    createWebSocket1();
+                  });
             }, 'json')
 
             //#endregion
@@ -1039,6 +993,7 @@ $(function() {
             $(".myAns").html("");
             $(".mycollection").html("");
             clearCookie();
+            closeWebSocket();
             //问题页面判断是否登录
         }
     })
@@ -1072,6 +1027,7 @@ $(window).on("load", function() {    
         let ResMessageFaceScr = $.cookie("face");
         $('.ResMessageFace').prop("src", ResMessageFaceScr);
         $('.navHPY').prop('src', ResMessageFaceScr);
+        initialWebSocket();
     } else {
         $('.personal').show(100);    
     }    
