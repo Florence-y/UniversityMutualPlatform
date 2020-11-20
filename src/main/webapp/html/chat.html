@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>聊天板</title>
     <link rel="stylesheet" href="../css/chat.css">
+    <script src="../js/jquery-3.5.1.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <link href="../css/tipPane.css" type="text/css" rel="stylesheet">
 </head>
 <body>
+    <button class="chatBtn" target="191541227" targetName="吴某某">私聊1</button>
+    <button class="chatBtn" target="191543214" targetName="冯某某">私聊2</button>
+    <button class="logon1">登录1</button>
+    <button class="logon2">登录2</button>
       <!-- 聊天 -->
     <div class="platform_chat">
         <h4 class="title targetName"></h4>
@@ -26,7 +33,13 @@
             <input type="button" value="发送">
         </div>
     </div>
+    <!-- 提示信息弹框 -->
+    <div class="tipPane">
+        请先完成登录！
+    </div>
 
+    <script src="../js/chat.js"></script>
+    <script src="../js/tipPane.js"></script>
     
 </body>
 </html>
