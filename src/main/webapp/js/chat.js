@@ -139,8 +139,10 @@
 //     }
 // })
 
-$('.sendText_btn').on({
-    click: function(e) {
+
+
+// $('.sendText_btn').on({
+//     click: function(e) {
         // console.log(22);
         // e.stopPropagation();
         // $(".platform_chat").fadeIn(200);
@@ -152,21 +154,24 @@ $('.sendText_btn').on({
         //     }
         // })
 
+
+    // 登录成功和自动登录后会进行自动与服务器进行连接
+
         var meObj = {
-            id: $.cookie("markNumber"),
-            face: ''
+            id: "191543214",
+            face: '../img/use1 (1).jpg'
         };
         // console.log($.cookie("markNumber"));
         $(".platform_chat .targetName").text(oAuthor.userName);
         var targetObj = {
-            id: oAuthor.markNumber,
-            face: 'http://192.168.137.105:8080' + oAuthor.face.substring(2),
+            id: "",
+            face: '',
             name: oAuthor.userName
         }
         // console.log(targetObj);
         chat(meObj, targetObj);
-    }
-})
+    
+
 
 
 $('.close_btn').click(function() {
@@ -176,7 +181,7 @@ $('.close_btn').click(function() {
 
 function chat(meObj, targetObj, callback) {
     //首先判断是否浏览器支持websocket
-    //点击发送
+    //每次打开新的聊天对象，就要进行重新连接
     let ws;
     var ulNode = document.getElementById("ulNode");
     var screen_inner = document.getElementById("screen_inner");
@@ -184,7 +189,7 @@ function chat(meObj, targetObj, callback) {
         //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
         let markNumber = meObj.id;
         let wantToSendMarkNumber = targetObj.id;
-        ws = new WebSocket("ws://192.168.137.105:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
+        ws = new WebSocket("ws://192.168.137.105:8080/WebSocket/" + markNumber+'/'+wantToSendMarkNumber);
     } else {
         // displayTipPane("连接失败");
         return;
@@ -192,7 +197,7 @@ function chat(meObj, targetObj, callback) {
     ws.onopen = function() {
             // displayTipPane("连接成功");
         }
-        //收到信息
+        //收到信息,不论是谁的消息，只要是服务器有发送消息给你就会进行触发onMessage事件
     ws.onmessage = function(event) {
         $(".icondian").css("display", "block");
         //收到消息就将加小红点
@@ -204,14 +209,13 @@ function chat(meObj, targetObj, callback) {
         if (callback) {
             callback();
         }
-
     }
     ws.onerror = function() {
         displayTipPane("error");
     }
     $(".platform_chat .close_btn").click(() => {
         $(".platform_chat").hide(150);
-        ws.close();
+        // ws.close();
     })
 
 
@@ -232,10 +236,12 @@ function chat(meObj, targetObj, callback) {
         $(".platform_chat textarea").val("");
     });
     //关闭页面的时候就关闭wesocket
+
+
     window.onbeforeunload = function() {
         ws.close();
     }
-
+   
 
     function addReceived(data) {
         // console.log(data);

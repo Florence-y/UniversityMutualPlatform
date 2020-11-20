@@ -649,7 +649,7 @@ $(function () {
                         }
                         dataList[i]["describe"] = dataList[i]["foundDescribe"];
                         dataList[i]["name"] = dataList[i]["foundObjectName"];
-                        dataList[i]["href"] = "foundAndFound-found.html?id=" + dataList[i]["id"];
+                        dataList[i]["href"] = "lostAndFound-found.html?id=" + dataList[i]["id"];
                     }
                     displayGoods(dataList);
                 }
@@ -825,7 +825,7 @@ $(function () {
                         }
                         dataList[i]["describe"] = dataList[i]["foundDescribe"];
                         dataList[i]["name"] = dataList[i]["foundObjectName"];
-                        dataList[i]["href"] = "foundAndFound-found.html?id=" + dataList[i]["id"];
+                        dataList[i]["href"] = "lostAndFound-found.html?id=" + dataList[i]["id"];
                     }
                     displayGoods_first(dataList);
                 }
