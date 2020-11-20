@@ -882,20 +882,7 @@ $(function() {
 
     //#region 鼠标悬停 | 点击 头像 出现二级导航  点击 二级导航的 li 再出现二级导航
 
-    // $(".headPortrait").on({
-    //     click: function(e) {
-    //         count = 1;
-    //         e.stopPropagation();
-    //         //出现二级导航 二二级导航消失
-    //         $(".hpSecond").css("borderRadius", "22px");
-    //         $(".hpSecondSecond").fadeOut(50);
-    //         $(".hpSecondSecond").animate({
-    //             right: 0
-    //         })
-    //         $(this).find(".hpSecond").css("display", "block");
-
-    //     }
-    // })
+   
 
     // 二级面板的位置动态给变
     $(window).on("resize", function() {
