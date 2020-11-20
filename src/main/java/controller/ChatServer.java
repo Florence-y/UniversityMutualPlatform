@@ -53,6 +53,7 @@ public class ChatServer {
      */
     @OnOpen
     public void onOpen(@PathParam(value = "markNumber") String markNumber, Session session) {
+        System.out.println(this);
         name = markNumber;
         System.out.println(markNumber);
         this.session = session;
@@ -77,8 +78,12 @@ public class ChatServer {
      * @param session 可选的参数
      */
     @OnMessage
-    public void onMessage(@PathParam(value = "markNumber") String markNumber, @PathParam(value = "wantToSendMarkNumber") String wantToSendMarkNumber, String message, Session session) {
+    public void onMessage(@PathParam(value = "markNumber") String markNumber, @PathParam(value = "wantToSendMarkNumber") String wantToSendMarkNumber, String message, Session session) throws IOException {
         System.out.println("来自客户端" + markNumber + "发送给" + wantToSendMarkNumber + "的消息:" + message);
+        if (message.equals("123456789")){
+            CLIENTS.get(markNumber).sendMessage("#1#");
+            return;
+        }
         Map<String, Object> map = new HashMap<>(10);
         String name= getUserName(markNumber);
         String face=getUserFace(markNumber);
