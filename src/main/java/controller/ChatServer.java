@@ -35,9 +35,6 @@ public class ChatServer {
     MarkNumberTypeDao markNumberTypeDao = new MarkNumberTypeDaoImpl();
     StudentDao studentDao = new StudentDaoImpl();
     TeacherDao teacherDao = new TeacherDaoImpl();
-    Student student;
-    Teacher teacher;
-    String userType;
     String name;
     /**
      * 与某个客户端的连接会话，需要通过它来给客户端发送数据
