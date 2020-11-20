@@ -8,6 +8,9 @@
     var wsUrl //点击某一个私信后重新修改
     var ws;
     var tt;
+    var ulNode = document.getElementById("ulNode");
+    var screen_inner = document.getElementById("screen_inner");
+    
 
     $(".logon1").on("click",logon1);
     $(".logon2").on("click",logon2);
@@ -16,7 +19,7 @@
     //模拟登录成功和自动登录
     function logon1(){
         $.cookie("markNumber","191543214");
-        $.cookie("face","../img/user (1).jpg");
+        $.cookie("face","../img/use1 (1).jpg");
         $.cookie("userName","冯某某");
         displayTipPane("登录用户1")
         initialWebSocket();//首次与服务器进行连接
@@ -25,7 +28,7 @@
     function logon2(){
         $.cookie("markNumber","191541227");
         console.log($.cookie("markNumber"));
-        $.cookie("face","../img/user (2).jpg");
+        $.cookie("face","../img/use1 (2).jpg");
         $.cookie("userName","吴某某");
         displayTipPane("登录用户2");
         initialWebSocket();//首次与服务器进行连接
@@ -41,14 +44,19 @@
         displayTipPane("退出登录!WebSocket断开连接!");
     })
 
-
+    var lastTarget = null;
     // 开始聊天,点击私信进行连接
     $(".chatBtn").on("click",function(){
         wantToSendMarkNumber = $(this).attr("target");
         wsUrl  = url+'/'+myMarkNumber+'/'+wantToSendMarkNumber; 
         //重新连接WebSocket
+
         //用户名
-        $(".platform_chat .targetNume").text($(this).attr("targetName"));
+        $(".platform_chat .targetName").text($(this).attr("targetName"));
+        if(lastTarget!=null && lastTarget!=$(this).attr("target")){
+            $(".platform_chat")
+        }
+        
         $(".platform_chat").fadeIn();
 
         //这次的webSocket是有发送目标的
@@ -85,6 +93,7 @@
             "sendTime": ""+sendTime,
             "content":$(".platform_chat textarea").val()
         }
+        $(".platform_chat textarea").val("");
         return textInfo;
     }
 
@@ -99,9 +108,9 @@
 
 
     // 点击发送按钮
-    $(".platform_char input[type='button']").on("click",function(){
+    $(".platform_chat input[type='button']").on("click",function(){
         sendText();
-        displayTipPane("发送文本")
+        // displayTipPane("发送文本")
     })
 
     //回车键发送
@@ -115,6 +124,8 @@
     function addReceived(data) {
         // displayTipPane(data);
         //判断data类型 img | text
+        data = JSON.parse(data);
+        console.log(data);
         var liNode = document.createElement("li");
         liNode.classList.add("target");
         if(data.contentType=="text"){
@@ -181,8 +192,9 @@
         //拿到任何消息都说明当前连接是正常的
        
         //消息的展示,不是心跳验证码,就小红点出现，用户发送过来的数据也开始动态添加
+       
         if(event.data!="#1#"){
-            addReceived();
+            addReceived(event.data);
         }
         heartCheck.start();
       }
@@ -241,79 +253,4 @@
     })
 
 
-    // function chat(meObj, targetObj, callback) {
-    //     //首先判断是否浏览器支持websocket
-    //     //每次打开新的聊天对象，就要进行重新连接
-    //     let ws;
-    //     var ulNode = document.getElementById("ulNode");
-    //     var screen_inner = document.getElementById("screen_inner");
-    //     if ('WebSocket' in window) {
-    //         //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
-    //         let markNumber = meObj.id;
-    //         let wantToSendMarkNumber = targetObj.id;
-    //         ws = new WebSocket("ws://192.168.137.105:8080/WebSocket/" + markNumber+'/'+wantToSendMarkNumber);
-    //     } else {
-    //         // displayTipPane("连接失败");
-    //         return;
-    //     }
-    //     ws.onopen = function() {
-    //             // displayTipPane("连接成功");
-    //         }
-    //         //收到信息,不论是谁的消息，只要是服务器有发送消息给你就会进行触发onMessage事件
-    //     ws.onmessage = function(event) {
-    //         $(".icondian").css("display", "block");
-    //         //收到消息就将加小红点
-    //         // $();
-    //         //进行内容的添加
-    //         // displayTipPane('收到消息：' + event.data);
-
-    //         addReceived(event.data);
-    //         if (callback) {
-    //             callback();
-    //         }
-    //     }
-    //     ws.onerror = function() {
-    //         displayTipPane("error");
-    //     }
-    //     $(".platform_chat .close_btn").click(() => {
-    //         $(".platform_chat").hide(150);
-    //         // ws.close();
-    //     })
-
-
-    //     //点击私聊开始聊天
-
-
-    //     // $(".chatBtn").on("click",function(){
-    //     //     //打开聊天面板
-    //     //     //获取目标对象信息
-    //     //     //对方的学号,对方的头像
-
-    //     // })
-
-
-
-
-
-    //     //单击事件发送数据
-    //     $(".platform_chat input[type='button']").off("click");
-    //     $(".platform_chat input[type='button']").on("click", function() {
-    //         var screen_inner = $(".platform_char .screen .inner");
-    //         screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
-    //         let value = $(".platform_chat textarea").val();
-    //         if (value == undefined || value == null || value == "") {
-    //             return;
-    //         }
-    //         ws.send(value);
-    //         addSend(value);
-    //         $(".platform_chat textarea").val("");
-    //     });
-    //     //关闭页面的时候就关闭wesocket
-
-    //     //关闭页面后关闭webSocket连接
-    //     window.onbeforeunload = function() {
-    //         ws.close();
-    //     }
     
-   
-    // }
