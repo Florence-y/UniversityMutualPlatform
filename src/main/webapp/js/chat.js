@@ -54,13 +54,14 @@
         //用户名
         $(".platform_chat .targetName").text($(this).attr("targetName"));
         if(lastTarget!=null && lastTarget!=$(this).attr("target")){
-            $(".platform_chat")
+           ulNode.innerHTML("");
         }
+        lastTarget = $(this).attr("targetName");
         
         $(".platform_chat").fadeIn();
 
         //这次的webSocket是有发送目标的
-        createWebSocket();
+        createWebSocket1();
     });
 
     //历史记录
@@ -160,7 +161,7 @@
         myMarkNumber = $.cookie("markNumber");
         wantToSendMarkNumber = "123456789";
         wsUrl  = url+'/'+myMarkNumber+'/'+wantToSendMarkNumber;
-        createWebSocket();
+        createWebSocket1();
     }
 
      //点击其他聊天后也要调用，重新连接websocket
@@ -173,6 +174,7 @@
         displayTipPane('catch');
         reconnect();
       }
+        
     }
     function init() {
       ws.onclose = function () {
@@ -192,7 +194,7 @@
         //拿到任何消息都说明当前连接是正常的
        
         //消息的展示,不是心跳验证码,就小红点出现，用户发送过来的数据也开始动态添加
-       
+        addReceived(event.data);
         if(event.data!="#1#"){
             addReceived(event.data);
         }
@@ -236,6 +238,23 @@
 
         }, this.timeout)
       }
+    }
+
+
+    function createWebSocket1(){
+        ws = new WebSocket(wsUrl);
+        ws.onclose = function(){
+            displayTipPane("关闭聊天连接");
+        }
+        ws.onerror = function(){
+            displayTipPane("连接异常")
+        }
+        ws.onmessage= function(){
+            addReceived();
+        }
+        ws.onopen = function(){
+            displayTipPane("连接成功")
+        }
     }
 
     // 创建一个webSocket与服务器进行连接
