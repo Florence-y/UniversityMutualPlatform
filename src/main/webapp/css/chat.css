@@ -57,7 +57,7 @@
     border-top-right-radius: 0px;
 }
 
-.platform_chat .target .text {
+.platform_chat .target .text{ 
     background-color: #fff;
     left: 15px;
     border-top-left-radius: 0px;
@@ -237,6 +237,18 @@
         font-size:16px;
         letter-spacing: 1px;
     }
+    .platform_chat .screen li .profile {
+        width:35px;
+        height: 35px;
+    }
+    .platform_chat .me .text{
+        left:-9px;
+    }
+    .platform_chat .target .text{
+        left:9px;
+    }
+
+    /* 工具栏 */
     .platform_chat .chat_toolBar{
         height: 35px;
     }
@@ -251,6 +263,16 @@
         font-size:16px;
         width:90px;
         height: 30px;
+        line-height: 30px;
+    }
+    .platform_chat li .text {
+        font-size:16px;
+        line-height: 30px;
+        border-radius: 8px;
+        padding: 2px 5px;
+    }
+    .platform_chat .title{
+        font-size:18px;
         line-height: 30px;
     }
 }
