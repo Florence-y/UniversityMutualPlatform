@@ -11,24 +11,17 @@ window.onload = function() {
 
 function setCookie(json, time) {
     for (var key in json) {
-        // console.log(key);
-        // console.log(json[key]);
+        console.log(key);
+        console.log(json[key]);
         $.cookie(key, json[key], { expires: time });
-        // console.log($.cookie(key));
+        console.log($.cookie(key));
     }
 }
-// function setCookie(json, day) {
-//     var date = new Date(new Date().getTime() + day * 24 * 60 * 60 * 1000).toUTCString(); //转毫秒
-//     for (var key in json) {
-//         document.cookie = key + "=" + json[key] + ";expires=" + date;
-//         console.log($.cookie("key"));
-//     }
-// }
+
 
 function isHaveCookie() {
     console.log($.cookie("userName"));
-
-    if ($.cookie("markNumber") != null && $.cookie("markNumber") != undefined &&
+    if (navigator.onLine && $.cookie("markNumber") != null && $.cookie("markNumber") != undefined &&
         $.cookie("userName") != null && $.cookie("userName") != undefined &&
         $.cookie("face") != undefined && $.cookie("face") != null) {
         return true;
@@ -63,65 +56,16 @@ $(function() {
             //#region 搜索框：searchContent不显示+ 清空里面的内容 +清空搜索框内容 
 
             $(this).parent().siblings(".searchContent").hide(200);
-            $(".searchContent").find("li i").attr("class", "iconfont");
-            $(".searchContent").find("li a").attr("href", "");
-            $(".searchContent").find("li a").text("");
+            $(".searchContent").find('li').remove();
             $(".search").find(".searchBar").val("");
 
             //#endregion
 
-            //#region 消息通知：不显示
-
-            // $(".message").find(".messageNotification").fadeOut(100);
-
-            //#endregion
-
-            //#region 头像那边的二级导航: 二级导航+二二级4导航:淡出 字体颜色: #666
-
-            // $('.hpSecond').fadeOut(100);
-
-            // $(".hpSecond_general").css("borderRadius", "22px");
-
-
-            // $(".hpSecondSecond").fadeOut(50);
-            // $(".hpSecondSecond").animate({
-            //     right: 0
-            // })
-
-            //#endregion
         }
     })
-
-    //#region 点击上面校区互通 √
-
-    $('.campus-li').on({
-        click: function() {
-            $("body, html").stop().animate({
-                scrollTop: "600px",
-            });
-        }
-    })
-
-    //#endregion
 
     //#region 搜索框 √
 
-    //#region  卷去页面 导航栏发生变化 √
-
-    // $(window).scroll(function() {
-
-    //     if ($(document).scrollTop() >= 433) {
-    //         $(".nav .functionNav").show(200);
-    //         $(".nav .search").css("left", "61%");
-
-    //     } else {
-    //         $(".nav .functionNav").hide(200);
-
-    //         $(".nav .search").css("left", "50%");
-    //     }
-    // })
-
-    //#endregion
 
     //#region 点击 + 得失焦点 + 节流 √ 
 
@@ -133,13 +77,6 @@ $(function() {
 
     $(".nav").find(".searchBar").on({
 
-        focus: function() {
-            //搜索框获得焦点 bar/btn 的边框圆角 变化 + bar 的背景 变白 + 联想内容 显示
-            // $(".searchBar").css("borderRadius", "40px 0 0 0");
-            // $(".searchBtn").css("borderRadius", "0 40px 0 0");
-            // $(this).css("backgroundColor", "#fff");
-            // $(this).parent().siblings(".searchContent").show(200);
-        },
         blur: function() {
             //搜索框失去焦点 bar/btn 的边框圆角 变会 + bar 的背景 变回半透明 + 联想内容 隐藏
             $(".searchBar").css("borderRadius", "40px 0 0 40px");
@@ -171,16 +108,21 @@ $(function() {
             $(this).css("backgroundColor", "rgba(255, 255, 255, 0.5)");
             $(this).parent().siblings(".searchContent").hide(200);
         }
+
         if ($(this).val() != "") {
             $.get('../Servlet/MainPageServlet', {
                 requestType: 'get',
                 getType: "explore",
                 exploreContent: $(this).val(),
             }, function(res) {
-                // console.log(res);
-                for (var i = 0; i < res.dataList.length; i++) {
+                // console.log(res);  
+                $('.search .searchContent li').remove();
+                var indexli = 0;
+                var url;
+                var icon;
+                for (var i = 0; i < res.dataList.length && i < 5; i++) {
                     //判断是哪个篇 的 然后获取 创建iconfont
-                    var icon;
+
                     if (res.dataList[i].questionType === "学习篇") {
                         icon = "iconxuexi";
                     } else if (res.dataList[i].questionType === "期末篇") {
@@ -195,20 +137,28 @@ $(function() {
                         icon = "iconqita";
                     }
 
-                    var url = 'questionPage.html?id=' + res.dataList[i].id;
-                    $('.searchContent').find("li").eq(i).find('i').addClass(icon);
-                    $('.searchContent').find("li").eq(i).find('a').attr("href", url);
-                    $('.searchContent').find("li").eq(i).find('a').html(res.dataList[i].title);
-                    // var li = $('<li><span><i class="iconfont ' + icon + ' "></i></span><a href=" ' + url + ' ">' + res.dataList[i].title + '</a></li>');
-                    // $(".search .searchContent").prepend(li);
-                    // $(".search .searchContent").find("li").eq(i).html(res.dataList[i].title);
+                    url = 'questionPage.html?id=' + res.dataList[i].id;
+
+
+                    if (indexli < 5) {
+                        var li = $('<li><span><i class="iconfont ' + icon + ' "></i></span><a target="_blank" href=" ' + url + ' ">' + res.dataList[i].title + '</a></li>');
+                        $(".search .searchContent").prepend(li);
+                        $(".search .searchContent").find("li").eq(i).html(res.dataList[i].title);
+                        indexli++;
+                        // return;
+                    }
                 }
+
 
             }, 'json')
         } else {
-            $(".searchContent").find("li i").attr("class", "iconfont");
-            $(".searchContent").find("li a").attr("href", "");
-            $(".searchContent").find("li a").text("");
+            $(".searchContent").find('li').remove();
+
+            $(".search").find(".searchBar").val("");
+            $(".searchBar").css("borderRadius", "40px 0 0 40px");
+            $(".searchBtn").css("borderRadius", "0 40px 40px 0");
+            $(this).css("backgroundColor", "rgba(255, 255, 255, 0.5)");
+            $(this).parent().siblings(".searchContent").hide(200);
         }
 
     }, 250, true))
@@ -223,7 +173,7 @@ $(function() {
 
     //#region 点击登录button进入登录弹框 √
 
-    $('.personal .fadein').click(function() {
+    $('.fadein').click(function() {
         // $("input").val("");
         $(".logOn").siblings().fadeOut();
         $(".logOn").fadeIn();
@@ -234,13 +184,12 @@ $(function() {
         })
     })
 
-
-    // 登录面板
-    $('.modal_bg_logon .fadeout').click(function() {
+    $('.fadeout').click(function() {
         $('.modal_bg_logon').fadeOut(); // 其实就是css 的过渡+ display
         $('.logonBody .logonYmadal').css({
             transform: 'translate(-50%,-50%) scale(0.7)'
         })
+
     })
 
     //#endregion
@@ -312,7 +261,7 @@ $(function() {
                     $('.ResMessagePojoMajor').text(res.messagePojo.major);
                     $('.ResMessagePojoMajor').prop("title", res.messagePojo.major);
                     // if (res.messagePojo.face != null) {
-                    let ResMessageFaceScr = res.messagePojo.face;
+                    let ResMessageFaceScr = '../' + res.messagePojo.face.substring(2);
                     $('.ResMessageFace').prop("src", ResMessageFaceScr);
                     $('.navHPY').prop('src', ResMessageFaceScr);
                     // } else {
@@ -323,8 +272,37 @@ $(function() {
 
                     //#endregion
                     //#region 生成websocket对象
-                    initialWebSocket();
-                   
+
+                    let ws;
+                    var ulNode = document.getElementById("ulNode");
+                    var screen_inner = document.getElementById("screen_inner");
+                    if ('WebSocket' in window) {
+                        //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
+                        let markNumber = USERID;
+                        let wantToSendMarkNumber = "666";
+                        ws = new WebSocket("ws://192.168.137.105:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
+                    } else {
+                        // displayTipPane("连接失败");
+                        return;
+                    }
+                    ws.onopen = function() {
+                        // displayTipPane("连接成功");
+                    }
+
+                    //收到信息
+                    ws.onmessage = function(event) {
+                        $(".icondian").show();
+                        //收到消息就将加小红点
+                        // $();
+                        //进行内容的添加
+                        // console.log('收到消息：' + event.data);
+
+                        addReceived(event.data);
+                        callback();
+                    }
+                    ws.onerror = function() {
+                        displayTipPane("error");
+                    }
 
                     //#endregion
 
@@ -368,11 +346,12 @@ $(function() {
                         }, function(res) {
                             $(".system").html("");
                             // console.log(res);
+
                             //#region 动态创建  消息通知
                             for (var i = res.dataList.length - 1; i > 0; i--) {
 
                                 var item = $("<li class='item'></li>");
-                                var src = res.dataList[i].senderFace;
+                                var src = '../' + res.dataList[i].senderFace.substring(2);
                                 var img = $("<img src='" + src + "'>");
                                 var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                                 var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -389,24 +368,121 @@ $(function() {
                             }
 
 
-                          
+                            //#endregion
+
+                            // console.log(res);
 
                         }, 'json')
                         //#region 聊天
                 }
-                
+                //#region 点击私信 弹出聊天框
+                $("body").on({
+                    click: function() {
+                        $(".platform_chat").fadeOut(200);
+                    }
+                })
+
+                $('.close_btn').click(function() {
+
+                    $(".platform_chat").fadeOut(200);
+                })
+
+                //#endregion
+
+                function chat(meObj, targetObj, callback) {
+                    //首先判断是否浏览器支持websocket
+                    //点击发送
+                    let ws;
+                    var ulNode = document.getElementById("ulNode");
+                    var screen_inner = document.getElementById("screen_inner");
+                    if ('WebSocket' in window) {
+                        //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
+                        let markNumber = meObj.id;
+                        let wantToSendMarkNumber = targetObj.id;
+                        ws = new WebSocket("ws://192.168.137.105:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
+                    } else {
+                        displayTipPane("连接失败");
+                        return;
+                    }
+                    ws.onopen = function() {
+                        displayTipPane("连接成功");
+                    }
+
+                    //收到信息 
+                    ws.onmessage = function(event) {
+                        $(".icondian").css("display", "block");
+                        //收到消息就将加小红点
+
+                        //进行内容的添加
+                        // console.log('收到消息：' + event.data);
+
+                        addReceived(event.data);
+                        if (callback) {
+                            callback();
+                        }
+
+                    }
+                    ws.onerror = function() {
+                        displayTipPane("error");
+                    }
+
+                    $(".platform_chat .close_btn").click(() => {
+                        // $(".platform_chat").hide(150);
+                        $(".platform_chat").find("li").remove();
+                        ws.close();
+                    })
+
+                    $(".platform_chat input[type='button']").off("click");
+                    //单击事件发送数据
+                    $(".platform_chat input[type='button']").on("click", function() {
+                        var screen_inner = $(".platform_char .screen .inner");
+                        screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
+                        let value = $(".platform_chat textarea").val();
+                        if (value == undefined || value == null || value == "") {
+                            return;
+                        }
+                        ws.send(value);
+                        addSend(value);
+                        $(".platform_chat textarea").val("");
+                    });
+
+                    //关闭页面的时候就关闭wesocket
+                    window.onbeforeunload = function() {
+                        ws.close();
+                    }
+
+
+                    function addReceived(data) {
+                        // console.log(data);
+                        var liNode = document.createElement("li");
+                        liNode.classList.add("target");
+                        liNode.innerHTML = '<img class="profile" src="' + targetObj.face + '"><span class="text">' + data + '</span>';
+                        ulNode.appendChild(liNode);
+                        screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
+                    }
+
+                    function addSend(data) {
+                        // console.log(data);
+                        var liNode = document.createElement("li");
+                        liNode.classList.add("me");
+                        liNode.innerHTML = '<span class="text">' + data + '</span><img class="profile" src="' + meObj.face + '">';
+                        ulNode.appendChild(liNode);
+                        screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
+                    }
+                }
             } else {
                 displayTipPane("你还没登录噢~");
             }
         }
     })
     $(".message").on({
-            mouseleave: function(e) {
-                e.stopPropagation();
-                $('.message').find(".messageNotification").stop().fadeOut();
-            }
-        })
-        //#region 效果
+        mouseleave: function(e) {
+            e.stopPropagation();
+            $('.message').find(".messageNotification").stop().fadeOut();
+        }
+    })
+
+    //#region 效果
 
     // 消息同学
     //去右边，私信
@@ -441,8 +517,9 @@ $(function() {
                 // for (var total = res.totalPage.length - 1; total > 0; total--) {
 
                 for (var i = res.dataList.length - 1; i > 0; i--) {
-                    var src = res.dataList[i].senderFace;
-                    var item = $("<li class='item chatBtn' target='"+res.dataList[i].senderMarkNumber+"' targetName='"+res.dataList[i].senderName+"' data-pindex='" + pindex + "'></li>");
+
+                    var item = $("<li class='item' data-pindex='" + pindex + "'></li>");
+                    var src = '../' + res.dataList[i].senderFace.substring(2);
                     var img = $("<img src='" + src + "'>");
                     var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                     var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -457,7 +534,7 @@ $(function() {
 
                     send[pindex] = {
                         'senderMarkNumber': res.dataList[i].senderMarkNumber,
-                        'senderFace': res.dataList[i].senderFace,
+                        'senderFace': '../' + res.dataList[i].senderFace.substring(2),
                         'senderName': res.dataList[i].senderName,
                     }
 
@@ -472,27 +549,44 @@ $(function() {
                 //#endregion
 
                 // console.log(send);
+                $('.private .item').on({
+                    click: function(e) {
 
+                        //#region 显示 聊天框
+                        e.stopPropagation();
+                        $(".platform_chat").fadeIn(200);
 
-                //加载完item后绑定点击打开聊天面板事件
-                $(".chatBtn").off("click");
-                $(".chatBtn").on("click", function () {
-                    wantToSendMarkNumber = $(this).attr("target");
-                    wsUrl = url + '/' + myMarkNumber + '/' + wantToSendMarkNumber;
-                    //重新连接WebSocket
-                  
-                    //用户名
-                    $(".platform_chat .targetName").text($(this).attr("targetName"));
-                    if (lastTarget != null && lastTarget != $(this).attr("target")) {
-                      ulNode.innerHTML = "";
+                        $(".platform_chat").on({
+                            click: function(e) {
+                                e.stopPropagation();
+                                $(".platform_chat").css("display", "block");
+                            }
+                        })
+
+                        //#endregion
+
+                        //#region 获取数据
+                        var index = $(this).attr("data-pindex")
+                        send[index];
+                        // console.log($(this).attr("data-pindex"));
+                        var meObj = {
+                            id: $.cookie("markNumber"),
+                            face: '../' + $.cookie('face').substring(2)
+                        };
+
+                        $(".platform_chat .targetName").text(send[index].senderName);
+                        var targetObj = {
+                            id: send[index].senderMarkNumber,
+                            face: send[index].senderFace,
+                            name: send[index].senderName
+                        }
+
+                        // console.log(targetObj);
+                        chat(meObj, targetObj);
+
+                        //#endregion
                     }
-                    lastTarget = $(this).attr("targetName");
-                  
-                    $(".platform_chat").fadeIn();
-                  
-                    //这次的webSocket是有发送目标的
-                    createWebSocket1();
-                  });
+                })
             }, 'json')
 
             //#endregion
@@ -526,7 +620,7 @@ $(function() {
                 for (var i = res.dataList.length - 1; i > 0; i--) {
 
                     var item = $("<li class='item'></li>");
-                    var src = res.dataList[i].senderFace;
+                    var src = '../' + res.dataList[i].senderFace.substring(2);
                     var img = $("<img src='" + src + "'>");
                     var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                     var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -878,11 +972,7 @@ $(function() {
 
     //#endregion
 
-    //#endregion
 
-    //#region 鼠标悬停 | 点击 头像 出现二级导航  点击 二级导航的 li 再出现二级导航
-
-   
 
     // 二级面板的位置动态给变
     $(window).on("resize", function() {
@@ -899,8 +989,6 @@ $(function() {
             $(this).siblings().find("em").css('color', '#666');
             $(this).find('em').css('color', '#028e9b');
             //根据target自定义属性名再通过类名来获取对应的二级面板
-
-
             var secondPane = $("." + $(this).attr("target"));
             if (secondPane == null || secondPane == undefined) {
                 return;
@@ -909,37 +997,18 @@ $(function() {
             // $(".hpSecond").css("borderRadius", "0 22px 22px 0");
             //打开二级面板的左边圆角
             //每次打开之前恢复原来状态
-            $(".hpSecondSecond").fadeOut(); //全部的二级面板
+            $(".hpSecondSecond").fadeOut();
             $(".hpSecondSecond").animate({
                 right: "0"
             }, 100);
-
             secondPane.css("borderRadius", "22px");
             generalPane.css("borderRadius", "22px");
-            generalPane.css("border-left-color", "#5ec4cd")
 
-            if (generalPane.attr("nowSecondPane") == "null") {
-                generalPane.attr("nowSecondPane", $(this).attr("target"));
-            }
-            if (generalPane.attr("status") == "open") {
-                //初始化
-                //点击原来按钮
-                if (generalPane.attr("nowSecondPane") == $(this).attr("target")) {
-                    generalPane.attr("status", "close");
-                    // console.log("收起")
-                    return;
-                } else { //点击别的按钮
-                    generalPane.attr("nowSecondPane", $(this).attr("target"));
-                }
-
-            }
-            generalPane.attr("status", "open");
             if (USERID != null) {
                 //count是实现点击一次按钮打开二级面板，再次点击就关闭
                 // 原面板的右边圆角
                 secondPane.css("borderRadius", "22px 0 0 22px");
                 generalPane.css("borderRadius", "0 22px 22px 0");
-                generalPane.css("border-left-color", "#fff");
                 // 所有的二级面板消失
                 // $(this).siblings().find(".hpSecondSecond").css("display", "none");
                 secondPane.css("display", "block");
@@ -980,7 +1049,6 @@ $(function() {
             $(".myAns").html("");
             $(".mycollection").html("");
             clearCookie();
-            closeWebSocket();
             //问题页面判断是否登录
         }
     })
@@ -1011,416 +1079,12 @@ $(window).on("load", function() {    
         $('.ResMessagePojoMajor').text($.cookie("major"));
         $('.ResMessagePojoMajor').prop("title", $.cookie("major"));         // if (res.messagePojo.face != null) {
                 
-        let ResMessageFaceScr = $.cookie("face");
+        let ResMessageFaceScr = '../' + $.cookie("face").substring(2);
         $('.ResMessageFace').prop("src", ResMessageFaceScr);
         $('.navHPY').prop('src', ResMessageFaceScr);
-        initialWebSocket();
     } else {
         $('.personal').show(100);    
     }    
 })
 
 //#endregion
-
-
-var myMarkNumber = "191543214";//要获取cookie
-var wantToSendMarkNumber = "123456789";//随便写一个，目的是与服务进行连接
-var url = "ws://localhost:8080/WebSocket";
-var wsUrl //点击某一个私信后重新修改
-var ws;
-var tt;
-var ulNode = document.getElementById("ulNode");
-var screen_inner = document.getElementById("screen_inner");
-
-// initialWebSocket();//首次与服务器进行连接
-
-// 退出登录调用
-function closeWebSocket() {
-  ws.close();
-  $(".platform_chat").fadeOut();
-}
-
-var lastTarget = null;
-// 开始聊天,点击私信进行连接
-$(".chatBtn").on("click", function () {
-  wantToSendMarkNumber = $(this).attr("target");
-  wsUrl = url + '/' + myMarkNumber + '/' + wantToSendMarkNumber;
-  //重新连接WebSocket
-
-  //用户名
-  $(".platform_chat .targetName").text($(this).attr("targetName"));
-  if (lastTarget != null && lastTarget != $(this).attr("target")) {
-    ulNode.innerHTML = "";
-  }
-  lastTarget = $(this).attr("targetName");
-
-  $(".platform_chat").fadeIn();
-
-  //这次的webSocket是有发送目标的
-  createWebSocket1();
-});
-
-//历史记录
-function loadHistoryInfo(target) {//获取与某一个人的具体历史信息，target的对方的markNumber
-  //遍历，添加
-}
-
-// 消息发送
-//文本的发送，回车键或者点击发送按钮进行发送
-//表情是点击某一个表情，发送一个表情图片地址,表情需要限制尺寸大小
-//图片需要上传图片，上传完后发送的还是图片的地址
-
-
-// 文本发送
-function getTextInfo() {
-  //判空处理
-  var reg = /^\s*$/
-  if (reg.test($(".platform_chat textarea").val())) {
-    displayTipPane("输入文本不能为空！")
-    $(".platform_chat textarea").val("");
-    return null;
-  }
-  var date = new Date();
-  var sendTime = date.getTime();
-  var textInfo = {
-    "senderMarkNumber": myMarkNumber,
-    "senderFace": $.cookie("face"),
-    "senderName": $.cookie("userName"),
-    "contentType": "text",
-    "sendTime": "" + sendTime,
-    "content": $(".platform_chat textarea").val()
-  }
-  $(".platform_chat textarea").val("");
-  return textInfo;
-}
-
-function sendText() {
-  var textInfo = getTextInfo();
-  if (textInfo != null) {//非空
-    addSend(textInfo);
-    ws.send(JSON.stringify(textInfo));//发送json对象
-  }
-}
-
-// 点击发送按钮
-$(".platform_chat input[type='button']").on("click", function () {
-  sendText();
-  $(".platform_chat textarea").val("")
-  // displayTipPane("发送文本")
-})
-
-//回车键发送
-$(".platform_chat textarea").on("keydown", function (e) {
-
-  if (e.keyCode == 13 || e.keyCode == 108) {
-    sendText();
-    e.preventDefault()
-    $(".platform_chat textarea").val("")
-  }
-})
-
-
-
-
-//表情发送, 鼠标点击某一个表情时触发函数
-function setFaceEventListener() {
-  var date = new Date();
-  var sendTime = date.getTime();
-  var faceInfo = {
-    "senderMarkNumber": myMarkNumber,
-    "senderFace": $.cookie("face"),
-    "senderName": $.cookie("userName"),
-    "contentType": "face",
-    "sendTime": "" + sendTime,
-    "content": $(this).attr("src")
-  }
-
-  addSend(faceInfo);
-  ws.send(JSON.stringify(faceInfo));
-}
-
-
-//图片发送
-//上传图片
-//成功后发送消息
-
-
-//读取图片文件 
-
-$('.platform_chat .picture').click(() => {
-  if (sendingImg) {
-    displayTipPane("有图片正在上传中...");
-  } else {
-    $('#sendImgBtn').click();
-  }
-})
-$('#sendImgBtn').change(readFile_chat);
-//读图片，添加到输入框中
-var oinput = document.getElementById("sendImgBtn");
-
-//读取文件
-function readFile_chat() {
-  var formdata = new FormData();
-  if (!oinput['value'].match(/.jpg|.gif|.png|.jpeg|.bmp/i)) {　　 //判断上传文件格式
-    return displayTipPane("图片格式有误！");
-  }
-
-  formdata.append(0, this.files[0]); // formdata 的属性
-  //成功后上传图片
-  sendImage_chat(formdata);
-}
-
-var sendingImg = false;
-function sendImage_chat(formdata) {
-  sendingImg = true;
-  $.ajax({
-    url: 'http://192.168.137.105:8080/Servlet/ReceiveFileServlet',
-    type: 'post',
-    data: formdata,
-    dataType: 'json',
-    processData: false, //用FormData传fd时需有这两项
-    contentType: false,
-    success: function (data) {
-      sendingImg = false;
-      // imgObj.attr("src", data.message);
-      //图片上传成功后拿取返回的url
-      sendImg_chatContent(data.message);
-    },
-    error: function (data) {
-      sendingImg = false;
-      displayTipPane("图片上传失败！")
-    },
-    timeout: function (data) {
-      sendingImg = false;
-      displayTipPane("图片上传超时！")
-    }
-  })
-}
-
-
-//发送图片信息
-function sendImg_chatContent(url) {
-  var date = new Date();
-  var sendTime = date.getTime();
-  var imgInfo = {
-    "senderMarkNumber": myMarkNumber,
-    "senderFace": $.cookie("face"),
-    "senderName": $.cookie("userName"),
-    "contentType": "img",
-    "sendTime": "" + sendTime,
-    "content": url
-  }
-  addSend(imgInfo);
-  ws.send(JSON.stringify(imgInfo));
-}
-
-// img是css查询条件
-function isImgLoad(callback, img) {
-  $(img).each(function () {
-    if (this.height === 0) {
-      isLoad = false;
-      return false;
-    }
-  });
-  if (isLoad) {
-    clearTimeout(t_img);
-    callback();
-  } else {
-    isLoad = true;
-    t_img = setTimeout(function () {
-      isImgLoad(callback);
-    }, 100)
-  }
-}
-
-// 添加接受的消息函数
-function addReceived(data) {
-  // displayTipPane(data);
-  //判断data类型 img | text
-  // console.log(data);
-  data = JSON.parse(data);
-  // console.log(data);
-
-  var liNode = document.createElement("li");
-  liNode.classList.add("target");
-  if (data.contentType == "text") {
-    liNode.innerHTML = '<img class="profile" src="' + data.senderFace + '"><span class="text">' + data.content + '</span>';
-  } else if (data.contentType == "face") {//表情,大小有限制
-    liNode.innerHTML = '<img class="profile" src="' + data.senderFace + '"><span class="text"><img src="' + data.content + '" height="28px"></span>';
-  } else if (data.contentType == "img") {//图片，大小有限制，但是比表情大一点
-    // data.content = "http://192.168.137.105:8080"+data.content.substring(2);
-    liNode.innerHTML = '<img class="profile" src="' + data.senderFace + '"><span class="text"><img  src="' + data.content + '" style="max-width:130px; margin:5px;border-radius:4px;cursor:zoom-in;cursor:-webkit-zoom-in" class="fadein_img"></span>';
-    ulNode.appendChild(liNode);
-    // var oImg = liNode.getElementsByTagName("img")[0];
-    rebindSeeImage();
-    isImgLoad(function () {
-      screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
-    }, liNode.getElementsByTagName("img"));
-    return;
-  }
-  ulNode.appendChild(liNode);
-  screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
-}
-//添加发送的出去的消息
-function addSend(data) {
-  // displayTipPane(data);
-  //判断data类型 img | text
-  var liNode = document.createElement("li");
-  liNode.classList.add("me");
-
-  if (data.contentType == "text") {
-    liNode.innerHTML = '<span class="text">' + data.content + '</span><img class="profile" src="' + data.senderFace + '">';
-  } else if (data.contentType == "face") {//表情,大小有限制
-    liNode.innerHTML = '<span class="text"><img src="' + data.content + '" height="28px"></span><img class="profile" src="' + data.senderFace + '">';
-
-  } else if (data.contentType == "img") {//图片，大小有限制，但是比表情大一点
-
-    // data.content = "http://192.168.137.105:8080" + data.content.substring(2);
-    liNode.innerHTML = '<span class="text"><img  src="' + data.content + '" style="max-width:130px; border-radius:4px; margin:5px;cursor:zoom-in;cursor:zoom-in;cursor:-webkit-zoom-in" class="fadein_img"></span><img class="profile" src="' + data.senderFace + '">';
-    ulNode.appendChild(liNode);
-    //添加事件
-    // var oImg = liNode.getElementsByTagName("img")[0];
-    // $(oImg).on('click',rebindSeeImage);
-    rebindSeeImage();
-    isImgLoad(function () {
-      screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
-    }, liNode.getElementsByTagName("img"));
-    return;
-
-  }
-  ulNode.appendChild(liNode);
-  screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
-
-
-}
-
-//登录成功和自动登录时使用
-function initialWebSocket() {
-  myMarkNumber = $.cookie("markNumber");
-  wantToSendMarkNumber = "123456789";
-  wsUrl = url + '/' + myMarkNumber + '/' + wantToSendMarkNumber;
-  createWebSocket1();
-}
-
-//点击其他聊天后也要调用，重新连接websocket
-function createWebSocket() {
-
-  try {
-    ws = new WebSocket(wsUrl);
-    init();
-  } catch (e) {
-    displayTipPane('catch');
-    reconnect();
-  }
-
-}
-function init() {
-  ws.onclose = function () {
-    displayTipPane('链接关闭');
-    reconnect();
-  };
-  ws.onerror = function () {
-    displayTipPane('发生异常了');
-    reconnect();
-  };
-  ws.onopen = function () {
-    //心跳检测重置
-    displayTipPane("webSocket连接成功");
-    heartCheck.start();
-  };
-  ws.onmessage = function (event) {
-    //拿到任何消息都说明当前连接是正常的
-    console.log(event)
-    //消息的展示,不是心跳验证码,就小红点出现，用户发送过来的数据也开始动态添加
-    addReceived(event.data);
-    // if(event.data!="#1#"){
-    //     addReceived(event.data);
-    // }
-    heartCheck.start();
-  }
-  //发送消息
-}
-function reconnect() {
-  if (lockReconnect) {
-    return;
-  };
-  lockReconnect = true;
-  //没连接上会一直重连，设置延迟避免请求过多
-  tt && clearTimeout(tt);
-  tt = setTimeout(function () {
-    createWebSocket(wsUrl);//重新连接，递归
-    lockReconnect = false;
-  }, 4000);
-}
-//心跳检测
-var heartCheck = {
-  timeout: 3000,
-  timeoutObj: null,
-  serverTimeoutObj: null,
-  start: function () {
-    // displayTipPane('start');
-    var self = this;
-    this.timeoutObj && clearTimeout(this.timeoutObj);
-    this.serverTimeoutObj && clearTimeout(this.serverTimeoutObj);
-    this.timeoutObj = setTimeout(function () {
-      //这里发送一个心跳，后端收到后，返回一个心跳消息，
-      //   displayTipPane('55555');
-      ws.send("123456789");//如果是后端还在线，就会触发onmessage事件
-      //3s不返回消息就会关闭webSocket，否则就会关闭该定时器继续进行心跳检测
-      self.serverTimeoutObj = setTimeout(function () {
-        // displayTipPane(111);
-        // displayTipPane(ws);
-        ws.close();
-        // createWebSocket();
-      }, self.timeout);
-
-    }, this.timeout)
-  }
-}
-
-
-function createWebSocket1() {
-  ws = new WebSocket(wsUrl);
-  ws.onclose = function () {
-    displayTipPane("关闭聊天连接");
-  }
-  ws.onerror = function () {
-    displayTipPane("连接异常")
-  }
-  ws.onmessage = function (event) {
-    addReceived(event.data);
-  }
-  ws.onopen = function () {
-    displayTipPane("连接成功")
-  }
-}
-
-// 创建一个webSocket与服务器进行连接
-// 制作表情面板
-
-function addFace() {
-  for (var i = 1; i <= 25; i++) {
-    var oImg = $('<img src="../emoji/' + i + '.png">');
-    $(".facePane").append(oImg);
-    oImg.on("click", setFaceEventListener);
-  }
-}
-addFace();
-
-//面板的打开与关闭  
-
-$(".platform_chat .face").on("click", function (e) {
-  e.stopPropagation()
-  $(".facePane").fadeIn(230);
-  $(".facePane").css("display", "flex");
-
-})
-$('body').on("click", function () {
-  $(".facePane").fadeOut(230);
-})
-
-
-// 关闭聊天面板
-$('.close_btn').click(function () {
-  $(".platform_chat").fadeOut(200);
-})
