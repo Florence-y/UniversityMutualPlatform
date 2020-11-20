@@ -443,6 +443,48 @@ $(function() {
 
     //#endregion
 
+    //#region 学校新闻 √
+
+    //#region 点击换一批 新闻页面 换一批
+
+
+    $(".changeTheBatchNews").on({
+
+        click: function() {
+
+            var indexCur = parseInt($(this).siblings("ul").find(".displayNewsDiv").attr("data-part"));
+            console.log(indexCur);
+            console.log(indexCur <= $(this).siblings("ul").find(".NewsDiv").length);
+            if (indexCur < $(this).siblings("ul").find(".NewsDiv").length - 1) {
+                indexCur++;
+
+                $(this).siblings("ul").find(".NewsDiv").eq(indexCur).addClass("displayNewsDiv");
+                $(this).siblings("ul").find(".NewsDiv").eq(indexCur).siblings().removeClass("displayNewsDiv");
+            } else {
+
+                indexCur = 0;
+                $(this).siblings("ul").find(".NewsDiv").eq(0).addClass("displayNewsDiv");
+                $(this).siblings("ul").find(".NewsDiv").eq(0).siblings().removeClass("displayNewsDiv");
+            }
+        }
+    })
+
+    //#endregion
+
+    //#region 添加title
+    var Anews = document.querySelector(".schoolNews").querySelectorAll("a");
+    var sourceNews = document.querySelector(".schoolNews").querySelectorAll("i");
+    for (var i = 0; i < Anews.length; i++) {
+        Anews[i].title = Anews[i].innerText;
+    }
+    for (var i = 0; i < sourceNews.length; i++) {
+        sourceNews[i].title = sourceNews[i].innerText;
+    }
+
+    //#endregion
+
+    //#endregion
+
     //#region 页脚 
 
     //#region 二级导航
