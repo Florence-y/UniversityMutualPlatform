@@ -60,6 +60,7 @@
 .platform_chat .target .text{ 
     background-color: #fff;
     left: 15px;
+    color:#666;
     border-top-left-radius: 0px;
 }
 
@@ -142,10 +143,12 @@
 .platform_chat .chat_toolBar .face {
     left: 15px;
     top: 5px;
+    cursor: pointer;
 }
 
 .platform_chat .chat_toolBar .picture {
     left: 25px;
+    cursor: pointer;
 }
 
 .platform_chat textarea {
@@ -205,6 +208,51 @@
     background-color: rgb(244, 245, 247);
 }
 
+
+/* 表情面板 */
+
+.facePane{
+    width:300px;
+    border:1px solid #ddd;
+    position: absolute;
+    bottom:40px;
+    display: none;
+    height:120px;
+    left:2px;
+   
+    flex-wrap: wrap;
+    background-color: #fff;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color:  rgba(0,0,0,0.2) transparent;
+
+}
+
+
+.facePane::-webkit-scrollbar{
+    width:5px;
+    height: 5px;
+}
+.facePane::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.2);
+}
+.facePane::-webkit-scrollbar-track{
+    border-radius: 0;
+    background-color:#fff;
+}
+.facePane img{
+    height: 30px;
+    height: 30px;
+    margin:5px;
+    cursor: pointer;
+}
+.facePane img:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+
 @keyframes flash {
     from {
         opacity: 0.5;
@@ -221,9 +269,9 @@
         width:400px;
     }
     .platform_chat .close_btn{
-        width:40px;
-        height: 40px;
-        line-height: 40px;
+        width:30px;
+        height: 30px;
+        line-height: 30px;
         font-size:37px;
     }
     .platform_chat .screen{
@@ -251,6 +299,7 @@
     /* 工具栏 */
     .platform_chat .chat_toolBar{
         height: 35px;
+        position: relative;
     }
     .platform_chat .chat_toolBar .face{
         height: 24px;
@@ -274,6 +323,9 @@
     .platform_chat .title{
         font-size:18px;
         line-height: 30px;
+    }
+    .platform_chat .screen li{
+        padding:5px 18px;
     }
 }
 /* 80% */

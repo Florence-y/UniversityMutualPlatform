@@ -18,18 +18,26 @@
 
     //模拟登录成功和自动登录
     function logon1(){
-        $.cookie("markNumber","191543214");
-        $.cookie("face","../img/use1 (1).jpg");
-        $.cookie("userName","冯某某");
+        $.cookie("markNumber","191543214",{ expires: 1 });
+        $.cookie("face","../img/use1 (1).jpg",{ expires: 1 });
+        $.cookie("userName","冯某某",{ expires: 1 });
+        setCookie("markNumber","191543214")
+        var json = {
+            "markNumber":"191543214",
+            "face":"../img/use1 (1).jpg",
+            "userName":"冯某某"
+        }
+        setCookie(json,1);
         displayTipPane("登录用户1")
         initialWebSocket();//首次与服务器进行连接
         
     }
     function logon2(){
-        $.cookie("markNumber","191541227");
-        console.log($.cookie("markNumber"));
-        $.cookie("face","../img/use1 (2).jpg");
-        $.cookie("userName","吴某某");
+        $.cookie("markNumber","191541227",{ expires: 1 });
+        // console.log($.cookie("markNumber"));
+        $.cookie("face","../img/use1 (2).jpg",{ expires: 1 });
+        $.cookie("userName","吴某某",{ expires: 1 });
+       
         displayTipPane("登录用户2");
         initialWebSocket();//首次与服务器进行连接
     }
@@ -54,13 +62,14 @@
         //用户名
         $(".platform_chat .targetName").text($(this).attr("targetName"));
         if(lastTarget!=null && lastTarget!=$(this).attr("target")){
-            $(".platform_chat")
+           ulNode.innerHTML = "";
         }
+        lastTarget = $(this).attr("targetName");
         
         $(".platform_chat").fadeIn();
 
         //这次的webSocket是有发送目标的
-        createWebSocket();
+        createWebSocket1();
     });
 
     //历史记录
@@ -86,7 +95,7 @@
         var date = new Date();
         var sendTime = date.getTime();
         var textInfo = {
-            "senderMarkNumebr":myMarkNumber,
+            "senderMarkNumber":myMarkNumber,
             "senderFace":$.cookie("face"),
             "senderName":$.cookie("userName"),
             "contentType":"text",
@@ -97,7 +106,6 @@
         return textInfo;
     }
 
-
     function sendText(){
         var textInfo = getTextInfo();
         if(textInfo!=null){//非空
@@ -105,18 +113,43 @@
             ws.send(JSON.stringify(textInfo));//发送json对象
         }
     }
+    //表情发送, 鼠标点击某一个表情时触发函数
+    function setFaceEventListener(){
+      var date = new Date();
+      var sendTime = date.getTime();
+      var faceInfo = {
+        "senderMarkNumber":myMarkNumber,
+        "senderFace":$.cookie("face"),
+        "senderName":$.cookie("userName"),
+        "contentType":"face",
+        "sendTime": ""+sendTime,
+        "content": $(this).attr("src")
+      }
+
+      addSend(faceInfo);
+      ws.send(JSON.stringify(faceInfo));
+    }
+
+
+
+    
+    
 
 
     // 点击发送按钮
     $(".platform_chat input[type='button']").on("click",function(){
         sendText();
+        $(".platform_chat textarea").val("")
         // displayTipPane("发送文本")
     })
 
     //回车键发送
     $(".platform_chat textarea").on("keydown",function(e){
+        
         if(e.keyCode==13 || e.keyCode==108){
             sendText();
+            e.preventDefault()
+            $(".platform_chat textarea").val("")
         }
     })
     
@@ -124,14 +157,16 @@
     function addReceived(data) {
         // displayTipPane(data);
         //判断data类型 img | text
+        // console.log(data);
         data = JSON.parse(data);
-        console.log(data);
+        // console.log(data);
+        
         var liNode = document.createElement("li");
         liNode.classList.add("target");
         if(data.contentType=="text"){
-            liNode.innerHTML = '<span class="text">' + data.content + '</span><img class="profile" src="' +data.senderFace + '">';
+            liNode.innerHTML = '<img class="profile" src="' +data.senderFace + '"><span class="text">' + data.content + '</span>';
         }else if(data.contentType=="face"){//表情,大小有限制
-
+          liNode.innerHTML = '<img class="profile" src="' +data.senderFace + '"><span class="text"><img src="' + data.content + '" height="28px"></span>';
         }else if(data.contentType=="img"){//图片，大小有限制，但是比表情大一点
 
         }
@@ -148,6 +183,8 @@
         if(data.contentType=="text"){
             liNode.innerHTML = '<span class="text">' + data.content + '</span><img class="profile" src="' +data.senderFace + '">';
         }else if(data.contentType=="face"){//表情,大小有限制
+          liNode.innerHTML = '<span class="text"><img src="' + data.content + '" height="28px"></span><img class="profile" src="' +data.senderFace + '">';
+
         }else if(data.contentType=="img"){//图片，大小有限制，但是比表情大一点
 
         }
@@ -160,7 +197,7 @@
         myMarkNumber = $.cookie("markNumber");
         wantToSendMarkNumber = "123456789";
         wsUrl  = url+'/'+myMarkNumber+'/'+wantToSendMarkNumber;
-        createWebSocket();
+        createWebSocket1();
     }
 
      //点击其他聊天后也要调用，重新连接websocket
@@ -173,6 +210,7 @@
         displayTipPane('catch');
         reconnect();
       }
+        
     }
     function init() {
       ws.onclose = function () {
@@ -190,12 +228,12 @@
       };
       ws.onmessage = function (event) {
         //拿到任何消息都说明当前连接是正常的
-       
+       console.log(event)
         //消息的展示,不是心跳验证码,就小红点出现，用户发送过来的数据也开始动态添加
-       
-        if(event.data!="#1#"){
-            addReceived(event.data);
-        }
+        addReceived(event.data);
+        // if(event.data!="#1#"){
+        //     addReceived(event.data);
+        // }
         heartCheck.start();
       }
       //发送消息
@@ -238,7 +276,55 @@
       }
     }
 
+    
+
+
+    function createWebSocket1(){
+        ws = new WebSocket(wsUrl);
+        ws.onclose = function(){
+            displayTipPane("关闭聊天连接");
+        }
+        ws.onerror = function(){
+            displayTipPane("连接异常")
+        }
+        ws.onmessage= function(event){
+            addReceived(event.data);
+        }
+        ws.onopen = function(){
+            displayTipPane("连接成功")
+        }
+    }
+
     // 创建一个webSocket与服务器进行连接
+
+
+    // 制作表情面板
+  
+    function addFace(){
+      for(var i=1; i<=25; i++){
+        var oImg = $('<img src="../emoji/'+i+'.png">');
+        $(".facePane").append(oImg);
+        oImg.on("click",setFaceEventListener);
+      }
+    }
+    addFace();
+
+    //面板的打开与关闭  
+
+    $(".platform_chat .face").on("click",function(e){
+      e.stopPropagation()
+      $(".facePane").fadeIn(230);
+      $(".facePane").css("display","flex");
+
+    })
+    $('body').on("click",function(){
+      $(".facePane").fadeOut(230);
+    })
+
+
+
+
+
 
    
 

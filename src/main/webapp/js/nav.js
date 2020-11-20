@@ -9,12 +9,16 @@ window.onload = function() {
 
 
 
+
+
+
 function setCookie(json, time) {
     for (var key in json) {
-        console.log(key);
-        console.log(json[key]);
+        // console.log(key);
+        // console.log(json[key]);
         $.cookie(key, json[key], { expires: time });
-        console.log($.cookie(key));
+        // console.log($.cookie(key));
+
     }
 }
 
