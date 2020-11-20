@@ -10,9 +10,11 @@ import dao.impl.MarkNumberTypeDaoImpl;
 import dao.impl.StudentDaoImpl;
 import dao.impl.TeacherDaoImpl;
 import pojo.Inf;
+import pojo.Message;
 import pojo.Student;
 import pojo.Teacher;
 import util.TimeUtil;
+import util.WebUtil;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
@@ -79,17 +81,18 @@ public class ChatServer {
      */
     @OnMessage
     public void onMessage(@PathParam(value = "markNumber") String markNumber, @PathParam(value = "wantToSendMarkNumber") String wantToSendMarkNumber, String message, Session session) throws IOException {
-        System.out.println("来自客户端" + markNumber + "发送给" + wantToSendMarkNumber + "的消息:" + message);
+//        System.out.println("来自客户端" + markNumber + "发送给" + wantToSendMarkNumber + "的消息:" + message);
         if (message.equals("123456789")){
             CLIENTS.get(markNumber).sendMessage("#1#");
             return;
         }
+        Message o = WebUtil.jsonToObj(Message.class, message);
         Map<String, Object> map = new HashMap<>(10);
         String name= getUserName(markNumber);
         String face=getUserFace(markNumber);
         map.put("senderFace",face);
         map.put("senderName",name);
-        fillMapInf(map, markNumber, wantToSendMarkNumber, message);
+        fillMapInf(map, markNumber, wantToSendMarkNumber,o.getContent());
         infDao.insertRowByKeyAndValue(new Inf(), map);
         for (Map.Entry<String, ChatServer> entry : CLIENTS.entrySet()) {
             //没找到合适的
