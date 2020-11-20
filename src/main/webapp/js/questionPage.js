@@ -1254,13 +1254,13 @@ $('.sendText_btn').on({
 
         var meObj = {
             id: $.cookie("markNumber"),
-            face: 'http://192.168.137.105:8080' + $.cookie('face').substring(2)
+            face: $.cookie('face')
         };
         // console.log($.cookie("markNumber"));
         $(".platform_chat .targetName").text(oAuthor.userName);
         var targetObj = {
             id: oAuthor.markNumber,
-            face: 'http://192.168.137.105:8080' + oAuthor.face.substring(2),
+            face:  oAuthor.face,
             name: oAuthor.userName
         }
         // console.log(targetObj);
