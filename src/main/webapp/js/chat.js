@@ -113,6 +113,27 @@
             ws.send(JSON.stringify(textInfo));//发送json对象
         }
     }
+    
+    // 点击发送按钮
+    $(".platform_chat input[type='button']").on("click",function(){
+      sendText();
+      $(".platform_chat textarea").val("")
+      // displayTipPane("发送文本")
+  })
+
+  //回车键发送
+  $(".platform_chat textarea").on("keydown",function(e){
+      
+      if(e.keyCode==13 || e.keyCode==108){
+          sendText();
+          e.preventDefault()
+          $(".platform_chat textarea").val("")
+      }
+  })
+  
+
+
+
     //表情发送, 鼠标点击某一个表情时触发函数
     function setFaceEventListener(){
       var date = new Date();
@@ -131,28 +152,106 @@
     }
 
 
+    //图片发送
+    //上传图片
+    //成功后发送消息
 
-    
-    
+
+    //读取图片文件 
+
+$('.platform_chat .picture').click(() => {
+  if (sendingImg) {
+      displayTipPane("有图片正在上传中...");
+  } else {
+      $('#sendImgBtn').click();
+  }
+})
+$('#sendImgBtn').change(readFile_chat);
+//读图片，添加到输入框中
+var oinput = document.getElementById("sendImgBtn");
+
+//读取文件
+function readFile_chat() {
+  var formdata = new FormData();
+  if (!oinput['value'].match(/.jpg|.gif|.png|.jpeg|.bmp/i)) {　　 //判断上传文件格式
+      return displayTipPane("图片格式有误！");
+  }
+
+  formdata.append(0, this.files[0]); // formdata 的属性
+  //成功后上传图片
+  sendImage_chat(formdata);
+}
+
+  var sendingImg = false;
+  function sendImage_chat(formdata) { 
+      sendingImg = true;
+      $.ajax({
+          url: 'http://192.168.137.105:8080/Servlet/ReceiveFileServlet',
+          type: 'post',
+          data: formdata,
+          dataType: 'json',
+          processData: false, //用FormData传fd时需有这两项
+          contentType: false,
+          success: function(data) {
+              sendingImg = false;
+              // imgObj.attr("src", data.message);
+              //图片上传成功后拿取返回的url
+              sendImg_chatContent(data.message);
+          },
+          error: function(data) {
+              sendingImg = false;
+              displayTipPane("图片上传失败！")
+          },
+          timeout: function(data) {
+              sendingImg = false;
+              displayTipPane("图片上传超时！")
+          }
+      })
+  }
 
 
-    // 点击发送按钮
-    $(".platform_chat input[type='button']").on("click",function(){
-        sendText();
-        $(".platform_chat textarea").val("")
-        // displayTipPane("发送文本")
-    })
+  //发送图片信息
+  function sendImg_chatContent(url){
+    var date = new Date();
+      var sendTime = date.getTime();
+      var imgInfo = {
+        "senderMarkNumber":myMarkNumber,
+        "senderFace":$.cookie("face"),
+        "senderName":$.cookie("userName"),
+        "contentType":"img",
+        "sendTime": ""+sendTime,
+        "content": url
+      }
+      addSend(imgInfo);
+      ws.send(JSON.stringify(imgInfo));
+  }
 
-    //回车键发送
-    $(".platform_chat textarea").on("keydown",function(e){
-        
-        if(e.keyCode==13 || e.keyCode==108){
-            sendText();
-            e.preventDefault()
-            $(".platform_chat textarea").val("")
+  // img是css查询条件
+  function isImgLoad(callback,img){
+    $(img).each(function(){
+        if(this.height===0){
+            isLoad = false;
+            return false;
         }
-    })
+    });
+    if(isLoad){
+        clearTimeout(t_img);
+        callback();
+    }else{
+        isLoad = true;
+        t_img = setTimeout(function(){
+            isImgLoad(callback);
+        },100)
+    }
+}
+
+
+
+
     
+    
+
+
     // 添加接受的消息函数
     function addReceived(data) {
         // displayTipPane(data);
@@ -168,7 +267,15 @@
         }else if(data.contentType=="face"){//表情,大小有限制
           liNode.innerHTML = '<img class="profile" src="' +data.senderFace + '"><span class="text"><img src="' + data.content + '" height="28px"></span>';
         }else if(data.contentType=="img"){//图片，大小有限制，但是比表情大一点
-
+          // data.content = "http://192.168.137.105:8080"+data.content.substring(2);
+          liNode.innerHTML = '<img class="profile" src="' +data.senderFace + '"><span class="text"><img  src="' + data.content + '" style="max-width:130px; margin:5px;border-radius:4px;cursor:zoom-in;cursor:-webkit-zoom-in" class="fadein_img"></span>';
+          ulNode.appendChild(liNode);
+          // var oImg = liNode.getElementsByTagName("img")[0];
+          rebindSeeImage();
+          isImgLoad(function(){
+            screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
+          },liNode.getElementsByTagName("img"));
+          return;
         }
         ulNode.appendChild(liNode);
         screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
@@ -186,10 +293,24 @@
           liNode.innerHTML = '<span class="text"><img src="' + data.content + '" height="28px"></span><img class="profile" src="' +data.senderFace + '">';
 
         }else if(data.contentType=="img"){//图片，大小有限制，但是比表情大一点
-
+          
+          data.content = "http://192.168.137.105:8080"+data.content.substring(2);
+          liNode.innerHTML = '<span class="text"><img  src="' + data.content + '" style="max-width:130px; border-radius:4px; margin:5px;cursor:zoom-in;cursor:zoom-in;cursor:-webkit-zoom-in" class="fadein_img"></span><img class="profile" src="' +data.senderFace + '">';
+          ulNode.appendChild(liNode);
+          //添加事件
+          // var oImg = liNode.getElementsByTagName("img")[0];
+          // $(oImg).on('click',rebindSeeImage);
+          rebindSeeImage();
+          isImgLoad(function(){
+            screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
+          },liNode.getElementsByTagName("img"));
+          return;
+        
         }
         ulNode.appendChild(liNode);
         screen_inner.scrollTop = screen_inner.scrollHeight - screen_inner.clientHeight;
+       
+        
     }
    
     //登录成功和自动登录时使用
