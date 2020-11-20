@@ -1275,7 +1275,6 @@ function addSend(data) {
 
   } else if (data.contentType == "img") {//图片，大小有限制，但是比表情大一点
 
-    // data.content = "http://192.168.137.105:8080" + data.content.substring(2);
     liNode.innerHTML = '<span class="text"><img  src="' + data.content + '" style="max-width:130px; border-radius:4px; margin:5px;cursor:zoom-in;cursor:zoom-in;cursor:-webkit-zoom-in" class="fadein_img"></span><img class="profile" src="' + data.senderFace + '">';
     ulNode.appendChild(liNode);
     //添加事件
@@ -1421,6 +1420,6 @@ $('body').on("click", function () {
 
 
 // 关闭聊天面板
-$('.close_btn').click(function () {
+$('.platform_chat .close_btn').click(function () {
   $(".platform_chat").fadeOut(200);
 })

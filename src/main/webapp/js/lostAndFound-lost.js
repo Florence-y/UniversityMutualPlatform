@@ -137,7 +137,7 @@ $(function() {
 
             for (var imgi = 0; imgi < res.imgs.length; imgi++) {
                 if (res.imgs[imgi] != null) {
-                    $(".YitemPictureFound").find("img").eq(imgi).attr("src",  res.imgs[imgi])
+                    $(".YitemPictureFound .w").append("<img src="+res.imgs[imgi]+">")
                 }
             }
 
