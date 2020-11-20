@@ -389,7 +389,7 @@ $(function() {
                     for (var i = res.dataList.length - 1; i > 0; i--) {
 
                         var item = $("<li class='item'></li>");
-                        var src = 'http://192.168.137.105:8080' + res.dataList[i].senderFace.substring(2);
+                        var src = res.dataList[i].senderFace;
                         var img = $("<img src='" + src + "'>");
                         var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                         var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -556,7 +556,7 @@ $(function() {
                  for (var i = res.dataList.length - 1; i > 0; i--) {
 
                      var item = $("<li class='item' data-pindex='" + pindex + "'></li>");
-                     var src = 'http://192.168.137.105:8080' + res.dataList[i].senderFace.substring(2);
+                     var src =  res.dataList[i].senderFace;
                      var img = $("<img src='" + src + "'>");
                      var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                      var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -571,7 +571,7 @@ $(function() {
 
                      send[pindex] = {
                          'senderMarkNumber': res.dataList[i].senderMarkNumber,
-                         'senderFace': 'http://192.168.137.105:8080' + res.dataList[i].senderFace.substring(2),
+                         'senderFace':  res.dataList[i].senderFace,
                          'senderName': res.dataList[i].senderName,
                      }
 
@@ -608,7 +608,7 @@ $(function() {
                          // console.log($(this).attr("data-pindex"));
                          var meObj = {
                              id: $.cookie("markNumber"),
-                             face: 'http://192.168.137.105:8080' + $.cookie('face').substring(2)
+                             face:  $.cookie('face')
                          };
 
                          $(".platform_chat .targetName").text(send[index].senderName);
@@ -657,7 +657,7 @@ $(function() {
                 for (var i = res.dataList.length - 1; i > 0; i--) {
 
                     var item = $("<li class='item'></li>");
-                    var src = 'http://192.168.137.105:8080' + res.dataList[i].senderFace.substring(2);
+                    var src =  res.dataList[i].senderFace;
                     var img = $("<img src='" + src + "'>");
                     var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                     var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -1154,7 +1154,7 @@ $(window).on("load", function() {    
         $('.ResMessagePojoMajor').text($.cookie("major"));
         $('.ResMessagePojoMajor').prop("title", $.cookie("major"));         // if (res.messagePojo.face != null) {
                 
-        let ResMessageFaceScr = 'http://192.168.137.105:8080' + $.cookie("face").substring(2);
+        let ResMessageFaceScr =  $.cookie("face");
         $('.ResMessageFace').prop("src", ResMessageFaceScr);
         $('.navHPY').prop('src', ResMessageFaceScr);
     } else {
