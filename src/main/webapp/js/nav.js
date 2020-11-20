@@ -9,28 +9,25 @@ window.onload = function() {
 
 
 
-function setCookie(json,time){
-    for(var key in json){
-        console.log(key);
-        console.log(json[key]);
-        $.cookie(key,json[key],{ expires: time });
-        console.log($.cookie(key));
+
+
+
+function setCookie(json, time) {
+    for (var key in json) {
+        // console.log(key);
+        // console.log(json[key]);
+        $.cookie(key, json[key], { expires: time });
+        // console.log($.cookie(key));
+
     }
 }
-// function setCookie(json, day) {
-//     var date = new Date(new Date().getTime() + day * 24 * 60 * 60 * 1000).toUTCString(); //转毫秒
-//     for (var key in json) {
-//         document.cookie = key + "=" + json[key] + ";expires=" + date;
-//         console.log($.cookie("key"));
-//     }
-// }
 
-function isHaveCookie(){
+
+function isHaveCookie() {
     console.log($.cookie("userName"));
-
-    if ( $.cookie("markNumber") != null && $.cookie("markNumber") != undefined &&
-    $.cookie("userName") != null && $.cookie("userName") != undefined &&
-    $.cookie("face") != undefined && $.cookie("face") != null) {
+    if (navigator.onLine && $.cookie("markNumber") != null && $.cookie("markNumber") != undefined &&
+        $.cookie("userName") != null && $.cookie("userName") != undefined &&
+        $.cookie("face") != undefined && $.cookie("face") != null) {
         return true;
     }
     return false;
@@ -55,7 +52,7 @@ function clearCookie() {
 
 $(function() {
 
-     //头像那边的二级导航 ：0 没显示  1 表示已经显示
+    //头像那边的二级导航 ：0 没显示  1 表示已经显示
 
     $("body").on({
         click: function() {
@@ -63,65 +60,23 @@ $(function() {
             //#region 搜索框：searchContent不显示+ 清空里面的内容 +清空搜索框内容 
 
             $(this).parent().siblings(".searchContent").hide(200);
-            $(".searchContent").find("li i").attr("class", "iconfont");
-            $(".searchContent").find("li a").attr("href", "");
-            $(".searchContent").find("li a").text("");
+            $(".searchContent").find('li').remove();
+            // $(".searchContent").find("li i").attr("class", "iconfont");
+            // $(".searchContent").find("li a").attr("href", "");
+            // $(".searchContent").find("li a").text("");
             $(".search").find(".searchBar").val("");
 
             //#endregion
 
-            //#region 消息通知：不显示
 
-            // $(".message").find(".messageNotification").fadeOut(100);
-
-            //#endregion
-
-            //#region 头像那边的二级导航: 二级导航+二二级4导航:淡出 字体颜色: #666
-
-            // $('.hpSecond').fadeOut(100);
-           
-            // $(".hpSecond_general").css("borderRadius", "22px");
-
-            
-            // $(".hpSecondSecond").fadeOut(50);
-            // $(".hpSecondSecond").animate({
-            //     right: 0
-            // })
-
-            //#endregion
         }
     })
 
-    //#region 点击上面校区互通 √
 
-    $('.campus-li').on({
-        click: function() {
-            $("body, html").stop().animate({
-                scrollTop: "600px",
-            });
-        }
-    })
-
-    //#endregion
 
     //#region 搜索框 √
 
-    //#region  卷去页面 导航栏发生变化 √
 
-    // $(window).scroll(function() {
-
-    //     if ($(document).scrollTop() >= 433) {
-    //         $(".nav .functionNav").show(200);
-    //         $(".nav .search").css("left", "61%");
-
-    //     } else {
-    //         $(".nav .functionNav").hide(200);
-
-    //         $(".nav .search").css("left", "50%");
-    //     }
-    // })
-
-    //#endregion
 
     //#region 点击 + 得失焦点 + 节流 √ 
 
@@ -135,8 +90,8 @@ $(function() {
 
         focus: function() {
             //搜索框获得焦点 bar/btn 的边框圆角 变化 + bar 的背景 变白 + 联想内容 显示
-            $(".searchBar").css("borderRadius", "40px 0 0 0");
-            $(".searchBtn").css("borderRadius", "0 40px 0 0");
+            $(".searchBar").css("borderRadius", "16px 0 0 0");
+            $(".searchBtn").css("borderRadius", "0 16px 0 0");
             $(this).css("backgroundColor", "#fff");
             $(this).parent().siblings(".searchContent").show(200);
         },
@@ -151,7 +106,7 @@ $(function() {
             // $(this).parent().siblings(".searchContent").find("li").remove();
 
         },
-      
+
         //#endregion
     })
 
@@ -165,10 +120,14 @@ $(function() {
                 getType: "explore",
                 exploreContent: $(this).val(),
             }, function(res) {
-                // console.log(res);
-                for (var i = 0; i < res.dataList.length; i++) {
+                // console.log(res);  
+                $('.search .searchContent li').remove();
+                var indexli = 0;
+                var url;
+                var icon;
+                for (var i = 0; i < res.dataList.length && i < 5; i++) {
                     //判断是哪个篇 的 然后获取 创建iconfont
-                    var icon;
+
                     if (res.dataList[i].questionType === "学习篇") {
                         icon = "iconxuexi";
                     } else if (res.dataList[i].questionType === "期末篇") {
@@ -183,20 +142,28 @@ $(function() {
                         icon = "iconqita";
                     }
 
-                    var url = 'questionPage.html?id=' + res.dataList[i].id;
-                    $('.searchContent').find("li").eq(i).find('i').addClass(icon);
-                    $('.searchContent').find("li").eq(i).find('a').attr("href", url);
-                    $('.searchContent').find("li").eq(i).find('a').html(res.dataList[i].title);
-                    // var li = $('<li><span><i class="iconfont ' + icon + ' "></i></span><a href=" ' + url + ' ">' + res.dataList[i].title + '</a></li>');
-                    // $(".search .searchContent").prepend(li);
-                    // $(".search .searchContent").find("li").eq(i).html(res.dataList[i].title);
+                    url = 'questionPage.html?id=' + res.dataList[i].id;
+                    // $('.searchContent').find("li").eq(i).find('i').addClass(icon);
+                    // $('.searchContent').find("li").eq(i).find('a').attr("href", url);
+                    // $('.searchContent').find("li").eq(i).find('a').html(res.dataList[i].title);
+
+                    if (indexli < 5) {
+                        var li = $('<li><span><i class="iconfont ' + icon + ' "></i></span><a target="_blank" href=" ' + url + ' ">' + res.dataList[i].title + '</a></li>');
+                        $(".search .searchContent").prepend(li);
+                        $(".search .searchContent").find("li").eq(i).html(res.dataList[i].title);
+                        indexli++;
+                        // return;
+                    }
                 }
+
 
             }, 'json')
         } else {
-            $(".searchContent").find("li i").attr("class", "iconfont");
-            $(".searchContent").find("li a").attr("href", "");
-            $(".searchContent").find("li a").text("");
+            $(".searchContent").find('li').remove();
+            // $(".searchContent").find("li i").attr("class", "iconfont");
+            // $(".searchContent").find("li a").attr("href", "");
+            // $(".searchContent").find("li a").text("");
+            $(".search").find(".searchBar").val("");
         }
 
     }, 250, true))
@@ -211,7 +178,7 @@ $(function() {
 
     //#region 点击登录button进入登录弹框 √
 
-    $('.personal .fadein').click(function() {
+    $('.fadein').click(function() {
         // $("input").val("");
         $(".logOn").siblings().fadeOut();
         $(".logOn").fadeIn();
@@ -222,13 +189,12 @@ $(function() {
         })
     })
 
-
-    // 登录面板
-    $('.modal_bg_logon .fadeout').click(function() {
+    $('.fadeout').click(function() {
         $('.modal_bg_logon').fadeOut(); // 其实就是css 的过渡+ display
         $('.logonBody .logonYmadal').css({
             transform: 'translate(-50%,-50%) scale(0.7)'
         })
+
     })
 
     //#endregion
@@ -359,7 +325,7 @@ $(function() {
     // 逻辑上有混乱，应该是打开的时候只发送动态通知的请求，并且只有第一次会有请求，
     //当切换到私信通知的时候才发送获取私信的请求，并且显示的item应该是一个用户不是显示发送过来的具体新消息
 
-    
+
     var message_openFirst = true;
     $(".message").on({
         mouseenter: function(e) {
@@ -373,45 +339,46 @@ $(function() {
 
                 //#region 获取动态通知
 
-                if(message_openFirst){
-                    message_openFirst=false;
-                     $.get('../Servlet/InfServlet', {
-                    currentPage: "1",
-                    receiverMarkNumber: USERID,
-                    order: "sendTime",
-                    direction: "desc",
-                    requestType: 'get',
-                    type: "inf",
-                }, function(res) {
-                    $(".system").html("");
-                    // console.log(res);
-                    //#region 动态创建  消息通知
-                    for (var i = res.dataList.length - 1; i > 0; i--) {
+                if (message_openFirst) {
+                    message_openFirst = false;
+                    $.get('../Servlet/InfServlet', {
+                            currentPage: "1",
+                            receiverMarkNumber: USERID,
+                            order: "sendTime",
+                            direction: "desc",
+                            requestType: 'get',
+                            type: "inf",
+                        }, function(res) {
+                            $(".system").html("");
+                            // console.log(res);
 
-                        var item = $("<li class='item'></li>");
-                        var src = res.dataList[i].senderFace;
-                        var img = $("<img src='" + src + "'>");
-                        var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
-                        var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
-                        var information = $("<span class='item_info' title='" + res.dataList[i].content + "'>" + res.dataList[i].content + "</span>");
-                        var time = $("<span class='time'>" + res.dataList[i].timeUpToNow + "</span>");
+                            //#region 动态创建  消息通知
+                            for (var i = res.dataList.length - 1; i > 0; i--) {
 
-                        $(".message .contentBox_information").find(".system").prepend(item);
-                        $(".message .contentBox_information").find(".system").find(".item").eq(0).append(img);
-                        $(".message .contentBox_information").find(".system").find(".item").eq(0).append(svg);
-                        $(".message .contentBox_information").find(".system").find(".item").eq(0).append(username);
-                        $(".message .contentBox_information").find(".system").find(".item").eq(0).append(information);
-                        $(".message .contentBox_information").find(".system").find(".item").eq(0).append(time);
+                                var item = $("<li class='item'></li>");
+                                var src = res.dataList[i].senderFace;
+                                var img = $("<img src='" + src + "'>");
+                                var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
+                                var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
+                                var information = $("<span class='item_info' title='" + res.dataList[i].content + "'>" + res.dataList[i].content + "</span>");
+                                var time = $("<span class='time'>" + res.dataList[i].timeUpToNow + "</span>");
 
-                    }
+                                $(".message .contentBox_information").find(".system").prepend(item);
+                                $(".message .contentBox_information").find(".system").find(".item").eq(0).append(img);
+                                $(".message .contentBox_information").find(".system").find(".item").eq(0).append(svg);
+                                $(".message .contentBox_information").find(".system").find(".item").eq(0).append(username);
+                                $(".message .contentBox_information").find(".system").find(".item").eq(0).append(information);
+                                $(".message .contentBox_information").find(".system").find(".item").eq(0).append(time);
+
+                            }
 
 
-                    //#endregion
+                            //#endregion
 
-                    // console.log(res);
+                            // console.log(res);
 
-                }, 'json')
-                //#region 聊天
+                        }, 'json')
+                        //#region 聊天
                 }
                 //#region 点击私信 弹出聊天框
                 $("body").on({
@@ -514,11 +481,12 @@ $(function() {
         }
     })
     $(".message").on({
-        mouseleave : function(e){
+        mouseleave: function(e) {
             e.stopPropagation();
             $('.message').find(".messageNotification").stop().fadeOut();
         }
     })
+
     //#region 效果
 
     // 消息同学
@@ -533,100 +501,100 @@ $(function() {
             $(".system").fadeOut();
             $(".private").fadeIn();
             // $('.hoverBox .title').html($(this).html())
-             //#region 获取私信通知
-             var send = new Array();
-             var pindex;
-             var isRead = true;
-             $.get('../Servlet/InfServlet', {
-                 currentPage: "1",
-                 receiverMarkNumber: USERID,
-                 order: "sendTime",
-                 direction: "desc",
-                 requestType: 'get',
-                 type: "chat",
-             }, function(res) {
-                 $(".private").html("");
-                 // console.log(res);
+            //#region 获取私信通知
+            var send = new Array();
+            var pindex;
+            var isRead = true;
+            $.get('../Servlet/InfServlet', {
+                currentPage: "1",
+                receiverMarkNumber: USERID,
+                order: "sendTime",
+                direction: "desc",
+                requestType: 'get',
+                type: "chat",
+            }, function(res) {
+                $(".private").html("");
+                // console.log(res);
 
-                 //#region 动态创建  消息私信
-                 pindex = 0;
+                //#region 动态创建  消息私信
+                pindex = 0;
 
-                 // for (var total = res.totalPage.length - 1; total > 0; total--) {
+                // for (var total = res.totalPage.length - 1; total > 0; total--) {
 
-                 for (var i = res.dataList.length - 1; i > 0; i--) {
+                for (var i = res.dataList.length - 1; i > 0; i--) {
 
-                     var item = $("<li class='item' data-pindex='" + pindex + "'></li>");
-                     var src =  res.dataList[i].senderFace;
-                     var img = $("<img src='" + src + "'>");
-                     var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
-                     var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
-                     var information = $("<span class='item_info' title='" + res.dataList[i].content + "'>" + res.dataList[i].content + "</span>");
-                     var time = $("<span class='time'>" + res.dataList[i].timeUpToNow + "</span>");
-                     $(".message .contentBox_information").find(".private").prepend(item);
-                     $(".message .contentBox_information").find(".private").find(".item").eq(0).append(img);
-                     $(".message .contentBox_information").find(".private").find(".item").eq(0).append(svg);
-                     $(".message .contentBox_information").find(".private").find(".item").eq(0).append(username);
-                     $(".message .contentBox_information").find(".private").find(".item").eq(0).append(information);
-                     $(".message .contentBox_information").find(".private").find(".item").eq(0).append(time);
+                    var item = $("<li class='item' data-pindex='" + pindex + "'></li>");
+                    var src = res.dataList[i].senderFace;
+                    var img = $("<img src='" + src + "'>");
+                    var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
+                    var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
+                    var information = $("<span class='item_info' title='" + res.dataList[i].content + "'>" + res.dataList[i].content + "</span>");
+                    var time = $("<span class='time'>" + res.dataList[i].timeUpToNow + "</span>");
+                    $(".message .contentBox_information").find(".private").prepend(item);
+                    $(".message .contentBox_information").find(".private").find(".item").eq(0).append(img);
+                    $(".message .contentBox_information").find(".private").find(".item").eq(0).append(svg);
+                    $(".message .contentBox_information").find(".private").find(".item").eq(0).append(username);
+                    $(".message .contentBox_information").find(".private").find(".item").eq(0).append(information);
+                    $(".message .contentBox_information").find(".private").find(".item").eq(0).append(time);
 
-                     send[pindex] = {
-                         'senderMarkNumber': res.dataList[i].senderMarkNumber,
-                         'senderFace':  res.dataList[i].senderFace,
-                         'senderName': res.dataList[i].senderName,
-                     }
+                    send[pindex] = {
+                        'senderMarkNumber': res.dataList[i].senderMarkNumber,
+                        'senderFace': res.dataList[i].senderFace,
+                        'senderName': res.dataList[i].senderName,
+                    }
 
-                     // if (res.dataList[i].isRead == 0) {
-                     //     isRead = false;
-                     // }
-                     pindex++;
-                 }
+                    // if (res.dataList[i].isRead == 0) {
+                    //     isRead = false;
+                    // }
+                    pindex++;
+                }
 
-                 // $(".icondian").css("diaplay", "block");
-                 // }
-                 //#endregion
+                // $(".icondian").css("diaplay", "block");
+                // }
+                //#endregion
 
-                 // console.log(send);
-                 $('.private .item').on({
-                     click: function(e) {
+                // console.log(send);
+                $('.private .item').on({
+                    click: function(e) {
 
-                         //#region 显示 聊天框
-                         e.stopPropagation();
-                         $(".platform_chat").fadeIn(200);
+                        //#region 显示 聊天框
+                        e.stopPropagation();
+                        $(".platform_chat").fadeIn(200);
 
-                         $(".platform_chat").on({
-                             click: function(e) {
-                                 e.stopPropagation();
-                                 $(".platform_chat").css("display", "block");
-                             }
-                         })
+                        $(".platform_chat").on({
+                            click: function(e) {
+                                e.stopPropagation();
+                                $(".platform_chat").css("display", "block");
+                            }
+                        })
 
-                         //#endregion
+                        //#endregion
 
-                         //#region 获取数据
-                         var index = $(this).attr("data-pindex")
-                         send[index];
-                         // console.log($(this).attr("data-pindex"));
-                         var meObj = {
-                             id: $.cookie("markNumber"),
-                             face:  $.cookie('face')
-                         };
+                        //#region 获取数据
+                        var index = $(this).attr("data-pindex")
+                        send[index];
+                        // console.log($(this).attr("data-pindex"));
+                        var meObj = {
+                            id: $.cookie("markNumber"),
+                            face: $.cookie('face')
+                        };
 
-                         $(".platform_chat .targetName").text(send[index].senderName);
-                         var targetObj = {
-                             id: send[index].senderMarkNumber,
-                             face: send[index].senderFace,
-                             name: send[index].senderName
-                         }
+                        $(".platform_chat .targetName").text(send[index].senderName);
+                        var targetObj = {
+                            id: send[index].senderMarkNumber,
+                            face: send[index].senderFace,
+                            name: send[index].senderName
+                        }
 
-                         // console.log(targetObj);
-                         chat(meObj, targetObj);
+                        // console.log(targetObj);
+                        chat(meObj, targetObj);
 
-                         //#endregion
-                     }
-                 })
-             }, 'json')
+                        //#endregion
+                    }
+                })
+            }, 'json')
 
-             //#endregion
+            //#endregion
 
         }
     })
@@ -657,7 +625,7 @@ $(function() {
                 for (var i = res.dataList.length - 1; i > 0; i--) {
 
                     var item = $("<li class='item'></li>");
-                    var src =  res.dataList[i].senderFace;
+                    var src = res.dataList[i].senderFace;
                     var img = $("<img src='" + src + "'>");
                     var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                     var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -671,11 +639,11 @@ $(function() {
                     $(".message .contentBox_information").find(".system").find(".item").eq(0).append(information);
                     $(".message .contentBox_information").find(".system").find(".item").eq(0).append(time);
                 }
-            })  
+            })
         }
     })
-        
-   //#endregion
+
+    //#endregion
 
     //#endregion
 
@@ -698,25 +666,25 @@ $(function() {
                 }, function(res) {
                     $(".myAttention").html("");
                     // console.log(res);
-                   
+
                     //#region 动态创建 我的关注
                     for (var i = 0; i < res.dataList.length; i++) {
 
-                    //    console.log(res.dataList[i]);
-                       var json = {
-                           userFace : res.dataList[i].userFace,
-                           userName : res.dataList[i].userName,
-                           action : "turnOff",
-                           isSubscribe : "subscribe_on"
-                       }
-                       if(res.dataList[i].userType=="student"){
-                           json["status"] = "学生";
-                           json["school_info"] = res.dataList[i].major;
-                       }else{
+                        //    console.log(res.dataList[i]);
+                        var json = {
+                            userFace: res.dataList[i].userFace,
+                            userName: res.dataList[i].userName,
+                            action: "turnOff",
+                            isSubscribe: "subscribe_on"
+                        }
+                        if (res.dataList[i].userType == "student") {
+                            json["status"] = "学生";
+                            json["school_info"] = res.dataList[i].major;
+                        } else {
                             json["status"] = "老师";
                             json["school_info"] = res.dataList[i].collage;
-                       }
-                        var item = template("attentionItem_template",json);
+                        }
+                        var item = template("attentionItem_template", json);
                         $(".myAttention").append(item);
                     }
                     //#endregion
@@ -769,20 +737,20 @@ $(function() {
                     for (var i = 0; i < res.dataList.length; i++) {
                         // console.log(res.dataList[i]);
                         var json = {
-                            userFace : res.dataList[i].userFace,
-                            userName : res.dataList[i].userName,
-                            action : "turnOn",
-                            isSubscribe : "subscribe_off"
+                            userFace: res.dataList[i].userFace,
+                            userName: res.dataList[i].userName,
+                            action: "turnOn",
+                            isSubscribe: "subscribe_off"
                         }
-                        if(res.dataList[i].userType=="student"){
+                        if (res.dataList[i].userType == "student") {
                             json["status"] = "学生";
                             json["school_info"] = res.dataList[i].major;
-                        }else{
-                             json["status"] = "老师";
-                             json["school_info"] = res.dataList[i].collage;
+                        } else {
+                            json["status"] = "老师";
+                            json["school_info"] = res.dataList[i].collage;
                         }
-                         var item = template("attentionItem_template",json);
-                         $("ul.attentionMe").append(item);
+                        var item = template("attentionItem_template", json);
+                        $("ul.attentionMe").append(item);
                     }
                     //#endregion
                 }, 'json')
@@ -794,9 +762,9 @@ $(function() {
     })
 
 
-      // 我的关注
-     //去右边
-     $('#hoverBox_fans').click(function() {
+    // 我的关注
+    //去右边
+    $('#hoverBox_fans').click(function() {
         // console.log("right");
         $(this).siblings(".activeLine").addClass("toRight");
         $(this).siblings(".activeLine").removeClass("toLeft");
@@ -820,7 +788,7 @@ $(function() {
         // $('.hoverBox .title').html($(this).html())
         //发送请求
     })
-   
+
     //#region 效果
 
     //刚打开悬浮板，就发送
@@ -1009,29 +977,12 @@ $(function() {
 
     //#endregion
 
-    //#endregion
 
-    //#region 鼠标悬停 | 点击 头像 出现二级导航  点击 二级导航的 li 再出现二级导航
-
-    // $(".headPortrait").on({
-    //     click: function(e) {
-    //         count = 1;
-    //         e.stopPropagation();
-    //         //出现二级导航 二二级导航消失
-    //         $(".hpSecond").css("borderRadius", "22px");
-    //         $(".hpSecondSecond").fadeOut(50);
-    //         $(".hpSecondSecond").animate({
-    //             right: 0
-    //         })
-    //         $(this).find(".hpSecond").css("display", "block");
-
-    //     }
-    // })
 
     // 二级面板的位置动态给变
-    $(window).on("resize",function(){
+    $(window).on("resize", function() {
         // console.log($(".hpSecond").css("width"));
-       $(".hpSecondSecond").css("right",$(".hpSecond").css("width"))
+        $(".hpSecondSecond").css("right", $(".hpSecond").css("width"))
     })
 
     $(".hpSecond .secondPane_entrance").on({
@@ -1043,55 +994,34 @@ $(function() {
             $(this).siblings().find("em").css('color', '#666');
             $(this).find('em').css('color', '#028e9b');
             //根据target自定义属性名再通过类名来获取对应的二级面板
-
-           
-            var secondPane = $("."+$(this).attr("target"));
-            if(secondPane==null || secondPane==undefined){
+            var secondPane = $("." + $(this).attr("target"));
+            if (secondPane == null || secondPane == undefined) {
                 return;
             }
             var generalPane = $(this).parents(".hpSecond_general");
             // $(".hpSecond").css("borderRadius", "0 22px 22px 0");
             //打开二级面板的左边圆角
             //每次打开之前恢复原来状态
-            $(".hpSecondSecond").fadeOut();//全部的二级面板
+            $(".hpSecondSecond").fadeOut();
             $(".hpSecondSecond").animate({
-                right:"0"
-            },100);
-            
+                right: "0"
+            }, 100);
             secondPane.css("borderRadius", "22px");
             generalPane.css("borderRadius", "22px");
-            generalPane.css("border-left-color","#5ec4cd")
 
-            if(generalPane.attr("nowSecondPane")=="null"){
-                generalPane.attr("nowSecondPane",$(this).attr("target"));
-            }
-            if(generalPane.attr("status")=="open"){
-                //初始化
-                //点击原来按钮
-                if( generalPane.attr("nowSecondPane")==$(this).attr("target")){
-                    generalPane.attr("status","close");
-                    // console.log("收起")
-                    return;
-                }else{//点击别的按钮
-                    generalPane.attr("nowSecondPane",$(this).attr("target"));
-                }
-               
-            }
-            generalPane.attr("status","open");
             if (USERID != null) {
                 //count是实现点击一次按钮打开二级面板，再次点击就关闭
-                    // 原面板的右边圆角
-                    secondPane.css("borderRadius", "22px 0 0 22px");
-                    generalPane.css("borderRadius", "0 22px 22px 0");
-                    generalPane.css("border-left-color","#fff");
-                    // 所有的二级面板消失
-                    // $(this).siblings().find(".hpSecondSecond").css("display", "none");
-                    secondPane.css("display", "block");
-                    // 不能写死，应该获取个人中心面板的宽度
-                    var right =  $(".hpSecond_general").outerWidth();
-                    secondPane.animate({
-                        right: right+"px",
-                    },300);
+                // 原面板的右边圆角
+                secondPane.css("borderRadius", "22px 0 0 22px");
+                generalPane.css("borderRadius", "0 22px 22px 0");
+                // 所有的二级面板消失
+                // $(this).siblings().find(".hpSecondSecond").css("display", "none");
+                secondPane.css("display", "block");
+                // 不能写死，应该获取个人中心面板的宽度
+                var right = $(".hpSecond_general").outerWidth();
+                secondPane.animate({
+                    right: right + "px",
+                }, 300);
             } else {
                 displayTipPane("您还未登录");
             }
@@ -1124,7 +1054,7 @@ $(function() {
             $(".myAns").html("");
             $(".mycollection").html("");
             clearCookie();
-           //问题页面判断是否登录
+            //问题页面判断是否登录
         }
     })
 
@@ -1154,7 +1084,7 @@ $(window).on("load", function() {    
         $('.ResMessagePojoMajor').text($.cookie("major"));
         $('.ResMessagePojoMajor').prop("title", $.cookie("major"));         // if (res.messagePojo.face != null) {
                 
-        let ResMessageFaceScr =  $.cookie("face");
+        let ResMessageFaceScr = $.cookie("face");
         $('.ResMessageFace').prop("src", ResMessageFaceScr);
         $('.navHPY').prop('src', ResMessageFaceScr);
     } else {

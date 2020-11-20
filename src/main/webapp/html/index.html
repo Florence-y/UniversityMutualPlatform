@@ -238,9 +238,9 @@
             <!-- 首页+校区互通+失物招领+提问 功能页面 -->
             <div class="functionNav">
                 <ul>
-                    <li title="首页" class="index-li" onclick="window.open('index.html')">首页</li>
+                    <li title="首页" class="index-li" onclick="window.location = '../index.html'">首页</li>
                     <!-- <li title="校区互通" class="campus-li">校区互通</li> -->
-                    <li title="失物招领" class="lostAndFound-li" onclick="window.open('lost&found_index.html')">失物招领</li>
+                    <li title="失物招领" class="lostAndFound-li" onclick="window.location = 'lost&found_index.html'">失物招领</li>
                     <!-- <li title="提问" class="quiz-li">提问</li> -->
                 </ul>
             </div>
@@ -253,31 +253,8 @@
                     <i class="iconfont iconsousuo"></i>
                 </form>
                 <ul class="searchContent" style="display: none;">
-                    <li>
-                        <span><i class="iconfont"></i></span>
-                        <a href=""></a>
-                    </li>
-                    <li>
-                        <span><i class="iconfont"></i></span>
-                        <a href=""></a>
-                    </li>
-                    <li>
-                        <span><i class="iconfont"></i></span>
-                        <a href=""></a>
-                    </li>
-                    <li>
-                        <span><i class="iconfont"></i></span>
-                        <a href=""></a>
-                    </li>
-                    <li>
-                        <span><i class="iconfont"></i></span>
-                        <a href=""></a>
-                    </li>
-                    <!-- <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会考什么立刻就会考什么立刻就会1</a></li>
-                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a> </li>
-                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li>
-                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li>
-                    <li><span><i class="iconfont iconxuexi"></i></span><a href="">期末考什么立刻就会2</a></li> -->
+
+
                 </ul>
             </div>
 
@@ -449,7 +426,7 @@
 
                 <!-- 提问 -->
                 <span class="cueY" title="提问">
-                    <i class="iconfont iconwenhao- fadeinQuiz"></i>
+                    <i class="iconfont fadeinQuiz"><i class="iconfont iconyumao"></i> 提问</i>
                 </span>
 
                 <!-- 消息 -->
@@ -836,18 +813,7 @@
     <div class="tipPane">
 
     </div>
-    <script>
-        $(window).scroll(function() {
-            if ($(document).scrollTop() >= 433) {
-                $(".nav .functionNav").show(200);
-                $(".nav .search").css("left", "59%");
-            } else {
-                $(".nav .functionNav").hide(200);
 
-                $(".nav .search").css("left", "50%");
-            }
-        })
-    </script>
 
     <!-- 我的关注item模板引擎 -->
     <script id="attentionItem_template" type="text/html ">
@@ -887,7 +853,7 @@
     <script id="campusIntercommunicationQueY_template" type="text/html">
         <div class="queY">
             <h3>
-                <a href="{{queYurl}}" class="">{{queYtitle}}</a>
+                <a target='_blank' href="{{queYurl}}" class="">{{queYtitle}}</a>
                 <span class="quekind">{{queYkind}}</span>
                 <!-- <span>#{{queYtag0}}</span>
                 <span>#{{queYtag1}}</span>
@@ -931,11 +897,6 @@
         </div>
     </script>
 
-    <script>
-        //   $.cookie("markNumber","191543214");
-        // $.cookie("face","../img/staff_1024.jpg");
-        // $.cookie("userName","冯某某");
-    </script>
 
 </body>
 

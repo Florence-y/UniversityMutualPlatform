@@ -4,6 +4,8 @@
      for (var key in json) {
          document.cookie = key + "=" + json[key] + ";expires=" + date;
      }
+    //  document.cookie.setPath("/");
+
  }
 
  function getCookie(attr) {
