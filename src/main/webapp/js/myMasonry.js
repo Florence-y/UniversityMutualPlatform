@@ -7,7 +7,8 @@ var columHeight;
 //获取子元素的宽度
 //第一次加载、和父容器的宽度改变后要重新布局
 //需要一个数组来记录当前列的高度
-// 
+// gap是两个元素之间的距离
+//这个是重新展示所有Item的
 function loadAllItem(parentBox,itemWidth,gap){
     //计算列数
     var items = parentBox.children(".item");
@@ -28,13 +29,13 @@ function loadAllItem(parentBox,itemWidth,gap){
     //     loadItem(items,itemWidth,gap);
     // },".item_containner .item img")
 
-    isImgLoad(function(){
+    // isImgLoad(function(){
         // console.log("图片加载完")
-        setTimeout(function(){
+        // setTimeout(function(){
             loadItem(items,itemWidth,gap);
-        },300)
+        // },300)
 
-    },".item_containner .item img")
+    // },".item_containner .item img")
 }
 
 function loadItem(itemArr,itemWidth,gap){
@@ -85,7 +86,7 @@ var t_img;
 var isLoad = true;
 
 
-//有图片才会判断，无图片的不作判断
+//有图片才会判断，无图片的不作判断,callback是加载成功后的函数，img是类名
 function isImgLoad(callback,img){
     $(img).each(function(){
         if(this.height===0){

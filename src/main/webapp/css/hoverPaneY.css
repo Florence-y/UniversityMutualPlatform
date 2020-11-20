@@ -22,7 +22,8 @@
     box-sizing: border-box;
     font-size: 13px;
     box-shadow: -5px 0 20px 0 rgba(43, 51, 59, 0.08);
-}
+    border:1px solid #5ec4cd
+}   
 
 
 /* 标题 */

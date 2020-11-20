@@ -4,10 +4,10 @@
  var lostTime = "";
  var objectType = "";
  var objectDetailType = "";
- var imgs = [];  
+ var imgs = [];  //保存的是图片的地址
  
  
- function getLocation(){
+ function getLocation_lost(){
      lostLocation = $(".modal_bg_lost .lostArea .value .text").html()+""+$(".modal_bg_lost .lostArea .value .areaDetail").val();
  }
 
@@ -46,10 +46,10 @@ function getLostTime(){
     }
 }
 // 加载图片
-function getImgs(){
+function getImgs_lost(){
     var imgsArr = $(".modal_bg_lost .imgBox").children();
     for(var i=0; i<imgsArr.length; i++){
-        imgs[i] = $(imgsArr).attr("remoteurl")
+        imgs[i] = $(imgsArr[i]).attr("remoteurl")
     }
 }
 
@@ -100,8 +100,13 @@ reader.onload = function (e) {
     var newImage = template("templateAddImage", imgMsg);
     // console.log(newImage)
     var imgObj = $(newImage);
+    $(".imgPrevLoad img").attr("src",this.result);
+    isImgLoad(function(){
+        imgObj.attr("prevLoadHeight",parseInt($(".imgPrevLoad img").height()));
+    },".imgPrevLoad img")
     //把新的图片添加到编辑区
     // console.log( $(this).parents(".addPic").find(".imgBox"));
+
     $(".modal_bg_lost .imgBox").append(imgObj);
     sendImage(formdata, imgObj); //发送图片
 }
@@ -159,6 +164,7 @@ function searchFound(content){
             if(dataList.length!=0 && dataList!=null && dataList!=undefined){
                 $(".modal_bg_lost .search_display ul").html("");//清除之前记录
                 $(".modal_bg_lost .search_display").fadeIn();
+               
                 displayFound(dataList)
             } 
         }
@@ -182,7 +188,7 @@ $('.modal_bg_lost .objName .value').on("click",function(e){
 // 加载更多没写
 function displayFound(dataList){
     // 现在是先全部有图片
-    var reg = /(..\/)/
+    // var reg = /(..\/)/
     for(var i=0; i<dataList.length; i++){
         var data = {
             "id" : dataList[i].id,
@@ -192,12 +198,14 @@ function displayFound(dataList){
         }
         if(dataList[i].imgs.length!=0){
             var url = dataList[i].imgs[0];
-            url = url.replace(reg.exec(url)[0],"../");
+            // url = url.replace(reg.exec(url)[0],"../");
             data["img"] = url;
         }
         var item = template("templateFoundItem",data);
         $(".modal_bg_lost .search_display ul").append(item); 
     }
+    $(".modal_bg_lost .search_display ul").find("em").removeAttr("style");
+    $(".modal_bg_lost .search_display ul").find("em").css("font-weight","700")
 }
 
 function valueIsEmpty(value,tip){
@@ -233,13 +241,16 @@ function submite_lost(){
         if(lostTime!=""){
             data["lostTime"] = lostTime;
         }
-        getLocation();
+        getLocation_lost();
         if(lostLocation!=""){
             data["lostLocation"] = lostLocation;
         }
-        getImgs();
+        getImgs_lost();
         if(imgs.length!=0){
             data["imgs"] = imgs;
+            var imgsArr = $(".modal_bg_lost .imgBox").children();
+            data["imgHeight"] = $(imgsArr[0]).attr("prevLoadHeight");
+            
         }
         // console.log(data);
         $.ajax({

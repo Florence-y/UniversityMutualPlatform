@@ -27,7 +27,8 @@ function setCookie(json,time){
 
 function isHaveCookie(){
     console.log($.cookie("userName"));
-    if (navigator.onLine && $.cookie("markNumber") != null && $.cookie("markNumber") != undefined &&
+
+    if ( $.cookie("markNumber") != null && $.cookie("markNumber") != undefined &&
     $.cookie("userName") != null && $.cookie("userName") != undefined &&
     $.cookie("face") != undefined && $.cookie("face") != null) {
         return true;
@@ -210,7 +211,7 @@ $(function() {
 
     //#region 点击登录button进入登录弹框 √
 
-    $('.fadein').click(function() {
+    $('.personal .fadein').click(function() {
         // $("input").val("");
         $(".logOn").siblings().fadeOut();
         $(".logOn").fadeIn();
@@ -221,12 +222,13 @@ $(function() {
         })
     })
 
-    $('.fadeout').click(function() {
+
+    // 登录面板
+    $('.modal_bg_logon .fadeout').click(function() {
         $('.modal_bg_logon').fadeOut(); // 其实就是css 的过渡+ display
         $('.logonBody .logonYmadal').css({
             transform: 'translate(-50%,-50%) scale(0.7)'
         })
-
     })
 
     //#endregion
@@ -298,7 +300,7 @@ $(function() {
                     $('.ResMessagePojoMajor').text(res.messagePojo.major);
                     $('.ResMessagePojoMajor').prop("title", res.messagePojo.major);
                     // if (res.messagePojo.face != null) {
-                    let ResMessageFaceScr =res.messagePojo.face;
+                    let ResMessageFaceScr = res.messagePojo.face;
                     $('.ResMessageFace').prop("src", ResMessageFaceScr);
                     $('.navHPY').prop('src', ResMessageFaceScr);
                     // } else {
@@ -317,7 +319,7 @@ $(function() {
                         //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
                         let markNumber = USERID;
                         let wantToSendMarkNumber = "666";
-                        ws = new WebSocket("ws://192.168.137.122:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
+                        ws = new WebSocket("ws://192.168.137.105:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
                     } else {
                         // displayTipPane("连接失败");
                         return;
@@ -383,12 +385,11 @@ $(function() {
                 }, function(res) {
                     $(".system").html("");
                     // console.log(res);
-
                     //#region 动态创建  消息通知
                     for (var i = res.dataList.length - 1; i > 0; i--) {
 
                         var item = $("<li class='item'></li>");
-                        var src = res.dataList[i].senderFace;
+                        var src = 'http://192.168.137.105:8080' + res.dataList[i].senderFace.substring(2);
                         var img = $("<img src='" + src + "'>");
                         var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                         var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -436,7 +437,7 @@ $(function() {
                         //测试一定要加上虚拟路径，如果后面有参数+参数一定要相同
                         let markNumber = meObj.id;
                         let wantToSendMarkNumber = targetObj.id;
-                        ws = new WebSocket("ws://192.168.137.122:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
+                        ws = new WebSocket("ws://192.168.137.105:8080/WebSocket/" + markNumber + '/' + wantToSendMarkNumber);
                     } else {
                         displayTipPane("连接失败");
                         return;
@@ -555,7 +556,7 @@ $(function() {
                  for (var i = res.dataList.length - 1; i > 0; i--) {
 
                      var item = $("<li class='item' data-pindex='" + pindex + "'></li>");
-                     var src =  res.dataList[i].senderFace;
+                     var src = 'http://192.168.137.105:8080' + res.dataList[i].senderFace.substring(2);
                      var img = $("<img src='" + src + "'>");
                      var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                      var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -570,7 +571,7 @@ $(function() {
 
                      send[pindex] = {
                          'senderMarkNumber': res.dataList[i].senderMarkNumber,
-                         'senderFace':  res.dataList[i].senderFace,
+                         'senderFace': 'http://192.168.137.105:8080' + res.dataList[i].senderFace.substring(2),
                          'senderName': res.dataList[i].senderName,
                      }
 
@@ -607,7 +608,7 @@ $(function() {
                          // console.log($(this).attr("data-pindex"));
                          var meObj = {
                              id: $.cookie("markNumber"),
-                             face:$.cookie('face')
+                             face: 'http://192.168.137.105:8080' + $.cookie('face').substring(2)
                          };
 
                          $(".platform_chat .targetName").text(send[index].senderName);
@@ -656,7 +657,7 @@ $(function() {
                 for (var i = res.dataList.length - 1; i > 0; i--) {
 
                     var item = $("<li class='item'></li>");
-                    var src =  res.dataList[i].senderFace;
+                    var src = 'http://192.168.137.105:8080' + res.dataList[i].senderFace.substring(2);
                     var img = $("<img src='" + src + "'>");
                     var svg = $("<svg class='info_point' class='icon' height='10' p-id='12380' t='1602330426902' version='1.1' viewBox='0 0 1024 1024' width='10' xmlns='https://www.w3.org/2000/svg'><path d='M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z' fill='#E6A23C' p-id='12381'></svg>");
                     var username = $("<span class='userName itemTitle' title='" + res.dataList[i].senderName + "'>" + res.dataList[i].senderName + "</span>");
@@ -766,7 +767,7 @@ $(function() {
 
                     //#region 动态创建 关注我的
                     for (var i = 0; i < res.dataList.length; i++) {
-                        console.log(res.dataList[i]);
+                        // console.log(res.dataList[i]);
                         var json = {
                             userFace : res.dataList[i].userFace,
                             userName : res.dataList[i].userName,
@@ -1029,7 +1030,7 @@ $(function() {
 
     // 二级面板的位置动态给变
     $(window).on("resize",function(){
-        console.log($(".hpSecond").css("width"));
+        // console.log($(".hpSecond").css("width"));
        $(".hpSecondSecond").css("right",$(".hpSecond").css("width"))
     })
 
@@ -1042,6 +1043,8 @@ $(function() {
             $(this).siblings().find("em").css('color', '#666');
             $(this).find('em').css('color', '#028e9b');
             //根据target自定义属性名再通过类名来获取对应的二级面板
+
+           
             var secondPane = $("."+$(this).attr("target"));
             if(secondPane==null || secondPane==undefined){
                 return;
@@ -1050,18 +1053,37 @@ $(function() {
             // $(".hpSecond").css("borderRadius", "0 22px 22px 0");
             //打开二级面板的左边圆角
             //每次打开之前恢复原来状态
-            $(".hpSecondSecond").fadeOut();
+            $(".hpSecondSecond").fadeOut();//全部的二级面板
             $(".hpSecondSecond").animate({
                 right:"0"
             },100);
+            
             secondPane.css("borderRadius", "22px");
             generalPane.css("borderRadius", "22px");
+            generalPane.css("border-left-color","#5ec4cd")
 
+            if(generalPane.attr("nowSecondPane")=="null"){
+                generalPane.attr("nowSecondPane",$(this).attr("target"));
+            }
+            if(generalPane.attr("status")=="open"){
+                //初始化
+                //点击原来按钮
+                if( generalPane.attr("nowSecondPane")==$(this).attr("target")){
+                    generalPane.attr("status","close");
+                    // console.log("收起")
+                    return;
+                }else{//点击别的按钮
+                    generalPane.attr("nowSecondPane",$(this).attr("target"));
+                }
+               
+            }
+            generalPane.attr("status","open");
             if (USERID != null) {
                 //count是实现点击一次按钮打开二级面板，再次点击就关闭
                     // 原面板的右边圆角
                     secondPane.css("borderRadius", "22px 0 0 22px");
                     generalPane.css("borderRadius", "0 22px 22px 0");
+                    generalPane.css("border-left-color","#fff");
                     // 所有的二级面板消失
                     // $(this).siblings().find(".hpSecondSecond").css("display", "none");
                     secondPane.css("display", "block");
@@ -1132,7 +1154,7 @@ $(window).on("load", function() {    
         $('.ResMessagePojoMajor').text($.cookie("major"));
         $('.ResMessagePojoMajor').prop("title", $.cookie("major"));         // if (res.messagePojo.face != null) {
                 
-        let ResMessageFaceScr =  $.cookie("face");
+        let ResMessageFaceScr = 'http://192.168.137.105:8080' + $.cookie("face").substring(2);
         $('.ResMessageFace').prop("src", ResMessageFaceScr);
         $('.navHPY').prop('src', ResMessageFaceScr);
     } else {

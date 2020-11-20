@@ -94,10 +94,13 @@ $(function () {
                 }
             }
             $(".calendar .day .fill").off("click");//清空上一次的事件绑定
-            $(".calendar .day .fill").on("click", getTime);
+            // 模态框的日历才能调用getTime方法
+            $(".modal_bg_lost .calendar .day .fill").on("click", getTime);
+            $(".modal_bg_found .calendar .day .fill").on("click", getTime);
+            
         }
         //寻物启事才有调用时间筛选
-        $(".select_box .calendar .day .fill").on("click", selectTime);//根据时间来筛选
+        $(".timeSelect .calendar .day .fill").on("click", selectTime);//根据时间来筛选
     }
     //有3个月历，但是他们的操作应该是独立的
     $(".switch_btn_calendar .up").click(function () {
@@ -149,62 +152,10 @@ $(function () {
         $(this).parents(".calendar").fadeOut();
     }
 
-    //初始化失物招领物品
-    loadAllItem($(".item_containner"), 320, 30);
+   
     //动态添加
     // }
-    //筛选框的变宽、变窄
-    $(".select_box .switch_btn").on("click", function () {
-        if ($(".select_box").attr("status") == "open") {//关闭
-            $(".select_box").animate({
-                width: "100px"
-            })
-            $(".platfrom").animate("width", "1680px");
-            $(".select_box .column2").hide();
-            $(".select_box .column3").hide();
-            $(".select_box .column1").css("border-right", "none");
-            $(".select_box .column1 li").css("text-indent", "0px");
-            $(".select_box .column1 .icon").fadeOut(150);
-            $(".select_box .column1").animate({ "width": "80px" });
-            $(this).css({
-                "right": "-35px",
-                "border-top-left-radius": "0px",
-                "border-bottom-left-radius": "0px",
-                "border-top-right-radius": "8px",
-                "border-bottom-right-radius": "8px",
-            })
-            $(".platform").animate({ "width": "1680px" }, function () {
-                loadAllItem($(".item_containner"), 320, 30);
-            })
-            $(".select_box").attr("status", "close");
-            $(".switch_btn").html('<svg t="1603732466989" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2217" width="32" height="32"><path d="M745.65898437 533.84433594l-416.32822265 416.32822265c-6.66298828 6.66298828-15.86689453 10.78330078-26.03408203 10.78330079-20.33349609 0-36.81738281-16.48388672-36.81738282-36.81738282 0-10.1671875 4.12119141-19.37109375 10.78330079-26.03408203l394.49355468-394.49355469-381.82675781-381.89707031c-6.07763672-6.2859375-9.82265625-14.86054687-9.82265625-24.30878906 0-19.32539062 15.66650391-34.99189453 34.99189453-34.99189453 9.44912109 0 18.02285156 3.74501953 24.31845703 9.83144531l395.88398438 395.88398437c4.78740234 4.87265625 8.14042969 11.16914062 9.36738281 18.1959961-0.759375-4.89814453 0.29003906-5.52919922 0.99052734-4.47978516 6.64277344 6.65859375 10.75078125 15.8484375 10.75078125 25.99892578 0 10.14960938-4.10800781 19.34033203-10.75166015 25.99892578z" fill="#ffffff" p-id="2218"></path></svg>')
-        } else {
-            $(".select_box").animate({
-                width: "360px"
-            });
-            $(".select_box .column1 .icon").fadeIn();
-            $(".select_box .column1 li").css("text-indent", "40px");
-            $(".select_box .column1").css("border-right", "1px solid #777");
-            $(".select_box .column1").css("width", "120px");
-            $(".select_box .column2").show();
-            $(".select_box .column3").show();
-            $(".select_box").attr("status", "open");
-            $(this).css({
-                "right": "0px",
-                "border-top-left-radius": "8px",
-                "border-bottom-left-radius": "8px",
-                "border-top-right-radius": "0px",
-                "border-bottom-right-radius": "0px",
-            })
-            $(".platform").animate({
-                "width": "1350px"
-            }, function () {
-                loadAllItem($(".item_containner"), 320, 30);
-            })
-            $(".switch_btn").html('<svg t="1603731060183" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="18943" width="32" height="32"><path d="M278.34101563 490.15566406l416.32822265-416.32822265c6.66298828-6.66298828 15.86689453-10.78330078 26.03408203-10.78330079 20.33349609 0 36.81738281 16.48388672 36.81738282 36.81738282 0 10.1671875-4.12119141 19.37109375-10.78330079 26.03408203l-394.49355468 394.49355469 381.82675781 381.89707031c6.07763672 6.2859375 9.82265625 14.86054687 9.82265625 24.30878906 0 19.32539062-15.66650391 34.99189453-34.99189453 34.99189453-9.44912109 0-18.02285156-3.74501953-24.31845703-9.83144531l-395.88398438-395.88398438c-4.78740234-4.87265625-8.14042969-11.16914062-9.36738281-18.19599609 0.759375 4.89814453-0.29003906 5.52919922-0.99052734 4.47978516-6.64277344-6.65859375-10.75078125-15.8484375-10.75078125-25.99892578 0-10.14960938 4.10800781-19.34033203 10.75166015-25.99892578z" fill="#ffffff" p-id="18944"></path></svg>')
-        }
-    })
-
+    
     //月历的显示与隐藏
     $(".calendar_entrance").on("mouseenter", function () {
         $(this).find(".calendar").stop().fadeIn();
@@ -214,21 +165,14 @@ $(function () {
     })
 
     // $(".platform").on("change",function(){
-    //     loadAllItem($(".item_containner"),320,30);
+        // loadAllItem($(".item_containner"),itemOuterWidth,30);
     // })
 
     //
 
     //根据一级导航选择二级导航
 
-    var goodsArr = {
-        "证件": ["身份证", "校园卡", "学生证", "银行卡"],
-        "饰品": ["手表", "项链", "手环", "手链", "耳环"],
-        "数码": ["耳机", "U盘", "平板电脑", "笔记本电脑", "手机", "充电宝", "数据线"],
-        "用品": ["教材", "书本", "文件夹", "雨伞", "水杯", "钥匙", "眼镜", "帽子", "钱包"],
-        "其他": ["其他"]
-    }
-
+   
     $(".select_box .column1 li").click(function () {
         var key = $(this).find(".text").html();
         var values = goodsArr[key];
@@ -239,13 +183,7 @@ $(function () {
         for (var i = 0; i < values.length; i++) {
             $(".select_box .column2 ul").append("<li>" + values[i] + "</li>");
         }
-        $(".select_box .column2 li").click(function () {
-            $(".select_box .column2 li").removeClass("selected");
-            $(this).addClass("selected");
-            objectDetailType = $(this).html();//添加筛选值
-            //触发筛选函数
-            selectGoods();
-        });
+        
     })
     $(".select_box .column2 li").click(function () {
         $(".select_box .column2 li").removeClass("selected");
@@ -263,12 +201,12 @@ $(function () {
         selectGoods();
         $(".select_box .areaPane").fadeOut();
     });
-    $(".select_box .areaBox .area").on("mouseenter", function () {
-        $(".select_box .areaPane").stop().fadeIn();
-    })
-    $(".select_box .areaBox .area").on("mouseleave", function () {
-        $(".select_box .areaPane").stop().fadeOut();
-    })
+    // $(".select_box .areaBox .area").on("mouseenter", function () {
+    //     $(".select_box .areaPane").stop().fadeIn();
+    // })
+    // $(".select_box .areaBox .area").on("mouseleave", function () {
+    //     $(".select_box .areaPane").stop().fadeOut();
+    // })
     //根据这个id进行加载下一页
     var display_modal = "found";
     var scrollId = null;
@@ -280,12 +218,18 @@ $(function () {
     var foundLocation;
     var getInfWay = "all";
     var haveMore = true;
-    var canLoading = true;
+    var canLoading = true; //当前可加载，避免网络原因发出多次请求
+    var modechanging = false;// 如果模式正式切换就导航栏滚动不起作用
+    var itemOuterWidth = 320; //展示物品的实际宽度+边框+外边距
+    var itemGap = 30;
+     //初始化失物招领物品
+     loadAllItem($(".item_containner"), itemOuterWidth, itemGap);
+    
     // 首次加载，失物招领和寻物启事都是这个函数, 没有筛选
     //只用在首次加载，和模式切换
     loadGoods("found");
     function loadGoods(type) {
-        canLoading = false;
+        canLoading = false; 
         haveMore = true;
         //清空
         scrollId = null;
@@ -295,6 +239,9 @@ $(function () {
         foundTime = null;
         lostLocation = null;
         foundLocation = null;
+        modechanging = true;
+        
+        // console.log("加载更多！");
         $.ajax({
             url: "../Servlet/LostAndFoundServlet",
             type: "get",
@@ -308,11 +255,13 @@ $(function () {
                 haveMore = res.next;
                 canLoading = true;
                 scrollId = res.scrollId;
+                modechanging = false;
                 if (type == "lost") {//寻物启事
                     var dataList = transfromTime(res.dataList, "lostTime");
                     //把键名进行统一,时间已经在被转换的时间改名了
                     // time location describe name objectDetailType
                     for (var i = 0; i < dataList.length; i++) {
+                      
                         if (dataList[i]["lostLocation"] != null && dataList[i]["lostLocation"] != undefined) {
                             dataList[i]["location"] = dataList[i]["lostLocation"];
                         } else {
@@ -323,11 +272,14 @@ $(function () {
                         dataList[i]["href"] = "lostAndFound-lost.html?id=" + dataList[i]["id"];
                     }
 
+                    displayTipPane("已切换为寻物启事！")
+
                 } else {
                     //失物招领
                     var dataList = transfromTime(res.dataList, "foundTime");
                     for (var i = 0; i < dataList.length; i++) {
-                        if (dataList[i]["lostLocation"] != null && dataList[i]["foundLocation"] != undefined) {
+                       
+                        if (dataList[i]["foundLocation"] != null && dataList[i]["foundLocation"] != undefined) {
                             dataList[i]["location"] = dataList[i]["foundLocation"];
                         } else {
                             dataList[i]["location"] = "未填写"
@@ -336,9 +288,13 @@ $(function () {
                         dataList[i]["name"] = dataList[i]["foundObjectName"];
                         dataList[i]["href"] = "lostAndFound-found.html?id=" + dataList[i]["id"];
                     }
+                    displayTipPane("已切换为失物招领！")
                 }
                 //展示返回的数据
+                // $(".nav").animate({
+                //     "height":initailHeight_nav+"px"},500);
                 displayGoods_first(dataList);
+
             },
             error: function () {
                 displayTipPane("加载物品失败了~")
@@ -356,52 +312,113 @@ $(function () {
     //     loadItem(items,itemWidth,gap);
     // },".item_containner .item img")
 
-    //无论是第一加载还是后续的加载更多都是用这个函数，
+    //无论是第一加载还是筛选都是用这个函数，
     //因为我们在开头的时候已经初始化过列数组
+    var itemIndex = 0;//用于显示不同的颜色
+
     function displayGoods_first(arr) {
         // console.log(arr);
-        var items = [];//是dom对象, width 320
+        //清空
+        $(".platform .item_containner").html("");
+
+        var items = [];//是dom对象, width itemOuterWidth
         for (var i = 0; i < arr.length; i++) {
             var oItem = $(template("templateGoodsItem", arr[i]));
             if (arr[i]["imgs"] != null && arr[i]["imgs"].length != 0) {
                 //有图片就添加第一张图片
-                // var reg = /(..\/)/
+                var reg = /(..\/)/
                 var src = arr[i]["imgs"][0];
-                // src = src.replace(reg.exec(src)[0],"http:192.168.137.122:8080//");
-                oItem.find(".imgBox").append(' <img src="' + src + '">');
+                src = src.replace(reg.exec(src)[0],"http:192.168.137.105:8080//");
+                
+                oItem.find(".imgBox").append(' <img src="' + src + '" style="height:'+arr[i]["imgHeight"]+'px">');
+                var prevHeight = arr[i]["imgHeight"];
+                //瀑布流更明显
+                if(prevHeight>400){
+                    oItem.find(".imgBox").css("max-height","250px");
+                }else if(prevHeight>380){
+                    oItem.find(".imgBox").css("max-height","230px");
+                }else if(prevHeight>360){
+                    oItem.find(".imgBox").css("max-height","220px");
+                }else if(prevHeight>330){
+                    oItem.find(".imgBox").css("max-height","210px");
+                }else{
+                    oItem.find(".imgBox").css("max-height","190px");
+                }
             }
             //先添加到容器中
             //然后再保存到items中
             $(".item_containner").append(oItem);
+            addBgColor(oItem);
             items[i] = oItem;
         }
-        loadAllItem($(".item_containner"), 320, 30);
+        loadAllItem($(".item_containner"), itemOuterWidth, itemGap);
     }
+
+    // 加载更多使用
     function displayGoods(arr) {
         // console.log(arr);
-        var items = [];//是dom对象, width 320
+        var items = [];//是dom对象, width itemOuterWidth
         for (var i = 0; i < arr.length; i++) {
             var oItem = $(template("templateGoodsItem", arr[i]));
             if (arr[i]["imgs"] != null && arr[i]["imgs"].length != 0) {
                 //有图片就添加第一张图片
                 // var reg = /(..\/)/
                 var src = arr[i]["imgs"][0];
-                // src = src.replace(reg.exec(src)[0],"http:192.168.137.122:8080//");
-                oItem.find(".imgBox").append(' <img src="' + src + '">');
-
+                // src = src.replace(reg.exec(src)[0],"http:192.168.137.105:8080//");
+                oItem.find(".imgBox").append(' <img src="' + src + '" style="height:'+arr[i]["imgHeight"]+'px">');
+                //瀑布流更明显
+                var prevHeight = arr[i]["imgHeight"];
+                if(prevHeight>400){
+                    oItem.find(".imgBox").css("max-height","250px");
+                }else if(prevHeight>380){
+                    oItem.find(".imgBox").css("max-height","240px");
+                }else if(prevHeight>360){
+                    oItem.find(".imgBox").css("max-height","230px");
+                }else if(prevHeight>300){
+                    oItem.find(".imgBox").css("max-height","220px");
+                }else{
+                    oItem.find(".imgBox").css("max-height","210px");
+                }
             }
             oItem.css("display", "none");
             //先添加到容器中
             //然后再保存到items中
+            addBgColor(oItem);
             $(".item_containner").append(oItem);
             items[i] = oItem;
         }
-        isImgLoad(function () {
-            // console.log("图片加载完");
-            setTimeout(function () {
-                loadItem(items, 320, 30);
-            }, 300);
-        }, ".item_containner .item img")
+        // isImgLoad(function () {
+        //     // console.log("图片加载完");
+        //     setTimeout(function () {
+            loadItem(items, itemOuterWidth, itemGap);
+        //     }, 300);
+        // }, ".item_containner .item img")
+    }
+    //item添加背景色
+    function addBgColor(oItem){
+        switch(itemIndex){
+            case 0:{
+                oItem.css("backgroundColor","#94abea");
+                break;
+            }
+            case 1:{
+                oItem.css("backgroundColor","#ffd16f");
+                break;
+            }
+            case 2:{
+                oItem.css("backgroundColor","#88dee6");
+                break;
+            }
+            case 3:{
+                oItem.css("backgroundColor","#ffc5c5");
+                break;
+            }
+            case 4:{
+                oItem.css("backgroundColor","#ffb36f");
+                break;
+            }
+        }
+        itemIndex = (itemIndex+1)%5//5中背景色
     }
     //把时间戳转换成具体时间
     function transfromTime(arr, timeType) {
@@ -415,28 +432,113 @@ $(function () {
         }
         return arr;
     }
-    //点击模式切换
-    //加载失物招领
 
-    $(".findMaster").on("click", function () {
+
+    //模式切换
+    $(".modalDisplayPane").on("click",function(){
+        $(".item_containner").html("");
+        //导航栏恢复
+        $(".nav .displayRow").fadeIn(100);
+        $(".nav").css("background-color","#028e9b")
+        $(".nav .toolRow").css("margin-top","10px");
+        $(".nav .toolRow .tool").removeClass("tool_slideDown");
+        $(".modalDisplayPane").css("top","151px");
+        $(".lostFoundBtn").css("top","151px");
+        $(".refreshBtn").css("top","263px")
+        if($(this).attr("nextAction")=="seeFoundGoods"){
+             //先清空，再加载
+            // console.log("查看失物招领");
+            $(this).find(".name").html("招");
+            $(this).attr("title","点击查看寻物启事");
+            display_modal = "found";
+            getInfWay = "all";
+            // scrollId = null;loadGoods有写
+            // modechanging = true;
+            loadGoods("found");
+            $(this).attr("nextAction","seeLostGoods");
+        }else{
+            //先清空，再加载
+            // console.log("查看寻物启事");
+            display_modal = "lost";
+            getInfWay = "all";
+            $(this).find(".name").html("寻");
+            $(this).attr("title","点击查看失物招领")
+            // scrollId = null;
+            // modechanging = true; //loadGoods也有写
+            $(this).attr("nextAction","seeFoundGoods");
+            loadGoods("lost");
+        }
+    })
+
+
+    $(".seeFoundGoods").on("click", function () {
         //先清空，再加载
+        console.log("查看失物招领");
+        $(this).removeClass(".seeFoundGoods");
         display_modal = "found";
         getInfWay = "all";
         scrollId = null;
+        modechanging = true;
         $(".item_containner").html("");
         loadGoods("found");
+        // 样式没有加
     });
-    $(".findGoods").on("click", function () {
+
+    // 查看寻物启事
+    $(".seeLostGoods").on("click", function () {
         //先清空，再加载
+        console.log("查看失物招领");
+        $(this).removeClass(".seeLostGoods");
         display_modal = "lost";
         getInfWay = "all";
         scrollId = null;
+        modechanging = true;
         $(".item_containner").html("");
         loadGoods("lost");
+        //样式没加
+        
+        // alert("模式切换")
+        //导航栏样式还原
+        // $(".nav").css("background-color","#028e9b");
+        // window滚动函数关闭
+
+      
+        // $(".nav .toolRow .tool").removeClass("tool_slideDown");
+        // // 导航栏高度变长
+        // $(".modalDisplayPane").css("display","none");
+        // $(".nav").animate({
+        //     "height":"30%"
+        // },500)
+        //加载动画出现
+        //模式面板消失
+
+        //下拉完成后，发送请求
+        // display_modal = "lost";
+        // getInfWay = "all";
+        // scrollId = null;
+        
+        // loadGoods("lost");
+
+        // 模拟加载效果
+        // setTimeout(()=>{
+        //     $(".item_containner").html("");
+        //     modechanging = false;
+        //     // $(".nav").animate({
+        //     //     "height":initailHeight_nav+"px"
+        //     // },500);
+        //     setTimeout(()=>{
+        //         //去除行内样式
+        //         $(".nav").css("height","auto")
+        //     },600)
+        // },3000)
+        //请求成功后，导航栏高度还原，在回调函数中调用
+        //模式面板出现
     });
+
     // 滚动加载更多
-    $(window).on("scroll", function () {
+    $(window).on("scroll", debounce(function () {
         //滚动条到顶部的高度
+        if(modechanging) return;
         var scrollTop = Math.ceil($(this).scrollTop());
         //窗口高度
         var curHeight = $(this).height();
@@ -452,7 +554,7 @@ $(function () {
                 displayTipPane("没有跟多物品了哦~")
             }
         }
-    });
+    },500));
 
     function loadMoreGoods() {
         canLoading = false;
@@ -508,7 +610,7 @@ $(function () {
         } else {
             var data = {
                 "requestType": "get",
-                "type": "lost",
+                "type": "found",
                 "getInfWay": getInfWay,
             };
             //动态添加筛选条件
@@ -556,29 +658,81 @@ $(function () {
     }
 
     //筛选
-    //点击一级导航栏,二级分类清空 ,getInfWay = "explore"
+     
+   
 
-    $(".select_box .column1 li").on("click", function () {
+      //点击一级导航栏,getInfWay = "explore"
+
+    //一级分类筛选
+    $(".objectList li").on("click", function () {
         objectType = $(this).find(".text").html();
+        $(".objectSelect .toolText").html(objectType);
+        $(".objectSelect").addClass("toolSelected");
+        $(".objectSelectPane").stop().fadeOut(230);
+        //二级筛选清空
         objectDetailType = null;
+        $(".itemSelect").removeClass("toolSelected");
+        $(".itemSelect .toolText").html("物品筛选");
         selectGoods();
     })
-    //要加到动态添加column2 li中
+    // 二级物品分类
+    $(".itemSelect .itemList .item").on("click", function () {
+        objectDetailType = $(this).html();
+        $(".itemSelect .toolText").html(objectDetailType);
+        $(".itemSelect").addClass("toolSelected");
+        $(".itemSelectPane").stop().fadeOut(230);
+       
+        selectGoods();
+    })
+
+    //点击地点筛选
+    $(".locationSelectPane .locationList .item").on("click", function () {
+        $(".locationSelect .toolText").html($(this).html());
+        $(".locationSelect").addClass("toolSelected");
+        if (display_modal == "lost") {
+            lostLocation = $(this).html();
+        } else {
+            foundLocation = $(this).html();
+        }
+
+        $(".locationSelectPane").stop().fadeOut(230);
+        selectGoods();
+       
+    });
 
     //时间筛选 ，在calendar中调用
     function selectTime() {
-        // console.log("筛选时间");
         //nowMonth已经加1
-        var month = nowMonth.length > 1 ? nowMonth : "0" + nowMonth;
+        var month = (""+nowMonth).length > 1 ? nowMonth : "0" + nowMonth;
         var day = $(this).html().length > 1 ? $(this).html() : "0" + $(this).html();
         if (display_modal == "lost") {
             lostTime = nowYear + '-' + month + '-' + day;
         } else {
             foundTime = nowYear + '-' + month + '-' + day;
         }
+        var displayTime = nowYear+"-"+month+"-"+day;//展示在筛选栏上的文字
+        $(".timeSelect .toolText").html(displayTime);
+        $(".timeSelect").addClass("toolSelected");
+        $(".timeSelectPane").stop().fadeOut(230);
         selectGoods();
     }
-    //地点筛选
+    // 重新筛选
+    $(".reSelect").on("click",function(){
+        //样式去除类名
+        $(".nav .toolRow .tool").removeClass("toolSelected");
+        $(".objectSelect .toolText").html("分类筛选");
+        $(".itemSelect .toolText").html("物品筛选");
+        $(".timeSelect .toolText").html("日期筛选");
+        $(".locationSelect .toolText").html("地点筛选");
+        // 逻辑部分可以直接调用模式切换函数
+        loadGoods(display_modal);
+    })
+  
+
+    //刷新
+    $(".refreshBtn").on("click",function(){
+        selectGoods();
+    })
 
     //条件筛选函数
     function selectGoods() {
@@ -586,7 +740,8 @@ $(function () {
         getInfWay = "explore";
         scrollId = null;
         //清空容器
-        $(".item_containner").html("");
+        // $(".item_containner").html("");
+        //加一个缓冲动态图
         if (display_modal == "lost") {
             var data = {
                 "requestType": "get",
@@ -606,7 +761,6 @@ $(function () {
             if (lostLocation != null && lostLocation != undefined && lostLocation != "") {
                 data["lostLocation"] = lostLocation;
             }
-
             $.ajax({
                 url: "../Servlet/LostAndFoundServlet",
                 type: "get",
@@ -678,9 +832,53 @@ $(function () {
             })
         }
     }
-    // 打开寻物启事的面板
-    $(".lost-li").on("click", function () {
-        if(isHaveCookie()){
+    // 模式面板有提示字体改成切换按钮
+   
+    // 头部导航栏样式变化
+    $(window).on("scroll",function(){
+        if(modechanging) return;
+        if($(this).scrollTop()>200){
+            $(".nav .displayRow").fadeOut(100);
+            $(".nav .toolRow").css("margin-top","0");
+            $(".nav").css("background-color","rgba(255,255,255,0.8)")
+            $(".nav .toolRow .tool").addClass("tool_slideDown");
+            $(".modalDisplayPane").css("top","86px");
+            $(".lostFoundBtn").css("top","86px");
+            $(".refreshBtn").css("top","198px")
+        }else{
+            $(".nav .displayRow").fadeIn(100);
+            $(".nav").css("background-color","#028e9b")
+            $(".nav .toolRow").css("margin-top","10px");
+            $(".nav .toolRow .tool").removeClass("tool_slideDown");
+            $(".modalDisplayPane").css("top","151px");
+            $(".lostFoundBtn").css("top","151px");
+            $(".refreshBtn").css("top","263px")
+        }
+    })
+
+    // 展示item 4-5的切换
+    var platformWidth = $(".platform").css("width");  //flag的作用就是如果实现宽度不变不重新排版
+    $(window).on("resize",debounce(function(){
+        if($(".platform").css("width")=="1618px" && $(".platform").css("width")!=platformWidth){
+            //展示5列
+            loadAllItem($(".item_containner"), itemOuterWidth, itemGap);
+
+            platformWidth = $(".platform").css("width");
+        }else if(  $(".platform").css("width")=="1100px"  && $(".platform").css("width")!=platformWidth){
+            //展示4列
+            loadAllItem($(".item_containner"), itemOuterWidth, itemGap);
+            platformWidth = $(".platform").css("width");
+        }else if(  $(".platform").css("width")=="1300px"  && $(".platform").css("width")!=platformWidth){
+            //展示4列
+            loadAllItem($(".item_containner"), itemOuterWidth, itemGap);
+            platformWidth = $(".platform").css("width");
+        }
+    },100))
+
+     // 打开寻物启事的面板
+     $(".lostBtn").on("click", function () {
+        //  alert("打开面板")
+        if(isHaveCookie()){ //函数写在了nav上
             $(".modal_bg_lost").fadeIn();
         }else{
             displayTipPane("你还没登录噢~");
@@ -688,7 +886,8 @@ $(function () {
     });
 
     //打开失物招领的面板
-    $(".found-li").on("click",function(){
+    $(".foundBtn").on("click",function(){
+        // alert("打开面板")
         if(isHaveCookie()){
             $(".modal_bg_found").fadeIn();
         }else{
@@ -696,18 +895,12 @@ $(function () {
         }  
     });
 
-    $(window).on("croll",function(){
-        if($(this).scrollTop()>700){
-            $(".select_box").css({
-                 "position": "fixed",
-                "top":"150px"
-            })
-        }else{
-            $(".select_box").css({
-                "position": "reletive",
-               "top":"0px"
-           })
-        }
+    // 筛选面板的打开
+    $(".nav .toolRow .toolBox .tool").on("mouseenter",function(){
+        $(this).find(".selectPane").stop().fadeIn(230);  
+    })
+    $(".nav .toolRow .toolBox .tool").on("mouseleave",function(){
+        $(this).find(".selectPane").stop().fadeOut(230);
     })
 })
 
@@ -725,26 +918,5 @@ $(function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //    $(".getHeight_btn").click(function(){
-    //         var items =$(".item_containner").children();
-    //         for(var i=0; i<items.length; i++){
-    //             console.log($(items[i]).height());
-    //         }
-    //         // alert($(".item_containner .item").eq(0).height());
-    //     })
 
 

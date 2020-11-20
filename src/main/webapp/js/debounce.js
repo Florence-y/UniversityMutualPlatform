@@ -16,7 +16,7 @@ function debounce(func, wait, immediate) {
         } else {
             timeout = setTimeout(function () {
                 func.apply(context, arg);
-            }, wait);
+            }, wait);//毫秒数
         }
     }
 }

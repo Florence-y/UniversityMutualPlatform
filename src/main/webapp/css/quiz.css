@@ -294,8 +294,8 @@ button {
 }
 
 .quizModal_bg_askQuestion .quizModal_content .label .nodeBoard .text {
-    color: #0fa3e2;
-    display: inline;
+    color: #028e9b;
+    
     font-size: 20px
 }
 
@@ -305,7 +305,7 @@ button {
     top: -9px;
     font-size: 30px;
     display: none;
-    color: #0fa3e2;
+    color: #028e9b;
     cursor: pointer;
 }
 
@@ -456,9 +456,6 @@ button {
     border-radius: 10px;
 }
 
-.quizModal_bg_askQuestion .quizModal_content .publish:hover {
-    background-color: #2db4e5;
-}
 
 
 /* 匿名提交 */
@@ -544,6 +541,7 @@ button {
        height: 68px;
      
    }
+  
    .quizModal_bg_askQuestion .quizModal_content .rowBox{
        margin-top:-10px;
        height: 30px;
@@ -557,18 +555,20 @@ button {
        height: 140px;
    }
    .quizModal_bg_askQuestion .quizModal_content .label .nodeBoard .text{
-       font-size:16px;
+       font-size:14px;
+       line-height: 26px;
    }
    .quizModal_bg_askQuestion .quizModal_content .label .nodeBoard span{
-       height: 30px;
-       line-height: 30px;
+       height: 26px;
+       line-height: 26px;
    }
    .quizModal_bg_askQuestion .quizModal_content .questionType .list li{
        font-size:14px;
        line-height: 26px;
    }
    .quizModal_bg_askQuestion .quizModal_content .label .nodeBoard span i{
-       font-size:20px;
+       font-size:17px;
+       top:-4px;
        right:2px;
    }
    .quizModal_bg_askQuestion .quizModal .quizModal_content > .insertPicture{
@@ -629,8 +629,8 @@ button {
        margin-left:-5px;
    }
    .quizModal_bg_askQuestion .quizModal .quizModal_content > .insertPicture .picture{
-       max-width: 100px;
-       height: 100px;
+       max-width: 80px;
+       height: 80px;
    }
    .quizModal_bg_askQuestion .quizModal .quizModal_content > .insertPicture .removePicture{
        font-size:20px;

@@ -32,18 +32,18 @@ button {
     color: #fff;
     font-size: 33px;
     text-align: center;
-    background-color: #028e9b;
+    background-color: #5ec4cd;
     line-height: 34px;
     cursor: pointer;
 }
 
 .logonBody .modal_content button:hover {
-    background-color: #2db4e5;
+    background-color: #028e9b;
 }
 
 .icondibudaohanglan- {
     font-size: 106px;
-    color: #028e9b;
+    color: #5ec4cd;
     font-style: normal;
     position: absolute;
     /* top: 22px; */
@@ -93,8 +93,8 @@ button {
     transform: translate(-50%, 0);
     z-index: 4;
     height: 4px;
-    background-color: #028e9b;
-    box-shadow: 0 0 3px #028e9b;
+    background-color: #5ec4cd;
+    box-shadow: 0 0 3px #5ec4cd;
     width: 0px;
     border-radius: 20px;
     transition: width, ease-in 0.3s;
@@ -256,7 +256,7 @@ button {
     width: 154px;
     height: 5px;
     border-radius: 100px/20px;
-    background-color: #028e9b;
+    background-color: #5ec4cd;
     transition: all 0.5s;
 }
 
