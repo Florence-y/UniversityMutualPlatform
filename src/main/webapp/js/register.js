@@ -131,7 +131,7 @@ function dataIsExiste(field, value, errorMessage) {
    
     var result = false;
     $.ajax({
-        url : '../Servlet/IsExistInfoServle',
+        url : '../Servlet/IsExistInfoServlet',
        data : {
         field: field,
         value: value,

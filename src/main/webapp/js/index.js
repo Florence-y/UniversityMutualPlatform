@@ -23,7 +23,7 @@ window.onload = function() {
             if (res.dataList[i].tag != null) {
                 for (var j = 0; j < res.dataList[i].tag.length; j++) {
                     if (res.dataList[i].tag[j] != null) {
-                        $('.queY').eq($('.queY').length - 1).find('h3').append('<span>' + res.dataList[i].tag[j] + '</span>')
+                        $('.queY').eq($('.queY').length - 1).find('h3').append('<span># ' + res.dataList[i].tag[j] + '</span>')
                     }
                     // json["queYtag" + j] = res.dataList[i].tag[j];
                 }
@@ -218,7 +218,7 @@ $(function() {
                             if (res.dataList[i].tag != null) {
                                 for (var j = 0; j < res.dataList[i].tag.length; j++) {
                                     if (res.dataList[i].tag[j] != null) {
-                                        $('.queY').eq($('.queY').length - 1).find('h3').append('<span>' + res.dataList[i].tag[j] + '</span>')
+                                        $('.queY').eq($('.queY').length - 1).find('h3').append('<span># ' + res.dataList[i].tag[j] + '</span>')
                                     }
 
                                 }

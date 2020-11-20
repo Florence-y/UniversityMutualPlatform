@@ -299,7 +299,8 @@ input {
 .maincontent .indexQuizList .queY>h3>span.quekind {
     background-color: #028e9b;
     color: #fff;
-    border-color: #fff;
+    margin-right: 15px;
+    border: none;
 }
 
 
@@ -1248,7 +1249,7 @@ input {
         width: 258px;
     }
     .maincontent {
-        margin-top: 100px;
+        margin-top: 80px;
     }
     /* .maincontent .indexQuizList {
         width: 974px;
