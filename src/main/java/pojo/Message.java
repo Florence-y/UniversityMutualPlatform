@@ -1,19 +1,24 @@
 package pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.sql.Timestamp;
 
 /**
  * @author Florecne
  * 聊天实体
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Message {
     private String senderName;
+    private String senderFace;
     private String senderMarkNumber;
     private String contentType;
     private String detailContent;
     private Timestamp senderTime;
     private String receiverName;
     private String receiverMarkNumber;
+    private String content;
 
     public String getSenderName() {
         return senderName;
@@ -82,5 +87,21 @@ public class Message {
                 ", receiverName='" + receiverName + '\'' +
                 ", receiverMarkNumber='" + receiverMarkNumber + '\'' +
                 '}';
+    }
+
+    public String getSenderFace() {
+        return senderFace;
+    }
+
+    public void setSenderFace(String senderFace) {
+        this.senderFace = senderFace;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
