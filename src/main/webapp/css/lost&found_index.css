@@ -588,8 +588,8 @@ body{
     justify-content: space-between;
 }
 .item_containner .item .textBox .area{
-        max-width:57%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+    max-width:57%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

@@ -1,10 +1,28 @@
+
 * {
     margin: 0;
     padding: 0;
 }
 
+html{
+    scrollbar-width: thin;
+    scrollbar-color:  rgba(0,0,0,0.2) transparent;
+}
+
+body::-webkit-scrollbar{
+    width:10px;
+    height: 10px;
+}
+body::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.2);
+}
+body::-webkit-scrollbar-track{
+    border-radius: 0;
+    background-color:#fff;
+}
+
 body {
-  
     font-family: "微软雅黑", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", PingHei, STHeiti;
     /* font-family: 'Microsoft YaHei', 'iconfont'!important; */
 }
@@ -42,28 +60,17 @@ input {
 .w {
     margin: 0 auto;
 }
-
-
-/* .iconfont {
-    font-size: 14px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
-} */
-
-
-/* #region                             导航栏                                     */
+/* #region 消息 */
 
 .nav {
     position: fixed;
     top: 0;
     z-index: 999;
     width: 100%;
-    height: 120px;
     background-color: #028e9b;
     /* background-color: #02A7BE; */
     margin-bottom: 10px;
+    height: auto;
     box-shadow: 0px 2px 12px 3px rgba(25, 24, 40, .35);
 }
 
@@ -76,298 +83,119 @@ input {
 
 /* #region 校徽   */
 
+
+
+/* 第一行 */
+
+.nav .displayRow{
+    position: relative;
+    width:100%;
+    height:55px;
+    margin-top:10px;
+    z-index:3;
+   
+}
+
 .nav .logo {
     position: relative;
-    float: left;
     height: 100%;
     line-height: 100%;
     width:300px;
 }
 
 .nav .logo img {
+    height: 55px;
+}
+
+.navLinker{
     position: absolute;
     top:50%;
     transform: translate(0,-50%);
-    left: 0;
-    height: 65px;
+    font-size:16px;
+    color:#fff;
+}
+.navLinker:hover{
+    text-decoration: underline;
+}
+.navIndex{
+    left:250px;
+}
+.navCommunication{
+    left:350px;
 }
 
 
-/* #endregion */
+/* 搜索栏 */
 
-
-/* #region 首页+校区互通+失物招领+提问 功能导航 */
-
-.nav .functionNav {
-    display: none;
-    float: left;
-    width: 480px;
-    position: relative;
-    height: 100%;
-    margin-left: 38px;
-}
-
-.nav .functionNav ul {
+.displayRow .searchBox{
     position: absolute;
-    height: 50px;
     top:50%;
     transform: translate(0,-50%);
+    right:214px;
+    height: 32px;
+    text-align: top;
+    border-radius: 15px;
+    transition: all 1s ease;
+    /* background-color: rgba(255,255,255,0.9); */
 }
 
-.nav .functionNav li {
-    float: left;
-    /* width: 100px; */
-    top:0;
+.displayRow .searchBox input{
+    background-color: transparent;
     position: relative;
-    overflow: hidden;
-    height: 50px;
-    padding: 0 10px;
-    margin: 0 22px 0 15px;
-    text-align: center;
-    color: #fff;
-    font-size: 25px;
-    font-weight: 700;
-    line-height: 50px;
-    cursor: pointer;
-    transition: all 0.1s;
-    letter-spacing: 2px;
-}
-
-.nav .functionNav li:hover {
-    top: -15px;
-}
-/* #endregion */
-
-
-/* #region 搜索框 */
-
-.nav .search {
-    position: absolute;
-    width: 600px;
+    top:-4px;
     height: 100%;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-    float: left;
-    transition: all 0.2s;
-}
-
-.nav .search form {
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
-    width: 100%;
-    height: 60px;
-}
-
-.nav .search input.searchBar {
-    float: left;
-    border-radius: 40px 0 0 40px;
-    background-color: rgba(255, 255, 255, 0.5);
-    width: 380px;
-    height: 100%;
-    font-size: 25px;
-    padding: 0 60px;
-    transition: all 0.3s;
-}
-
-.nav .search .searchBtn {
-    float: left;
-    position: relative;
-    width: 100px;
-    height: 100%;
-    border-radius: 0 40px 40px 0;
-    background-color: #fff;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.nav .search .iconsousuo {
-    position: absolute;
-    top: 6px;
-    right: 28px;
-    font-size: 45px;
-    color: #028e9b;
-    cursor: pointer;
-}
-
-.nav .search .searchBtn:hover .iconsousuo {
-    color: #1a237e;
-}
-
-.nav .search .iconsousuo:hover {
-    color: #1a237e;
-}
-
-
-/* #region 联想词内容*/
-
-.nav .searchContent {
-    position: absolute;
-    width: 100%;
-    height: 350px;
-    background-color: #fff;
-    top: 90px;
-    /* left: 17px; */
-    border-radius: 0 0 40px 40px;
-    padding: 15px 50px;
+    width:0px;
+    margin-top:-1px;
+    line-height: 100%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
     box-sizing: border-box;
-    box-shadow: 0 0 20px 20px rgba(43, 51, 59, 0.08);
+    padding:2px 8px 2px 15px;
+    color:#666;
+    transition: all 0.3s ease;
 }
-
-.nav .searchContent li {
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    font-size: 23px;
-    margin: 10px;
-    cursor: pointer;
-    color: #1a237e;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    /* border-bottom: 2px #777 solid; */
-    background-color: #fff;
-    border-radius: 16px;
-}
-
-.nav .searchContent li a {
-    font-size: 25px;
-    color: #777;
-}
-
-.nav .searchContent li:hover {
-    color: #333;
-    box-shadow: 0 0 10px 10px rgba(43, 51, 59, 0.08);
-}
-
-.nav .searchContent li span {
+.displayRow .searchBox button{
+    color:#fff;
+    transition: all 1s ease;
+    /* background-color: #fff; */
+    background-color:transparent;
+    height:100%;
+    width:50px;
     text-align: center;
-    width: 50px;
-    height: 50px;
-    float: left;
-    /* background-color: #81d4fa; */
-    margin: 0 5px 0 15px;
-    border-radius: 16px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
-
-.nav .searchContent li span .iconfont {
-    font-size: 40px;
-    color: #028e9b;
-    text-align: center;
-    line-height: 50px;
-}
-
-.nav .searchContent>li>em {
-    font-size: 23px;
-    /* font-weight: 700; */
-    /* color: #1a237e; */
-    /* color: #304ffe; */
+.displayRow .searchBox button i{
+    font-size:26px;
 }
 
 
 
-
-/* #endregion */
-
-
-/* #endregion */
-
-
-/* #region 提问 + 消息 */
-
-
-/* #region 提问 */
-
-.quizModal_bg {
-    display: none;
-    background-color: #00000066;
-    /* position: absolute; */
-    position: fixed;
-    /* width: 100%; */
-    /* height: 100%;     */
-    z-index: 1000;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 1;
-}
-
-.quizModal {
-    background-color: #F2F2F2;
-    border-radius: 30px;
-    width: 730px;
-    height: 900px;
-    position: absolute;
-    /* border: 2px solid #028e9b; */
-    top: 50%;
-    left: 50%;
-    opacity: 1;
-    transition: all ease 0.5s;
-    transform: translate(-50%, -50%) scale(0.7);
-    box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.2);
-}
-
-.quizModal_bg .fadeout {
-    float: right;
-}
-
-.quizModal_bg .active_line {
-    display: inline-block;
-    position: absolute;
-    bottom: 0;
-    left: 51%;
-    transform: translate(-50%, 0);
-    z-index: 4;
-    height: 1px;
-    background-color: #028e9b;
-    box-shadow: 0 0 3px #028e9b;
-    width: 0px;
-    
-    border-radius: 20px;
-    transition: width, ease-in 0.3s;
-}
-
-.quizModal_bg .value:hover .active_line {
-    width: 271px;
-}
-
-
-/* #endregion */
-
-
-/* #region 消息 */
-
+/* 消息通知 */
 .QAndM {
-    float: right;
-    width: 150px;
-    height: 100%;
-    float: right;
-    margin-right: 30px;
+    position:absolute;
+    top:50%;
+    transform: translate(0,-50%);
+    right:160px;
+    width: 30px;
+    height: 30px;
     transition: all 0.3s;
 }
 
-.QAndM span.message,
-.QAndM span.cueY {
-    float: left;
-    width: 40px;
-    height: 41px;
-    margin-right: 35px;
+.QAndM span.message{
+    width: 30px;
+    height: 30px;
     /* line-height: 120px; */
     position: relative;
-    top: 50%;
-    transform: translate(0, -50%);
 }
 
-.QAndM .message .iconfont,
-.QAndM .cueY .iconfont {
-    font-size: 40px;
+.QAndM .message .iconfont {
+    font-size: 30px;
     color: #fff;
     cursor: pointer;
-    position: absolute;
-    top: 0;
     transition: all 0.15s;
+    position: relative;
+    top:0;
 }
 
 .QAndM .message>.icondian {
@@ -442,9 +270,12 @@ input {
 .nav .personal {
     display: none;
     /* margin-right: 50px; */
-    width: 145px;
-    float: right;
+    width: 107px;
     height: 100%;
+    position: absolute;
+    top:50%;
+    transform: translate(0,-50%);
+    right:0px;
 }
 
 .nav .personal .signUpBtn {
@@ -500,10 +331,13 @@ input {
 
 .logonHeadPortrait {
     display: none;
-    margin-top: 30px;
-    width: 85px;
-    float: right;
-    height: 90px;
+    
+    width: 42px;
+    position: absolute;
+    top:50%;
+    transform:translate(0,-50%);
+    right:30px;
+    height: 42px;
     box-sizing: border-box;
 }
 
@@ -511,9 +345,9 @@ input {
 /* #region 头像 */
 
 .logonHeadPortrait .headPortrait {
-    float: right;
-    width: 65px;
-    height: 65px;
+   
+    width: 42px;
+    height: 42px;
     cursor: pointer;
     position: relative;
 }
@@ -543,9 +377,11 @@ input {
 .logonHeadPortrait .headPortrait .hpSecond::before{
     content:"";
     height: 100px;
-    width: 100%;
+    width: 41%;
     position: absolute;
     top:-100px;
+    right:0;
+   
    
 }
 .logonHeadPortrait .headPortrait .hpSecond .hpSecond_general{
@@ -555,6 +391,7 @@ input {
     position: relative;
     z-index:2;
     box-sizing: border-box;
+    border:1px solid #5ec4cd;
     background-color: #fff;
     border-radius: 22px;
 }
@@ -661,13 +498,11 @@ input {
     right:0;
     display: none;
     z-index: 1;
-    background-color: #fff;
     border:1px solid #5ec4cd;
-    border-right: none;
+    border-right:none;
+    background-color: #fff;
+
     /* transition: all 0.5s; */
-}
-.logonHeadPortrait .headPortrait .hpSecondSecond .hoverBox{
-    border-right: none;
 }
 .nav .hpSecondSecond::after{
     content: "";
@@ -725,6 +560,547 @@ input {
 }
 
 
+
+/* 发起寻物启事 */
+
+
+/* 发起失物招领 */
+
+
+
+/* 第二行 */
+.nav .toolRow{
+    position: relative;
+    display: flex;
+    transition: all ease 0.1s;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height:38px;
+    z-index: 2;
+    margin-top:10px;
+    color:#fff;
+}
+
+.nav .toolRow .toolBox{
+    height: 100%;
+    width:1380px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav .toolRow .toolBox .tool{
+    width:200px;
+    height:100%;
+    position: relative;
+    cursor: pointer;
+    line-height: 38px;
+    text-align: center;
+    font-size:15px;
+}
+.nav .toolRow .toolBox .tool_slideDown{
+    color:#5ec4cd;
+}
+.nav .toolRow .toolBox .tool:hover{
+    background-color: #5ec4cd;
+    text-decoration: underline;
+}
+.nav .toolRow .toolBox .toolSelected{
+    background-color: #5ec4cd;
+    color:#fff;
+
+}
+.nav .toolRow .toolBox .tool_slideDown:hover{
+    background-color:rgba(94,196,205,0.9);
+    color:#fff;
+}
+
+
+/* 展示面板都是flex布局 */
+.nav .toolRow .tool .paneContentBox{
+    width:100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 分类悬浮板 */
+.objectSelectPane
+{
+    position: absolute;
+    top:38px;
+    left:-50px;
+    display: none;
+    border:1px solid #eee;
+    /* display: flex; */
+    width:400px;
+    height: 200px;
+}
+
+/* 图片 */
+.objectSelectPane .imgBox{
+    width:280px;
+    height: 100%;
+}
+.objectSelectPane .imgBox img{
+    height: 100%;
+    width:100%;
+}
+
+.objectSelectPane .itemBox{
+    width:120px;
+    height:100%;
+    display:flex;
+    align-items: center;
+    background-color: #5ec4cd;
+}
+
+.objectSelectPane .objectList{
+   width: 100%;
+}
+.objectSelectPane .objectList li{
+    font-size:16px;
+    width: 100%;
+    line-height: 30px;
+    text-align: center;
+    color:#fff;
+    cursor: pointer;
+}
+.objectSelectPane .objectList li:hover{
+    text-decoration: underline;
+}
+
+
+/* 物品筛选 */
+
+
+.itemSelectPane{
+    height: 200px;
+    width: 711px;
+    position: absolute;
+    top:38px;
+    left:-50px;
+    border:1px solid #eee;
+    /* display: flex; */
+    display: none;
+    justify-content: space-between;
+}
+
+.itemSelectPane .imgBox{
+    width:280px;
+    height: 100%;
+}
+.itemSelectPane .imgBox img{
+    height: 100%;
+    width:100%;
+}
+
+.itemSelectPane .itemList{
+    width: 431px;
+    text-align: left;
+    height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    color:#fff;
+    background-color: #5ec4cd;
+    scrollbar-color:  rgba(255,255,255,0.2) transparent;
+}
+.itemSelectPane .itemRow{
+    box-sizing: border-box;
+    padding:10px;
+    cursor: default;
+}
+.itemSelectPane .itemRow .title_row{
+    line-height: 24px;
+}
+.itemSelectPane .itemRow .itemBox{
+   display:flex;
+   flex-wrap: wrap;
+}
+
+.itemSelectPane .itemRow .itemBox span{
+    font-size:14.5px;
+    cursor: pointer;
+    margin-left:10px;
+    line-height: 25px;
+}
+.itemSelectPane .itemRow .itemBox span:first-of-type{
+    margin-left: 0;
+}
+
+.itemSelectPane .itemRow .itemBox span:hover{
+    text-decoration: underline;
+}
+
+/* 时间盒子 */
+
+.timeSelectPane{
+    position: absolute;
+    top:38px;
+    right:-50px;
+    height: 200px;
+    width:600px;
+    border:1px solid #eee;
+    /* display: flex; */
+    display: none;
+    justify-content: space-between;
+}
+.timeSelectPane .calendar{
+    width: 340px;
+    height:200px;
+    color:#fff;
+    background-color: #5ec4cd;
+    padding:8px;
+    box-sizing: border-box;
+    cursor: default;
+}
+.timeSelectPane .calendar td{
+    width: 46px;
+    line-height: 18px;
+}
+.timeSelectPane .calendar .fill{
+    cursor: pointer;
+    text-align: center;
+    font-size:14px;
+}
+.timeSelectPane .calendar .fill:hover{
+    background-color: rgba(255,255,255,0.3)
+}
+.timeSelectPane .calendar .today{
+    background-color: rgba(255,255,255,0.3)
+}
+
+.timeSelectPane .title_calendar{
+    position: relative;
+}
+.timeSelectPane .switch_btn_calendar{
+    position: absolute;
+    top:50%;
+    right:10px;
+    transform:translate(0,-50%);
+}
+.timeSelectPane .switch_btn_calendar .iconfont{
+    font-size:20px;
+    cursor: pointer;
+}
+.timeSelectPane .dayTitle{
+    font-size:14px;
+    text-align: center;
+}
+
+.timeSelectPane .imgBox{
+    width: 260px;
+    height: 100%;
+}
+.timeSelectPane .imgBox img{
+    width:100%;
+    height: 100%;
+}
+
+
+/* 地点盒子 */
+
+.locationSelectPane{
+    height: 200px;
+    width: 711px;
+    border:1px solid #eee;
+    position: absolute;
+    top:38px;
+    right:-111px;
+    /* display: flex; */
+    display: none;
+    justify-content: space-between;
+}
+
+.locationSelectPane .imgBox{
+    width:280px;
+    height: 100%;
+}
+.locationSelectPane .imgBox img{
+    height: 100%;
+    width:100%;
+}
+
+.locationSelectPane .locationList{
+    width: 431px;
+    text-align: left;
+    height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    color:#fff;
+    background-color: #5ec4cd;
+    scrollbar-color:  rgba(255,255,255,0.2) transparent;
+}
+/* 校区位置切换 */
+.locationSelectPane .locationList .locationSwitch{
+    display:flex;
+    justify-content:space-between;
+    text-align:center
+}
+.locationSelectPane .locationList .locationSwitch span{
+    display:inline-block;
+    width:50%;
+    height:28px;
+    line-height:28px;
+}
+.locationSelectPane .locationList .locationSwitch span:hover{
+    background-color:rgba(255,255,255,0.3);
+}
+.locationSelectPane .itemRow{
+    box-sizing: border-box;
+    padding:10px;
+    cursor: default;
+}
+.locationSelectPane .itemRow .title_row{
+    line-height: 24px;
+}
+.locationSelectPane .itemRow .itemBox{
+   display:flex;
+   flex-wrap: wrap;
+}
+
+.locationSelectPane .itemRow .itemBox span{
+    font-size:14.5px;
+    cursor: pointer;
+    margin-left:10px;
+    line-height: 25px;
+}
+.locationSelectPane .itemRow .itemBox span:first-of-type{
+    margin-left: 0;
+}
+
+.locationSelectPane .itemRow .itemBox span:hover{
+    text-decoration: underline;
+}
+
+/* 模式提示板 */
+.modalDisplayPane{
+    position: absolute;
+    top:151px;
+    right:-21px;
+    height:40px;
+    color:#fff;
+    width:40px;
+    padding:10px;
+    cursor: pointer;
+    transition: all ease-in 0.1s;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    background-color: #5ec4cd;
+    border:2px solid rgba(94,196,205,0.9)
+}
+.modalDisplayPane::after{
+    width:1.5px;
+    height: 50px;
+    background-color:#666;
+    position: absolute;
+    display: block;
+    top:-50px;
+    left:50%;
+   
+    content:"";
+    transform:translate(-50%,0);
+}
+.modalDisplayPane .name{
+    font-size:26px;
+    font-family: "宋体";
+}
+
+
+/* 发起失物招领和寻物启事按钮 */
+.lostFoundBtn{
+    width:100px;
+    position: absolute;
+    top:150px;
+    left:0;
+    font-size:18px;
+    color:#fff;
+    font-family: "宋体";
+    transition: all ease 0.1s;
+    
+}
+.lostFoundBtn .lostBtn{
+    display: block;
+    border-radius: 8px;
+    width:100px;
+    position: relative;
+    height: 150px;
+    text-align: center;
+   
+    cursor: pointer;
+    background-color:rgb(136, 222, 230);
+    overflow: hidden;
+}
+
+.lostFoundBtn .text{
+    display: inline-block;
+    position: absolute;
+    top:50%;
+    left:50%;
+    line-height: 24px;
+    transform: translate(-50%,-50%);
+    width:3em;
+   letter-spacing: 3px;
+}
+
+/* @keyframes btnActive{
+    from{
+        border-color:rgb(136, 222, 230)
+    }to{
+        border-color:rgb(255, 209, 111)
+    }
+} */
+
+
+.lostFoundBtn .foundBtn{
+    display: block;
+    margin-top:50px;
+    position: relative;
+    overflow: hidden;
+    
+    border-radius: 8px;
+    width:100px;
+    height: 150px;
+    cursor: pointer;
+    text-align: center;
+    
+    background-color: rgb(255, 209, 111);
+}
+
+
+
+/* 刷新按钮 */
+.refreshBtn{
+    position: absolute;
+    top:263px;
+    right:-21px;
+    background-color:rgb(255, 209, 111);
+    font-size:20px;
+    text-align: center;
+    height: 60px;
+    width:60px;
+    line-height: 60px;
+    border-radius: 8px;
+    color:#fff;
+    transition: all ease 0.1s;
+    font-family: "宋体";
+    cursor: pointer;
+}
+.refreshBtn:hover{
+    text-decoration: underline;
+}
+
+
+/* 筛选条件信息盒 */
+
+/* 招领物品容器 */
+
+.platform{
+    position: relative;
+    margin:130px auto 0;
+    width:1618px;
+    height: 500px;
+    
+}
+.item_containner{
+    position: relative;
+    width:100%;
+}
+.item_containner .item{
+    display: none;
+    position: absolute;
+    text-decoration: none;
+    color:#333;
+    cursor: pointer;
+    overflow: hidden;
+    /* height: 400px; */
+    /* max-height: 360px; */
+    transition: box-shadow 0.2s ease;
+    width:290px;
+    border:1px solid #35c0cd;
+    border-radius: 8px;
+}
+
+.item_containner .item:hover .imgBox img{
+    transform:scale(1.1);
+}
+
+.item_containner .item .imgBox{
+    width: 100%;
+    max-height: 250px;
+    overflow: hidden;
+    justify-content: center;
+    display: flex;
+}
+.item_containner .item .imgBox img{
+    display: block;
+    transition: transform 0.2s ease;
+    width: auto;
+    height: auto;
+   
+    max-width: 100%;
+    max-height: 100%;
+}
+.item_containner .item .textBox{
+    width:100%;
+    box-sizing: border-box;
+    padding:10px;
+    margin-top:10px;
+    color:#fff;
+}
+.item_containner .item .textBox .item_title{
+    font-size:22px;
+    font-weight: 600;
+    width:100%;
+    line-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.item_containner .item .textBox .label{
+    display: block;
+    font-size:18px;
+    line-height: 26px;
+}
+.item_containner .item .textBox .detail{
+    line-height: 28px;
+    position: relative;
+    display: flex;
+    font-size:16px;
+    font-weight: 500;
+    justify-content: space-between;
+}
+.item_containner .item .textBox .area{
+    max-width:57%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 图片高度预览 */
+
+.imgPrevLoad{
+    width:290px;
+    position: absolute;
+    top:300px;
+    left:180px;
+    opacity: 0;
+    z-index:-1;
+    border:1px solid #777;
+   
+}
+.imgPrevLoad img{
+    width:auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+
+
+
 /* #endregion */
 
 
@@ -744,6 +1120,10 @@ input {
 @media(max-width:1960px){
     .nav .w{
         width:1618px;
+    }
+    /* 展示5个item */
+    .platform{
+        width:1300px;
     }
     /* 个人信息面板 */
     .logonHeadPortrait .headPortrait .hpSecond{
@@ -793,12 +1173,12 @@ input {
     .nav .hpSecondSecond{
         width:420px;
     }
-
+    .nav .hpSecondSecond .hoverBox{
+        border:none;
+    }
     .QAndM .message .messageNotification{
         width:440px;
     }
-    
-
 
 }
 /* 80% */
@@ -806,34 +1186,15 @@ input {
     .nav .w{
         width:1470px;
     }
-    .nav .functionNav{
-        width:502px;
-    }
-    .nav .functionNav li{
-        font-size:20px;
-    }
-  
-    .nav .search form {
-        height: 50px;
-    }
-    .nav .search input.searchBar{
-        width:360px;
-        padding:0 30px;
-    }
-    .nav .search .searchBtn{
-        width:80px;
-    }
-    .nav .search .iconsousuo{
-        font-size:35px;
-    }
-    .nav .search {
-        width:502px;
-    }
-
-    
     /*消息通知  */
-   
+    .platform{
+        width:1100px;
+    }
 
+    .nav .toolRow .toolBox{
+        width:1000px;
+    }k
+    
     .QAndM .message .messageNotification{
         width:409PX;
         height: 547px;
@@ -917,9 +1278,7 @@ input {
 /* 90% */
 @media(max-width:1549px){
     
-    .nav{
-        height: 100px;
-    }
+   
     .nav .w{
         width:1290px;
     }
@@ -929,25 +1288,6 @@ input {
     .nav .logo img{
         height: 55px;
     }
-   
-    
-    .nav .search form {
-        height: 45px;
-    }
-    .nav .functionNav li{
-        margin:0 5px;
-    }
-    .nav .search input.searchBar{
-        padding:0 20px;
-        width:325px;
-    }
-    .nav .search .searchBtn{
-        width:62px;
-    }
-    .nav .search .iconsousuo{
-        font-size:32px;
-        right:20px;
-    }
     .QAndM{
         margin-right:0;
     }
@@ -955,9 +1295,10 @@ input {
         font-size:35px;
     }
     .nav .personal .signUpBtn{
-        height: 45px;
-        width:130px;
-        line-height: 45px;
+        height: 33px;
+        width:107px;
+        line-height: 33px;
+        
     }
     .nav .personal .signUpBtn em{
         font-size:16px;
@@ -1052,24 +1393,16 @@ input {
         top:-8px;
         right:102.5px;
     }
-   
-
 
 }
 /* 100% */
 @media(max-width:1280px){
-    .nav{
-        height: 90px;
-    }
+    
     .nav .w{
         width:1158px;
     }
-   
-    .nav .search input.searchBar{
-        width:248px;
-    }
-    .nav .search .searchBtn{
-        width:50px;
+    .QAndM .message .iconfont, .QAndM .cueY .iconfont{
+        font-size:30px;
     }
     .bottomRightSidebar{
         right:3px;
@@ -1083,16 +1416,12 @@ input {
     .bottomRightSidebar li .iconfont{
         font-size:28px;
     }
-    .nav .search{
-        width:350px;
-    }
-
-    
+   
     .QAndM .message .messageNotification{
         width:337PX;
         height: 452px;
         right:-66px;
-        top:55px
+        top:35px
     }
     .QAndM .message .foot .clearAllPoint{
         font-size:13px;
@@ -1102,8 +1431,8 @@ input {
         margin-top:3px;
     }
     .logonHeadPortrait{
-        height:60px;
-        margin-top: 18px;
+        height:42px;
+        width:42px;
     }
     .logonHeadPortrait .headPortrait img{
         height: 42px;
@@ -1183,4 +1512,6 @@ input {
         right:71.5px;
     }
 }
+
+
 

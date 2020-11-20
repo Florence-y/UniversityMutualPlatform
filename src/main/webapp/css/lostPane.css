@@ -100,7 +100,7 @@
     right:38px;
 }
 .modal_bg_lost .objClass_entrance:hover svg path{
-    fill:#028e9b
+    fill:#35c0cd
 }
 .modal_bg_lost .objClass_entrance .objClassPane{
     overflow: visible;
@@ -176,7 +176,7 @@
     cursor: pointer;
 }
 .modal_bg_lost .calendar_entrance:hover svg path{
-    fill:#028e9b;
+    fill:#35c0cd;
 }
 
 .modal_bg_lost .calendar{
@@ -188,7 +188,7 @@
     width:630px;
     color:#fff;
     border-radius: 14px;
-    background-color: rgba(30,117,179);
+    background-color: #35c0cd;
     box-shadow: 10px 10px 35px 1px rgba(0, 0, 0, 0.5);
 }
 .modal_bg_lost .calendar::before{
@@ -228,10 +228,10 @@
     background-color: rgba(255, 255, 255, 0.657);
 } */
 .modal_bg_lost .calendar .day .today{
-    background-color: rgb(80, 149, 206);
+    background-color: rgba(255,255,255,0.3);
 }
 .modal_bg_lost .calendar .day .fill:hover{
-    background-color: rgb(105,175,229);
+    background-color:  rgba(255,255,255,0.3);
 }
 .modal_bg_lost .calendar .switch_btn_calendar{
     position: absolute;
@@ -243,8 +243,9 @@
     justify-content: space-between;
     align-items: center;
 }
-.modal_bg_lost .calendar .switch_btn_calendar svg{
+.modal_bg_lost .calendar .switch_btn_calendar i{
     cursor: pointer;
+    font-size:20px;
 }
  .modal_bg_lost .sendBox{
     margin-top:50px;
@@ -255,7 +256,7 @@
 
 .modal_bg_lost .sendBox .sendBtn{
     color:#fff;
-    background-color:skyblue;
+    background-color:#35c0cd;
     height: 60px;
     width:300px;
     font-size:24px;
@@ -297,7 +298,7 @@
 }
 
 .modal_bg_lost .area:hover .icon path{
-    fill:#028e9b;
+    fill:#35c0cd;
 }
 .modal_bg_lost .area_objClassPane{
     display: none;
@@ -345,7 +346,7 @@
     /* border:1px solid #000; */
 }
 .modal_bg_lost .area_objClassPane .itemBox .item:hover{
-    background-color:#028e9b;
+    background-color:#35c0cd;
     color:#fff;
 }
 
@@ -443,6 +444,7 @@
     margin-top:10px;
     position: relative;
     height:130px;
+    border-bottom:1px solid #35c0cd;
 }
 .modal_bg_lost .search_display ul li img{
     position: absolute;
@@ -465,7 +467,7 @@
     white-space: nowrap;
 }
 .modal_bg_lost .search_display ul li .type{
-    background-color: skyblue;
+    background-color: #35c0cd;
     color:#fff;
     font-size: 20px;
     line-height: 28px;
@@ -480,6 +482,7 @@
     text-decoration: none;
     color:#666;
     display: block;
+    height: 100%;
 }
 .modal_bg_lost .search_display ul li .detail{
     font-size:22px;
@@ -523,7 +526,7 @@
         right:10px;
     }
     .modal_bg_lost .objClass .value .text{
-        font-size:14px;
+        font-size:16px;
         top:9px;
     }
     .lostTime .time_display .num{
@@ -600,8 +603,9 @@
     }
     .modal_bg_lost .area_objClassPane .itemBox .item{
         font-size:14px;
-        line-height: 24px;
-        border-radius: 12px;
+        line-height: 16px;
+        border-radius: 8px;
+        padding:3px 18px;
         margin:2.5px 5px;
     }
     .modal_bg_lost .objClass_entrance .objClassPane{
@@ -638,6 +642,37 @@
     .modal_bg_lost .calendar .switch_btn_calendar{
         width: 70px;
     }
+
+    /* 物品临时展示框 */
+    .modal_bg_lost .search_display{
+        top:0px;
+        left:440px;
+        width:404px;
+        height: 433px;
+    }
+    .modal_bg_lost .search_display .title{
+        font-size:20px;
+    }
+    .modal_bg_lost .search_display ul li img{
+        width:85px;
+        height: 85px;
+    }
+    .modal_bg_lost .search_display ul li .name{
+        font-size:20px;
+        left:100px;
+    }
+    .modal_bg_lost .search_display ul li .detail{
+        font-size:16px;
+        left:100px;
+        top:40px;
+    }
+    .modal_bg_lost .search_display ul li .type{
+        font-size:16px;
+    }
+    .modal_bg_lost .search_display ul li{
+        height: 97px;
+    }
+    
 }
 /* 90% */
 @media(max-width:1549px){

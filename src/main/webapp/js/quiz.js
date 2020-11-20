@@ -324,9 +324,9 @@ $(function() {
         // console.log(imgArr);
         // console.log("imgArr.length:"+imgArr.length);
         for (var i = 0; i < imgArr.length; i++) {
-            console.log($(imgArr[i]).find("img"))
+            // console.log($(imgArr[i]).find("img"))
             var url = $(imgArr[i]).find("img").attr("remoteurl");
-            console.log("url=" + url);
+            // console.log("url=" + url);
             contents[i + 1] = addContentItem(++contents_order, "img", url);
         }
         // console.log(contents);
@@ -368,7 +368,7 @@ $(function() {
         function send() {
             //获取内容
             //发送内容
-            console.log(anonymity);
+            // console.log(anonymity);
             $.ajax({
                 url: "../Servlet/QuestionServlet",
                 type: "post",
@@ -418,7 +418,7 @@ $(function() {
                     //#region 渲染主页 √
                     $(".queY").remove();
                     window.onload();
-                    // $.get('../Servlet/MainPageServlet', {
+                    // $.get('http://192.168.137.105:8080/Servlet/MainPageServlet', {
                     //     requestType: 'get',
                     //     getType: "init",
                     // }, function(res) {

@@ -6,7 +6,7 @@
  var objectDetailType = "";
  var imgs = [];  
  
- function getLocation(){
+ function getLocation_found(){
      foundLocation = $(".modal_bg_found .foundArea .value .text").html()+""+$(".modal_bg_found .foundArea .value .areaDetail").val();
  }
 
@@ -40,16 +40,20 @@ function getfoundTime(){
         var month = $('.modal_bg_found .monthNum').html();
         var day = $('.modal_bg_found .dayNum').html();
         month = month.length>1 ? month : "0"+month;
+        console.log(month);
         day = day.length>1 ? day : "0"+day;
+        // console.log(day);
         foundTime = $('.modal_bg_found .yearNum').html()+"-"+month+"-"+day;
     }
 }
 // 加载图片
-function getImgs(){
+function getImgs_found(){
     var imgsArr = $(".modal_bg_found .imgBox").children();
+    console.log(imgsArr);
     for(var i=0; i<imgsArr.length; i++){
-        imgs[i] = $(imgsArr).attr("remoteurl")
+        imgs[i] = $(imgsArr[i]).attr("remoteurl")
     }
+    console.log(imgs);
 }
 
 //点击地点进行选择
@@ -100,6 +104,11 @@ function readFile_found() {
         var newImage = template("templateAddImage", imgMsg);
         // console.log(newImage)
         var imgObj = $(newImage);
+        $(".imgPrevLoad img").attr("src",this.result);
+        isImgLoad(function(){
+            imgObj.attr("prevLoadHeight",parseInt($(".imgPrevLoad img").height()));
+        },".imgPrevLoad img")
+
         //把新的图片添加到编辑区
         // console.log( $(this).parents(".addPic").find(".imgBox"));
         $(".modal_bg_found .imgBox").append(imgObj);
@@ -134,7 +143,7 @@ function sendImage_found(formdata, imgObj) { //imgObj是jq对象
     })
 }
 
-
+// 一键发布
 function submite_found(){
     // 判空
     //物品名称
@@ -160,17 +169,20 @@ function submite_found(){
         if(foundTime!=""){
             data["foundTime"] = foundTime;
         }
-        getLocation();
+        getLocation_found();
         if(foundLocation!=""){
             data["foundLocation"] = foundLocation;
         }
-        getImgs();
+        getImgs_found();
+        console.log(imgs);
         if(imgs.length!=0){
             data["imgs"] = imgs;
+            var imgsArr = $(".modal_bg_found .imgBox").children();
+            data["imgHeight"] = $(imgsArr[0]).attr("prevLoadHeight");
         }
         // console.log(data);
         $.ajax({
-            url : "../Servlet/foundAndFoundServlet",
+            url : "../Servlet/LostAndFoundServlet",
             type : "post",
             dataType : "json",
             data : JSON.stringify(data),
