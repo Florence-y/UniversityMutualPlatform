@@ -326,9 +326,9 @@ $(function () {
             var oItem = $(template("templateGoodsItem", arr[i]));
             if (arr[i]["imgs"] != null && arr[i]["imgs"].length != 0) {
                 //有图片就添加第一张图片
-                var reg = /(..\/)/
+                // var reg = /(..\/)/
                 var src = arr[i]["imgs"][0];
-                src = src.replace(reg.exec(src)[0],"http:192.168.137.105:8080//");
+                // src = src.replace(reg.exec(src)[0],"http:192.168.137.105:8080//");
                 
                 oItem.find(".imgBox").append(' <img src="' + src + '" style="height:'+arr[i]["imgHeight"]+'px">');
                 var prevHeight = arr[i]["imgHeight"];

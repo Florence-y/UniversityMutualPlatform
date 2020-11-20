@@ -133,28 +133,28 @@
 
 
 
-$("body").on({
-    click: function() {
-        $(".platform_chat").fadeOut(200);
-    }
-})
+// $("body").on({
+//     click: function() {
+//         $(".platform_chat").fadeOut(200);
+//     }
+// })
 
 $('.sendText_btn').on({
     click: function(e) {
         // console.log(22);
-        e.stopPropagation();
-        $(".platform_chat").fadeIn(200);
+        // e.stopPropagation();
+        // $(".platform_chat").fadeIn(200);
 
-        $(".platform_chat").on({
-            click: function(e) {
-                e.stopPropagation();
-                $(".platform_chat").css("display", "block");
-            }
-        })
+        // $(".platform_chat").on({
+        //     click: function(e) {
+        //         e.stopPropagation();
+        //         $(".platform_chat").css("display", "block");
+        //     }
+        // })
 
         var meObj = {
             id: $.cookie("markNumber"),
-            face: 'http://192.168.137.105:8080' + $.cookie('face').substring(2)
+            face: ''
         };
         // console.log($.cookie("markNumber"));
         $(".platform_chat .targetName").text(oAuthor.userName);
