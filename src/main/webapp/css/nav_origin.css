@@ -340,7 +340,7 @@ input {
 
 .QAndM {
     float: right;
-    width: 250px;
+    width: 274px;
     height: 100%;
     float: right;
     /* margin-right: 30px; */
@@ -348,7 +348,7 @@ input {
 }
 
 .QAndM>.cueY {
-    margin-right: 120px;
+    margin-right: 150px;
     border: 2px solid #fff;
     padding: 0 10px 0 30px;
     border-radius: 16px;
@@ -466,7 +466,7 @@ input {
 .nav .personal {
     display: none;
     /* margin-right: 50px; */
-    width: 120px;
+    width: 145px;
     float: right;
     height: 100%;
 }
@@ -502,14 +502,12 @@ input {
     border-radius: 0 38px 38px 0;
     /* top: 1px; */
     text-align: center;
-    padding: 0 5px 0 0;
 }
 
 .nav .personal .signUpBtn em.fadein {
     float: left;
     /* left: 1px; */
     border-radius: 38px 0 0 38px;
-    padding: 0 0 0 5px;
 }
 
 .nav .personal .signUpBtn em:hover {
@@ -527,7 +525,7 @@ input {
 .logonHeadPortrait {
     display: none;
     margin-top: 19px;
-    width: 120px;
+    width: 85px;
     float: right;
     height: 90px;
     box-sizing: border-box;
@@ -984,9 +982,9 @@ input {
         font-size: 35px;
     } */
     .nav .personal .signUpBtn {
-        height: 40px;
-        width: 117px;
-        line-height: 38px;
+        height: 45px;
+        width: 130px;
+        line-height: 45px;
     }
     .nav .personal .signUpBtn em {
         font-size: 16px;
