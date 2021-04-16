@@ -41,7 +41,7 @@
         <artifactId>javax.servlet-api</artifactId>
         <version>3.0.1</version>
         <scope>provided</scope>
-      </dependency>
+    </dependency>
       <!--JSP相关的类    -->
       <dependency>
         <groupId>javax.servlet.jsp</groupId>
